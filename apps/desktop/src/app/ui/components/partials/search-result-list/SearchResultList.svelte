@@ -53,6 +53,9 @@
     .then((loadedViewModelBundle) => {
       viewModelController = loadedViewModelBundle.viewModelController;
       viewModelStore = loadedViewModelBundle.viewModelStore;
+      // To avoid an ordering problem where the `viewModelBundle` is loaded too late, we explicitly
+      // set the parameter here again.
+      handleChangeSearchTerm(searchTerm);
     })
     .catch((error: unknown) => {
       log.error('Loading search view model bundle failed', error);
@@ -181,7 +184,6 @@
         {#if ($conversationSearchResults?.size ?? 0) >= (searchParams.limits.conversations ?? DEFAULT_SEARCH_PARAMS.limits.conversations)}
           <button class="expand" onclick={handleClickSearchMoreConversationsButton}>
             {$i18n.t('search.action--search-more', 'Find more')}
-
             <span class="icon">
               <MdIcon theme="Outlined">expand_more</MdIcon>
             </span>
