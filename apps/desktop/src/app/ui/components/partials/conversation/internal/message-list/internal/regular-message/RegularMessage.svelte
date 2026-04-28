@@ -209,7 +209,7 @@
       ? escapeHtmlUnsafeChars(
           $i18n.t('messaging.prose--message-deleted', 'This message was deleted'),
         )
-      : getTextContent(text?.raw, text?.mentions, false, $i18n.t),
+      : getTextContent(text?.raw, text?.mentions, false, $i18n.t, undefined, true),
   );
 
   const shouldAllowReactions = $derived(

@@ -1,10 +1,13 @@
 import {markify, TokenType} from '@threema/threema-markup';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import type {WeakOpaque} from '@threema/ts-utils/meta/newtype';
+import {getGraphemeClusters} from '@threema/ts-utils/string/get-grapheme-clusters';
 import autolinker from 'autolinker';
 
 import type {I18nType} from '~/app/ui/i18n-types';
+import {tag} from '~/common/types';
 import {unreachable} from '~/common/utils/assert';
+import {hasEmoji, isSingleUnicodeEmoji} from '~/common/utils/emoji';
 import {escapeRegExp} from '~/common/utils/regex';
 import {truncate} from '~/common/utils/string';
 import type {AnyMention} from '~/common/viewmodel/utils/mentions';
@@ -27,6 +30,8 @@ export interface SanitizeAndParseTextToHtmlOptions {
     readonly shouldParseMarkup?: boolean;
     /** If links should be detected and replaced. */
     readonly shouldParseLinks?: boolean;
+    /** If emojis should be wrapped in `<span>` tags. */
+    readonly shouldWrapEmojis?: boolean;
     /**
      * Truncates the text to the desired length, if given. Note: If `highlights` are given, the
      * truncation will adjust to try to keep them visible.
@@ -55,6 +60,7 @@ export function sanitizeAndParseTextToHtml(
         shouldParseMentionsAsRawText = false,
         shouldParseMarkup = false,
         shouldParseLinks = false,
+        shouldWrapEmojis: shouldWrapEmoji = false,
         truncate: truncateMax,
     }: SanitizeAndParseTextToHtmlOptions,
 ): SanitizedHtml {
@@ -103,6 +109,10 @@ export function sanitizeAndParseTextToHtml(
         sanitizedText = parseLinks(sanitizedText);
     }
 
+    if (shouldWrapEmoji) {
+        sanitizedText = parseEmojis(sanitizedText);
+    }
+
     return sanitizedText;
 }
 
@@ -126,6 +136,68 @@ export function escapeHtmlUnsafeChars(text: string | undefined): SanitizedHtml {
         .replaceAll('>', '&gt;')
         .replaceAll('"', '&quot;')
         .replaceAll("'", '&#039;') as SanitizedHtml;
+}
+
+/**
+ * Parses some sanitized text and wraps emoji graphemes with `<span class="emoji">` tag, or `<span
+ * class="emoji big">` if the text region contains only emoji (up to 3). HTML tags pass through
+ * unchanged.
+ *
+ * @param text Already-sanitized HTML.
+ * @returns The HTML with emoji wrapped in spans.
+ */
+export function parseEmojis(text: SanitizedHtml): SanitizedHtml {
+    if (!hasEmoji(text)) {
+        return text;
+    }
+
+    return joinSanitized(
+        text.split(/(?<tag><[^>]*>)/u).map((part, index) => {
+            // This cast is fine since input html is sanitized.
+            const sanitizedPart = tag<SanitizedHtml>(part);
+
+            // Even indices are text regions, odd indices are tags.
+            return index % 2 === 1
+                ? sanitizedPart
+                : wrapAndStyleEmojisInTextRegion(sanitizedPart, 3);
+        }),
+    );
+}
+
+/**
+ * Wrap and style emojis.
+ *
+ * If `text` only consists of emojis and the number is smaller than
+ * `enlargementLimit`, the emojis get a style class marking them for a larger display font size.
+ */
+function wrapAndStyleEmojisInTextRegion(text: SanitizedHtml, enlargementLimit: u53): SanitizedHtml {
+    // eslint-disable-next-line threema/ban-sanitized-html-cast
+    const clusters = getGraphemeClusters(text, text.length) as SanitizedHtml[];
+
+    // If we have more clusters than the limit, there is no need for large emoji styling.
+    if (clusters.length > enlargementLimit) {
+        return wrapAndStyleEmojis(clusters, 'emoji');
+    }
+
+    for (const segment of clusters) {
+        if (!isSingleUnicodeEmoji(segment)) {
+            return wrapAndStyleEmojis(clusters, 'emoji');
+        }
+    }
+    return wrapAndStyleEmojis(clusters, 'emoji big');
+}
+
+function wrapAndStyleEmojis(clusters: SanitizedHtml[], cls: 'emoji' | 'emoji big'): SanitizedHtml {
+    return joinSanitized(
+        clusters.map(
+            (cluster) =>
+                // Cast is fine since we only add sanitized text.
+                // eslint-disable-next-line threema/ban-sanitized-html-cast
+                (isSingleUnicodeEmoji(cluster)
+                    ? `<span class="${cls}">${cluster}</span>`
+                    : cluster) as SanitizedHtml,
+        ),
+    );
 }
 
 /**

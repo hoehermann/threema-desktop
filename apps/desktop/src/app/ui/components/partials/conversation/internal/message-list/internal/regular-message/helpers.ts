@@ -17,6 +17,7 @@ export function getTextContent(
     isQuote: boolean,
     t: I18nType['t'],
     truncate?: u53,
+    wrapEmoji?: boolean,
 ): SanitizedHtml | undefined {
     const html = sanitizeAndParseTextToHtml(raw, t, {
         highlights: [],
@@ -25,6 +26,7 @@ export function getTextContent(
         shouldParseLinks: !isQuote,
         shouldParseMarkup: true,
         truncate,
+        shouldWrapEmojis: wrapEmoji,
     });
 
     return html === '' ? undefined : html;

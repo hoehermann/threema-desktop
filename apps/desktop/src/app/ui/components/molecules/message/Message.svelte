@@ -282,6 +282,17 @@
         color: var(--t-text-e2-color);
         font-style: italic;
       }
+
+      :global(.emoji) {
+        font-size: rem(16px);
+        line-height: 1;
+      }
+
+      :global(.emoji.big) {
+        font-size: rem(32px);
+        line-height: 1.1;
+        letter-spacing: rem(2px);
+      }
     }
 
     // If `.text` is a general-subsequent sibling of `.file` or `.quote`.
