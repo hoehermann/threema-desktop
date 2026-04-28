@@ -158,7 +158,7 @@
             receiver,
           ),
           bottomRight:
-            lastMessage === undefined || lastMessage.status.deleted !== undefined
+            lastMessage === undefined || lastMessage.status.deleted !== undefined || isPrivate
               ? undefined
               : [
                   {
