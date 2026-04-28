@@ -10,7 +10,6 @@
   import type {CharmsProps} from '~/app/ui/components/partials/receiver-card/internal/content-item/internal/charms/props';
   import {i18n} from '~/app/ui/i18n';
   import MdIcon from '~/app/ui/svelte-components/blocks/Icon/MdIcon.svelte';
-  import ThreemaIcon from '~/app/ui/svelte-components/blocks/Icon/ThreemaIcon.svelte';
 
   const {systemTime} = globals.unwrap();
 
@@ -124,7 +123,7 @@
     <span class="item">
       <RadialExclusionMaskProvider cutouts={hasNeighborLeft ? [DEFAULT_CUTOUT] : []}>
         <span class="charm">
-          <ThreemaIcon theme="Filled">incognito</ThreemaIcon>
+          <MdIcon theme="Filled">lock</MdIcon>
         </span>
       </RadialExclusionMaskProvider>
     </span>

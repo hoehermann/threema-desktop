@@ -523,8 +523,8 @@
     "prose--description-p3": "Bitte melden Sie diesen Fehler dem {shortAppName}-Support über die App auf dem Mobilgerät («Einstellungen > Beta Feedback»). Hinweis: Speichern Sie Ihre Logs, bevor Sie das Gerät neu verknüpfen, da sie bei erneuter Verknüpfung gelöscht werden."
   },
   "dialog--unsupported-feature-protected-conversation": {
-    "label--title": "Privater Chat",
-    "prose--description": "Private Chats werden in {appName} noch nicht unterstützt."
+    "label--title": "Dieser Chat ist privat",
+    "prose--description": "Private Chats werden auf {shortAppName} für Desktop derzeit nicht unterstützt. Um auf diese Konversation zuzugreifen, verwende Sie bitte die {shortAppName}-App auf Ihrem Smartphone."
   },
   "dialog--verification-levels": {
     "label--title": "Vertrauensstufen",

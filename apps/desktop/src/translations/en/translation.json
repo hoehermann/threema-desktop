@@ -523,8 +523,8 @@
     "prose--description-p3": "Please report this error to {shortAppName}’s support from the app on your mobile device (“Settings > Beta Feedback”). Note: Remember to save your logs before relinking, as they will be cleared."
   },
   "dialog--unsupported-feature-protected-conversation": {
-    "label--title": "Private Chat",
-    "prose--description": "Private chats are not yet supported in {appName}."
+    "label--title": "This Chat Is Private",
+    "prose--description": "Private chats are currently not supported on {shortAppName} for desktop. To access this conversation, please use the {shortAppName} app on your smartphone."
   },
   "dialog--verification-levels": {
     "label--title": "Verification Levels",

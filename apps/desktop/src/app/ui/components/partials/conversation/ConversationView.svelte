@@ -9,6 +9,7 @@
   import {globals} from '~/app/globals';
   import {ROUTE_DEFINITIONS} from '~/app/routing/routes';
   import AvailabilityBanner from '~/app/ui/components/atoms/availability-banner/AvailabilityBanner.svelte';
+  import Text from '~/app/ui/components/atoms/text/Text.svelte';
   import DropZoneProvider from '~/app/ui/components/hocs/drop-zone-provider/DropZoneProvider.svelte';
   import FocusMoverProvider from '~/app/ui/components/hocs/focus-mover-provider/FocusMoverProvider.svelte';
   import Quote from '~/app/ui/components/molecules/message/internal/quote/Quote.svelte';
@@ -1157,21 +1158,31 @@
       {/if}
 
       {#if $viewModelStore.category === ConversationCategory.PROTECTED}
-        <div class="private">
-          <div class="box">
-            <div class="header">
-              {$i18n.t(
+        <div class="infoBox">
+          <div class="content">
+            <div class="icon">
+              <MdIcon theme="Filled">lock</MdIcon>
+            </div>
+            <Text
+              text={$i18n.t(
                 'dialog--unsupported-feature-protected-conversation.label--title',
-                'Private Chat',
+                'This Chat Is Private',
               )}
-            </div>
-            <div class="content">
-              {$i18n.t(
+              size="body-large"
+              family="primary"
+              alignment="center"
+            />
+            <Text
+              text={$i18n.t(
                 'dialog--unsupported-feature-protected-conversation.prose--description',
-                'Private chats are not supported in {appName}.',
-                {appName: import.meta.env.APP_NAME},
+                'Private chats are currently not supported on {shortAppName} for desktop. To access this conversation, please use the {shortAppName} app on your smartphone.',
+                {
+                  shortAppName: import.meta.env.SHORT_APP_NAME,
+                },
               )}
-            </div>
+              size="body"
+              alignment="center"
+            />
           </div>
         </div>
       {:else}
@@ -1430,8 +1441,8 @@
       }
     }
 
-    .private {
-      z-index: 3;
+    .infoBox {
+      z-index: 2;
 
       grid-row-start: messages;
       grid-column-start: messages;
@@ -1442,21 +1453,17 @@
       align-items: center;
       justify-content: center;
 
-      .box {
-        @extend %elevation-060;
-        border-radius: rem(3px);
-        overflow: hidden;
+      .content {
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        justify-content: center;
+        gap: rem(8px);
+        max-width: min(rem(450px), 90%);
+      }
 
-        .header {
-          @extend %font-h5-400;
-          background-color: #ff5722;
-          padding: 20px 10px;
-        }
-
-        .content {
-          padding: 10px;
-          background-color: var(--t-main-background-color);
-        }
+      .icon {
+        font-size: rem(24px);
       }
     }
 
