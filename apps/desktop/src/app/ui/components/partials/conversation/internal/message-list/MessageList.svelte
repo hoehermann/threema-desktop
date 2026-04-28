@@ -725,6 +725,7 @@
       onitemexited={handleItemExited}
       onscroll={handleScroll}
       visibleItemId={anchoredMessageId}
+      onerror={(error) => log.error(`An error occured in lazy list: ${error.message}`)}
     >
       {#snippet snippetBefore()}
         <div

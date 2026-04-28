@@ -59,6 +59,9 @@
     // Enqueue execution to avoid race conditions if another anchoring process is already in
     // progress.
     return await anchorLock.with(async () => {
+      // Wait for Svelte to apply pending changes to the DOM before looking for the element.
+      await tick();
+
       const itemElement =
         containerElement?.querySelector(`.item[data-item-id="${id}"]`) ?? undefined;
       if (itemElement === undefined) {
@@ -67,30 +70,31 @@
 
       // Suspend global anchor, or autoscroll might not work if the view is at the very bottom.
       isGlobalAnchorEnabled = false;
-      await tick();
 
-      // Because items entering or exiting the viewport are under observation, `itementered` and
-      // `itemexited` events might be triggered during automated scrolling, which in turn might
-      // result in additional items to be loaded or removed. As this might result in the browser
-      // ending up scrolling to the wrong place in the list, event dispatching is disabled during
-      // scroll, but the events will be buffered and sent when scrolling is finished.
-      suspendCallbackBuffer();
+      try {
+        await tick();
 
-      // Scroll item into view and wait until scrolling is done.
-      await scrollIntoViewIfNeededAsync({
-        container: containerElement,
-        element: itemElement,
-        options,
-        timeoutMs: 3000,
-      }).catch((error: unknown) => {
+        // Suspend `itementered` and `itemexited` during scroll to prevent additional windows from
+        // being loaded, which might interfere with the scrolling.
+        suspendCallbackBuffer();
+
+        // Scroll item into view and wait until scrolling is done.
+        await scrollIntoViewIfNeededAsync({
+          container: containerElement,
+          element: itemElement,
+          options,
+          timeoutMs: 3000,
+        });
+      } catch (error) {
         onerror?.(ensureError(error));
-      });
+      } finally {
+        // Resume callback dispatcher and re-emit all buffered calls to get the backend in sync.
+        resumeCallbackBuffer({replay: 'all'});
 
-      // Resume callback dispatcher and re-emit all buffered calls to get the backend in sync.
-      resumeCallbackBuffer({replay: 'all'});
+        // Re-enable global anchor.
+        isGlobalAnchorEnabled = true;
+      }
 
-      // Re-enable global anchor.
-      isGlobalAnchorEnabled = true;
       await tick();
 
       const item = items.find((i) => i.get().id === id);
@@ -114,42 +118,48 @@
       isGlobalAnchorEnabled = false;
       isItemAnchorEnabled = true;
 
-      // Wait for Svelte to apply changes to the DOM.
-      await tick();
+      try {
+        // Wait for Svelte to apply changes to the DOM.
+        await tick();
 
-      // Wait until the element of the anchored item is present in the DOM.
-      await waitForPresenceOfElement({
-        container: containerElement,
-        selector: `.item[data-item-id="${visibleItemId}"]`,
-        subtree: false,
-        timeoutMs: 3000,
-      })
-        .then(
-          async (element) =>
-            // Scroll item into view if it isn't already and wait until scrolling is done.
-            await scrollIntoViewIfNeededAsync({
-              container: containerElement,
-              element,
-              options: {
-                behavior: 'instant',
-                block: 'start',
-              },
-              timeoutMs: 3000,
-            }),
-        )
-        .catch((error: unknown) => {
-          onerror?.(ensureError(error));
+        // Suspend the callback buffer so that we may wait in peace for the correct element.
+        suspendCallbackBuffer();
+
+        // Wait until the element of the anchored item is present in the DOM.
+        const element = await waitForPresenceOfElement({
+          container: containerElement,
+          selector: `.item[data-item-id="${visibleItemId}"]`,
+          subtree: false,
+          timeoutMs: 3000,
         });
 
-      // Re-evaluate whether the view is scrolled all the way to the bottom.
-      isAtBottom = isFullyVisibleVertical({
-        container: containerElement,
-        element: anchorElement,
-      });
+        // Scroll item into view if it isn't already and wait until scrolling is done.
+        await scrollIntoViewIfNeededAsync({
+          container: containerElement,
+          element,
+          options: {
+            behavior: 'instant',
+            block: 'start',
+          },
+          timeoutMs: 3000,
+        });
+      } catch (error) {
+        onerror?.(ensureError(error));
+      } finally {
+        // Resume callback dispatcher and re-emit all buffered calls to get the backend in sync.
+        resumeCallbackBuffer({replay: 'all'});
 
-      // Disable item anchor and re-enable global anchor now that scrolling is finished.
-      isItemAnchorEnabled = false;
-      isGlobalAnchorEnabled = true;
+        // Re-evaluate whether the view is scrolled all the way to the bottom.
+        isAtBottom = isFullyVisibleVertical({
+          container: containerElement,
+          element: anchorElement,
+        });
+
+        // Disable item anchor and re-enable global anchor now that scrolling is finished.
+        isItemAnchorEnabled = false;
+        isGlobalAnchorEnabled = true;
+      }
+
       await tick();
 
       const item = items.find((i) => i.get().id === visibleItemId);

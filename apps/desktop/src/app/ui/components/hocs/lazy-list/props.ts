@@ -33,6 +33,10 @@ export interface LazyListProps<TProps extends {readonly id: unknown}> {
     /**
      * The id of the item that the visible area should be scrolled to. Note: Whenever this value
      * changes, the respective item will be made visible again (jumping to it if necessary).
+     *
+     * Important: While the list waits for the respective item to appear, `onitementered` and
+     * `onitemexited` are suppressed (and replayed afterwards), so the consumer must not rely on
+     * those callbacks to load the item in question.
      */
     readonly visibleItemId?: TProps['id'];
 }
