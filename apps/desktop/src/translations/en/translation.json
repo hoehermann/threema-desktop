@@ -369,7 +369,7 @@
     "markup--intro-s1": "This beta version can be used in connection with the {mobileAppName} mobile app. Please note that some features are not yet available.",
     "markup--intro-s2": " <slot_1>Learn more</slot_1>",
     "markup--step-1": "Open the {mobileAppName} app on your mobile device",
-    "markup--step-2-android": "In the Android app, go to the main menu, select “<slot_1>{shortAppName} 2.0 for desktop (beta)</slot_1>,” and tap “<slot_1>Add device</slot_1>”",
+    "markup--step-2-android": "In the Android app, go to “<slot_1>Main menu</slot_1> > <slot_1>Settings</slot_1> > <slot_1>{shortAppName} 2.0 for desktop (beta)</slot_1>,” and tap “<slot_1>Add device</slot_1>”",
     "markup--step-2-ios": "In the iOS app, go to “<slot_1>Settings</slot_1> > <slot_1>{shortAppName} 2.0 for Desktop (Beta)</slot_1>,” and tap “<slot_1>Add Device</slot_1>”",
     "markup--step-3": "Scan this QR code"
   },

@@ -100,7 +100,7 @@
           <SubstitutableText
             text={$i18n.t(
               'dialog--linking-scan.markup--step-2-android',
-              'In the Android app, go to the main menu, select <slot_1>{shortAppName} 2.0 for desktop (beta)</slot_1>,” and tap “<slot_1>Add device</slot_1>”',
+              'In the Android app, go to “<slot_1>Main menu</slot_1> > <slot_1>Settings</slot_1> > <slot_1>{shortAppName} 2.0 for desktop (beta)</slot_1>,” and tap “<slot_1>Add device</slot_1>”',
               {shortAppName: import.meta.env.SHORT_APP_NAME},
             )}
           >

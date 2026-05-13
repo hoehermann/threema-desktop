@@ -369,7 +369,7 @@
     "markup--intro-s1": "Diese Beta-Version kann zusammen mit der {mobileAppName}-App verwendet werden. Bitte beachten Sie, dass noch nicht alle Funktionen verfügbar sind.",
     "markup--intro-s2": "<slot_1>Mehr erfahren</slot_1>",
     "markup--step-1": "Öffnen Sie die {mobileAppName}-App auf Ihrem Mobilgerät",
-    "markup--step-2-android": "Android: Öffnen Sie das Hauptmenü, navigieren Sie zu «<slot_1>{shortAppName} 2.0 für Desktop (Beta)</slot_1>», und tippen Sie auf «<slot_1>Gerät hinzufügen</slot_1>»",
+    "markup--step-2-android": "Android: Navigieren Sie zu «<slot_1>Hauptmenü</slot_1> > <slot_1>Einstellungen</slot_1> > <slot_1>{shortAppName} 2.0 für Desktop (Beta)</slot_1>», und tippen Sie auf «<slot_1>Gerät hinzufügen</slot_1>»",
     "markup--step-2-ios": "iOS: Navigieren Sie zu «<slot_1>Einstellungen</slot_1> > <slot_1>{shortAppName} 2.0 für Desktop (Beta)</slot_1>», und tippen Sie auf «<slot_1>Gerät hinzufügen</slot_1>»",
     "markup--step-3": "Scannen Sie diesen QR-Code"
   },
