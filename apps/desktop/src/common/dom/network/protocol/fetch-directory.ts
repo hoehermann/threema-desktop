@@ -1,5 +1,6 @@
 import * as v from '@badrap/valita';
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+import {UTF8} from '@threema/ts-utils/codec/utf8';
 import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
 import {TIMER} from '@threema/ts-utils/timer/global-timer';
@@ -27,7 +28,6 @@ import type {IdentityString} from '~/common/network/types';
 import type {ClientKey} from '~/common/network/types/keys';
 import {assert, unreachable, unwrap} from '~/common/utils/assert';
 import {base64ToU8a, u8aToBase64} from '~/common/utils/base64';
-import {UTF8} from '~/common/utils/codec';
 import {ExpiringValue} from '~/common/utils/date';
 import {PROXY_HANDLER} from '~/common/utils/endpoint';
 import type {IQueryableStore} from '~/common/utils/store';

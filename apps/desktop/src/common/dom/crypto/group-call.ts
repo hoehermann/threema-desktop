@@ -1,5 +1,6 @@
 import * as v from '@badrap/valita';
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+import {UTF8} from '@threema/ts-utils/codec/utf8';
 import {type u8, ensureU8} from '@threema/ts-utils/integer/u8';
 import {tag, type WeakOpaque} from '@threema/ts-utils/meta/newtype';
 
@@ -15,7 +16,6 @@ import {
 } from '~/common/crypto/group-call';
 import {ensureEndpoint} from '~/common/dom/utils/endpoint';
 import type {GroupCallIdValue, ParticipantId} from '~/common/network/protocol/call/group-call';
-import {UTF8} from '~/common/utils/codec';
 import type {ProxyMarked} from '~/common/utils/endpoint';
 import {instanceOf} from '~/common/utils/valita-helpers';
 

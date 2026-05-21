@@ -1,3 +1,4 @@
+import {UTF8} from '@threema/ts-utils/codec/utf8';
 import {expect} from 'chai';
 
 import {NACL_CONSTANTS} from '~/common/crypto';
@@ -27,7 +28,6 @@ import {
     type Nickname,
 } from '~/common/network/types';
 import {assert} from '~/common/utils/assert';
-import {UTF8} from '~/common/utils/codec';
 import {Identity} from '~/common/utils/identity';
 import {dateToUnixTimestampMs, intoUnsignedLong} from '~/common/utils/number';
 import {

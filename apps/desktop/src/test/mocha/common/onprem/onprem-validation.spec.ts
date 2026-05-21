@@ -1,9 +1,9 @@
+import {UTF8} from '@threema/ts-utils/codec/utf8';
 import {expect} from 'chai';
 
 import {ensureEd25519PublicKey} from '~/common/crypto';
 import {OPPF_FILE_SCHEMA, verifyOppfFile} from '~/common/dom/backend/onprem/oppf';
 import {base64ToU8a} from '~/common/utils/base64';
-import {UTF8} from '~/common/utils/codec';
 import {TestTweetNaClBackend} from '~/test/mocha/common/backend-mocks';
 import {
     MOCK_OPPF,

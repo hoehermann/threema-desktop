@@ -1,4 +1,5 @@
 <script lang="ts">
+  import {UTF8} from '@threema/ts-utils/codec/utf8';
   import {ensureError} from '@threema/ts-utils/meta/ensure-error';
   import {TIMER} from '@threema/ts-utils/timer/global-timer';
   import {onDestroy, onMount, tick, untrack} from 'svelte';
@@ -64,7 +65,6 @@
   import {EDIT_MESSAGE_GRACE_PERIOD_IN_MINUTES} from '~/common/network/protocol/constants';
   import {FEATURE_MASK_FLAG, type MessageId} from '~/common/network/types';
   import {assertUnreachable, unreachable, unwrap} from '~/common/utils/assert';
-  import {UTF8} from '~/common/utils/codec';
   import type {SingleUnicodeEmoji} from '~/common/utils/emoji';
   import type {Remote} from '~/common/utils/endpoint';
   import {getSanitizedFileNameDetails} from '~/common/utils/file';

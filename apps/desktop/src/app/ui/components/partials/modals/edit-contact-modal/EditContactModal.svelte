@@ -1,4 +1,5 @@
 <script lang="ts">
+  import {UTF8} from '@threema/ts-utils/codec/utf8';
   import {TIMER} from '@threema/ts-utils/timer/global-timer';
 
   import {globals} from '~/app/globals';
@@ -10,7 +11,6 @@
   import {toast} from '~/app/ui/snackbar';
   import {MAX_CONTACT_NAME_BYTES} from '~/app/ui/utils/constants';
   import type {SvelteNullableBinding} from '~/app/ui/utils/svelte';
-  import {UTF8} from '~/common/utils/codec';
 
   const {uiLogging} = globals.unwrap();
   const log = uiLogging.logger('ui.component.edit-contact-modal');

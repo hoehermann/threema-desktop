@@ -1,3 +1,4 @@
+import {Utf8EncodingError} from '@threema/ts-utils/codec/utf8';
 import {DelayedError, type DelayedErrorType} from '@threema/ts-utils/delayed/delayed-error';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
@@ -389,5 +390,21 @@ const DELAYED_ERROR_TRANSFER_HANDLER = registerErrorTransferHandler<
 // comlink endpoint.
 Object.defineProperty(DelayedError.prototype, TRANSFER_HANDLER, {
     value: DELAYED_ERROR_TRANSFER_HANDLER,
+    enumerable: false,
+});
+
+const UTF8_ENCODING_ERROR_TRANSFER_HANDLER = registerErrorTransferHandler<
+    Utf8EncodingError,
+    TransferTag.ENCODING_ERROR
+>({
+    tag: TransferTag.ENCODING_ERROR,
+    serialize: () => [],
+    deserialize: (message) => new Utf8EncodingError(message),
+});
+
+// We patch the prototype of the Utf8EncodingError here to avoid coupling the ts-utils package with
+// the comlink endpoint.
+Object.defineProperty(Utf8EncodingError.prototype, TRANSFER_HANDLER, {
+    value: UTF8_ENCODING_ERROR_TRANSFER_HANDLER,
     enumerable: false,
 });

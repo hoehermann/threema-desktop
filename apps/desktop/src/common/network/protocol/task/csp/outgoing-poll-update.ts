@@ -1,3 +1,5 @@
+import {UTF8} from '@threema/ts-utils/codec/utf8';
+
 import type {DbPollVoteFragment} from '~/common/db';
 import {
     CspE2eConversationType,
@@ -30,7 +32,6 @@ import {randomMessageId} from '~/common/network/protocol/utils';
 import * as structbuf from '~/common/network/structbuf';
 import type {IdentityString, MessageId} from '~/common/network/types';
 import {unreachable} from '~/common/utils/assert';
-import {UTF8} from '~/common/utils/codec';
 import {dateToUnixTimestampMs, intoUnsignedLong, u64ToHexLe} from '~/common/utils/number';
 
 /**

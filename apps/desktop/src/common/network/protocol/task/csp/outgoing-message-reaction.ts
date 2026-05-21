@@ -1,3 +1,5 @@
+import {UTF8} from '@threema/ts-utils/codec/utf8';
+
 import {
     CspE2eDeliveryReceiptStatus,
     CspE2eGroupMessageReactionType,
@@ -37,7 +39,6 @@ import {randomMessageId} from '~/common/network/protocol/utils';
 import * as structbuf from '~/common/network/structbuf';
 import type {EmojiReaction, MessageId} from '~/common/network/types';
 import {unreachable} from '~/common/utils/assert';
-import {UTF8} from '~/common/utils/codec';
 import {checkFeatureMaskSupportsFeature, supportsFeature} from '~/common/utils/feature-mask';
 import {intoUnsignedLong, u64ToHexLe} from '~/common/utils/number';
 

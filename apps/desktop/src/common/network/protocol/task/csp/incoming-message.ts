@@ -2,6 +2,7 @@
  * Incoming message task.
  */
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+import {UTF8} from '@threema/ts-utils/codec/utf8';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import type {u8} from '@threema/ts-utils/integer/u8';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
@@ -110,7 +111,6 @@ import {
 } from '~/common/network/types';
 import {assert, exhausted, unreachable} from '~/common/utils/assert';
 import {byteWithoutPkcs7, byteWithoutZeroPadding} from '~/common/utils/byte';
-import {UTF8} from '~/common/utils/codec';
 import {Identity} from '~/common/utils/identity';
 import {
     dateToUnixTimestampMs,

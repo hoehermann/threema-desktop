@@ -1,4 +1,5 @@
 <script lang="ts">
+  import {UTF8} from '@threema/ts-utils/codec/utf8';
   import {TIMER} from '@threema/ts-utils/timer/global-timer';
   import {onMount} from 'svelte';
 
@@ -11,7 +12,6 @@
   import Text from '~/app/ui/svelte-components/blocks/Input/Text.svelte';
   import {MAX_CONTACT_NAME_BYTES} from '~/app/ui/utils/constants';
   import type {SvelteNullableBinding} from '~/app/ui/utils/svelte';
-  import {UTF8} from '~/common/utils/codec';
 
   let {
     contact = $bindable(),

@@ -1,3 +1,5 @@
+import {UTF8} from '@threema/ts-utils/codec/utf8';
+
 import {
     CspE2eGroupMessageUpdateType,
     CspE2eMessageUpdateType,
@@ -25,7 +27,6 @@ import {randomMessageId} from '~/common/network/protocol/utils';
 import * as structbuf from '~/common/network/structbuf';
 import type {MessageId} from '~/common/network/types';
 import {assert, unreachable} from '~/common/utils/assert';
-import {UTF8} from '~/common/utils/codec';
 import {intoUnsignedLong, u64ToHexLe} from '~/common/utils/number';
 
 export class OutgoingEditMessageTask<TReceiver extends AnyReceiver>

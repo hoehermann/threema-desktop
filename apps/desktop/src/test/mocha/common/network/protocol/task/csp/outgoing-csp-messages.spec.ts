@@ -1,3 +1,4 @@
+import {UTF8} from '@threema/ts-utils/codec/utf8';
 import {Delayed} from '@threema/ts-utils/delayed/delayed';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {expect} from 'chai';
@@ -50,7 +51,6 @@ import {
 import {wrapRawBlobKey, type ClientKey} from '~/common/network/types/keys';
 import {assert, unwrap} from '~/common/utils/assert';
 import {byteWithoutZeroPadding} from '~/common/utils/byte';
-import {UTF8} from '~/common/utils/codec';
 import {Identity} from '~/common/utils/identity';
 import {intoU64, intoUnsignedLong, unixTimestampToDateMs} from '~/common/utils/number';
 import {assertCspPayloadType, assertD2mPayloadType} from '~/test/mocha/common/assertions';

@@ -1,5 +1,6 @@
 import type {ClientInfo} from '@threema/libthreema-wasm';
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+import {UTF8} from '@threema/ts-utils/codec/utf8';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
 import {ResolvablePromise} from '@threema/ts-utils/promise/resolvable-promise';
@@ -123,7 +124,6 @@ import type {SystemDialogService} from '~/common/system-dialog';
 import {generateTestData, type TestDataJson} from '~/common/test-data';
 import {assert, assertError, assertUnreachable, unreachable, unwrap} from '~/common/utils/assert';
 import {bytesToHex, hexToBytes} from '~/common/utils/byte';
-import {UTF8} from '~/common/utils/codec';
 import {
     type EndpointService,
     PROXY_HANDLER,

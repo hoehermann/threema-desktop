@@ -1,4 +1,5 @@
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+import {UTF8} from '@threema/ts-utils/codec/utf8';
 import type {u53} from '@threema/ts-utils/integer/u53';
 
 import {type RawKey, type ReadonlyRawKey, type SecretKeyLength, wrapRawKey} from '~/common/crypto';
@@ -8,7 +9,6 @@ import {
     PERSONALBYTES,
     SALTBYTES,
 } from '~/common/crypto/blake2b/implementation';
-import {UTF8} from '~/common/utils/codec';
 
 /**
  * A subset of valid Blake2b hash lengths relevant for our use cases.
@@ -95,7 +95,7 @@ export function hash(
  * @param parameters Blake2b hash parameters to be applied.
  * @returns a derived NaCl {@link RawKey}.
  * @throws {Error} If `personal` or `salt` are too long to be used.
- * @throws {EncodingError} If `personal` or `salt` could not be UTF-8 encoded.
+ * @throws {Utf8EncodingError} If `personal` or `salt` could not be UTF-8 encoded.
  */
 export function deriveKey<TDerivedKeyLength extends Blake2bKeyLength>(
     length: TDerivedKeyLength,

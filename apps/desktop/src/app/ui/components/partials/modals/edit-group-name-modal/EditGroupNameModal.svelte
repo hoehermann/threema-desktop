@@ -1,4 +1,5 @@
 <script lang="ts">
+  import {UTF8} from '@threema/ts-utils/codec/utf8';
   import {TIMER} from '@threema/ts-utils/timer/global-timer';
 
   import {globals} from '~/app/globals';
@@ -14,7 +15,6 @@
   import {MAX_GROUP_NAME_BYTES} from '~/app/ui/utils/constants';
   import type {SvelteNullableBinding} from '~/app/ui/utils/svelte';
   import {unreachable} from '~/common/utils/assert';
-  import {UTF8} from '~/common/utils/codec';
 
   const {uiLogging} = globals.unwrap();
   const log = uiLogging.logger('ui.component.edit-group-name-modal');

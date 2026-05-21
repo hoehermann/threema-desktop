@@ -1,3 +1,5 @@
+import {UTF8} from '@threema/ts-utils/codec/utf8';
+
 import {CspE2eGroupControlType, GroupUserState} from '~/common/enum';
 import type {Logger} from '~/common/logging';
 import type {Group} from '~/common/model';
@@ -17,7 +19,6 @@ import {OutgoingCspMessagesTask} from '~/common/network/protocol/task/csp/outgoi
 import {randomMessageId} from '~/common/network/protocol/utils';
 import * as structbuf from '~/common/network/structbuf';
 import {byteEquals} from '~/common/utils/byte';
-import {UTF8} from '~/common/utils/codec';
 
 export function createOutgoingCspGroupCallStartTask(
     services: ServicesForTasks,

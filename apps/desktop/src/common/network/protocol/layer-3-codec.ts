@@ -7,6 +7,7 @@
  */
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import type {SyncTransformerCodec} from '@threema/ts-utils/codec/sync-transformer-codec';
+import {UTF8} from '@threema/ts-utils/codec/utf8';
 import type {Delayed} from '@threema/ts-utils/delayed/delayed';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
@@ -50,7 +51,6 @@ import type {u32, ByteEncoder} from '~/common/types';
 import {assert, assertUnreachable, exhausted, unreachable} from '~/common/utils/assert';
 import {byteEncodeSequence, byteEquals, bytePadPkcs7, byteToHex} from '~/common/utils/byte';
 import {ByteBuffer} from '~/common/utils/byte-buffer';
-import {UTF8} from '~/common/utils/codec';
 import {intoUnsignedLong} from '~/common/utils/number';
 import type {MonotonicEnumStore} from '~/common/utils/store';
 

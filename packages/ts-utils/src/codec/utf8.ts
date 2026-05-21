@@ -1,9 +1,4 @@
-import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
-
-import {TransferTag} from '~/common/enum';
-import {BaseError} from '~/common/error';
-import {TRANSFER_HANDLER} from '~/common/index';
-import {registerErrorTransferHandler} from '~/common/utils/endpoint';
+import type {ReadonlyUint8Array} from '../array/readonly-uint8-array.js';
 
 /**
  * Result of a UTF-8 encode _full_ or _partial_ procedure.
@@ -51,7 +46,7 @@ export interface Utf8Codec {
     /**
      * Encode a string into UTF-8 bytes using the provided array.
      *
-     * @throws {EncodingError} in case the provided array provides insufficient space.
+     * @throws {Utf8EncodingError} in case the provided array provides insufficient space.
      */
     readonly encodeFullyInto: (source: string, array: Uint8Array) => Utf8EncodeResult;
 
@@ -65,60 +60,41 @@ export interface Utf8Codec {
 
 // The globals `TextEncoder` and `TextDecoder` exist in both DOM and Node, so
 // we'll just assume they're always available.
-//
-/* eslint-disable @typescript-eslint/method-signature-style,@typescript-eslint/naming-convention */
+
+/* eslint-disable @typescript-eslint/method-signature-style, @typescript-eslint/naming-convention */
 // Decoder
 interface TextDecoderCommon {
     readonly encoding: string;
     readonly fatal: boolean;
     readonly ignoreBOM: boolean;
 }
-interface TextDecodeOptions {
-    stream?: boolean;
-}
 interface TextDecoder extends TextDecoderCommon {
-    decode(input?: ArrayBufferView | ArrayBuffer, options?: TextDecodeOptions): string;
-}
-interface TextDecoderOptions {
-    fatal?: boolean;
-    ignoreBOM?: boolean;
+    decode(input?: ArrayBufferView | ArrayBuffer, options?: {stream?: boolean}): string;
 }
 declare const TextDecoder: {
     prototype: TextDecoder;
-    new (label?: string, options?: TextDecoderOptions): TextDecoder;
+    new (label?: string, options?: {fatal?: boolean; ignoreBOM?: boolean}): TextDecoder;
 };
+
 // Encoder
 interface TextEncoderCommon {
     readonly encoding: string;
 }
-interface TextEncoderEncodeIntoResult {
-    read?: number;
-    written?: number;
-}
 interface TextEncoder extends TextEncoderCommon {
     encode(input?: string): Uint8Array;
-    encodeInto(source: string, destination: Uint8Array): TextEncoderEncodeIntoResult;
+    encodeInto(source: string, destination: Uint8Array): {read?: number; written?: number};
 }
 declare const TextEncoder: {
     prototype: TextEncoder;
     new (): TextEncoder;
 };
-/* eslint-enable @typescript-eslint/method-signature-style,@typescript-eslint/naming-convention */
-
-const ENCODING_ERROR_TRANSFER_HANDLER = registerErrorTransferHandler<
-    EncodingError,
-    TransferTag.ENCODING_ERROR
->({
-    tag: TransferTag.ENCODING_ERROR,
-    serialize: () => [],
-    deserialize: (message, cause) => new EncodingError(message, {from: cause}),
-});
+/* eslint-enable @typescript-eslint/method-signature-style, @typescript-eslint/naming-convention */
 
 /**
- * UTF-8 codec error.
+ * Thrown by {@link Utf8Codec.encodeFullyInto} when the destination buffer is too small.
  */
-export class EncodingError extends BaseError {
-    public [TRANSFER_HANDLER] = ENCODING_ERROR_TRANSFER_HANDLER;
+export class Utf8EncodingError extends Error {
+    public override readonly name = 'Utf8EncodingError';
 }
 
 /**
@@ -150,13 +126,15 @@ class Utf8TextEncoderDecoderCodec implements Utf8Codec {
     public encodeFullyInto(source: string, array: Uint8Array): Utf8EncodeResult {
         const result = this._encoder.encodeInto(source, array);
         if (result.read !== source.length) {
-            throw new EncodingError(
+            throw new Utf8EncodingError(
                 `Unable to encode string into buffer, ` +
                     `insufficient space: ${source.length} != ${result.read}`,
             );
         }
         if (result.written === undefined) {
-            throw new EncodingError('Unable to encode string info buffer, "written" is undefined');
+            throw new Utf8EncodingError(
+                'Unable to encode string info buffer, "written" is undefined',
+            );
         }
         return {
             array,

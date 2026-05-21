@@ -1,4 +1,5 @@
 <script lang="ts">
+  import {UTF8} from '@threema/ts-utils/codec/utf8';
   import {TIMER} from '@threema/ts-utils/timer/global-timer';
   import {onMount} from 'svelte';
 
@@ -19,7 +20,6 @@
   import {MAX_GROUP_NAME_BYTES} from '~/app/ui/utils/constants';
   import type {ProfilePictureBlobStoreValue} from '~/common/dom/ui/profile-picture';
   import {assertUnreachable, unreachable} from '~/common/utils/assert';
-  import {UTF8} from '~/common/utils/codec';
   import {WritableStore} from '~/common/utils/store';
 
   const {uiLogging} = globals.unwrap();

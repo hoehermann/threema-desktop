@@ -1,4 +1,5 @@
 <script lang="ts">
+  import {UTF8} from '@threema/ts-utils/codec/utf8';
   import {untrack} from 'svelte';
   import {SvelteSet} from 'svelte/reactivity';
 
@@ -16,7 +17,6 @@
   import type {DbContactUid} from '~/common/db';
   import {ReceiverType} from '~/common/enum';
   import {assert} from '~/common/utils/assert';
-  import {UTF8} from '~/common/utils/codec';
   import {derive} from '~/common/utils/store/derived-store';
   import type {AnyReceiverDataOrSelf} from '~/common/viewmodel/utils/receiver';
 

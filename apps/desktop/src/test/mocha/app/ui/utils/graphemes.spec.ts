@@ -1,7 +1,7 @@
+import {UTF8} from '@threema/ts-utils/codec/utf8';
 import {expect} from 'chai';
 
 import {assert} from '~/common/utils/assert';
-import {UTF8} from '~/common/utils/codec';
 import {getGraphemeClusters, getLongestValidMatchingGraphemeSequence} from '~/common/utils/string';
 
 export function run(): void {
