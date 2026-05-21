@@ -4,6 +4,7 @@ import * as process from 'node:process';
 import {pathToFileURL, URL} from 'node:url';
 
 import * as v from '@badrap/valita';
+import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
 import {ResolvablePromise} from '@threema/ts-utils/promise/resolvable-promise';
@@ -37,12 +38,7 @@ import {
     ensureRemoteSecretMonitorErrorType,
     type RemoteSecretErrorType,
 } from '~/common/remote-secret';
-import {
-    ensureSpkiValue,
-    type DomainCertificatePin,
-    type i53,
-    type ReadonlyUint8Array,
-} from '~/common/types';
+import {ensureSpkiValue, type DomainCertificatePin, type i53} from '~/common/types';
 import {
     assert,
     assertUnreachable,

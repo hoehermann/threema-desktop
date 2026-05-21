@@ -2,6 +2,7 @@
   @component Renders the main settings view.
 -->
 <script lang="ts">
+  import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
   import {ensureError} from '@threema/ts-utils/meta/ensure-error';
 
   import {globals} from '~/app/globals';
@@ -24,7 +25,6 @@
   import {display} from '~/common/dom/ui/state';
   import type {WorkAvailabilityStatus} from '~/common/model/types/work-availability-status';
   import type {SettingsCategory} from '~/common/settings';
-  import type {ReadonlyUint8Array} from '~/common/types';
   import type {Remote} from '~/common/utils/endpoint';
   import {ReadableStore, type IQueryableStore} from '~/common/utils/store';
   import type {SettingsViewModelBundle} from '~/common/viewmodel/settings';

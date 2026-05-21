@@ -11,6 +11,7 @@
  * 3. comlink types depend on a DOM context which we don't have here.
  */
 
+import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import type {u53} from '@threema/ts-utils/integer/u53';
 
 import type {ServicesForBackend} from '~/common/backend';
@@ -18,7 +19,7 @@ import {TransferTag} from '~/common/enum';
 import {RELEASE_PROXY, TRANSFERRED_MARKER, TRANSFER_HANDLER} from '~/common/index';
 import type {Logger, LoggerFactory} from '~/common/logging';
 import type {ModelStore, RemoteModelStore} from '~/common/model/utils/model-store';
-import type {i53, Primitive, ReadonlyUint8Array, WeakOpaque} from '~/common/types';
+import type {i53, Primitive, WeakOpaque} from '~/common/types';
 import {assert, assertUnreachable, unreachable, unwrap} from '~/common/utils/assert';
 import {WeakValueMap} from '~/common/utils/map';
 import {SequenceNumberU53} from '~/common/utils/sequence-number';

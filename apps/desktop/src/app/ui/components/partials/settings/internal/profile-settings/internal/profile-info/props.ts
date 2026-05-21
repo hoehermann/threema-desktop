@@ -1,5 +1,6 @@
+import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+
 import type {ProfilePictureColor} from '~/app/ui/svelte-components/threema/ProfilePicture';
-import type {ReadonlyUint8Array} from '~/common/types';
 
 /**
  * Props accepted by the `ProfileInfo` component.

@@ -1,9 +1,10 @@
+import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+
 import type {DbContactReceiverLookup} from '~/common/db';
 import {AcquaintanceLevel, GroupUserState} from '~/common/enum';
 import {TRANSFER_HANDLER} from '~/common/index';
 import type {Group} from '~/common/model';
 import type {DisbandGroupIntent, LeaveGroupIntent} from '~/common/model/types/group';
-import type {ReadonlyUint8Array} from '~/common/types';
 import {assert} from '~/common/utils/assert';
 import {PROXY_HANDLER, type ProxyMarked} from '~/common/utils/endpoint';
 import type {ServicesForViewModel} from '~/common/viewmodel';

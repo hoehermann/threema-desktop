@@ -5,6 +5,7 @@
  * - Transport layer encryption/decryption of CSP messages.
  * - Encoding/Decoding CSP message payloads and forwarding D2M messages.
  */
+import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import type {SyncTransformerCodec} from '@threema/ts-utils/codec/sync-transformer-codec';
 import type {Delayed} from '@threema/ts-utils/delayed/delayed';
 import type {u53} from '@threema/ts-utils/integer/u53';
@@ -44,7 +45,7 @@ import type {
     DeviceCookie,
 } from '~/common/network/types';
 import type {ClientKey, TemporaryClientKey, TemporaryServerKey} from '~/common/network/types/keys';
-import type {ReadonlyUint8Array, u32, WeakOpaque, ByteEncoder} from '~/common/types';
+import type {u32, WeakOpaque, ByteEncoder} from '~/common/types';
 import {assert, assertUnreachable, exhausted, unreachable} from '~/common/utils/assert';
 import {byteEncodeSequence, byteEquals, bytePadPkcs7, byteToHex} from '~/common/utils/byte';
 import {ByteBuffer} from '~/common/utils/byte-buffer';

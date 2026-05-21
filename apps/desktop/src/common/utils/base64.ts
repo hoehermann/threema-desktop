@@ -1,6 +1,6 @@
+import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import type {u53} from '@threema/ts-utils/integer/u53';
 
-import type {ReadonlyUint8Array} from '~/common/types';
 import {unwrap} from '~/common/utils/assert';
 
 // These exist both in DOM and Node

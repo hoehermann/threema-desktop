@@ -1,4 +1,5 @@
 import * as v from '@badrap/valita';
+import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import type {u53} from '@threema/ts-utils/integer/u53';
 
 import type {DbReceiverLookup} from '~/common/db';
@@ -6,7 +7,7 @@ import {ReceiverType, ReceiverTypeUtils} from '~/common/enum';
 import type {Logger} from '~/common/logging';
 import {ensureMessageId} from '~/common/network/types';
 import {ensureSettingsCategory} from '~/common/settings';
-import {ensureU64, type ReadonlyUint8Array, type u64, type WeakOpaque} from '~/common/types';
+import {ensureU64, type u64, type WeakOpaque} from '~/common/types';
 import {assert} from '~/common/utils/assert';
 import {instanceOf} from '~/common/utils/valita-helpers';
 

@@ -1,11 +1,11 @@
 import * as v from '@badrap/valita';
+import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 
 import {ensureNonce} from '~/common/crypto';
 import {common} from '~/common/network/protobuf/js';
 import {creator, type ProtobufInstanceOf, validator} from '~/common/network/protobuf/utils';
 import {ensureBlobId} from '~/common/network/protocol/blob';
 import {wrapRawBlobKey} from '~/common/network/types/keys';
-import type {ReadonlyUint8Array} from '~/common/types';
 import {
     dateToUnixTimestampMs,
     intoUnsignedLong,

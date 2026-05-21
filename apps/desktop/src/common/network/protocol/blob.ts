@@ -1,3 +1,4 @@
+import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
 
 import {
@@ -15,7 +16,7 @@ import type {Logger} from '~/common/logging';
 import type {AnyReceiver} from '~/common/model';
 import type {ServicesForTasks} from '~/common/network/protocol/task';
 import {type RawBlobKey, wrapRawBlobKey} from '~/common/network/types/keys';
-import type {ReadonlyUint8Array, WeakOpaque} from '~/common/types';
+import type {WeakOpaque} from '~/common/types';
 import {bytesToHex} from '~/common/utils/byte';
 import {registerErrorTransferHandler} from '~/common/utils/endpoint';
 import {isNotesGroup} from '~/common/utils/group';

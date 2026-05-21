@@ -1,3 +1,5 @@
+import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+
 import {NACL_CONSTANTS} from '~/common/crypto';
 import type {DbContactUid, DbGroupUid, DbReceiverLookup} from '~/common/db';
 import {AcquaintanceLevel, ImageRenderingType, MessageDirection} from '~/common/enum';
@@ -17,7 +19,6 @@ import {validContactsLookupSteps} from '~/common/network/protocol/task/common/co
 import {randomMessageId} from '~/common/network/protocol/utils';
 import type {IdentityString, MessageId} from '~/common/network/types';
 import {wrapRawBlobKey} from '~/common/network/types/keys';
-import type {ReadonlyUint8Array} from '~/common/types';
 import {assert, assertUnreachable, unreachable} from '~/common/utils/assert';
 import {PROXY_HANDLER, type ProxyMarked} from '~/common/utils/endpoint';
 import type {ServicesForViewModel} from '~/common/viewmodel';

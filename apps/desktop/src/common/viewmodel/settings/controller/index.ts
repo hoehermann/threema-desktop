@@ -1,9 +1,10 @@
+import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+
 import {TRANSFER_HANDLER} from '~/common/index';
 import type {Contact} from '~/common/model';
 import type {PredefinedContactIdentity} from '~/common/model/types/contact';
 import type {WorkAvailabilityStatus} from '~/common/model/types/work-availability-status';
 import type {ModelStore} from '~/common/model/utils/model-store';
-import type {ReadonlyUint8Array} from '~/common/types';
 import {unreachable} from '~/common/utils/assert';
 import {PROXY_HANDLER, type ProxyMarked} from '~/common/utils/endpoint';
 import type {ServicesForViewModel} from '~/common/viewmodel';

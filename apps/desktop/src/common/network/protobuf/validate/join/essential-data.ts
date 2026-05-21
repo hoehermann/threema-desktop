@@ -1,4 +1,5 @@
 import * as v from '@badrap/valita';
+import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 
 import {ensureNonceHash, type NonceHash} from '~/common/crypto';
 import {WorkAvailabilityStatusCategory} from '~/common/enum';
@@ -15,7 +16,6 @@ import {profilePictureShareWithFromSchema} from '~/common/network/protobuf/valid
 import * as WorkAvailabilityStatusSchema from '~/common/network/protobuf/validate/sync/work-availability-status';
 import {ensureDeviceCookie, ensureIdentityString, ensureServerGroup} from '~/common/network/types';
 import {wrapRawClientKey, wrapRawDeviceGroupKey} from '~/common/network/types/keys';
-import type {ReadonlyUint8Array} from '~/common/types';
 import {bytesToHex} from '~/common/utils/byte';
 import {unixTimestampToDateMs} from '~/common/utils/number';
 import {instanceOf, nullOptional, unsignedLongAsU64, validate} from '~/common/utils/valita-helpers';

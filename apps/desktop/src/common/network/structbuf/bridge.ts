@@ -1,17 +1,11 @@
+import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import type {u8} from '@threema/ts-utils/integer/u8';
 
 import type {CryptoBackend} from '~/common/crypto';
 import {randomPkcs7PaddingLength} from '~/common/crypto/random';
 import type {LayerEncoder} from '~/common/network/protocol';
-import type {
-    Bare,
-    ByteLengthEncoder,
-    EncoderPick,
-    OpaquePick,
-    WeakOpaque,
-    ReadonlyUint8Array,
-} from '~/common/types';
+import type {Bare, ByteLengthEncoder, EncoderPick, OpaquePick, WeakOpaque} from '~/common/types';
 import {bytePadPkcs7} from '~/common/utils/byte';
 
 /**

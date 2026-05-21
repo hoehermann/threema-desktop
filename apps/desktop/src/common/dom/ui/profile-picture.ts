@@ -1,3 +1,4 @@
+import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
 
 import type {DbReceiverLookup} from '~/common/db';
@@ -6,7 +7,7 @@ import {ReceiverType, ReceiverTypeUtils} from '~/common/enum';
 import type {Logger} from '~/common/logging';
 import type {ProfilePictureView} from '~/common/model';
 import type {ProfilePictureModelStore} from '~/common/model/profile-picture';
-import type {Dimensions, ReadonlyUint8Array} from '~/common/types';
+import type {Dimensions} from '~/common/types';
 import {assert, unreachable} from '~/common/utils/assert';
 import type {Remote} from '~/common/utils/endpoint';
 import {

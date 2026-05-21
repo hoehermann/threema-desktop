@@ -1,4 +1,5 @@
 import * as v from '@badrap/valita';
+import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import {ensureU53} from '@threema/ts-utils/integer/u53';
 
 import type {ServicesForBackend} from '~/common/backend';
@@ -9,7 +10,7 @@ import {
     type Ed25519PublicKey,
 } from '~/common/crypto';
 import {ensureBaseUrl, validateUrl} from '~/common/network/types';
-import {ensureSpkiValue, type ReadonlyUint8Array} from '~/common/types';
+import {ensureSpkiValue} from '~/common/types';
 import {entriesReverse} from '~/common/utils/array';
 import {base64ToU8a, u8aToBase64} from '~/common/utils/base64';
 import {byteEquals} from '~/common/utils/byte';

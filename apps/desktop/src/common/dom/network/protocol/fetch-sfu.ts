@@ -1,3 +1,4 @@
+import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
 
 import type {ServicesForBackend} from '~/common/backend';
@@ -11,7 +12,6 @@ import {type GroupCallBaseData, GroupCallError} from '~/common/network/protocol/
 import type {SfuToken} from '~/common/network/protocol/directory';
 import type {PeekResponse, SfuHttpBackend} from '~/common/network/protocol/sfu';
 import type {BaseUrl} from '~/common/network/types';
-import type {ReadonlyUint8Array} from '~/common/types';
 import {TIMER, TimeoutError} from '~/common/utils/timer';
 import type {DtlsFingerprint} from '~/common/webrtc';
 

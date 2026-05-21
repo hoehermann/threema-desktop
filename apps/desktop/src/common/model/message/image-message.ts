@@ -1,3 +1,4 @@
+import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
 
 import type {
@@ -40,7 +41,6 @@ import type {
     OutboundImageMessageController,
 } from '~/common/model/types/message/image';
 import {ModelStore} from '~/common/model/utils/model-store';
-import type {ReadonlyUint8Array} from '~/common/types';
 import {assert, assertUnreachable, unreachable} from '~/common/utils/assert';
 import type {FileBytesAndMediaType} from '~/common/utils/file';
 

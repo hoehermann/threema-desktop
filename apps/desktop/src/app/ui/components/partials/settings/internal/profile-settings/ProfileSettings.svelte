@@ -2,6 +2,8 @@
   @component Renders a settings page for user profile settings.
 -->
 <script lang="ts">
+  import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+
   import {globals} from '~/app/globals';
   import Text from '~/app/ui/components/atoms/text/Text.svelte';
   import KeyValueList from '~/app/ui/components/molecules/key-value-list';
@@ -19,7 +21,6 @@
   import {svelteUnreachable} from '~/app/ui/utils/svelte';
   import {getAndParseMdm} from '~/common/mdm';
   import type {WorkAvailabilityStatus} from '~/common/model/types/work-availability-status';
-  import type {ReadonlyUint8Array} from '~/common/types';
   import {mapToColor, mapToIcon} from '~/common/utils/availability-status';
   import type {Remote} from '~/common/utils/endpoint';
   import type {ProfileViewModelStore} from '~/common/viewmodel/profile';

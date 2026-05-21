@@ -1,3 +1,5 @@
+import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+
 import type {
     O2oCallConnectionPolicy,
     O2oCallPolicy,
@@ -25,7 +27,7 @@ import type {ModelStore} from '~/common/model/utils/model-store';
 import type {BlobId} from '~/common/network/protocol/blob';
 import type {DeviceName, IdentityString, Nickname} from '~/common/network/types';
 import type {RawBlobKey} from '~/common/network/types/keys';
-import type {ReadonlyUint8Array, StrictExtract} from '~/common/types';
+import type {StrictExtract} from '~/common/types';
 import type {ProxyMarked} from '~/common/utils/endpoint';
 import type {IQueryableStore} from '~/common/utils/store';
 

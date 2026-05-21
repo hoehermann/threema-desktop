@@ -1,6 +1,7 @@
 /**
  * Device join protocol.
  */
+import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import {Delayed} from '@threema/ts-utils/delayed/delayed';
 
 import type {ServicesForBackend} from '~/common/backend';
@@ -33,7 +34,6 @@ import {
     type DeviceCookie,
 } from '~/common/network/types';
 import type {RawClientKey, RawDeviceGroupKey} from '~/common/network/types/keys';
-import type {ReadonlyUint8Array} from '~/common/types';
 import {assert, unreachable} from '~/common/utils/assert';
 import {idColorIndex} from '~/common/utils/id-color';
 import {filterUndefinedProperties} from '~/common/utils/object';

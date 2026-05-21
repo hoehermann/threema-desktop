@@ -1,10 +1,10 @@
 import * as v from '@badrap/valita';
+import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import Long from 'long';
 
 import type {GlobalPropertyKey} from '~/common/enum';
 import * as proto from '~/common/internal-protobuf/global-property';
 import type {GlobalPropertyValues} from '~/common/model/types/settings';
-import type {ReadonlyUint8Array} from '~/common/types';
 import {
     dateToUnixTimestampMs,
     intoU64,

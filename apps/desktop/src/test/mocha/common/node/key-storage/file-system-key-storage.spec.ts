@@ -1,5 +1,6 @@
 import * as fs from 'node:fs';
 
+import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import * as chai from 'chai';
 
 import {NACL_CONSTANTS} from '~/common/crypto';
@@ -38,7 +39,7 @@ import {
     encodeAndEncryptLatestIntermediateKeyStorage,
     encodeLatestOuterKeyStorage,
 } from '~/common/node/key-storage/helpers';
-import {KiB, type ReadonlyUint8Array} from '~/common/types';
+import {KiB} from '~/common/types';
 import {assertError} from '~/common/utils/assert';
 import {byteJoin} from '~/common/utils/byte';
 import {intoUnsignedLong, u16ToBytesLe} from '~/common/utils/number';

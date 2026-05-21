@@ -1,8 +1,9 @@
+import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import type {u53} from '@threema/ts-utils/integer/u53';
 
 import type {LogInfo} from '~/common/node/file-storage/log-info';
 import type {RemoteSecretErrorType} from '~/common/remote-secret';
-import type {DomainCertificatePin, ReadonlyUint8Array} from '~/common/types';
+import type {DomainCertificatePin} from '~/common/types';
 
 export interface ErrorDetails {
     readonly message: string;

@@ -1,4 +1,5 @@
 import * as v from '@badrap/valita';
+import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 
 import {ensureEncryptedDataWithNonceAhead, type EncryptedDataWithNonceAhead} from '~/common/crypto';
 import {
@@ -12,7 +13,7 @@ import {
     ensureRemoteSecretAuthenticationToken,
     ensureRemoteSecretHash,
 } from '~/common/network/types';
-import type {ReadonlyUint8Array, WeakOpaque} from '~/common/types';
+import type {WeakOpaque} from '~/common/types';
 import {byteJoin} from '~/common/utils/byte';
 import {bytesLeToU16, intoUnsignedLong, u16ToBytesLe} from '~/common/utils/number';
 import {instanceOf, unsignedLongAsU64} from '~/common/utils/valita-helpers';

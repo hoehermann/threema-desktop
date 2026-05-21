@@ -1,3 +1,4 @@
+import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import * as chai from 'chai';
 
 import {
@@ -15,7 +16,6 @@ import {
 } from '~/common/crypto';
 import {TweetNaClBackend} from '~/common/crypto/tweetnacl';
 import {CryptoError} from '~/common/error';
-import type {ReadonlyUint8Array} from '~/common/types';
 import {unwrap} from '~/common/utils/assert';
 import chaiByteEqual from '~/test/common/plugins/byte-equal';
 import getSharedBoxTestVectors from '~/test/mocha/common/data/box.random';

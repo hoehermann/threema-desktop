@@ -1,7 +1,8 @@
+import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+
 import type {AppServicesForSvelte} from '~/app/types';
 import type {ProfileSettingsUpdate, ProfileSettingsView} from '~/common/model/types/settings';
 import type {WorkAvailabilityStatus} from '~/common/model/types/work-availability-status';
-import type {ReadonlyUint8Array} from '~/common/types';
 
 /**
  * Props accepted by the `ProfileSettings` component.

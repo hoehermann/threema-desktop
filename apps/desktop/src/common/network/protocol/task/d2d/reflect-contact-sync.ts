@@ -1,3 +1,5 @@
+import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+
 import {type TransactionScope, TriggerSource} from '~/common/enum';
 import type {Logger} from '~/common/logging';
 import type {ContactInit, ContactUpdate} from '~/common/model';
@@ -14,7 +16,6 @@ import type {
 } from '~/common/network/protocol/task';
 import type {IdentityString} from '~/common/network/types';
 import type {RawBlobKey} from '~/common/network/types/keys';
-import type {ReadonlyUint8Array} from '~/common/types';
 import {unreachable} from '~/common/utils/assert';
 import {dateToUnixTimestampMs, intoUnsignedLong} from '~/common/utils/number';
 import {hasPropertyStrict} from '~/common/utils/object';

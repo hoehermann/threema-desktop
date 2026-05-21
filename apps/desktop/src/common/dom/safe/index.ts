@@ -1,4 +1,5 @@
 import * as v from '@badrap/valita';
+import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import {syncScrypt} from 'scrypt-js';
 
 import type {ServicesForBackend} from '~/common/backend';
@@ -20,7 +21,7 @@ import {
     type BaseUrl,
     type IdentityString,
 } from '~/common/network/types';
-import type {ReadonlyUint8Array, WeakOpaque} from '~/common/types';
+import type {WeakOpaque} from '~/common/types';
 import {assert} from '~/common/utils/assert';
 import {base64ToU8a, u8aToBase64} from '~/common/utils/base64';
 import {bytesToHex} from '~/common/utils/byte';
