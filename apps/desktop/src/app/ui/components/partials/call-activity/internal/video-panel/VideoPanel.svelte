@@ -2,9 +2,10 @@
   @component Renders a panel with video and/or screensharing feeds.
 -->
 <script lang="ts">
+  import {type u53, isU53} from '@threema/ts-utils/integer/u53';
+
   import type {VideoPanelProps} from '~/app/ui/components/partials/call-activity/internal/video-panel/props';
   import ParticipantFeed from '~/app/ui/components/partials/call-participant-feed/ParticipantFeed.svelte';
-  import {isU53, type u53} from '~/common/types';
 
   const {feeds, activity, onchangefullview, services}: VideoPanelProps = $props();
 

@@ -1,3 +1,5 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
+
 import type {Nonce} from '~/common/crypto';
 import {CREATE_BUFFER_TOKEN} from '~/common/crypto/box';
 import {deriveMessageMetadataKey} from '~/common/crypto/csp-keys';
@@ -42,7 +44,7 @@ import {ReflectOutgoingMessageUpdateTask} from '~/common/network/protocol/task/d
 import {randomMessageId} from '~/common/network/protocol/utils';
 import * as structbuf from '~/common/network/structbuf';
 import {conversationIdForReceiver} from '~/common/network/types';
-import type {ReadonlyUint8Array, u53} from '~/common/types';
+import type {ReadonlyUint8Array} from '~/common/types';
 import {assert, assertUnreachable, unreachable} from '~/common/utils/assert';
 import {byteEquals} from '~/common/utils/byte';
 import {UTF8} from '~/common/utils/codec';

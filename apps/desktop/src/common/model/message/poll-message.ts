@@ -1,3 +1,5 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
+
 import type {
     DbCreateMessage,
     DbMessageCommon,
@@ -43,7 +45,6 @@ import {ModelStore} from '~/common/model/utils/model-store';
 import type {ActiveTaskCodecHandle, PassiveTaskCodecHandle} from '~/common/network/protocol/task';
 import {OutgoingPollUpdateTask} from '~/common/network/protocol/task/csp/outgoing-poll-update';
 import type {IdentityString} from '~/common/network/types';
-import type {u53} from '~/common/types';
 import {assert, unreachable, unwrap} from '~/common/utils/assert';
 import {PROXY_HANDLER} from '~/common/utils/endpoint';
 

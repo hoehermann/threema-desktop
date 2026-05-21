@@ -1,4 +1,5 @@
 import {Delayed} from '@threema/ts-utils/delayed/delayed';
+import type {u53} from '@threema/ts-utils/integer/u53';
 
 import {
     COOKIE_LENGTH,
@@ -51,7 +52,7 @@ import {
     type ParticipantId,
     type ServicesForGroupCall,
 } from '~/common/network/protocol/call/group-call';
-import {tag, type Dimensions, type ReadonlyUint8Array, type u53, type u64} from '~/common/types';
+import {tag, type Dimensions, type ReadonlyUint8Array, type u64} from '~/common/types';
 import {assert, unreachable, unwrap} from '~/common/utils/assert';
 import {u8aToBase64} from '~/common/utils/base64';
 import {byteEquals, bytesToHex} from '~/common/utils/byte';

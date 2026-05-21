@@ -1,3 +1,4 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
 import type {u8} from '@threema/ts-utils/integer/u8';
 import * as tweetnacl from 'tweetnacl';
 
@@ -22,7 +23,7 @@ import type {INonceService} from '~/common/crypto/nonce';
 import type {CryptoPrng} from '~/common/crypto/random';
 import type {NonceScope} from '~/common/enum';
 import {CryptoError} from '~/common/error';
-import type {i53, ReadonlyUint8Array, u53, u64, WeakOpaque} from '~/common/types';
+import type {i53, ReadonlyUint8Array, u64, WeakOpaque} from '~/common/types';
 import {assert} from '~/common/utils/assert';
 
 /**

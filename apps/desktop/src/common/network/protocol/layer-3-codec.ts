@@ -7,6 +7,7 @@
  */
 import type {SyncTransformerCodec} from '@threema/ts-utils/codec/sync-transformer-codec';
 import type {Delayed} from '@threema/ts-utils/delayed/delayed';
+import type {u53} from '@threema/ts-utils/integer/u53';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
 
 import type {ServicesForBackend} from '~/common/backend';
@@ -42,7 +43,7 @@ import type {
     DeviceCookie,
 } from '~/common/network/types';
 import type {ClientKey, TemporaryClientKey, TemporaryServerKey} from '~/common/network/types/keys';
-import type {ReadonlyUint8Array, u32, u53, WeakOpaque, ByteEncoder} from '~/common/types';
+import type {ReadonlyUint8Array, u32, WeakOpaque, ByteEncoder} from '~/common/types';
 import {assert, assertUnreachable, exhausted, unreachable} from '~/common/utils/assert';
 import {byteEncodeSequence, byteEquals, bytePadPkcs7, byteToHex} from '~/common/utils/byte';
 import {ByteBuffer} from '~/common/utils/byte-buffer';

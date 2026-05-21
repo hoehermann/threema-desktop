@@ -2,6 +2,7 @@
   @component Renders a system dialog to recover from invalid certificate pins
 -->
 <script lang="ts">
+  import type {u53} from '@threema/ts-utils/integer/u53';
   import {onMount} from 'svelte';
 
   import {globals} from '~/app/globals';
@@ -15,7 +16,6 @@
   import Password from '~/app/ui/svelte-components/blocks/Input/Password.svelte';
   import type {SvelteNullableBinding} from '~/app/ui/utils/svelte';
   import {KeyStorageError} from '~/common/key-storage/common';
-  import type {u53} from '~/common/types';
   import {assertUnreachable} from '~/common/utils/assert';
   import {ResolvablePromise} from '~/common/utils/resolvable-promise';
   import {TIMER} from '~/common/utils/timer';

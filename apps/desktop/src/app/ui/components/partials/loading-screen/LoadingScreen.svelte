@@ -1,11 +1,12 @@
 <script lang="ts">
+  import type {u53} from '@threema/ts-utils/integer/u53';
+
   import {globals} from '~/app/globals';
   import Text from '~/app/ui/components/atoms/text/Text.svelte';
   import type {LoadingScreenProps} from '~/app/ui/components/partials/loading-screen/props';
   import Logo from '~/app/ui/components/partials/logo/Logo.svelte';
   import {i18n} from '~/app/ui/i18n';
   import type {LoadingState} from '~/common/dom/backend';
-  import type {u53} from '~/common/types';
   import {assertUnreachable, unreachable} from '~/common/utils/assert';
   import {clamp} from '~/common/utils/number';
   import {ResolvablePromise} from '~/common/utils/resolvable-promise';

@@ -1,10 +1,11 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
+
 import type {Contact} from '~/common/model';
 import {encryptAndUploadBlob, type BlobId} from '~/common/network/protocol/blob';
 import {BLOB_FILE_NONCE} from '~/common/network/protocol/constants';
 import type {ServicesForTasks} from '~/common/network/protocol/task';
 import type {RawBlobKey} from '~/common/network/types/keys';
 import {LAST_USER_PROFILE_ENTRY_EXPIRATION_SECONDS} from '~/common/network/types/persistent-protocol-state';
-import type {u53} from '~/common/types';
 import {byteEquals} from '~/common/utils/byte';
 
 interface ProfileDistributionResult {

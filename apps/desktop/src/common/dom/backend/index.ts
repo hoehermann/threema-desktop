@@ -1,4 +1,5 @@
 import type {ClientInfo} from '@threema/libthreema-wasm';
+import type {u53} from '@threema/ts-utils/integer/u53';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
 
 import type {
@@ -118,7 +119,7 @@ import type {TempFileSystemFileStorage} from '~/common/node/file-storage/temp-sy
 import {type NotificationCreator, NotificationService} from '~/common/notification';
 import type {SystemDialogService} from '~/common/system-dialog';
 import {generateTestData, type TestDataJson} from '~/common/test-data';
-import type {ReadonlyUint8Array, u53} from '~/common/types';
+import type {ReadonlyUint8Array} from '~/common/types';
 import {assert, assertError, assertUnreachable, unreachable, unwrap} from '~/common/utils/assert';
 import {bytesToHex, hexToBytes} from '~/common/utils/byte';
 import {UTF8} from '~/common/utils/codec';

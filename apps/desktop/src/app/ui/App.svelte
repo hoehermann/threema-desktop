@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type {u53} from '@threema/ts-utils/integer/u53';
   import {onMount, type Component} from 'svelte';
 
   import {globals} from '~/app/globals';
@@ -23,7 +24,6 @@
   import type {IGlobalPropertyModel} from '~/common/model/types/settings';
   import type {ModelStore} from '~/common/model/utils/model-store';
   import {ConnectionState} from '~/common/network/protocol/state';
-  import type {u53} from '~/common/types';
   import {unreachable} from '~/common/utils/assert';
   import type {Remote} from '~/common/utils/endpoint';
   import {TIMER, type TimerCanceller} from '~/common/utils/timer';

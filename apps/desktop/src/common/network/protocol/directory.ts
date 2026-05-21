@@ -1,4 +1,5 @@
 import * as v from '@badrap/valita';
+import {ensureU53} from '@threema/ts-utils/integer/u53';
 
 import {ensurePublicKey} from '~/common/crypto';
 import {ActivityState, IdentityType, IdentityTypeUtils, TransferTag} from '~/common/enum';
@@ -12,7 +13,6 @@ import {
     type IdentityString,
 } from '~/common/network/types';
 import type {ClientKey} from '~/common/network/types/keys';
-import {ensureU53} from '~/common/types';
 import {base64ToU8a} from '~/common/utils/base64';
 import {registerErrorTransferHandler, type ProxyMarked} from '~/common/utils/endpoint';
 

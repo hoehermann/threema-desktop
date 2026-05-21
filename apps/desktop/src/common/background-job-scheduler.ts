@@ -1,7 +1,8 @@
 // Scheduler for background jobs, running in the backend worker.
 
+import type {u53} from '@threema/ts-utils/integer/u53';
+
 import type {Logger, LoggerFactory} from '~/common/logging';
-import type {u53} from '~/common/types';
 import {assert} from '~/common/utils/assert';
 import {AbortRaiser} from '~/common/utils/signal';
 import {TIMER} from '~/common/utils/timer';

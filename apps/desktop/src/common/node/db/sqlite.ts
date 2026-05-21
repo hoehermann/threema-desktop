@@ -1,3 +1,4 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
 import DatabaseConstructor, {type Database} from 'better-sqlcipher';
 import {SynchronousPromise} from 'synchronous-promise';
 import type {UpdatableValues} from 'ts-sql-query/extras/types';
@@ -101,7 +102,6 @@ import {
     type PollId,
 } from '~/common/network/types';
 import {type Settings, SETTINGS_CODEC} from '~/common/settings';
-import type {u53} from '~/common/types';
 import {chunk} from '~/common/utils/array';
 import {
     assert,

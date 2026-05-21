@@ -2,6 +2,7 @@
   @component Renders the group call activity sidebar.
 -->
 <script lang="ts">
+  import type {u53} from '@threema/ts-utils/integer/u53';
   import {onDestroy, onMount} from 'svelte';
 
   import {globals} from '~/app/globals';
@@ -40,7 +41,7 @@
   import {reactive, type SvelteNullableBinding} from '~/app/ui/utils/svelte';
   import type {DbGroupReceiverLookup} from '~/common/db';
   import type {ParticipantId} from '~/common/network/protocol/call/group-call';
-  import type {Dimensions, u53} from '~/common/types';
+  import type {Dimensions} from '~/common/types';
   import {assert, assertUnreachable, unreachable, unwrap} from '~/common/utils/assert';
   import {byteEquals} from '~/common/utils/byte';
   import type {Remote} from '~/common/utils/endpoint';

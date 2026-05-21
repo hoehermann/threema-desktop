@@ -1,8 +1,9 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
+
 import {TRANSFER_HANDLER} from '~/common/index';
 import type {Logger} from '~/common/logging';
 import type {Model, ModelController} from '~/common/model';
 import {ModelStore} from '~/common/model/utils/model-store';
-import type {u53} from '~/common/types';
 import {assert, unwrap} from '~/common/utils/assert';
 import {hasProperty} from '~/common/utils/object';
 import {

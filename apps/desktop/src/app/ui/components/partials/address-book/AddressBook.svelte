@@ -2,6 +2,7 @@
   @component Renders an address book containing the user's contacts.
 -->
 <script lang="ts">
+  import type {u53} from '@threema/ts-utils/integer/u53';
   import {tick} from 'svelte';
 
   import {globals} from '~/app/globals';
@@ -35,7 +36,6 @@
   import type {AnyReceiver} from '~/common/model';
   import type {Contact} from '~/common/model/types/contact';
   import type {Group} from '~/common/model/types/group';
-  import type {u53} from '~/common/types';
   import {assertUnreachable, unreachable} from '~/common/utils/assert';
   import {hasProperty} from '~/common/utils/object';
   import type {IQueryableStore} from '~/common/utils/store';

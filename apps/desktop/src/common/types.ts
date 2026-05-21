@@ -3,6 +3,7 @@
  * project.
  */
 
+import type {u53 as tsutilsu53} from '@threema/ts-utils/integer/u53';
 import type {u8 as tsutilsu8} from '@threema/ts-utils/integer/u8';
 
 /* eslint-disable @typescript-eslint/naming-convention */
@@ -15,7 +16,6 @@ export type u16 = number;
 export type i16 = number;
 export type u32 = number;
 export type i32 = number;
-export type u53 = number;
 export type i53 = number;
 export type u64 = bigint;
 export type i64 = bigint;
@@ -25,6 +25,7 @@ export type f64 = number;
 
 // Re-exporting types from @threema/ts-utils for structbuf-typescript
 export type u8 = tsutilsu8;
+export type u53 = tsutilsu53;
 /* eslint-enable @typescript-eslint/naming-convention */
 
 /**
@@ -40,28 +41,6 @@ export function isU16(val: unknown): val is u16 {
 export function ensureU16(val: unknown): u16 {
     if (!isU16(val)) {
         throw new Error(`Number '${val}' is not a valid unsigned 16 bit integer`);
-    }
-    return val;
-}
-
-/**
- * Type guard for {@link u53}.
- */
-export function isU53(val: unknown): val is u53 {
-    return (
-        typeof val === 'number' &&
-        Number.isInteger(val) &&
-        val >= 0 &&
-        val <= Number.MAX_SAFE_INTEGER
-    );
-}
-
-/**
- * Ensure value is a valid {@link u53}.
- */
-export function ensureU53(val: unknown): u53 {
-    if (!isU53(val)) {
-        throw new Error(`Value ${val} is not a valid integer in the u53 range`);
     }
     return val;
 }

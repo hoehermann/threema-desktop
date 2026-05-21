@@ -1,9 +1,9 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
 import type {u8} from '@threema/ts-utils/integer/u8';
 import * as sha256 from 'fast-sha256';
 
 import {ReceiverType} from '~/common/enum';
 import type {ConversationId} from '~/common/network/types';
-import type {u53} from '~/common/types';
 import {unreachable, unwrap} from '~/common/utils/assert';
 import {UTF8} from '~/common/utils/codec';
 import {u64ToBytesLe} from '~/common/utils/number';

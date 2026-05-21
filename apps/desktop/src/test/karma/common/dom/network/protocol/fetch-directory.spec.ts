@@ -1,3 +1,4 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
 import * as sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 
@@ -11,7 +12,6 @@ import {NonceScope} from '~/common/enum';
 import {DirectoryError, type DirectoryErrorType} from '~/common/network/protocol/directory';
 import {ensureIdentityString} from '~/common/network/types';
 import type {ClientKey} from '~/common/network/types/keys';
-import type {u53} from '~/common/types';
 import {assert, assertError} from '~/common/utils/assert';
 import {u8aToBase64} from '~/common/utils/base64';
 import {ValueObject} from '~/common/utils/object';

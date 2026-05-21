@@ -1,3 +1,5 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
+
 import {
     type Cookie,
     type CryptoBackend,
@@ -21,7 +23,7 @@ import {type Blake2bKeyLength, deriveKey, type Blake2bKdfParameters} from '~/com
 import {type INonceGuard, type INonceService, NONCE_REUSED} from '~/common/crypto/nonce';
 import type {NonceScope} from '~/common/enum';
 import {CryptoError} from '~/common/error';
-import type {ByteEncoder, ByteLengthEncoder, ReadonlyUint8Array, u53, u64} from '~/common/types';
+import type {ByteEncoder, ByteLengthEncoder, ReadonlyUint8Array, u64} from '~/common/types';
 import {assert} from '~/common/utils/assert';
 import {byteView} from '~/common/utils/byte';
 import {ByteBuffer} from '~/common/utils/byte-buffer';

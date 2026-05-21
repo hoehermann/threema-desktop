@@ -1,5 +1,7 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
+
 import type {RemoteSecretErrorType} from '~/common/remote-secret';
-import type {DomainCertificatePin, u53} from '~/common/types';
+import type {DomainCertificatePin} from '~/common/types';
 import type {ProxyMarked} from '~/common/utils/endpoint';
 
 /**

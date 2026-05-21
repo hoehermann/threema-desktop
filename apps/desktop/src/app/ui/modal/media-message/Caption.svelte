@@ -1,10 +1,11 @@
 <script lang="ts">
+  import type {u53} from '@threema/ts-utils/integer/u53';
+
   import type {AppServicesForSvelte} from '~/app/types';
   import TextArea from '~/app/ui/components/atoms/textarea/TextArea.svelte';
   import type {TextAreaProps} from '~/app/ui/components/atoms/textarea/props';
   import {i18n} from '~/app/ui/i18n';
   import type {SvelteNullableBinding} from '~/app/ui/utils/svelte';
-  import type {u53} from '~/common/types';
 
   interface Props {
     /**

@@ -1,4 +1,5 @@
 import {Delayed} from '@threema/ts-utils/delayed/delayed';
+import type {u53} from '@threema/ts-utils/integer/u53';
 import {expect} from 'chai';
 
 import {NACL_CONSTANTS} from '~/common/crypto';
@@ -47,7 +48,6 @@ import {
     type Nickname,
 } from '~/common/network/types';
 import {wrapRawBlobKey, type ClientKey} from '~/common/network/types/keys';
-import type {u53} from '~/common/types';
 import {assert, unwrap} from '~/common/utils/assert';
 import {byteWithoutZeroPadding} from '~/common/utils/byte';
 import {UTF8} from '~/common/utils/codec';

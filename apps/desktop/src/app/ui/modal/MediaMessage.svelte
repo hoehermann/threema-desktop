@@ -3,6 +3,7 @@
 -->
 <script lang="ts">
   import {nodeIsOrContainsTarget} from '@threema/dom';
+  import {type u53, ensureU53} from '@threema/ts-utils/integer/u53';
   import {ensureError} from '@threema/ts-utils/meta/ensure-error';
   import {onDestroy, onMount} from 'svelte';
 
@@ -35,7 +36,7 @@
   import ModalDialog from '~/app/ui/svelte-components/blocks/ModalDialog/ModalDialog.svelte';
   import type {FileLoadResult} from '~/app/ui/utils/file';
   import {reactive, type SvelteNullableBinding} from '~/app/ui/utils/svelte';
-  import {type Dimensions, ensureU53, type u53} from '~/common/types';
+  import type {Dimensions} from '~/common/types';
   import {unreachable} from '~/common/utils/assert';
   import {isAudioFileType} from '~/common/utils/audio';
   import type {SingleUnicodeEmoji} from '~/common/utils/emoji';

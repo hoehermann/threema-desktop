@@ -1,4 +1,6 @@
-import type {ByteEncoder, u53} from '~/common/types';
+import type {u53} from '@threema/ts-utils/integer/u53';
+
+import type {ByteEncoder} from '~/common/types';
 
 /**
  * A byte buffer claim.

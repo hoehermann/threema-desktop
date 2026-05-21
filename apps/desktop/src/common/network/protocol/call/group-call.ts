@@ -1,3 +1,5 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
+
 import type {PublicKey} from '~/common/crypto';
 import {
     deriveGroupCallProperties,
@@ -27,7 +29,7 @@ import {
     type SfuToken,
 } from '~/common/network/protocol/directory';
 import {ensureBaseUrl, type BaseUrl, type IdentityString} from '~/common/network/types';
-import {tag, type ReadonlyUint8Array, type WeakOpaque, type u16, type u53} from '~/common/types';
+import {tag, type ReadonlyUint8Array, type WeakOpaque, type u16} from '~/common/types';
 import {assert, assertUnreachable, unreachable} from '~/common/utils/assert';
 import {byteEquals, bytesToHex} from '~/common/utils/byte';
 import {PROXY_HANDLER, registerErrorTransferHandler} from '~/common/utils/endpoint';

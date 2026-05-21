@@ -1,3 +1,5 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
+
 import type {
     MessageType,
     PollAnnounceType,
@@ -14,7 +16,7 @@ import type {
     OutboundAudioMessageInitFragment,
 } from '~/common/network/protocol/task/message-processing-helpers';
 import type {IdentityString, MessageId, PollId} from '~/common/network/types';
-import type {Dimensions, f64, ReadonlyUint8Array, u53} from '~/common/types';
+import type {Dimensions, f64, ReadonlyUint8Array} from '~/common/types';
 import type {transcodeAudioToMp4Aac, transcodeAudioToMp4Opus} from '~/common/utils/audio';
 import type {transcodeVideoToMp4H264} from '~/common/utils/video';
 

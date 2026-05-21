@@ -1,3 +1,4 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
 
 import type {ServicesForBackend} from '~/common/backend';
@@ -34,7 +35,7 @@ import {
     type ReflectSequenceNumber,
     type ReflectSequenceNumberValue,
 } from '~/common/network/types';
-import type {u32, u53, WeakOpaque} from '~/common/types';
+import type {u32, WeakOpaque} from '~/common/types';
 import {assert, assertUnreachable, unreachable, unwrap} from '~/common/utils/assert';
 import {intoUnsignedLong, u64ToHexLe} from '~/common/utils/number';
 import {

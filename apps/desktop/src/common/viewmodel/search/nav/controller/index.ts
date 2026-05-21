@@ -1,5 +1,6 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
+
 import {TRANSFER_HANDLER} from '~/common/index';
-import type {u53} from '~/common/types';
 import {PROXY_HANDLER, type ProxyMarked} from '~/common/utils/endpoint';
 import {type IQueryableStore, WritableStore} from '~/common/utils/store';
 

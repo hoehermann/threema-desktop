@@ -1,3 +1,5 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
+
 import type {ServicesForBackend} from '~/common/backend';
 import type {Config} from '~/common/config';
 import type {
@@ -21,7 +23,7 @@ import type {ServicesForKeyStorage} from '~/common/key-storage';
 import type {Logger} from '~/common/logging';
 import type {IdentityString} from '~/common/network/types';
 import type {LocalSettings} from '~/common/settings';
-import type {i53, u53} from '~/common/types';
+import type {i53} from '~/common/types';
 import {assert, unreachable} from '~/common/utils/assert';
 
 /**

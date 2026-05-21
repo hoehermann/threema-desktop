@@ -1,4 +1,5 @@
 import {chunkBy} from '@threema/ts-utils/array/chunk-by';
+import type {u53} from '@threema/ts-utils/integer/u53';
 
 import type {ConversationPreviewListId} from '~/app/ui/components/partials/conversation-nav/types';
 import type {ConversationPreviewListProps} from '~/app/ui/components/partials/conversation-preview-list/props';
@@ -12,7 +13,7 @@ import type {I18nType} from '~/app/ui/i18n-types';
 import {transformMessageSenderProps} from '~/app/ui/utils/sender';
 import {ConversationCategory, ConversationVisibility} from '~/common/enum';
 import {conversationCompareFn} from '~/common/model/utils/conversation';
-import {tag, type u53} from '~/common/types';
+import {tag} from '~/common/types';
 import {assert, unreachable, unwrap} from '~/common/utils/assert';
 import type {Remote} from '~/common/utils/endpoint';
 import {ReadableStore, type IQueryableStore} from '~/common/utils/store';

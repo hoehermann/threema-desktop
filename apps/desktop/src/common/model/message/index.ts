@@ -1,3 +1,5 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
+
 import type {
     DbAnyMessage,
     DbConversation,
@@ -56,7 +58,6 @@ import type {ActiveTaskCodecHandle, PassiveTaskCodecHandle} from '~/common/netwo
 import {OutgoingEditMessageTask} from '~/common/network/protocol/task/csp/outgoing-edit-message';
 import {OutgoingMessageReactionTask} from '~/common/network/protocol/task/csp/outgoing-message-reaction';
 import type {EmojiReaction, IdentityString, MessageId, PollId} from '~/common/network/types';
-import type {u53} from '~/common/types';
 import {assert, assertUnreachable, unreachable} from '~/common/utils/assert';
 import {PROXY_HANDLER} from '~/common/utils/endpoint';
 import {LazyMap} from '~/common/utils/map';

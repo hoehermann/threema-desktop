@@ -1,3 +1,5 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
+
 import type {
     DbContact,
     DbContactUid,
@@ -26,7 +28,7 @@ import type {ProfilePictureUpdate} from '~/common/network/protocol/task/d2d/refl
 import {ReflectContactSyncTransactionTask} from '~/common/network/protocol/task/d2d/reflect-contact-sync-transaction';
 import type {ConversationId, GroupId, IdentityString} from '~/common/network/types';
 import type {RawBlobKey} from '~/common/network/types/keys';
-import type {ReadonlyUint8Array, u53} from '~/common/types';
+import type {ReadonlyUint8Array} from '~/common/types';
 import {assert, unreachable} from '~/common/utils/assert';
 import {PROXY_HANDLER, type ProxyMarked} from '~/common/utils/endpoint';
 import {idColorIndexToString} from '~/common/utils/id-color';

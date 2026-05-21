@@ -3,6 +3,7 @@ import '../sass/app.scss';
 import initComposeArea from '@threema/compose-area/web';
 import {Delayed} from '@threema/ts-utils/delayed/delayed';
 import {ResettableDelayed} from '@threema/ts-utils/delayed/resettable-delayed';
+import type {u53} from '@threema/ts-utils/integer/u53';
 import {mount, unmount} from 'svelte';
 
 import {APP_CONFIG} from '~/app/config';
@@ -59,7 +60,6 @@ import type {IGlobalPropertyModel} from '~/common/model/types/settings';
 import type {ModelStore} from '~/common/model/utils/model-store';
 import {DEFAULT_CATEGORY} from '~/common/settings';
 import {parseTestData, type TestDataJson} from '~/common/test-data';
-import type {u53} from '~/common/types';
 import {assertUnreachable, setAssertFailLogger, unwrap} from '~/common/utils/assert';
 import type {Remote, RemoteProxy} from '~/common/utils/endpoint';
 import type {ReusablePromise} from '~/common/utils/promise';

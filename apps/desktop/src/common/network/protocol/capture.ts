@@ -1,3 +1,5 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
+
 import type {
     Packet as DisplayPacket,
     PacketDirection,
@@ -5,7 +7,7 @@ import type {
 import {type D2mPayloadType, D2mPayloadTypeUtils} from '~/common/enum';
 import type {ProtocolError, ProtocolErrorType} from '~/common/error';
 import {Struct} from '~/common/network/structbuf/base';
-import type {ByteLengthEncoder, i53, u53, WeakOpaque} from '~/common/types';
+import type {ByteLengthEncoder, i53, WeakOpaque} from '~/common/types';
 import type {DomTransferable} from '~/common/utils/endpoint';
 
 import type {D2mMessage, LayerEncoder} from '.';

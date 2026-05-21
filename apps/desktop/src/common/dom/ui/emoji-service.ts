@@ -1,4 +1,5 @@
 import {groupBy} from '@threema/ts-utils/array/group-by';
+import type {u53} from '@threema/ts-utils/integer/u53';
 import type RawEmojis from 'emojibase-data/en/data.json';
 import type ShortcodesDataset from 'emojibase-data/en/shortcodes/cldr.json';
 import rawEmojiGroupData from 'emojibase-data/meta/groups.json' with {type: 'json'};
@@ -7,7 +8,6 @@ import {i18n, type I18n} from '~/app/ui/i18n';
 import type {BackendController} from '~/common/dom/backend/controller';
 import type {Logger} from '~/common/logging';
 import type {EmojiPreferencesView} from '~/common/model/types/emoji-preferences';
-import type {u53} from '~/common/types';
 import {
     type EmojiGroupId,
     type Emojis,

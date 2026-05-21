@@ -1,10 +1,10 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
 import DatabaseConstructor, {type Database} from 'better-sqlcipher';
 import {expect} from 'chai';
 
 import {type Logger, NOOP_LOGGER} from '~/common/logging';
 import {ensureIdentityString} from '~/common/network/types';
 import {MigrationHelper} from '~/common/node/db/migrations';
-import type {u53} from '~/common/types';
 import {assert, unwrap} from '~/common/utils/assert';
 
 // Should match the values in `migrations.ts`: If we (accidentally or on purpose) change the name of

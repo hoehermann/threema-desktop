@@ -1,5 +1,6 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
+
 import {createLoggerStyle} from '~/common/logging';
-import type {u53} from '~/common/types';
 
 /**
  * App configuration.

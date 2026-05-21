@@ -3,6 +3,8 @@
   component, but includes some additional convenience features, such as loading the profile picture.
 -->
 <script lang="ts">
+  import type {u53} from '@threema/ts-utils/integer/u53';
+
   import {globals} from '~/app/globals';
   import Avatar from '~/app/ui/components/atoms/avatar/Avatar.svelte';
   import type {AvatarCharm} from '~/app/ui/components/atoms/avatar/props';
@@ -13,7 +15,6 @@
   import type {DbReceiverLookup} from '~/common/db';
   import type {ProfilePictureBlobStoreValue} from '~/common/dom/ui/profile-picture';
   import {WorkAvailabilityStatusCategory} from '~/common/enum';
-  import type {u53} from '~/common/types';
   import {unreachable} from '~/common/utils/assert';
   import {mapToColor, mapToIcon} from '~/common/utils/availability-status';
   import {type IQueryableStore, ReadableStore} from '~/common/utils/store';

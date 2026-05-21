@@ -1,3 +1,5 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
+
 import {type RawKey, type ReadonlyRawKey, type SecretKeyLength, wrapRawKey} from '~/common/crypto';
 import {
     type Blake2b,
@@ -5,7 +7,7 @@ import {
     PERSONALBYTES,
     SALTBYTES,
 } from '~/common/crypto/blake2b/implementation';
-import type {ReadonlyUint8Array, u53} from '~/common/types';
+import type {ReadonlyUint8Array} from '~/common/types';
 import {UTF8} from '~/common/utils/codec';
 
 /**

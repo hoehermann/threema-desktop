@@ -1,5 +1,7 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
+
 import type {Logger} from '~/common/logging';
-import type {RepeatedTuple, u53} from '~/common/types';
+import type {RepeatedTuple} from '~/common/types';
 import {unreachable} from '~/common/utils/assert';
 import {UTF8} from '~/common/utils/codec';
 import {escapeRegExp} from '~/common/utils/regex';

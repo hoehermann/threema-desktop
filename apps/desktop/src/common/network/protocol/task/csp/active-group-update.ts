@@ -1,3 +1,5 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
+
 import {CspE2eGroupControlType, GroupUserState, type ReceiverType} from '~/common/enum';
 import type {Logger} from '~/common/logging';
 import type {Contact} from '~/common/model';
@@ -25,7 +27,7 @@ import type {
 } from '~/common/network/protocol/task/d2d';
 import * as structbuf from '~/common/network/structbuf';
 import type {IdentityString, MessageId} from '~/common/network/types';
-import type {ReadonlyUint8Array, u53} from '~/common/types';
+import type {ReadonlyUint8Array} from '~/common/types';
 import {byteEquals} from '~/common/utils/byte';
 import {UTF8} from '~/common/utils/codec';
 import {u64ToHexLe} from '~/common/utils/number';

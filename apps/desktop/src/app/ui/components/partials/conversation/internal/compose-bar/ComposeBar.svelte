@@ -1,5 +1,6 @@
 <script lang="ts">
   import {nodeIsOrContainsTarget} from '@threema/dom';
+  import type {u53} from '@threema/ts-utils/integer/u53';
   import {ensureError} from '@threema/ts-utils/meta/ensure-error';
   import {onDestroy, onMount, tick, mount} from 'svelte';
 
@@ -22,7 +23,6 @@
   import MdIcon from '~/app/ui/svelte-components/blocks/Icon/MdIcon.svelte';
   import type {FileResult} from '~/app/ui/svelte-components/utils/filelist';
   import type {SvelteNullableBinding} from '~/app/ui/utils/svelte';
-  import type {u53} from '~/common/types';
   import {assertUnreachable, unreachable} from '~/common/utils/assert';
   import type {SingleUnicodeEmoji} from '~/common/utils/emoji';
 

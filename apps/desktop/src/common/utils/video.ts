@@ -1,3 +1,4 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
 import {
     Input,
     ALL_FORMATS,
@@ -13,7 +14,7 @@ import {
 
 import type * as protobuf from '~/common/internal-protobuf/settings';
 import type {Logger} from '~/common/logging';
-import type {ReadonlyUint8Array, u53} from '~/common/types';
+import type {ReadonlyUint8Array} from '~/common/types';
 
 /** Whether or not a file is video. */
 export function isVideoFileType(type: string): boolean {

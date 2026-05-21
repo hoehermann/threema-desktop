@@ -3,13 +3,14 @@ import * as path from 'node:path';
 import * as process from 'node:process';
 import * as readline from 'node:readline/promises';
 
+import type {u53} from '@threema/ts-utils/integer/u53';
+
 import {cliStubServicesForKeyStorage} from 'cli/services';
 import {TweetNaClBackend} from '~/common/crypto/tweetnacl';
 import {extractErrorTraceback} from '~/common/error';
 import {CONSOLE_LOGGER} from '~/common/logging';
 import {randomBytes} from '~/common/node/crypto/random';
 import {FileSystemKeyStorage} from '~/common/node/key-storage';
-import type {u53} from '~/common/types';
 import {assert, setAssertFailLogger, unreachable} from '~/common/utils/assert';
 import {bytesToHex} from '~/common/utils/byte';
 

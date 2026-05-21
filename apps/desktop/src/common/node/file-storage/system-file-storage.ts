@@ -3,6 +3,8 @@ import * as fs from 'node:fs';
 import * as fsPromises from 'node:fs/promises';
 import path from 'node:path';
 
+import type {u53} from '@threema/ts-utils/integer/u53';
+
 import {
     type FileEncryptionKey,
     type FileId,
@@ -18,7 +20,7 @@ import type {Logger} from '~/common/logging';
 import {FileChunkNonce} from '~/common/node/file-storage/file-crypto';
 import {directoryModeInternalObjectIfPosix, fileModeInternalIfPosix} from '~/common/node/fs';
 import {isNodeError} from '~/common/node/utils';
-import {MiB, type ReadonlyUint8Array, type u53} from '~/common/types';
+import {MiB, type ReadonlyUint8Array} from '~/common/types';
 import {assert, debugAssert} from '~/common/utils/assert';
 
 /**

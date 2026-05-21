@@ -1,6 +1,6 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
 import {expect} from 'chai';
 
-import type {u53} from '~/common/types';
 import {ValueObject} from '~/common/utils/object';
 import {ResolvablePromise} from '~/common/utils/resolvable-promise';
 import {TIMER} from '~/common/utils/timer';

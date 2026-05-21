@@ -1,8 +1,8 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
 import type {Snippet} from 'svelte';
 
 import type {AppServicesForSvelte} from '~/app/types';
 import type {AvatarCharm} from '~/app/ui/components/atoms/avatar/props';
-import type {u53} from '~/common/types';
 import type {
     AnyReceiverData,
     ContactReceiverData,

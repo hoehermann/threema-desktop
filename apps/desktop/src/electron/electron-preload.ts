@@ -6,6 +6,7 @@
  * For communication with the main process, IPC must be used.
  * For communication with the application, the contextBridge must be used.
  */
+import type {u53} from '@threema/ts-utils/integer/u53';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {contextBridge, ipcRenderer} from 'electron';
 
@@ -18,7 +19,7 @@ import type {
 import {ElectronIpcCommand} from '~/common/enum';
 import {CONSOLE_LOGGER} from '~/common/logging';
 import type {RemoteSecretErrorType} from '~/common/remote-secret';
-import type {DomainCertificatePin, u53} from '~/common/types';
+import type {DomainCertificatePin} from '~/common/types';
 
 const log = CONSOLE_LOGGER;
 

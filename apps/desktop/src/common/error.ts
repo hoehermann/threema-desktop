@@ -1,11 +1,11 @@
 import {DelayedError, type DelayedErrorType} from '@threema/ts-utils/delayed/delayed-error';
+import type {u53} from '@threema/ts-utils/integer/u53';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
 
 import {TransferTag} from '~/common/enum';
 import type {FileStorageErrorType} from '~/common/file-storage';
 import {TRANSFER_HANDLER} from '~/common/index';
 import type {RendezvousCloseCause} from '~/common/network/protocol/rendezvous';
-import type {u53} from '~/common/types';
 import {
     type RegisteredErrorTransferHandler,
     type RegisteredTransferHandler,

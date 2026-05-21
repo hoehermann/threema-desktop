@@ -1,4 +1,5 @@
 /** Table declarations. */
+import type {u53} from '@threema/ts-utils/integer/u53';
 import type {u8} from '@threema/ts-utils/integer/u8';
 import {Table} from 'ts-sql-query/Table';
 
@@ -68,7 +69,7 @@ import type {
 } from '~/common/network/types';
 import type {RawBlobKey} from '~/common/network/types/keys';
 import {CUSTOM_TYPES, type DBConnection} from '~/common/node/db/connection';
-import type {f64, ReadonlyUint8Array, u53} from '~/common/types';
+import type {f64, ReadonlyUint8Array} from '~/common/types';
 import type {SingleUnicodeEmoji} from '~/common/utils/emoji';
 
 /**

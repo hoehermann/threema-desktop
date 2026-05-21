@@ -2,6 +2,8 @@
   @component Renders a chat message.
 -->
 <script lang="ts">
+  import type {u53} from '@threema/ts-utils/integer/u53';
+
   import LazyImage from '~/app/ui/components/atoms/lazy-image/LazyImage.svelte';
   import Prose from '~/app/ui/components/atoms/prose/Prose.svelte';
   import Text from '~/app/ui/components/atoms/text/Text.svelte';
@@ -16,7 +18,6 @@
   import MdIcon from '~/app/ui/svelte-components/blocks/Icon/MdIcon.svelte';
   import {svelteUnreachable} from '~/app/ui/utils/svelte';
   import {MAX_CONVERSATION_THUMBNAIL_SIZE} from '~/common/dom/ui/media';
-  import type {u53} from '~/common/types';
   import {durationToString} from '~/common/utils/date';
   import {hasProperty} from '~/common/utils/object';
 

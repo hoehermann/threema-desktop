@@ -1,3 +1,5 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
+
 import type {DbConversation, DbConversationUid, DbReceiverLookup, UidOf} from '~/common/db';
 import type {
     ConversationCategory,
@@ -34,7 +36,7 @@ import type {
     PollId,
     StatusMessageId,
 } from '~/common/network/types';
-import type {i53, u53} from '~/common/types';
+import type {i53} from '~/common/types';
 import type {ProxyMarked} from '~/common/utils/endpoint';
 import type {LocalStore} from '~/common/utils/store';
 import type {IDerivableSetStore, LocalSetStore} from '~/common/utils/store/set-store';

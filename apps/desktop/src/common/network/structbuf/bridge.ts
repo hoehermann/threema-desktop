@@ -1,3 +1,4 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
 import type {u8} from '@threema/ts-utils/integer/u8';
 
 import type {CryptoBackend} from '~/common/crypto';
@@ -8,7 +9,6 @@ import type {
     ByteLengthEncoder,
     EncoderPick,
     OpaquePick,
-    u53,
     WeakOpaque,
     ReadonlyUint8Array,
 } from '~/common/types';

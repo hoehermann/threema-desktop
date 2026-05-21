@@ -1,3 +1,4 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
 import {
     Input,
     ALL_FORMATS,
@@ -10,7 +11,7 @@ import {
 } from 'mediabunny';
 
 import type {Logger} from '~/common/logging';
-import type {f64, u53, ReadonlyUint8Array} from '~/common/types';
+import type {f64, ReadonlyUint8Array} from '~/common/types';
 
 /** Whether or not a file is audio. */
 export function isAudioFileType(type: string): boolean {

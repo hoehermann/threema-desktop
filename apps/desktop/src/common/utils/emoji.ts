@@ -1,6 +1,7 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
 import rawEmojiHexcodeData from 'emojibase-data/meta/hexcodes.json' with {type: 'json'};
 
-import {tag, type u53, type WeakOpaque} from '~/common/types';
+import {tag, type WeakOpaque} from '~/common/types';
 import {assert} from '~/common/utils/assert';
 
 // Legacy Mappings.

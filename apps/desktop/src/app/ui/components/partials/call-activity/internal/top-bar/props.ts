@@ -1,5 +1,6 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
+
 import type {ActivityLayout} from '~/app/ui/components/partials/call-activity/helpers';
-import type {u53} from '~/common/types';
 
 /**
  * Props accepted by the `TopBar` component.

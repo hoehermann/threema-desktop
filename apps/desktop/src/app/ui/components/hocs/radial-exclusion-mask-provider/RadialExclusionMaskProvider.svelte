@@ -3,8 +3,9 @@
   excluded from, similar to Emmentaler cheese.
 -->
 <script lang="ts">
+  import type {u53} from '@threema/ts-utils/integer/u53';
+
   import type {RadialExclusionMaskProviderProps} from '~/app/ui/components/hocs/radial-exclusion-mask-provider/props';
-  import type {u53} from '~/common/types';
 
   const {children, cutouts}: RadialExclusionMaskProviderProps = $props();
 

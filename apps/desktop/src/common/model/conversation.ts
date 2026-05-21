@@ -1,3 +1,5 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
+
 import type {DbConversationUid, DbReceiverLookup, UidOf} from '~/common/db';
 import {
     AcquaintanceLevel,
@@ -69,7 +71,7 @@ import {
     type PollId,
     type IdentityString,
 } from '~/common/network/types';
-import type {i53, Mutable, u53} from '~/common/types';
+import type {i53, Mutable} from '~/common/types';
 import {assert, assertUnreachable, isNotUndefined, unreachable} from '~/common/utils/assert';
 import {PROXY_HANDLER} from '~/common/utils/endpoint';
 import {AsyncLock} from '~/common/utils/lock';

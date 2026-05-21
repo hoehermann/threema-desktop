@@ -1,3 +1,4 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
 import {type u8, isU8} from '@threema/ts-utils/integer/u8';
 import type {
     SqliteDateTimeFormat,
@@ -76,7 +77,7 @@ import {
     isNickname,
 } from '~/common/network/types';
 import {wrapRawBlobKey} from '~/common/network/types/keys';
-import {isF64, type u53, tag} from '~/common/types';
+import {isF64, tag} from '~/common/types';
 import {exhausted, unreachable} from '~/common/utils/assert';
 import {byteView} from '~/common/utils/byte';
 

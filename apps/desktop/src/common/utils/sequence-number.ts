@@ -1,4 +1,6 @@
-import type {u32, u53, u64} from '~/common/types';
+import type {u53} from '@threema/ts-utils/integer/u53';
+
+import type {u32, u64} from '~/common/types';
 
 /**
  * A generic 64-bit unsigned sequence number. Prevents wrapping.

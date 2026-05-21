@@ -1,3 +1,5 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
+
 import type {
     ContextMenuItemHandlerProps,
     ConversationPreviewListId,
@@ -6,7 +8,7 @@ import type {ConversationPreviewListProps} from '~/app/ui/components/partials/co
 import {transformMessageSenderProps} from '~/app/ui/utils/sender';
 import {ConversationCategory, ConversationVisibility} from '~/common/enum';
 import {conversationCompareFn} from '~/common/model/utils/conversation';
-import {tag, type u53} from '~/common/types';
+import {tag} from '~/common/types';
 import {unreachable} from '~/common/utils/assert';
 import type {Remote} from '~/common/utils/endpoint';
 import type {IQueryableStore} from '~/common/utils/store';

@@ -1,6 +1,6 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
 import {expect} from 'chai';
 
-import type {u53} from '~/common/types';
 import {AsyncLock} from '~/common/utils/lock';
 import {TIMER} from '~/common/utils/timer';
 

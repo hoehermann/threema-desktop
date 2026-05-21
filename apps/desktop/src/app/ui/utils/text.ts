@@ -1,8 +1,9 @@
 import {markify, TokenType} from '@threema/threema-markup';
+import type {u53} from '@threema/ts-utils/integer/u53';
 import autolinker from 'autolinker';
 
 import type {I18nType} from '~/app/ui/i18n-types';
-import type {u53, WeakOpaque} from '~/common/types';
+import type {WeakOpaque} from '~/common/types';
 import {unreachable} from '~/common/utils/assert';
 import {escapeRegExp} from '~/common/utils/regex';
 import {truncate} from '~/common/utils/string';

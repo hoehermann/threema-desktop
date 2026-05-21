@@ -1,3 +1,5 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
+
 import {APPEARANCE_SETTINGS_CODEC, type AppearanceSettings} from '~/common/settings/appearance';
 import {CALLS_SETTINGS_CODEC, type CallsSettings} from '~/common/settings/calls';
 import {CHAT_SETTINGS_CODEC, type ChatSettings} from '~/common/settings/chat';
@@ -6,7 +8,6 @@ import {MEDIA_SETTINGS_CODEC, type MediaSettings} from '~/common/settings/media'
 import {PRIVACY_SETTINGS_CODEC, type PrivacySettings} from '~/common/settings/privacy';
 import {PROFILE_SETTINGS_CODEC, type ProfileSettings} from '~/common/settings/profile';
 import {WORK_SETTINGS_CODEC, type WorkSettings} from '~/common/settings/work';
-import type {u53} from '~/common/types';
 import type {AssertAssignable} from '~/common/utils/type-assertions';
 
 const SETTINGS_CATEGORIES = [

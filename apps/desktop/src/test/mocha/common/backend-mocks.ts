@@ -7,6 +7,7 @@ import * as os from 'node:os';
 import * as path from 'node:path';
 
 import type {Delayed} from '@threema/ts-utils/delayed/delayed';
+import type {u53} from '@threema/ts-utils/integer/u53';
 import type {u8} from '@threema/ts-utils/integer/u8';
 import {expect} from 'chai';
 
@@ -177,7 +178,7 @@ import {
     type CustomNotification,
 } from '~/common/notification';
 import type {SystemDialog, SystemDialogHandle, SystemDialogService} from '~/common/system-dialog';
-import type {u53, ReadonlyUint8Array} from '~/common/types';
+import type {ReadonlyUint8Array} from '~/common/types';
 import {assert, unwrap} from '~/common/utils/assert';
 import {UTF8} from '~/common/utils/codec';
 import {
