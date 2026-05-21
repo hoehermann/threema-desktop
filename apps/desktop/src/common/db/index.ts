@@ -1,3 +1,5 @@
+import type {u8} from '@threema/ts-utils/integer/u8';
+
 import type {ServicesForBackend} from '~/common/backend';
 import {type NonceHash, type PublicKey, type RawKey, wrapRawKey} from '~/common/crypto';
 import type {RawGroupCallKey} from '~/common/crypto/group-call';
@@ -55,7 +57,7 @@ import type {
 } from '~/common/network/types';
 import type {RawBlobKey} from '~/common/network/types/keys';
 import type {Settings} from '~/common/settings';
-import type {f64, ReadonlyUint8Array, u8, u53, u64, WeakOpaque, i53} from '~/common/types';
+import type {f64, ReadonlyUint8Array, u53, u64, WeakOpaque, i53} from '~/common/types';
 import type {SingleUnicodeEmoji} from '~/common/utils/emoji';
 
 /**

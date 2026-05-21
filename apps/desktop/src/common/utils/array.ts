@@ -1,4 +1,6 @@
-import type {Primitive, ReadonlyUint8Array, u53, u8} from '~/common/types';
+import type {u8} from '@threema/ts-utils/integer/u8';
+
+import type {Primitive, ReadonlyUint8Array, u53} from '~/common/types';
 import {unwrap} from '~/common/utils/assert';
 
 /**

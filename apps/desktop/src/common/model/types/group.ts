@@ -1,3 +1,5 @@
+import type {u8} from '@threema/ts-utils/integer/u8';
+
 import type {DbGroup, DbGroupUid, DbList, DbRunningGroupCall, UidOf} from '~/common/db';
 import type {
     GroupMemberState,
@@ -28,7 +30,7 @@ import type {
     D2dSetProfilePicture,
 } from '~/common/network/protocol/task/d2d';
 import type {GroupId, IdentityString} from '~/common/network/types';
-import type {u8, u53, ReadonlyUint8Array} from '~/common/types';
+import type {u53, ReadonlyUint8Array} from '~/common/types';
 import type {ProxyMarked} from '~/common/utils/endpoint';
 import type {IdColor} from '~/common/utils/id-color';
 import type {SequenceNumberU53} from '~/common/utils/sequence-number';

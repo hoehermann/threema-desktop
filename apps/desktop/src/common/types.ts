@@ -3,12 +3,13 @@
  * project.
  */
 
+import type {u8 as tsutilsu8} from '@threema/ts-utils/integer/u8';
+
 /* eslint-disable @typescript-eslint/naming-convention */
 // Unsigned and signed integer hint types.
 //
 // Note: These do not require explicit casting as that would be annoying when
 //       doing math operations due to the lack of operator type overloading.
-export type u8 = number;
 export type i8 = number;
 export type u16 = number;
 export type i16 = number;
@@ -21,24 +22,10 @@ export type i64 = bigint;
 export type ubig = bigint;
 export type ibig = bigint;
 export type f64 = number;
+
+// Re-exporting types from @threema/ts-utils for structbuf-typescript
+export type u8 = tsutilsu8;
 /* eslint-enable @typescript-eslint/naming-convention */
-
-/**
- * Type guard for {@link u8}.
- */
-export function isU8(val: unknown): val is u8 {
-    return typeof val === 'number' && Number.isInteger(val) && val >= 0 && val <= 255;
-}
-
-/**
- * Ensure value is a valid number in the {@link u8} range.
- */
-export function ensureU8(val: unknown): u8 {
-    if (!isU8(val)) {
-        throw new Error(`Value ${val} is not a valid unsigned byte (type is ${typeof val})`);
-    }
-    return val;
-}
 
 /**
  * Type guard for {@link u16}.

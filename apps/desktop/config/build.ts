@@ -1,6 +1,6 @@
 // Note: Because this file is imported from a lot of packaging code, avoid imports that access
 // `import.meta.env` since that can lead to circular imports.
-import type {u8} from '~/common/types';
+import type {u8} from '@threema/ts-utils/integer/u8';
 
 export interface BuildConfig {
     readonly CHAT_SERVER_KEY: readonly u8[] | undefined;

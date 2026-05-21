@@ -1,5 +1,7 @@
+import type {u8} from '@threema/ts-utils/integer/u8';
+
 import type {CryptoBackend} from '~/common/crypto';
-import type {u8, u32, u53, u64} from '~/common/types';
+import type {u32, u53, u64} from '~/common/types';
 import {assert, unwrap} from '~/common/utils/assert';
 
 /**

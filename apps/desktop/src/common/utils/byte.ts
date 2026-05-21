@@ -1,11 +1,6 @@
-import {
-    type ByteEncoder,
-    ensureU8,
-    type ReadonlyUint8Array,
-    type u8,
-    type u53,
-    type WeakOpaque,
-} from '~/common/types';
+import {type u8, ensureU8} from '@threema/ts-utils/integer/u8';
+
+import type {ByteEncoder, ReadonlyUint8Array, u53, WeakOpaque} from '~/common/types';
 import {unwrap} from '~/common/utils/assert';
 import {ByteBuffer} from '~/common/utils/byte-buffer';
 

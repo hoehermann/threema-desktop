@@ -1,4 +1,5 @@
 import * as v from '@badrap/valita';
+import {ensureU8} from '@threema/ts-utils/integer/u8';
 
 import {
     ensureCookie,
@@ -20,7 +21,7 @@ import {NULL_OR_UNDEFINED_SCHEMA} from '~/common/network/protobuf/validate/helpe
 import {SfuSupportedFeatures} from '~/common/network/protocol/call/flags';
 import {ensureParticipantId} from '~/common/network/protocol/call/group-call';
 import {ensureIdentityString, ensureNickname} from '~/common/network/types';
-import {ensureU16, ensureU53, ensureU8, tag} from '~/common/types';
+import {ensureU16, ensureU53, tag} from '~/common/types';
 import {assert} from '~/common/utils/assert';
 import {unixTimestampToDateMs} from '~/common/utils/number';
 import {

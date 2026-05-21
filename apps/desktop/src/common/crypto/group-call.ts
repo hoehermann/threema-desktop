@@ -1,3 +1,5 @@
+import {type u8, ensureU8} from '@threema/ts-utils/integer/u8';
+
 import type {ServicesForBackend} from '~/common/backend';
 import {
     type CryptoBackend,
@@ -25,13 +27,11 @@ import {
 } from '~/common/network/protocol/call/group-call';
 import type {ClientKey} from '~/common/network/types/keys';
 import {
-    ensureU8,
     tag,
     type ReadonlyUint8Array,
     type RepeatedTuple,
     type WeakOpaque,
     type u64,
-    type u8,
 } from '~/common/types';
 import {assert} from '~/common/utils/assert';
 import {UTF8} from '~/common/utils/codec';

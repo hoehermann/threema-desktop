@@ -1,3 +1,5 @@
+import type {u8} from '@threema/ts-utils/integer/u8';
+
 import type {CryptoBackend} from '~/common/crypto';
 import {randomPkcs7PaddingLength} from '~/common/crypto/random';
 import type {LayerEncoder} from '~/common/network/protocol';
@@ -6,7 +8,6 @@ import type {
     ByteLengthEncoder,
     EncoderPick,
     OpaquePick,
-    u8,
     u53,
     WeakOpaque,
     ReadonlyUint8Array,

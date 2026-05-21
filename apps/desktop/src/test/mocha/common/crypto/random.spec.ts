@@ -1,8 +1,8 @@
+import type {u8} from '@threema/ts-utils/integer/u8';
 import {expect} from 'chai';
 
 import type {CryptoBackend} from '~/common/crypto';
 import {randomPkcs7PaddingLength, randomString} from '~/common/crypto/random';
-import type {u8} from '~/common/types';
 import {byteView} from '~/common/utils/byte';
 import {getGraphemeClusters} from '~/common/utils/string';
 import {TestTweetNaClBackend} from '~/test/mocha/common/backend-mocks';
