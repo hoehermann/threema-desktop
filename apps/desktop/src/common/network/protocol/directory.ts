@@ -1,4 +1,5 @@
 import * as v from '@badrap/valita';
+import {base64ToU8a} from '@threema/ts-utils/base64/base64-to-u8a';
 import {ensureU53} from '@threema/ts-utils/integer/u53';
 
 import {ensurePublicKey} from '~/common/crypto';
@@ -13,7 +14,6 @@ import {
     type IdentityString,
 } from '~/common/network/types';
 import type {ClientKey} from '~/common/network/types/keys';
-import {base64ToU8a} from '~/common/utils/base64';
 import {registerErrorTransferHandler, type ProxyMarked} from '~/common/utils/endpoint';
 
 export const VALID_IDENTITY_DATA_SCHEMA = v

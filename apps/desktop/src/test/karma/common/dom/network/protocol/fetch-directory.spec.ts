@@ -1,3 +1,4 @@
+import {u8aToBase64} from '@threema/ts-utils/base64/u8a-to-base64';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import * as sinon from 'sinon';
 import sinonChai from 'sinon-chai';
@@ -13,7 +14,6 @@ import {DirectoryError, type DirectoryErrorType} from '~/common/network/protocol
 import {ensureIdentityString} from '~/common/network/types';
 import type {ClientKey} from '~/common/network/types/keys';
 import {assert, assertError} from '~/common/utils/assert';
-import {u8aToBase64} from '~/common/utils/base64';
 import {ValueObject} from '~/common/utils/object';
 import {NoopLoggerFactory} from '~/test/common/logging';
 import {makeResponse} from '~/test/karma/common/dom/dom-test-helpers';

@@ -1,3 +1,4 @@
+import {base64ToU8a} from '@threema/ts-utils/base64/base64-to-u8a';
 import {byteToHex} from '@threema/ts-utils/byte/byte-to-hex';
 import type {u53} from '@threema/ts-utils/integer/u53';
 
@@ -17,7 +18,6 @@ import {
 } from '~/common/network/types';
 import type {u16, u32} from '~/common/types';
 import {unwrap} from '~/common/utils/assert';
-import {base64ToU8a} from '~/common/utils/base64';
 import {applyVariables} from '~/common/utils/string';
 
 /**

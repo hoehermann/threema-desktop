@@ -1,3 +1,4 @@
+import {base64ToU8a} from '@threema/ts-utils/base64/base64-to-u8a';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import * as sinon from 'sinon';
 import sinonChai from 'sinon-chai';
@@ -7,7 +8,6 @@ import {FetchWorkBackend} from '~/common/dom/network/protocol/fetch-work';
 import {WorkError, type WorkErrorType} from '~/common/network/protocol/work';
 import {ensureIdentityString} from '~/common/network/types';
 import {assert, assertError} from '~/common/utils/assert';
-import {base64ToU8a} from '~/common/utils/base64';
 import {NoopLoggerFactory} from '~/test/common/logging';
 import {makeResponse} from '~/test/karma/common/dom/dom-test-helpers';
 import {TEST_CONFIG} from '~/test/karma/common/dom/network/protocol/config-mock';

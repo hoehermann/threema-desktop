@@ -1,5 +1,7 @@
 import * as v from '@badrap/valita';
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+import {base64ToU8a} from '@threema/ts-utils/base64/base64-to-u8a';
+import {u8aToBase64} from '@threema/ts-utils/base64/u8a-to-base64';
 import {byteEquals} from '@threema/ts-utils/byte/byte-equals';
 import {UTF8} from '@threema/ts-utils/codec/utf8';
 import {ensureU53} from '@threema/ts-utils/integer/u53';
@@ -14,7 +16,6 @@ import {
 import {ensureBaseUrl, validateUrl} from '~/common/network/types';
 import {ensureSpkiValue} from '~/common/types';
 import {entriesReverse} from '~/common/utils/array';
-import {base64ToU8a, u8aToBase64} from '~/common/utils/base64';
 
 const OPPF_SIGNATURE_KEY_SCHEMA = v
     .string()

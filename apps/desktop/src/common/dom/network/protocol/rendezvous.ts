@@ -1,5 +1,6 @@
 import * as libthreema from '@threema/libthreema-wasm';
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+import {u8aToBase64} from '@threema/ts-utils/base64/u8a-to-base64';
 import {byteSplit} from '@threema/ts-utils/byte/byte-split';
 
 import type {ServicesForBackend} from '~/common/backend';
@@ -27,7 +28,6 @@ import {
 import type {RendezvousAuthenticationKey} from '~/common/network/types/keys';
 import type {u32} from '~/common/types';
 import {assert, unreachable} from '~/common/utils/assert';
-import {u8aToBase64} from '~/common/utils/base64';
 import {registerErrorTransferHandler} from '~/common/utils/endpoint';
 import {Queue} from '~/common/utils/queue';
 import {AbortRaiser} from '~/common/utils/signal';

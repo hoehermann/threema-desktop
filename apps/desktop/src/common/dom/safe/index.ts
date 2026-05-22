@@ -1,5 +1,7 @@
 import * as v from '@badrap/valita';
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+import {base64ToU8a} from '@threema/ts-utils/base64/base64-to-u8a';
+import {u8aToBase64} from '@threema/ts-utils/base64/u8a-to-base64';
 import {bytesToHex} from '@threema/ts-utils/byte/bytes-to-hex';
 import {UTF8} from '@threema/ts-utils/codec/utf8';
 import type {WeakOpaque} from '@threema/ts-utils/meta/newtype';
@@ -25,7 +27,6 @@ import {
     type IdentityString,
 } from '~/common/network/types';
 import {assert} from '~/common/utils/assert';
-import {base64ToU8a, u8aToBase64} from '~/common/utils/base64';
 import {nullEmptyStringOptional, nullOptional} from '~/common/utils/valita-helpers';
 
 /**

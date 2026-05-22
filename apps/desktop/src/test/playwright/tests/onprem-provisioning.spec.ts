@@ -6,9 +6,9 @@ declare global {
 }
 
 import {expect} from '@playwright/test';
+import {base64ToU8a} from '@threema/ts-utils/base64/base64-to-u8a';
 
 import {ensureSpkiValue} from '~/common/types';
-import {base64ToU8a} from '~/common/utils/base64';
 import {test} from '~/test/playwright/common/fixtures/base';
 import type {PlaywrightIpcService} from '~/test/playwright/common/types/electron-fixture';
 import {launchElectronApp} from '~/test/playwright/common/utils/electron-utils';

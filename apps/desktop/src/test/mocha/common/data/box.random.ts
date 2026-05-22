@@ -1,4 +1,5 @@
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+import {base64ToU8a} from '@threema/ts-utils/base64/base64-to-u8a';
 import type {u53} from '@threema/ts-utils/integer/u53';
 
 import {
@@ -9,7 +10,6 @@ import {
     type ReadonlyRawKey,
     wrapRawKey,
 } from '~/common/crypto';
-import {base64ToU8a} from '~/common/utils/base64';
 
 /**
  * Tests copied from https://github.com/dchest/tweetnacl-js/tree/master/test/data
