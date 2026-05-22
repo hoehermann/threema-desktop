@@ -1,3 +1,4 @@
+import {byteWithoutZeroPadding} from '@threema/ts-utils/byte/byte-without-zero-padding';
 import {UTF8} from '@threema/ts-utils/codec/utf8';
 import {Delayed} from '@threema/ts-utils/delayed/delayed';
 import type {u53} from '@threema/ts-utils/integer/u53';
@@ -50,7 +51,6 @@ import {
 } from '~/common/network/types';
 import {wrapRawBlobKey, type ClientKey} from '~/common/network/types/keys';
 import {assert, unwrap} from '~/common/utils/assert';
-import {byteWithoutZeroPadding} from '~/common/utils/byte';
 import {Identity} from '~/common/utils/identity';
 import {intoU64, intoUnsignedLong, unixTimestampToDateMs} from '~/common/utils/number';
 import {assertCspPayloadType, assertD2mPayloadType} from '~/test/mocha/common/assertions';

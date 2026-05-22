@@ -1,3 +1,5 @@
+import type {ByteLengthEncoder} from '@threema/ts-utils/byte/byte-encoder';
+import {bytesToHex} from '@threema/ts-utils/byte/bytes-to-hex';
 import {UTF8} from '@threema/ts-utils/codec/utf8';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import type {u8} from '@threema/ts-utils/integer/u8';
@@ -50,9 +52,8 @@ import {
     type Nickname,
 } from '~/common/network/types';
 import type {RawBlobKey} from '~/common/network/types/keys';
-import type {ByteLengthEncoder, Dimensions, f64} from '~/common/types';
+import type {Dimensions, f64} from '~/common/types';
 import {assert, unreachable, unwrap} from '~/common/utils/assert';
-import {bytesToHex} from '~/common/utils/byte';
 import {Identity} from '~/common/utils/identity';
 import {dateToUnixTimestampMs, dateToUnixTimestampS, intoUnsignedLong} from '~/common/utils/number';
 import {hasPropertyStrict} from '~/common/utils/object';

@@ -1,3 +1,6 @@
+import {bytesToHex} from '@threema/ts-utils/byte/bytes-to-hex';
+import {hexToBytes} from '@threema/ts-utils/byte/hex-to-bytes';
+
 import type {ServicesForBackend} from '~/common/backend';
 import type {EncryptedData, PublicKey} from '~/common/crypto';
 import {
@@ -12,7 +15,6 @@ import {
 } from '~/common/network/protocol/blob';
 import type {DirectoryBackend} from '~/common/network/protocol/directory';
 import {unreachable} from '~/common/utils/assert';
-import {bytesToHex, hexToBytes} from '~/common/utils/byte';
 import {u64ToHexLe} from '~/common/utils/number';
 
 type ServicesForBlobBackend = Pick<ServicesForBackend, 'config' | 'device' | 'directory'>;

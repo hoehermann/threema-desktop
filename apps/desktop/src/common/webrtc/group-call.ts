@@ -1,4 +1,6 @@
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+import {byteEquals} from '@threema/ts-utils/byte/byte-equals';
+import {bytesToHex} from '@threema/ts-utils/byte/bytes-to-hex';
 import {UTF8} from '@threema/ts-utils/codec/utf8';
 import {Delayed} from '@threema/ts-utils/delayed/delayed';
 import type {u53} from '@threema/ts-utils/integer/u53';
@@ -64,7 +66,6 @@ import {
 import type {Dimensions, u64} from '~/common/types';
 import {assert, unreachable, unwrap} from '~/common/utils/assert';
 import {u8aToBase64} from '~/common/utils/base64';
-import {byteEquals, bytesToHex} from '~/common/utils/byte';
 import {
     type ProxyMarked,
     type RemoteProxy,

@@ -1,5 +1,7 @@
 import type {ClientInfo} from '@threema/libthreema-wasm';
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+import {bytesToHex} from '@threema/ts-utils/byte/bytes-to-hex';
+import {hexToBytes} from '@threema/ts-utils/byte/hex-to-bytes';
 import {UTF8} from '@threema/ts-utils/codec/utf8';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
@@ -123,7 +125,6 @@ import {type NotificationCreator, NotificationService} from '~/common/notificati
 import type {SystemDialogService} from '~/common/system-dialog';
 import {generateTestData, type TestDataJson} from '~/common/test-data';
 import {assert, assertError, assertUnreachable, unreachable, unwrap} from '~/common/utils/assert';
-import {bytesToHex, hexToBytes} from '~/common/utils/byte';
 import {
     type EndpointService,
     PROXY_HANDLER,

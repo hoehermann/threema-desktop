@@ -1,4 +1,7 @@
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+import {ByteBuffer} from '@threema/ts-utils/byte/byte-buffer';
+import type {ByteEncoder, ByteLengthEncoder} from '@threema/ts-utils/byte/byte-encoder';
+import {byteView} from '@threema/ts-utils/byte/byte-view';
 import type {u53} from '@threema/ts-utils/integer/u53';
 
 import {
@@ -24,10 +27,8 @@ import {type Blake2bKeyLength, deriveKey, type Blake2bKdfParameters} from '~/com
 import {type INonceGuard, type INonceService, NONCE_REUSED} from '~/common/crypto/nonce';
 import type {NonceScope} from '~/common/enum';
 import {CryptoError} from '~/common/error';
-import type {ByteEncoder, ByteLengthEncoder, u64} from '~/common/types';
+import type {u64} from '~/common/types';
 import {assert} from '~/common/utils/assert';
-import {byteView} from '~/common/utils/byte';
-import {ByteBuffer} from '~/common/utils/byte-buffer';
 
 /**
  * Instruct the encryptor/decryptor to create a byte buffer as needed.
@@ -574,6 +575,7 @@ export class SecureSharedBoxFactory<
         // and purges it after return.
         const decryptBuffer = new ByteBuffer(
             new Uint8Array(crypto.encryptedHeadroom + encryptedKey.byteLength),
+            {debug: import.meta.env.DEBUG},
         );
 
         // Declare protected operations for use with the key

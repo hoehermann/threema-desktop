@@ -1,3 +1,4 @@
+import {byteEquals} from '@threema/ts-utils/byte/byte-equals';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
 
 import {GroupUserState, StatusMessageType, TransactionScope} from '~/common/enum';
@@ -24,7 +25,6 @@ import type {
     SetProfilePicture,
 } from '~/common/network/structbuf/validate/csp/e2e';
 import type {IdentityString, MessageId} from '~/common/network/types';
-import {byteEquals} from '~/common/utils/byte';
 import {u64ToHexLe} from '~/common/utils/number';
 
 /**

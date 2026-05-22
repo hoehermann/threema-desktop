@@ -1,4 +1,5 @@
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+import {byteEquals} from '@threema/ts-utils/byte/byte-equals';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {tag, type WeakOpaque} from '@threema/ts-utils/meta/newtype';
 
@@ -7,7 +8,6 @@ import type {INonceService} from '~/common/crypto/nonce';
 import type {NonceScope} from '~/common/enum';
 import {CryptoError} from '~/common/error';
 import type {u64} from '~/common/types';
-import {byteEquals} from '~/common/utils/byte';
 
 export type {CryptoBox};
 

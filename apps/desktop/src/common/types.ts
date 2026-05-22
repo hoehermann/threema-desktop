@@ -4,6 +4,7 @@
  */
 
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+import type {EncoderPick, ByteLengthEncoder} from '@threema/ts-utils/byte/byte-encoder';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import type {u8} from '@threema/ts-utils/integer/u8';
 import type {WeakOpaque} from '@threema/ts-utils/meta/newtype';
@@ -27,7 +28,7 @@ export type f64 = number;
 /* eslint-enable @typescript-eslint/naming-convention */
 
 // Re-exporting types from @threema/ts-utils for structbuf-typescript
-export type {u8, u53, WeakOpaque};
+export type {u8, u53, WeakOpaque, ReadonlyUint8Array, EncoderPick, ByteLengthEncoder};
 
 /**
  * Type guard for {@link u16}.
@@ -118,42 +119,6 @@ export type Mutable<T, K extends keyof T = keyof T> = Omit<T, K> & {-readonly [P
 
 // eslint-disable-next-line @typescript-eslint/no-restricted-types
 export type Primitive = undefined | null | boolean | string | number | bigint;
-
-/**
- * A generic byte encoder, storing bytes inside a sub-array.
- *
- * The returned array **must** be a sub-array and point into a portion of the
- * given array! It **must** have the same starting offset as the given array
- * as many of our APIs depend on it!
- */
-export type ByteEncoder = (array: Uint8Array) => Uint8Array;
-
-/**
- * A generic byte encoder that also supplies an additional function to query the
- * resulting byte length of the encoded data.
- */
-export interface ByteLengthEncoder {
-    /**
-     * Retrieve the amount of bytes that would be written in case
-     * {@link ByteLengthEncoder#encode} were called.
-     */
-    byteLength: () => u53;
-
-    /**
-     * Encode the data in the supplied array. See {@link ByteEncoder}.
-     */
-    encode: ByteEncoder;
-}
-
-/**
- * From T, pick a set of encoder properties and leave the rest as is.
- * See {@link ByteLengthEncoder} on which properties can be picked.
- */
-export type EncoderPick<T, P extends keyof ByteLengthEncoder> = {
-    [K in keyof T]: T[K] extends Uint8Array | ByteLengthEncoder
-        ? Uint8Array | Pick<ByteLengthEncoder, P>
-        : T[K];
-};
 
 /**
  * Finite iterable with a specific length.

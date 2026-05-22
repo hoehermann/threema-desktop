@@ -1,3 +1,6 @@
+import {byteView} from '@threema/ts-utils/byte/byte-view';
+import {bytesToHex} from '@threema/ts-utils/byte/bytes-to-hex';
+import {hexToBytes} from '@threema/ts-utils/byte/hex-to-bytes';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
 import Long from 'long';
@@ -5,7 +8,6 @@ import Long from 'long';
 import type {i53, u16, u32, u64} from '~/common/types';
 
 import {assert} from './assert';
-import {bytesToHex, byteView, hexToBytes} from './byte';
 
 /**
  * Convert a u64 to a Long instance.

@@ -1,3 +1,4 @@
+import {bytesToHex} from '@threema/ts-utils/byte/bytes-to-hex';
 import * as sha256 from 'fast-sha256';
 
 import type {ServicesForBackend} from '~/common/backend';
@@ -11,7 +12,6 @@ import {
 import type {NonceDatabaseBackend} from '~/common/db';
 import type {NonceScope} from '~/common/enum';
 import type {Logger} from '~/common/logging';
-import {bytesToHex} from '~/common/utils/byte';
 import type {Identity} from '~/common/utils/identity';
 import {WeakValueMap} from '~/common/utils/map';
 import {type ReadonlyValueObject, ValueObject} from '~/common/utils/object';

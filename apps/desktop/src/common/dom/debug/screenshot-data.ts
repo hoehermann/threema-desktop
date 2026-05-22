@@ -1,4 +1,5 @@
 import * as v from '@badrap/valita';
+import {hexToBytes} from '@threema/ts-utils/byte/hex-to-bytes';
 
 import type {I18nLocales} from '~/app/ui/i18n-types';
 import {ensurePublicKey} from '~/common/crypto';
@@ -17,7 +18,6 @@ import {
 } from '~/common/network/types';
 import {unreachable} from '~/common/utils/assert';
 import {base64ToU8a} from '~/common/utils/base64';
-import {hexToBytes} from '~/common/utils/byte';
 import {hexLeToU64} from '~/common/utils/number';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type

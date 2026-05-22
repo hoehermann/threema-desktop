@@ -1,4 +1,5 @@
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+import {bytesToHex} from '@threema/ts-utils/byte/bytes-to-hex';
 import type {AsyncLock} from '@threema/ts-utils/lock/async-lock';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
 
@@ -52,7 +53,6 @@ import {BLOB_FILE_NONCE, BLOB_THUMBNAIL_NONCE} from '~/common/network/protocol/c
 import type {RawBlobKey} from '~/common/network/types/keys';
 import type {Mutable, StrictExtract} from '~/common/types';
 import {assert, unreachable, unwrap} from '~/common/utils/assert';
-import {bytesToHex} from '~/common/utils/byte';
 import type {FileBytesAndMediaType} from '~/common/utils/file';
 import {hasProperty} from '~/common/utils/object';
 

@@ -1,5 +1,6 @@
 import {createHash, X509Certificate} from 'node:crypto';
 
+import {byteEquals} from '@threema/ts-utils/byte/byte-equals';
 import type {Request, WebContents} from 'electron';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import * as electron from 'electron';
@@ -7,8 +8,6 @@ import * as electron from 'electron';
 import {ElectronIpcCommand} from '~/common/enum';
 import type {Logger} from '~/common/logging';
 import type {DomainCertificatePin} from '~/common/types';
-import {byteEquals} from '~/common/utils/byte';
-
 /**
  * The verification results as returned by electron.
  *

@@ -1,6 +1,7 @@
 import * as fs from 'node:fs';
 
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+import {byteJoin} from '@threema/ts-utils/byte/byte-join';
 import * as chai from 'chai';
 
 import {NACL_CONSTANTS} from '~/common/crypto';
@@ -41,7 +42,6 @@ import {
 } from '~/common/node/key-storage/helpers';
 import {KiB} from '~/common/types';
 import {assertError} from '~/common/utils/assert';
-import {byteJoin} from '~/common/utils/byte';
 import {intoUnsignedLong, u16ToBytesLe} from '~/common/utils/number';
 import chaiByteEqual from '~/test/common/plugins/byte-equal';
 import {

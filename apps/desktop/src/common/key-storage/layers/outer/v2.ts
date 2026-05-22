@@ -1,4 +1,5 @@
 import * as v from '@badrap/valita';
+import {byteJoin} from '@threema/ts-utils/byte/byte-join';
 import type {WeakOpaque} from '@threema/ts-utils/meta/newtype';
 
 import {ensureEncryptedDataWithNonceAhead} from '~/common/crypto';
@@ -9,7 +10,6 @@ import {
 import {KeyStorageError, type KeyStorageVersionPrefixMarked} from '~/common/key-storage/common';
 import type {KeyStorageLayerEncodingHelpers} from '~/common/key-storage/layers/common';
 import {ARGON2ID_PARAMETERS_SCHEMA} from '~/common/key-storage/layers/outer/common';
-import {byteJoin} from '~/common/utils/byte';
 import {bytesLeToU16, u16ToBytesLe} from '~/common/utils/number';
 import {instanceOf} from '~/common/utils/valita-helpers';
 

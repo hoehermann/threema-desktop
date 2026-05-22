@@ -1,3 +1,5 @@
+import {byteEquals} from '@threema/ts-utils/byte/byte-equals';
+import {bytesToHex} from '@threema/ts-utils/byte/bytes-to-hex';
 import {ResolvablePromise} from '@threema/ts-utils/promise/resolvable-promise';
 import {TIMER} from '@threema/ts-utils/timer/global-timer';
 import {expect} from 'chai';
@@ -17,7 +19,6 @@ import type {DbNonceUid} from '~/common/db';
 import {NonceScope, NonceScopeUtils} from '~/common/enum';
 import type {Logger} from '~/common/logging';
 import {assert} from '~/common/utils/assert';
-import {byteEquals, bytesToHex} from '~/common/utils/byte';
 import {makeTestServices, makeTestUser} from '~/test/mocha/common/backend-mocks';
 
 function getRandomUid({crypto}: Pick<ServicesForNonceService, 'crypto'>): DbNonceUid {

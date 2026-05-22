@@ -1,3 +1,5 @@
+import {bytesToHex} from '@threema/ts-utils/byte/bytes-to-hex';
+import {hexToBytes} from '@threema/ts-utils/byte/hex-to-bytes';
 import {expect} from 'chai';
 
 import {
@@ -10,7 +12,6 @@ import {
 import {CREATE_BUFFER_TOKEN, SecureSharedBoxFactory} from '~/common/crypto/box';
 import {TweetNaClBackend} from '~/common/crypto/tweetnacl';
 import {NonceScope} from '~/common/enum';
-import {bytesToHex, hexToBytes} from '~/common/utils/byte';
 import {TestNonceService} from '~/test/mocha/common/backend-mocks';
 import {type CryptoBoxTestCase, testCases} from '~/test/mocha/common/data/crypto-box-test-cases';
 import {pseudoRandomBytes} from '~/test/mocha/common/utils';

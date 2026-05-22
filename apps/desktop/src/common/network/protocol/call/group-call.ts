@@ -1,4 +1,6 @@
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+import {byteEquals} from '@threema/ts-utils/byte/byte-equals';
+import {bytesToHex} from '@threema/ts-utils/byte/bytes-to-hex';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
 import {tag, type WeakOpaque} from '@threema/ts-utils/meta/newtype';
@@ -37,7 +39,6 @@ import {
 import {ensureBaseUrl, type BaseUrl, type IdentityString} from '~/common/network/types';
 import type {u16} from '~/common/types';
 import {assert, assertUnreachable, unreachable} from '~/common/utils/assert';
-import {byteEquals, bytesToHex} from '~/common/utils/byte';
 import {PROXY_HANDLER, registerErrorTransferHandler} from '~/common/utils/endpoint';
 import {clamp} from '~/common/utils/number';
 import {AbortRaiser, type AbortListener} from '~/common/utils/signal';

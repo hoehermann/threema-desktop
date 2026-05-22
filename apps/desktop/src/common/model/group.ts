@@ -1,4 +1,5 @@
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+import {byteEquals} from '@threema/ts-utils/byte/byte-equals';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
 import {SequenceNumberU53} from '@threema/ts-utils/sequence-number/sequence-number-u53';
@@ -71,7 +72,6 @@ import type {GroupId, IdentityString} from '~/common/network/types';
 import {getNotificationTagForGroup, type NotificationTag} from '~/common/notification';
 import type {Mutable} from '~/common/types';
 import {assert, assertUnreachable, unreachable, unwrap} from '~/common/utils/assert';
-import {byteEquals} from '~/common/utils/byte';
 import {PROXY_HANDLER} from '~/common/utils/endpoint';
 import {idColorIndex, idColorIndexToString} from '~/common/utils/id-color';
 import {u64ToHexLe} from '~/common/utils/number';

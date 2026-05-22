@@ -1,3 +1,4 @@
+import {hexWithSeparatorToBytes} from '@threema/ts-utils/byte/hex-with-separator-to-bytes';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
 
@@ -25,7 +26,6 @@ import {
 } from '~/common/network/protocol/call/group-call';
 import type {Mutable} from '~/common/types';
 import {assert, assertUnreachable, unwrap} from '~/common/utils/assert';
-import {hexWithSeparatorToBytes} from '~/common/utils/byte';
 import {PROXY_HANDLER, type ProxyEndpoint, type RemoteProxy} from '~/common/utils/endpoint';
 import type {AbortListener, AbortRaiser} from '~/common/utils/signal';
 import {type DtlsFingerprint, ensureDtlsFingerprint} from '~/common/webrtc';

@@ -3,6 +3,7 @@ import * as path from 'node:path';
 import * as process from 'node:process';
 import * as readline from 'node:readline/promises';
 
+import {bytesToHex} from '@threema/ts-utils/byte/bytes-to-hex';
 import type {u53} from '@threema/ts-utils/integer/u53';
 
 import {cliStubServicesForKeyStorage} from 'cli/services';
@@ -12,7 +13,6 @@ import {CONSOLE_LOGGER} from '~/common/logging';
 import {randomBytes} from '~/common/node/crypto/random';
 import {FileSystemKeyStorage} from '~/common/node/key-storage';
 import {assert, setAssertFailLogger, unreachable} from '~/common/utils/assert';
-import {bytesToHex} from '~/common/utils/byte';
 
 const COMMANDS = ['openSqlite'] as const;
 

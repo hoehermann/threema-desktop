@@ -1,4 +1,5 @@
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+import {byteEquals} from '@threema/ts-utils/byte/byte-equals';
 import {UTF8} from '@threema/ts-utils/codec/utf8';
 import type {u53} from '@threema/ts-utils/integer/u53';
 
@@ -47,7 +48,6 @@ import {randomMessageId} from '~/common/network/protocol/utils';
 import * as structbuf from '~/common/network/structbuf';
 import {conversationIdForReceiver} from '~/common/network/types';
 import {assert, assertUnreachable, unreachable} from '~/common/utils/assert';
-import {byteEquals} from '~/common/utils/byte';
 import {dateToUnixTimestampMs, dateToUnixTimestampS, intoUnsignedLong} from '~/common/utils/number';
 
 /**

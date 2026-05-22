@@ -1,3 +1,4 @@
+import {byteView} from '@threema/ts-utils/byte/byte-view';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {type u8, isU8} from '@threema/ts-utils/integer/u8';
 import {tag} from '@threema/ts-utils/meta/newtype';
@@ -80,7 +81,6 @@ import {
 import {wrapRawBlobKey} from '~/common/network/types/keys';
 import {isF64} from '~/common/types';
 import {exhausted, unreachable} from '~/common/utils/assert';
-import {byteView} from '~/common/utils/byte';
 
 import {sync} from './sync';
 

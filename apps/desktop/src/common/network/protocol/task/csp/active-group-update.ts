@@ -1,4 +1,5 @@
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+import {byteEquals} from '@threema/ts-utils/byte/byte-equals';
 import {UTF8} from '@threema/ts-utils/codec/utf8';
 import type {u53} from '@threema/ts-utils/integer/u53';
 
@@ -29,7 +30,6 @@ import type {
 } from '~/common/network/protocol/task/d2d';
 import * as structbuf from '~/common/network/structbuf';
 import type {IdentityString, MessageId} from '~/common/network/types';
-import {byteEquals} from '~/common/utils/byte';
 import {u64ToHexLe} from '~/common/utils/number';
 import {difference} from '~/common/utils/set';
 

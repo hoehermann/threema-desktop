@@ -1,3 +1,4 @@
+import {bytesToHex} from '@threema/ts-utils/byte/bytes-to-hex';
 import {UTF8} from '@threema/ts-utils/codec/utf8';
 import {expect} from 'chai';
 
@@ -5,7 +6,6 @@ import {ensureBlobId} from '~/common/network/protocol/blob';
 import {File} from '~/common/network/structbuf/validate/csp/e2e';
 import {RAW_FILE_JSON_SCHEMA} from '~/common/network/structbuf/validate/csp/e2e/file';
 import {assert} from '~/common/utils/assert';
-import {bytesToHex} from '~/common/utils/byte';
 
 const minimalFileJson = {
     j: 0,

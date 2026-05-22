@@ -2,6 +2,7 @@
   @component Renders the group call activity sidebar.
 -->
 <script lang="ts">
+  import {byteEquals} from '@threema/ts-utils/byte/byte-equals';
   import type {u53} from '@threema/ts-utils/integer/u53';
   import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
   import {TIMER} from '@threema/ts-utils/timer/global-timer';
@@ -45,7 +46,6 @@
   import type {ParticipantId} from '~/common/network/protocol/call/group-call';
   import type {Dimensions} from '~/common/types';
   import {assert, assertUnreachable, unreachable, unwrap} from '~/common/utils/assert';
-  import {byteEquals} from '~/common/utils/byte';
   import type {Remote} from '~/common/utils/endpoint';
   import {difference} from '~/common/utils/set';
   import {AbortRaiser} from '~/common/utils/signal';

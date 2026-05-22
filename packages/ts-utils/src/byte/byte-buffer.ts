@@ -1,6 +1,6 @@
-import type {u53} from '@threema/ts-utils/integer/u53';
+import type {u53} from '../integer/u53.js';
 
-import type {ByteEncoder} from '~/common/types';
+import type {ByteEncoder} from './byte-encoder.js';
 
 /**
  * A byte buffer claim.
@@ -40,11 +40,13 @@ export class ByteBufferClaim {
  */
 export class ByteBuffer {
     private readonly _array: Uint8Array;
+    private readonly _debug: boolean;
     private _offset: u53 = 0;
     private _claim?: ByteBufferClaim;
 
-    public constructor(array: Uint8Array) {
+    public constructor(array: Uint8Array, options: {debug: boolean}) {
         this._array = array;
+        this._debug = options.debug;
     }
 
     /**
@@ -59,7 +61,7 @@ export class ByteBuffer {
      */
     public reset(): this {
         // Bogus-fill in debug mode (with a debug-friendly '.')
-        if (import.meta.env.DEBUG) {
+        if (this._debug) {
             this._array.fill(0x2e);
         }
 

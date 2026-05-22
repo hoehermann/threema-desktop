@@ -1,3 +1,4 @@
+import {hexToBytes} from '@threema/ts-utils/byte/hex-to-bytes';
 import type {u8} from '@threema/ts-utils/integer/u8';
 
 import {ensurePublicKey, type PublicKey} from '~/common/crypto';
@@ -26,7 +27,6 @@ import type {ModelLifetimeGuard} from '~/common/model/utils/model-lifetime-guard
 import type {ModelStore} from '~/common/model/utils/model-store';
 import type {FeatureMask, IdentityString, Nickname} from '~/common/network/types';
 import type {StrictExtract, StrictOmit} from '~/common/types';
-import {hexToBytes} from '~/common/utils/byte';
 import type {ProxyMarked} from '~/common/utils/endpoint';
 import type {IdColor} from '~/common/utils/id-color';
 import type {LocalSetStore} from '~/common/utils/store/set-store';

@@ -1,3 +1,4 @@
+import {byteToHex} from '@threema/ts-utils/byte/byte-to-hex';
 import type {u53} from '@threema/ts-utils/integer/u53';
 
 import {
@@ -17,7 +18,6 @@ import {
 import type {u16, u32} from '~/common/types';
 import {unwrap} from '~/common/utils/assert';
 import {base64ToU8a} from '~/common/utils/base64';
-import {byteToHex} from '~/common/utils/byte';
 import {applyVariables} from '~/common/utils/string';
 
 /**
