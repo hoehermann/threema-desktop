@@ -1,4 +1,5 @@
 import * as v from '@badrap/valita';
+import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
 
 import type {ServicesForBackend} from '~/common/backend';
@@ -27,7 +28,6 @@ import {base64ToU8a, u8aToBase64} from '~/common/utils/base64';
 import {UTF8} from '~/common/utils/codec';
 import {ExpiringValue} from '~/common/utils/date';
 import {PROXY_HANDLER} from '~/common/utils/endpoint';
-import {AsyncLock} from '~/common/utils/lock';
 import type {IQueryableStore} from '~/common/utils/store';
 import {TIMER, TimeoutError} from '~/common/utils/timer';
 

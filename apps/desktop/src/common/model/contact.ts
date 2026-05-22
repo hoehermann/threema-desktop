@@ -1,4 +1,5 @@
 import type {u53} from '@threema/ts-utils/integer/u53';
+import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
 
 import type {
     DbContact,
@@ -55,7 +56,6 @@ import {assert, unreachable, unwrap} from '~/common/utils/assert';
 import {byteEquals} from '~/common/utils/byte';
 import {PROXY_HANDLER} from '~/common/utils/endpoint';
 import {idColorIndex, idColorIndexToString} from '~/common/utils/id-color';
-import {AsyncLock} from '~/common/utils/lock';
 import {
     createExactPropertyValidator,
     type Exact,

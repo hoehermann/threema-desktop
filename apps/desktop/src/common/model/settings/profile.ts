@@ -1,4 +1,5 @@
 import type {WorkProperties} from '@threema/libthreema-wasm';
+import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
 
 import type {RawKey} from '~/common/crypto';
 import {WorkAvailabilityStatusCategory} from '~/common/enum';
@@ -24,7 +25,6 @@ import type {ClientKey} from '~/common/network/types/keys';
 import {assert, unreachable} from '~/common/utils/assert';
 import {mapToString} from '~/common/utils/availability-status';
 import {PROXY_HANDLER} from '~/common/utils/endpoint';
-import {AsyncLock} from '~/common/utils/lock';
 
 /**
  * Sharing policy for the user's own profile picture.

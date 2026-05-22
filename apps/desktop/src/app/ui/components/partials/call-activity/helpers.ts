@@ -1,3 +1,5 @@
+import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
+
 import type {AppServicesForSvelte} from '~/app/types';
 import {
     transformOngoingGroupCallProps,
@@ -13,7 +15,6 @@ import type {ParticipantId} from '~/common/network/protocol/call/group-call';
 import type {Dimensions} from '~/common/types';
 import {unwrap, unreachable, assert} from '~/common/utils/assert';
 import type {Remote} from '~/common/utils/endpoint';
-import {AsyncLock} from '~/common/utils/lock';
 import type {AbortRaiser} from '~/common/utils/signal';
 import {WritableStore, type ReadableStore} from '~/common/utils/store';
 import type {ConversationViewModelBundle} from '~/common/viewmodel/conversation/main';

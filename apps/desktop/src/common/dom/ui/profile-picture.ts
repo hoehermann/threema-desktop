@@ -1,3 +1,5 @@
+import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
+
 import type {DbReceiverLookup} from '~/common/db';
 import type {BackendController} from '~/common/dom/backend/controller';
 import {ReceiverType, ReceiverTypeUtils} from '~/common/enum';
@@ -7,7 +9,6 @@ import type {ProfilePictureModelStore} from '~/common/model/profile-picture';
 import type {Dimensions, ReadonlyUint8Array} from '~/common/types';
 import {assert, unreachable} from '~/common/utils/assert';
 import type {Remote} from '~/common/utils/endpoint';
-import {AsyncLock} from '~/common/utils/lock';
 import {
     WritableStore,
     type IQueryableStore,

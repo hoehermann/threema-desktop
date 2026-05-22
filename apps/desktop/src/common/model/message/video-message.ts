@@ -1,3 +1,5 @@
+import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
+
 import type {
     DbCreateMessage,
     DbMessageCommon,
@@ -39,7 +41,6 @@ import type {
 import {ModelStore} from '~/common/model/utils/model-store';
 import {assert, assertUnreachable, unreachable} from '~/common/utils/assert';
 import type {FileBytesAndMediaType} from '~/common/utils/file';
-import {AsyncLock} from '~/common/utils/lock';
 
 /**
  * Create and return an video message in the database.

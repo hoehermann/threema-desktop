@@ -2,6 +2,7 @@
     @component Renders a bar with control buttons for video calls.
 -->
 <script lang="ts">
+  import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
   import {onMount} from 'svelte';
 
   import {globals} from '~/app/globals';
@@ -19,7 +20,6 @@
   import {i18n} from '~/app/ui/i18n';
   import MdIcon from '~/app/ui/svelte-components/blocks/Icon/MdIcon.svelte';
   import type {SvelteNullableBinding} from '~/app/ui/utils/svelte';
-  import {AsyncLock} from '~/common/utils/lock';
   import {truncate} from '~/common/utils/string';
 
   const log = globals.unwrap().uiLogging.logger('ui.component.call-activity-control-bar');

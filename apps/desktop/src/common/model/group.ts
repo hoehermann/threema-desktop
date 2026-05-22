@@ -1,4 +1,5 @@
 import type {u53} from '@threema/ts-utils/integer/u53';
+import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
 
 import type {
     DbContactUid,
@@ -71,7 +72,6 @@ import {assert, assertUnreachable, unreachable, unwrap} from '~/common/utils/ass
 import {byteEquals} from '~/common/utils/byte';
 import {PROXY_HANDLER} from '~/common/utils/endpoint';
 import {idColorIndex, idColorIndexToString} from '~/common/utils/id-color';
-import {AsyncLock} from '~/common/utils/lock';
 import {u64ToHexLe} from '~/common/utils/number';
 import {omit} from '~/common/utils/object';
 import {

@@ -1,4 +1,5 @@
 import type {u53} from '@threema/ts-utils/integer/u53';
+import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
 
 import type {DbConversationUid, DbReceiverLookup, UidOf} from '~/common/db';
 import {
@@ -74,7 +75,6 @@ import {
 import type {i53, Mutable} from '~/common/types';
 import {assert, assertUnreachable, isNotUndefined, unreachable} from '~/common/utils/assert';
 import {PROXY_HANDLER} from '~/common/utils/endpoint';
-import {AsyncLock} from '~/common/utils/lock';
 import {
     createExactPropertyValidator,
     type Exact,

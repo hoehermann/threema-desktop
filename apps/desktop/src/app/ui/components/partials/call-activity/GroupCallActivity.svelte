@@ -3,6 +3,7 @@
 -->
 <script lang="ts">
   import type {u53} from '@threema/ts-utils/integer/u53';
+  import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
   import {onDestroy, onMount} from 'svelte';
 
   import {globals} from '~/app/globals';
@@ -45,7 +46,6 @@
   import {assert, assertUnreachable, unreachable, unwrap} from '~/common/utils/assert';
   import {byteEquals} from '~/common/utils/byte';
   import type {Remote} from '~/common/utils/endpoint';
-  import {AsyncLock} from '~/common/utils/lock';
   import {difference} from '~/common/utils/set';
   import {AbortRaiser} from '~/common/utils/signal';
   import type {RemoteStore} from '~/common/utils/store';

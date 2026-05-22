@@ -1,4 +1,5 @@
 import type {u53} from '@threema/ts-utils/integer/u53';
+import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
 
 import type {
     DbContact,
@@ -32,7 +33,6 @@ import type {ReadonlyUint8Array} from '~/common/types';
 import {assert, unreachable} from '~/common/utils/assert';
 import {PROXY_HANDLER, type ProxyMarked} from '~/common/utils/endpoint';
 import {idColorIndexToString} from '~/common/utils/id-color';
-import {AsyncLock} from '~/common/utils/lock';
 import {hasPropertyStrict} from '~/common/utils/object';
 import {SequenceNumberU53} from '~/common/utils/sequence-number';
 

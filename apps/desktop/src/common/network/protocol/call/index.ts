@@ -1,9 +1,10 @@
+import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
+
 import {TRANSFER_HANDLER} from '~/common/index';
 import type {ServicesForModel} from '~/common/model';
 import type {OngoingGroupCall} from '~/common/model/group-call';
 import {GroupCallManager} from '~/common/network/protocol/call/group-call';
 import {PROXY_HANDLER} from '~/common/utils/endpoint';
-import {AsyncLock} from '~/common/utils/lock';
 import {WritableStore, type ReadableStore} from '~/common/utils/store';
 
 export type CallType = '1:1-call' | 'group-call';

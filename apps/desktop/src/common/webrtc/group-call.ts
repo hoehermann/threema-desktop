@@ -1,5 +1,6 @@
 import {Delayed} from '@threema/ts-utils/delayed/delayed';
 import type {u53} from '@threema/ts-utils/integer/u53';
+import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
 
 import {
     COOKIE_LENGTH,
@@ -63,7 +64,6 @@ import {
     type ProxyEndpoint,
     PROXY_HANDLER,
 } from '~/common/utils/endpoint';
-import {AsyncLock} from '~/common/utils/lock';
 import {dateToUnixTimestampMs, intoUnsignedLong, u64ToBytesLe} from '~/common/utils/number';
 import {ResolvablePromise} from '~/common/utils/resolvable-promise';
 import {SequenceNumberU53, SequenceNumberU64} from '~/common/utils/sequence-number';

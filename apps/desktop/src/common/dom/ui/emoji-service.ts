@@ -1,5 +1,6 @@
 import {groupBy} from '@threema/ts-utils/array/group-by';
 import type {u53} from '@threema/ts-utils/integer/u53';
+import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
 import type RawEmojis from 'emojibase-data/en/data.json';
 import type ShortcodesDataset from 'emojibase-data/en/shortcodes/cldr.json';
 import rawEmojiGroupData from 'emojibase-data/meta/groups.json' with {type: 'json'};
@@ -16,7 +17,6 @@ import {
     type SingleUnicodeEmoji,
     qualifize,
 } from '~/common/utils/emoji';
-import {AsyncLock} from '~/common/utils/lock';
 import {WritableStore, type IQueryableStore, type IWritableStore} from '~/common/utils/store';
 import {derive} from '~/common/utils/store/derived-store';
 

@@ -1,3 +1,4 @@
+import type {AsyncLock} from '@threema/ts-utils/lock/async-lock';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
 
 import {type Nonce, NONCE_UNGUARDED_SCOPE} from '~/common/crypto';
@@ -52,7 +53,6 @@ import type {Mutable, ReadonlyUint8Array, StrictExtract} from '~/common/types';
 import {assert, unreachable, unwrap} from '~/common/utils/assert';
 import {bytesToHex} from '~/common/utils/byte';
 import type {FileBytesAndMediaType} from '~/common/utils/file';
-import type {AsyncLock} from '~/common/utils/lock';
 import {hasProperty} from '~/common/utils/object';
 
 export const NO_SENDER = Symbol('no-sender');

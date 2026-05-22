@@ -1,4 +1,5 @@
 import type {u53} from '@threema/ts-utils/integer/u53';
+import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
 
 import type {PublicKey} from '~/common/crypto';
 import {
@@ -33,7 +34,6 @@ import {tag, type ReadonlyUint8Array, type WeakOpaque, type u16} from '~/common/
 import {assert, assertUnreachable, unreachable} from '~/common/utils/assert';
 import {byteEquals, bytesToHex} from '~/common/utils/byte';
 import {PROXY_HANDLER, registerErrorTransferHandler} from '~/common/utils/endpoint';
-import {AsyncLock} from '~/common/utils/lock';
 import {clamp} from '~/common/utils/number';
 import {ResolvablePromise} from '~/common/utils/resolvable-promise';
 import {AbortRaiser, type AbortListener} from '~/common/utils/signal';
