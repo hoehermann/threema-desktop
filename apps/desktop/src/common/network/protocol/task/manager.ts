@@ -1,6 +1,8 @@
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
 import {ResolvablePromise} from '@threema/ts-utils/promise/resolvable-promise';
+import {SequenceNumberU32} from '@threema/ts-utils/sequence-number/sequence-number-u32';
+import {SequenceNumberU53} from '@threema/ts-utils/sequence-number/sequence-number-u53';
 
 import type {ServicesForBackend} from '~/common/backend';
 import {ensureEncryptedDataWithNonceAhead} from '~/common/crypto';
@@ -46,7 +48,6 @@ import {
     type QueueValue,
     UnboundedQueue,
 } from '~/common/utils/queue';
-import {SequenceNumberU32, SequenceNumberU53} from '~/common/utils/sequence-number';
 import type {AbortListener} from '~/common/utils/signal';
 
 import {getTaskForIncomingCspMessage as getTaskForIncomingL5CspMessage} from './csp';

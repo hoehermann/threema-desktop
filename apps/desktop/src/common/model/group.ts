@@ -1,6 +1,7 @@
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
+import {SequenceNumberU53} from '@threema/ts-utils/sequence-number/sequence-number-u53';
 
 import type {
     DbContactUid,
@@ -81,7 +82,6 @@ import {
     OPTIONAL,
     REQUIRED,
 } from '~/common/utils/property-validator';
-import {SequenceNumberU53} from '~/common/utils/sequence-number';
 import {difference} from '~/common/utils/set';
 import type {AbortListener} from '~/common/utils/signal';
 import {WritableStore, type ReadableStore} from '~/common/utils/store';

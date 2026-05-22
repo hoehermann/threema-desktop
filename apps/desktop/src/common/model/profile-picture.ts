@@ -1,6 +1,7 @@
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
+import {SequenceNumberU53} from '@threema/ts-utils/sequence-number/sequence-number-u53';
 
 import type {
     DbContact,
@@ -34,8 +35,6 @@ import {assert, unreachable} from '~/common/utils/assert';
 import {PROXY_HANDLER, type ProxyMarked} from '~/common/utils/endpoint';
 import {idColorIndexToString} from '~/common/utils/id-color';
 import {hasPropertyStrict} from '~/common/utils/object';
-import {SequenceNumberU53} from '~/common/utils/sequence-number';
-
 /**
  * Return the appropriate profile picture for this contact.
  *

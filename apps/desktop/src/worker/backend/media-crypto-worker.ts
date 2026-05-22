@@ -3,6 +3,7 @@ import type {u8} from '@threema/ts-utils/integer/u8';
 import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
 import {ResolvablePromise} from '@threema/ts-utils/promise/resolvable-promise';
+import {SequenceNumberU32} from '@threema/ts-utils/sequence-number/sequence-number-u32';
 
 import {wrapRawKey} from '~/common/crypto';
 import {
@@ -41,7 +42,6 @@ import {type u32, tag} from '~/common/types';
 import {assert, assertUnreachable, setAssertFailLogger, unreachable} from '~/common/utils/assert';
 import {bytesToHex} from '~/common/utils/byte';
 import {PROXY_HANDLER, type EndpointService} from '~/common/utils/endpoint';
-import {SequenceNumberU32} from '~/common/utils/sequence-number';
 import {type AbortListener, AbortRaiser} from '~/common/utils/signal';
 
 interface ServicesForMediaCryptoWorker {

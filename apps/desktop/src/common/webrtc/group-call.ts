@@ -3,6 +3,8 @@ import {Delayed} from '@threema/ts-utils/delayed/delayed';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
 import {ResolvablePromise} from '@threema/ts-utils/promise/resolvable-promise';
+import {SequenceNumberU53} from '@threema/ts-utils/sequence-number/sequence-number-u53';
+import {SequenceNumberU64} from '@threema/ts-utils/sequence-number/sequence-number-u64';
 
 import {
     COOKIE_LENGTH,
@@ -67,7 +69,6 @@ import {
     PROXY_HANDLER,
 } from '~/common/utils/endpoint';
 import {dateToUnixTimestampMs, intoUnsignedLong, u64ToBytesLe} from '~/common/utils/number';
-import {SequenceNumberU53, SequenceNumberU64} from '~/common/utils/sequence-number';
 import {AbortRaiser, type AbortListener} from '~/common/utils/signal';
 import {WritableStore, type IQueryableStore, type ReadableStore} from '~/common/utils/store';
 import {derive} from '~/common/utils/store/derived-store';

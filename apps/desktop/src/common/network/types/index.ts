@@ -1,4 +1,6 @@
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+import type {SequenceNumberU32} from '@threema/ts-utils/sequence-number/sequence-number-u32';
+import type {SequenceNumberU64} from '@threema/ts-utils/sequence-number/sequence-number-u64';
 
 import {
     wrapRawKey,
@@ -15,8 +17,6 @@ import {getIdentityString} from '~/common/model/contact';
 import {isU64, tag, type u32, type u64, type WeakOpaque} from '~/common/types';
 import {unreachable} from '~/common/utils/assert';
 import {UTF8} from '~/common/utils/codec';
-import type {SequenceNumberU32, SequenceNumberU64} from '~/common/utils/sequence-number';
-
 /**
  * Properties to validate a URL with.
  */

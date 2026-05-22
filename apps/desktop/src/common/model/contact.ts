@@ -1,5 +1,6 @@
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
+import {SequenceNumberU53} from '@threema/ts-utils/sequence-number/sequence-number-u53';
 
 import type {
     DbContact,
@@ -62,7 +63,6 @@ import {
     OPTIONAL,
     REQUIRED,
 } from '~/common/utils/property-validator';
-import {SequenceNumberU53} from '~/common/utils/sequence-number';
 import {LocalSetStore} from '~/common/utils/store/set-store';
 import {getGraphemeClusters} from '~/common/utils/string';
 

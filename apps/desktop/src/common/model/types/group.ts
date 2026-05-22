@@ -1,6 +1,7 @@
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import type {u8} from '@threema/ts-utils/integer/u8';
+import type {SequenceNumberU53} from '@threema/ts-utils/sequence-number/sequence-number-u53';
 
 import type {DbGroup, DbGroupUid, DbList, DbRunningGroupCall, UidOf} from '~/common/db';
 import type {
@@ -34,7 +35,6 @@ import type {
 import type {GroupId, IdentityString} from '~/common/network/types';
 import type {ProxyMarked} from '~/common/utils/endpoint';
 import type {IdColor} from '~/common/utils/id-color';
-import type {SequenceNumberU53} from '~/common/utils/sequence-number';
 import type {AbortListener} from '~/common/utils/signal';
 import type {ReadableStore} from '~/common/utils/store';
 import type {LocalSetStore} from '~/common/utils/store/set-store';

@@ -4,6 +4,7 @@ import {
     ResolvablePromise,
     type QueryablePromise,
 } from '@threema/ts-utils/promise/resolvable-promise';
+import {SequenceNumberU64} from '@threema/ts-utils/sequence-number/sequence-number-u64';
 
 import type {ServicesForBackend} from '~/common/backend';
 import {COOKIE_LENGTH, ensureCookie} from '~/common/crypto';
@@ -28,7 +29,6 @@ import type {
 } from '~/common/network/types';
 import type {ClientKey, TemporaryClientKey} from '~/common/network/types/keys';
 import type {u32} from '~/common/types';
-import {SequenceNumberU64} from '~/common/utils/sequence-number';
 import type {AbortListener} from '~/common/utils/signal';
 import {MonotonicEnumStore} from '~/common/utils/store';
 
