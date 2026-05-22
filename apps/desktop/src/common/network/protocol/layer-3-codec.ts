@@ -9,6 +9,7 @@ import type {SyncTransformerCodec} from '@threema/ts-utils/codec/sync-transforme
 import type {Delayed} from '@threema/ts-utils/delayed/delayed';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
+import type {ResolvablePromise} from '@threema/ts-utils/promise/resolvable-promise';
 
 import type {ServicesForBackend} from '~/common/backend';
 import {
@@ -49,7 +50,6 @@ import {byteEncodeSequence, byteEquals, bytePadPkcs7, byteToHex} from '~/common/
 import {ByteBuffer} from '~/common/utils/byte-buffer';
 import {UTF8} from '~/common/utils/codec';
 import {intoUnsignedLong} from '~/common/utils/number';
-import type {ResolvablePromise} from '~/common/utils/resolvable-promise';
 import type {MonotonicEnumStore} from '~/common/utils/store';
 
 import type {RawCaptureHandler} from './capture';

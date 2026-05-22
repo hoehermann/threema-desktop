@@ -1,5 +1,6 @@
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
+import {ResolvablePromise} from '@threema/ts-utils/promise/resolvable-promise';
 
 import type {ServicesForBackend} from '~/common/backend';
 import {
@@ -11,7 +12,6 @@ import type {Logger, LoggerFactory} from '~/common/logging';
 import type {GroupCallIdValue, GroupCallId} from '~/common/network/protocol/call/group-call';
 import {PROXY_HANDLER} from '~/common/utils/endpoint';
 import {WeakValueMap} from '~/common/utils/map';
-import {ResolvablePromise} from '~/common/utils/resolvable-promise';
 import {AbortRaiser, type RemoteAbortListener} from '~/common/utils/signal';
 import type {WebRtcService} from '~/common/webrtc';
 import type {GroupCallContext, AnyGroupCallContextAbort} from '~/common/webrtc/group-call';

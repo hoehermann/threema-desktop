@@ -1,4 +1,5 @@
 <script lang="ts">
+  import {ResolvablePromise} from '@threema/ts-utils/promise/resolvable-promise';
   import {onMount} from 'svelte';
 
   import type {AppServicesForSvelte} from '~/app/types';
@@ -15,7 +16,6 @@
   import {svelteUnreachable, type SvelteNullableBinding} from '~/app/ui/utils/svelte';
   import type {SystemInfo} from '~/common/electron-ipc';
   import {unreachable} from '~/common/utils/assert';
-  import {ResolvablePromise} from '~/common/utils/resolvable-promise';
 
   interface Props {
     /**

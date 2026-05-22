@@ -1,3 +1,8 @@
+import type {
+    QueryablePromise,
+    ResolvablePromise,
+} from '@threema/ts-utils/promise/resolvable-promise';
+
 import type {ServicesForBackend} from '~/common/backend';
 import type {DeviceGroupBoxes} from '~/common/crypto/device-group-keys';
 import {
@@ -35,7 +40,6 @@ import {assertUnreachable, unreachable} from '~/common/utils/assert';
 import {registerErrorTransferHandler} from '~/common/utils/endpoint';
 import {isGroupManagedAndMonitoredByGateway, isGroupManagedByGateway} from '~/common/utils/group';
 import type {QueueConsumer, QueueProducer} from '~/common/utils/queue';
-import type {QueryablePromise, ResolvablePromise} from '~/common/utils/resolvable-promise';
 import type {AbortListener} from '~/common/utils/signal';
 
 // Re-export for other APIs

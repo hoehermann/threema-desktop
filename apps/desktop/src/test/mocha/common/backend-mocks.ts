@@ -9,6 +9,7 @@ import * as path from 'node:path';
 import type {Delayed} from '@threema/ts-utils/delayed/delayed';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import type {u8} from '@threema/ts-utils/integer/u8';
+import {ResolvablePromise} from '@threema/ts-utils/promise/resolvable-promise';
 import {expect} from 'chai';
 
 import type {ServicesForBackend} from '~/common/backend';
@@ -192,7 +193,6 @@ import {
 import type {FileBytesAndMediaType} from '~/common/utils/file';
 import {Identity} from '~/common/utils/identity';
 import {ValueObject} from '~/common/utils/object';
-import {ResolvablePromise} from '~/common/utils/resolvable-promise';
 import {AbortRaiser} from '~/common/utils/signal';
 import {WritableStore, type LocalStore} from '~/common/utils/store';
 import {derive} from '~/common/utils/store/derived-store';

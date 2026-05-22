@@ -1,6 +1,7 @@
 import type {ClientInfo} from '@threema/libthreema-wasm';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
+import {ResolvablePromise} from '@threema/ts-utils/promise/resolvable-promise';
 
 import type {
     EarlyBackendServices,
@@ -134,7 +135,6 @@ import {
 import {Identity} from '~/common/utils/identity';
 import {dateToUnixTimestampMs, u64ToHexLe} from '~/common/utils/number';
 import {eternalPromise, taggedRace, type ReusablePromise} from '~/common/utils/promise';
-import {ResolvablePromise} from '~/common/utils/resolvable-promise';
 import {
     type LocalStore,
     type StoreDeactivator,

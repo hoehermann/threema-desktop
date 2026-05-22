@@ -1,6 +1,5 @@
-import {ensureError} from '@threema/ts-utils/meta/ensure-error';
-
-import {unreachable} from '~/common/utils/assert';
+import {ensureError} from '../meta/ensure-error.js';
+import {unreachable} from '../meta/unreachable.js';
 
 export interface PromiseFn<V, E extends Error = Error> {
     resolve: (value: V) => void;
@@ -8,7 +7,7 @@ export interface PromiseFn<V, E extends Error = Error> {
 }
 
 /**
- * Current state of a QueryablePromise.
+ * Current state of a {@link QueryablePromise}.
  */
 export type QueryablePromiseState<V, E extends Error = Error> =
     | {readonly type: 'pending'}
@@ -16,7 +15,7 @@ export type QueryablePromiseState<V, E extends Error = Error> =
     | {readonly type: 'rejected'; readonly result: E};
 
 /**
- * A {Promise} that allows to query the current status.
+ * A {@link Promise} that allows to query the current status.
  */
 export interface QueryablePromise<V, E extends Error = Error> extends Promise<V> {
     readonly done: boolean;
@@ -33,7 +32,7 @@ export interface QueryablePromise<V, E extends Error = Error> extends Promise<V>
 type UncaughtBehavior = 'default' | 'discard';
 
 /**
- * A {Promise} that allows to resolve or reject outside of the executor and query the current
+ * A {@link Promise} that allows to resolve or reject outside of the executor and query the current
  * status.
  *
  * WARNING: Are there any calls to `.reject` on your promise or does it wrap another `Promise` that
@@ -150,6 +149,7 @@ export class ResolvablePromise<V, E extends Error = never>
      * Called if the promise resolve/rejector methods were not available.
      * This should never happen!
      */
+    /* istanbul ignore next -- @preserve: structurally unreachable, overwritten inside super() */
     private static _fail(): void {
         throw new Error('Promise resolve/reject not available');
     }

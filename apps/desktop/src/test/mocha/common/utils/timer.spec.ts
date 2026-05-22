@@ -1,8 +1,8 @@
 import type {u53} from '@threema/ts-utils/integer/u53';
+import {ResolvablePromise} from '@threema/ts-utils/promise/resolvable-promise';
 import {expect} from 'chai';
 
 import {ValueObject} from '~/common/utils/object';
-import {ResolvablePromise} from '~/common/utils/resolvable-promise';
 import {TIMER} from '~/common/utils/timer';
 import {expectCondition} from '~/test/mocha/common/utils';
 

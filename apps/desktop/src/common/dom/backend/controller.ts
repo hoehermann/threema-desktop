@@ -1,5 +1,6 @@
 import type {ResettableDelayed} from '@threema/ts-utils/delayed/resettable-delayed';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
+import {ResolvablePromise} from '@threema/ts-utils/promise/resolvable-promise';
 
 import type {ServicesForBackendController} from '~/common/backend';
 import {STATIC_CONFIG} from '~/common/config';
@@ -32,7 +33,6 @@ import type {TestDataJson} from '~/common/test-data';
 import {assertError, assertUnreachable, unreachable} from '~/common/utils/assert';
 import {PROXY_HANDLER, type RemoteProxy, type ProxyEndpoint} from '~/common/utils/endpoint';
 import {ReusablePromise, eternalPromise} from '~/common/utils/promise';
-import {ResolvablePromise} from '~/common/utils/resolvable-promise';
 import {
     type IQueryableStore,
     type ReadableStore,

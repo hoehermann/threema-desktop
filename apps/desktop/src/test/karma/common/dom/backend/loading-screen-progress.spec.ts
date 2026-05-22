@@ -1,3 +1,4 @@
+import {ResolvablePromise} from '@threema/ts-utils/promise/resolvable-promise';
 import {expect} from 'chai';
 
 import type {LoadingState} from '~/common/dom/backend';
@@ -9,7 +10,6 @@ import {ConnectionState} from '~/common/enum';
 import {LoadingInfo} from '~/common/loading';
 import {NOOP_LOGGER} from '~/common/logging';
 import type {u32, u53} from '~/common/types';
-import {ResolvablePromise} from '~/common/utils/resolvable-promise';
 import {WritableStore} from '~/common/utils/store';
 import {TIMER} from '~/common/utils/timer';
 
