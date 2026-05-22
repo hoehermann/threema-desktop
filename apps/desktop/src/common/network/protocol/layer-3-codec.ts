@@ -15,9 +15,11 @@ import {byteToHex} from '@threema/ts-utils/byte/byte-to-hex';
 import type {SyncTransformerCodec} from '@threema/ts-utils/codec/sync-transformer-codec';
 import {UTF8} from '@threema/ts-utils/codec/utf8';
 import type {Delayed} from '@threema/ts-utils/delayed/delayed';
+import type {u32} from '@threema/ts-utils/integer/u32';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
 import type {WeakOpaque} from '@threema/ts-utils/meta/newtype';
+import {intoUnsignedLong} from '@threema/ts-utils/number/into-unsigned-long';
 import type {ResolvablePromise} from '@threema/ts-utils/promise/resolvable-promise';
 
 import type {ServicesForBackend} from '~/common/backend';
@@ -53,9 +55,7 @@ import type {
     DeviceCookie,
 } from '~/common/network/types';
 import type {ClientKey, TemporaryClientKey, TemporaryServerKey} from '~/common/network/types/keys';
-import type {u32} from '~/common/types';
 import {assert, assertUnreachable, exhausted, unreachable} from '~/common/utils/assert';
-import {intoUnsignedLong} from '~/common/utils/number';
 import type {MonotonicEnumStore} from '~/common/utils/store';
 
 import type {RawCaptureHandler} from './capture';

@@ -2,6 +2,9 @@ import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-ar
 import {byteEquals} from '@threema/ts-utils/byte/byte-equals';
 import {UTF8} from '@threema/ts-utils/codec/utf8';
 import type {u53} from '@threema/ts-utils/integer/u53';
+import {dateToUnixTimestampMs} from '@threema/ts-utils/number/date-to-unix-timestamp-ms';
+import {dateToUnixTimestampS} from '@threema/ts-utils/number/date-to-unix-timestamp-s';
+import {intoUnsignedLong} from '@threema/ts-utils/number/into-unsigned-long';
 
 import type {Nonce} from '~/common/crypto';
 import {CREATE_BUFFER_TOKEN} from '~/common/crypto/box';
@@ -48,7 +51,6 @@ import {randomMessageId} from '~/common/network/protocol/utils';
 import * as structbuf from '~/common/network/structbuf';
 import {conversationIdForReceiver} from '~/common/network/types';
 import {assert, assertUnreachable, unreachable} from '~/common/utils/assert';
-import {dateToUnixTimestampMs, dateToUnixTimestampS, intoUnsignedLong} from '~/common/utils/number';
 
 /**
  * A function that takes a contact and returns an encoder and the corresponding message properties. If `omit` is returned, no

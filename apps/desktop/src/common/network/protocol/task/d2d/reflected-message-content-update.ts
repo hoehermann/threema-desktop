@@ -1,3 +1,5 @@
+import {u64ToHexLe} from '@threema/ts-utils/number/u64-to-hex-le';
+
 import {type MessageDirection, MessageType} from '~/common/enum';
 import type {Logger} from '~/common/logging';
 import type {Conversation} from '~/common/model/types/conversation';
@@ -15,7 +17,6 @@ import type {
     MessageId,
 } from '~/common/network/types';
 import {assert, unreachable} from '~/common/utils/assert';
-import {u64ToHexLe} from '~/common/utils/number';
 
 export class ReflectedMessageContentUpdateTask
     implements ComposableTask<PassiveTaskCodecHandle, void>

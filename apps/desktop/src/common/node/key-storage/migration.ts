@@ -3,6 +3,8 @@
  * them to the latest format.
  */
 
+import {bytesLeToU16} from '@threema/ts-utils/number/bytes-le-to-u16';
+
 import type {EncryptedDataWithNonceAhead} from '~/common/crypto';
 import {
     InnerKeyStorage_Version,
@@ -53,7 +55,6 @@ import {
     encodeLatestOuterKeyStorage,
 } from '~/common/node/key-storage/helpers';
 import {unreachable} from '~/common/utils/assert';
-import {bytesLeToU16} from '~/common/utils/number';
 import {pick} from '~/common/utils/object';
 
 import {decryptPasswordBased, decryptRemoteSecretBased} from './crypto';

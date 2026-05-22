@@ -3,9 +3,9 @@
 -->
 <script lang="ts">
   import type {u53} from '@threema/ts-utils/integer/u53';
+  import {clamp} from '@threema/ts-utils/number/clamp';
 
   import type {LogoProps} from '~/app/ui/components/partials/logo/props';
-  import {clamp} from '~/common/utils/number';
 
   const {animated = false, oncompletion, progress}: LogoProps = $props();
 

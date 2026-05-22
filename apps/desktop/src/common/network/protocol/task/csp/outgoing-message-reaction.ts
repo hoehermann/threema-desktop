@@ -1,4 +1,6 @@
 import {UTF8} from '@threema/ts-utils/codec/utf8';
+import {intoUnsignedLong} from '@threema/ts-utils/number/into-unsigned-long';
+import {u64ToHexLe} from '@threema/ts-utils/number/u64-to-hex-le';
 
 import {
     CspE2eDeliveryReceiptStatus,
@@ -40,7 +42,6 @@ import * as structbuf from '~/common/network/structbuf';
 import type {EmojiReaction, MessageId} from '~/common/network/types';
 import {unreachable} from '~/common/utils/assert';
 import {checkFeatureMaskSupportsFeature, supportsFeature} from '~/common/utils/feature-mask';
-import {intoUnsignedLong, u64ToHexLe} from '~/common/utils/number';
 
 interface TypedEncoder<TType extends CspE2eType> {
     readonly encoder: LayerEncoder<MessageTypeEncoders[TType]>;

@@ -1,4 +1,5 @@
 import * as v from '@badrap/valita';
+import {unixTimestampToDateMs} from '@threema/ts-utils/number/unix-timestamp-to-date-ms';
 
 import {
     ConversationCategoryUtils,
@@ -9,7 +10,6 @@ import {
 import {d2d_sync} from '~/common/network/protobuf/js';
 import {validator} from '~/common/network/protobuf/utils';
 import {DeltaImage, GroupIdentity, Identities} from '~/common/network/protobuf/validate/common';
-import {unixTimestampToDateMs} from '~/common/utils/number';
 import {
     nullOptional,
     policyOverrideWithOptionalExpirationDateOrValitaDefault,

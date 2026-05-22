@@ -7,6 +7,7 @@ import * as v from '@badrap/valita';
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
+import {clamp} from '@threema/ts-utils/number/clamp';
 import {ResolvablePromise} from '@threema/ts-utils/promise/resolvable-promise';
 import {TIMER} from '@threema/ts-utils/timer/global-timer';
 import type {IpcMainEvent, MenuItemConstructorOptions} from 'electron';
@@ -48,7 +49,6 @@ import {
     unwrap,
 } from '~/common/utils/assert';
 import {base64ToU8a} from '~/common/utils/base64';
-import {clamp} from '~/common/utils/number';
 
 import {
     checkFallbackOppFile,

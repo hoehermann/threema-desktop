@@ -1,4 +1,5 @@
 import * as v from '@badrap/valita';
+import {unixTimestampToDateMs} from '@threema/ts-utils/number/unix-timestamp-to-date-ms';
 
 import {ensurePublicKey} from '~/common/crypto';
 import {
@@ -24,7 +25,6 @@ import {
     ensureNickname,
     type Nickname,
 } from '~/common/network/types';
-import {unixTimestampToDateMs} from '~/common/utils/number';
 import {
     instanceOf,
     nullOptional,

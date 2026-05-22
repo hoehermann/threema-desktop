@@ -1,4 +1,5 @@
 import {bytesToHex} from '@threema/ts-utils/byte/bytes-to-hex';
+import {u64ToHexLe} from '@threema/ts-utils/number/u64-to-hex-le';
 
 import {NONCE_REUSED} from '~/common/crypto/nonce';
 import type {DbPollVoteFragment} from '~/common/db';
@@ -67,7 +68,6 @@ import type {
     MessageId,
 } from '~/common/network/types';
 import {assert, unreachable} from '~/common/utils/assert';
-import {u64ToHexLe} from '~/common/utils/number';
 
 type CommonOutboundMessageInitFragment = Omit<
     MessageFor<MessageDirection.OUTBOUND, MessageType, 'init'>,

@@ -5,6 +5,8 @@ import {hexToBytes} from '@threema/ts-utils/byte/hex-to-bytes';
 import {UTF8} from '@threema/ts-utils/codec/utf8';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
+import {dateToUnixTimestampMs} from '@threema/ts-utils/number/date-to-unix-timestamp-ms';
+import {u64ToHexLe} from '@threema/ts-utils/number/u64-to-hex-le';
 import {ResolvablePromise} from '@threema/ts-utils/promise/resolvable-promise';
 
 import type {
@@ -134,7 +136,6 @@ import {
     type ProxyEndpoint,
 } from '~/common/utils/endpoint';
 import {Identity} from '~/common/utils/identity';
-import {dateToUnixTimestampMs, u64ToHexLe} from '~/common/utils/number';
 import {eternalPromise, taggedRace, type ReusablePromise} from '~/common/utils/promise';
 import {
     type LocalStore,

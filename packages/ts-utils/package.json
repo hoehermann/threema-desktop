@@ -32,6 +32,9 @@
     "lint:tsc": "tsc --noEmit",
     "test:vitest": "vitest run --coverage"
   },
+  "dependencies": {
+    "long": "5.3.2"
+  },
   "devDependencies": {
     "@threema/eslint-config": "workspace:*",
     "@threema/ts-config": "workspace:*",

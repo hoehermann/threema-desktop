@@ -1,9 +1,10 @@
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
+import {hexLeToU64} from '@threema/ts-utils/number/hex-le-to-u64';
+import {u64ToHexLe} from '@threema/ts-utils/number/u64-to-hex-le';
 
 import type {Logger} from '~/common/logging';
 import {ensureMessageId, type MessageId} from '~/common/network/types';
 import {unwrap} from '~/common/utils/assert';
-import {hexLeToU64, u64ToHexLe} from '~/common/utils/number';
 
 const REGEX_MATCH_QUOTES = /^> quote #(?<messageId>[0-9a-f]{16})(?:\r?\n){2}(?<comment>.*)$/su;
 

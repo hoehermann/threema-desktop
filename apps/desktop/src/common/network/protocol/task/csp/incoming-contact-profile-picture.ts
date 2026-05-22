@@ -1,4 +1,5 @@
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
+import {u64ToHexLe} from '@threema/ts-utils/number/u64-to-hex-le';
 
 import {extractErrorMessage} from '~/common/error';
 import type {Logger} from '~/common/logging';
@@ -14,8 +15,6 @@ import type {
 import type {SetProfilePicture} from '~/common/network/structbuf/validate/csp/e2e';
 import type {MessageId} from '~/common/network/types';
 import {assert} from '~/common/utils/assert';
-import {u64ToHexLe} from '~/common/utils/number';
-
 /**
  * Receive and process incoming contact set/delete profile picture messages.
  */

@@ -1,4 +1,6 @@
 import type * as v from '@badrap/valita';
+import {intoU64} from '@threema/ts-utils/number/into-u64';
+import {u64ToHexLe} from '@threema/ts-utils/number/u64-to-hex-le';
 
 import {
     CspE2eContactControlType,
@@ -28,7 +30,6 @@ import {
 import * as structbuf from '~/common/network/structbuf';
 import type {D2mDeviceId} from '~/common/network/types';
 import {exhausted} from '~/common/utils/assert';
-import {intoU64, u64ToHexLe} from '~/common/utils/number';
 import {hasProperty} from '~/common/utils/object';
 
 function unhandled(

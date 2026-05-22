@@ -1,3 +1,5 @@
+import {u64ToHexLe} from '@threema/ts-utils/number/u64-to-hex-le';
+
 import type {DbPollVoteFragment} from '~/common/db';
 import {PollAnnounceType, PollState, PollMessageType} from '~/common/enum';
 import type {Logger} from '~/common/logging';
@@ -17,7 +19,6 @@ import type {
     DistributionListConversationId,
     IdentityString,
 } from '~/common/network/types';
-import {u64ToHexLe} from '~/common/utils/number';
 import {hasProperty} from '~/common/utils/object';
 
 export abstract class PollUpdateTask<

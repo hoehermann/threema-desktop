@@ -1,5 +1,6 @@
 import type {u53} from '@threema/ts-utils/integer/u53';
 import type {WeakOpaque} from '@threema/ts-utils/meta/newtype';
+import {u64ToHexLe} from '@threema/ts-utils/number/u64-to-hex-le';
 
 import type {ServicesForBackend} from '~/common/backend';
 import {
@@ -26,8 +27,6 @@ import {
     getMentionMatches,
     type MentionMatch,
 } from '~/common/utils/mentions';
-import {u64ToHexLe} from '~/common/utils/number';
-
 // Copied from lib.dom.d.ts
 interface NotificationAction {
     readonly action: string;

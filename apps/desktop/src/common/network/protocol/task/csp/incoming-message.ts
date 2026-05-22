@@ -8,6 +8,11 @@ import {UTF8} from '@threema/ts-utils/codec/utf8';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import type {u8} from '@threema/ts-utils/integer/u8';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
+import {dateToUnixTimestampMs} from '@threema/ts-utils/number/date-to-unix-timestamp-ms';
+import {intoU64} from '@threema/ts-utils/number/into-u64';
+import {intoUnsignedLong} from '@threema/ts-utils/number/into-unsigned-long';
+import {u64ToHexLe} from '@threema/ts-utils/number/u64-to-hex-le';
+import {unixTimestampToDateS} from '@threema/ts-utils/number/unix-timestamp-to-date-s';
 
 import type {EncryptedData, Nonce, PublicKey} from '~/common/crypto';
 import {CREATE_BUFFER_TOKEN} from '~/common/crypto/box';
@@ -113,14 +118,6 @@ import {
 } from '~/common/network/types';
 import {assert, exhausted, unreachable} from '~/common/utils/assert';
 import {Identity} from '~/common/utils/identity';
-import {
-    dateToUnixTimestampMs,
-    intoU64,
-    intoUnsignedLong,
-    u64ToHexLe,
-    unixTimestampToDateS,
-} from '~/common/utils/number';
-
 /**
  * Ensure the provided timestamp on when a message has been created is not in
  * the future (clamp to _now_ if necessary).

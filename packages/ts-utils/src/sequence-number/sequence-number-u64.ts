@@ -1,13 +1,13 @@
+import type {u64} from '../integer/u64.js';
+
 /**
  * A generic 64-bit unsigned sequence number. Prevents wrapping.
  */
-// TODO(DESK-2092): Constrain `SNV` to `u64` and type `start`/`_value` accordingly once that type
-// is available in this package.
-export class SequenceNumberU64<SNV extends bigint> {
+export class SequenceNumberU64<SNV extends u64> {
     private static readonly _MAX_VALUE = 2n ** 64n - 1n;
-    private _value: bigint;
+    private _value: u64;
 
-    public constructor(start: bigint) {
+    public constructor(start: u64) {
         this._value = start;
     }
 

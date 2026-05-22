@@ -1,4 +1,5 @@
 import {tag} from '@threema/ts-utils/meta/newtype';
+import {u64ToHexLe} from '@threema/ts-utils/number/u64-to-hex-le';
 
 import {
     ImageRenderingType,
@@ -19,7 +20,6 @@ import {
     type SingleUnicodeEmoji,
     type UnsupportedEmoji,
 } from '~/common/utils/emoji';
-import {u64ToHexLe} from '~/common/utils/number';
 import type {GetAndSubscribeFunction} from '~/common/utils/store/derived-store';
 import type {ServicesForViewModel} from '~/common/viewmodel';
 import {getConversationDeletedMessageViewModelBundle} from '~/common/viewmodel/conversation/main/message/deleted-message';

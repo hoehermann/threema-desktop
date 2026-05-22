@@ -1,4 +1,6 @@
 import {UTF8} from '@threema/ts-utils/codec/utf8';
+import {dateToUnixTimestampMs} from '@threema/ts-utils/number/date-to-unix-timestamp-ms';
+import {intoUnsignedLong} from '@threema/ts-utils/number/into-unsigned-long';
 import {expect} from 'chai';
 
 import {NACL_CONSTANTS} from '~/common/crypto';
@@ -29,7 +31,6 @@ import {
 } from '~/common/network/types';
 import {assert} from '~/common/utils/assert';
 import {Identity} from '~/common/utils/identity';
-import {dateToUnixTimestampMs, intoUnsignedLong} from '~/common/utils/number';
 import {
     addTestGroup,
     addTestUserAsContact,

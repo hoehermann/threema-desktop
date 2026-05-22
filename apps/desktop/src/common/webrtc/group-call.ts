@@ -6,6 +6,9 @@ import {Delayed} from '@threema/ts-utils/delayed/delayed';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
 import {tag} from '@threema/ts-utils/meta/newtype';
+import {dateToUnixTimestampMs} from '@threema/ts-utils/number/date-to-unix-timestamp-ms';
+import {intoUnsignedLong} from '@threema/ts-utils/number/into-unsigned-long';
+import {u64ToBytesLe} from '@threema/ts-utils/number/u64-to-bytes-le';
 import {ResolvablePromise} from '@threema/ts-utils/promise/resolvable-promise';
 import {SequenceNumberU53} from '@threema/ts-utils/sequence-number/sequence-number-u53';
 import {SequenceNumberU64} from '@threema/ts-utils/sequence-number/sequence-number-u64';
@@ -72,7 +75,6 @@ import {
     type ProxyEndpoint,
     PROXY_HANDLER,
 } from '~/common/utils/endpoint';
-import {dateToUnixTimestampMs, intoUnsignedLong, u64ToBytesLe} from '~/common/utils/number';
 import {AbortRaiser, type AbortListener} from '~/common/utils/signal';
 import {WritableStore, type IQueryableStore, type ReadableStore} from '~/common/utils/store';
 import {derive} from '~/common/utils/store/derived-store';

@@ -4,6 +4,7 @@ import {bytesToHex} from '@threema/ts-utils/byte/bytes-to-hex';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
 import {tag, type WeakOpaque} from '@threema/ts-utils/meta/newtype';
+import {clamp} from '@threema/ts-utils/number/clamp';
 import {ResolvablePromise} from '@threema/ts-utils/promise/resolvable-promise';
 import {TIMER} from '@threema/ts-utils/timer/global-timer';
 import type {TimerCanceller} from '@threema/ts-utils/timer/timer-canceller';
@@ -40,7 +41,6 @@ import {ensureBaseUrl, type BaseUrl, type IdentityString} from '~/common/network
 import type {u16} from '~/common/types';
 import {assert, assertUnreachable, unreachable} from '~/common/utils/assert';
 import {PROXY_HANDLER, registerErrorTransferHandler} from '~/common/utils/endpoint';
-import {clamp} from '~/common/utils/number';
 import {AbortRaiser, type AbortListener} from '~/common/utils/signal';
 import {type IQueryableStore, WritableStore} from '~/common/utils/store';
 import {MIDS_MAX, type AnyGroupCallContextAbort, GroupCall} from '~/common/webrtc/group-call';

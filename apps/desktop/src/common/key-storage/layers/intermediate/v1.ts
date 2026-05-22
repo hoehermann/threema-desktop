@@ -1,5 +1,6 @@
 import * as v from '@badrap/valita';
 import type {WeakOpaque} from '@threema/ts-utils/meta/newtype';
+import {bytesLeToU16} from '@threema/ts-utils/number/bytes-le-to-u16';
 
 import {ensureEncryptedDataWithNonceAhead, type EncryptedDataWithNonceAhead} from '~/common/crypto';
 import {
@@ -13,7 +14,6 @@ import {
     ensureRemoteSecretAuthenticationToken,
     ensureRemoteSecretHash,
 } from '~/common/network/types';
-import {bytesLeToU16} from '~/common/utils/number';
 import {instanceOf} from '~/common/utils/valita-helpers';
 
 // Encryption

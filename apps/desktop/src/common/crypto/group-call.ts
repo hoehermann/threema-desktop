@@ -2,6 +2,7 @@ import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-ar
 import {UTF8} from '@threema/ts-utils/codec/utf8';
 import {type u8, ensureU8} from '@threema/ts-utils/integer/u8';
 import {tag, type WeakOpaque} from '@threema/ts-utils/meta/newtype';
+import {u64ToBytesLe} from '@threema/ts-utils/number/u64-to-bytes-le';
 
 import type {ServicesForBackend} from '~/common/backend';
 import {
@@ -32,7 +33,6 @@ import type {ClientKey} from '~/common/network/types/keys';
 import type {RepeatedTuple, u64} from '~/common/types';
 import {assert} from '~/common/utils/assert';
 import type {ProxyMarked} from '~/common/utils/endpoint';
-import {u64ToBytesLe} from '~/common/utils/number';
 
 type SecretBoxWithRandomNonce = CryptoBox<never, never, never, never, NonceUnguardedScope>;
 

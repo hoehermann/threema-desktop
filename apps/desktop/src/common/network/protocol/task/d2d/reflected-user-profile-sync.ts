@@ -1,4 +1,5 @@
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
+import {u64ToHexLe} from '@threema/ts-utils/number/u64-to-hex-le';
 
 import {ensureNonce} from '~/common/crypto';
 import {extractErrorMessage} from '~/common/error';
@@ -17,7 +18,6 @@ import {
 import type {D2mDeviceId} from '~/common/network/types';
 import type {Mutable} from '~/common/types';
 import {unreachable} from '~/common/utils/assert';
-import {u64ToHexLe} from '~/common/utils/number';
 import {VALITA_EMPTY_STRING, VALITA_NULL, VALITA_UNDEFINED} from '~/common/utils/valita-helpers';
 
 /**

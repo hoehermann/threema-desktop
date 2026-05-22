@@ -2,6 +2,8 @@ import * as fs from 'node:fs';
 
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import {byteJoin} from '@threema/ts-utils/byte/byte-join';
+import {intoUnsignedLong} from '@threema/ts-utils/number/into-unsigned-long';
+import {u16ToBytesLe} from '@threema/ts-utils/number/u16-to-bytes-le';
 import * as chai from 'chai';
 
 import {NACL_CONSTANTS} from '~/common/crypto';
@@ -42,7 +44,6 @@ import {
 } from '~/common/node/key-storage/helpers';
 import {KiB} from '~/common/types';
 import {assertError} from '~/common/utils/assert';
-import {intoUnsignedLong, u16ToBytesLe} from '~/common/utils/number';
 import chaiByteEqual from '~/test/common/plugins/byte-equal';
 import {
     makeTestFileSystemKeyStorage,

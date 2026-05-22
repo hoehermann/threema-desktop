@@ -1,5 +1,6 @@
 import {UTF8} from '@threema/ts-utils/codec/utf8';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
+import {u64ToHexLe} from '@threema/ts-utils/number/u64-to-hex-le';
 
 import {
     CspE2eConversationType,
@@ -37,7 +38,6 @@ import type {
     TextEncodable,
 } from '~/common/network/structbuf/csp/e2e';
 import {unreachable} from '~/common/utils/assert';
-import {u64ToHexLe} from '~/common/utils/number';
 
 /**
  * The outgoing message task has the following responsibilities:
