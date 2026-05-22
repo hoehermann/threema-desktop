@@ -1,3 +1,4 @@
+import {DelayedError, type DelayedErrorType} from '@threema/ts-utils/delayed/delayed-error';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
 
 import {TransferTag} from '~/common/enum';
@@ -135,7 +136,10 @@ export type ProtocolErrorType = 'csp' | 'd2m' | 'd2d';
  */
 export type ProtocolErrorRecoverability =
     | {readonly type: 'recovery-not-needed'}
-    | {readonly type: 'recoverable-on-reconnect'; readonly disconnectForMs?: u53}
+    | {
+          readonly type: 'recoverable-on-reconnect';
+          readonly disconnectForMs?: u53;
+      }
     | {readonly type: 'unrecoverable'};
 
 const PROTOCOL_ERROR_TRANSFER_HANDLER = registerErrorTransferHandler<
@@ -166,7 +170,9 @@ export class ProtocolError<TType extends ProtocolErrorType> extends BaseError {
     public constructor(
         public readonly type: TType,
         message: string,
-        public readonly recoverability: ProtocolErrorRecoverability = {type: 'recovery-not-needed'},
+        public readonly recoverability: ProtocolErrorRecoverability = {
+            type: 'recovery-not-needed',
+        },
         options?: BaseErrorOptions,
     ) {
         super(message, options);
@@ -337,7 +343,10 @@ export class DeviceJoinError extends BaseError {
  * - internal: An internal error, most probably a logic bug.
  */
 export type BlobFetchErrorType =
-    | {readonly kind: 'file-storage-error'; readonly cause?: FileStorageErrorType}
+    | {
+          readonly kind: 'file-storage-error';
+          readonly cause?: FileStorageErrorType;
+      }
     | {readonly kind: 'permanent-download-error'; readonly cause?: Error}
     | {readonly kind: 'temporary-download-error'; readonly cause: Error}
     | {readonly kind: 'decryption-error'; readonly cause: Error}
@@ -365,3 +374,20 @@ export class BlobFetchError extends BaseError {
         super(message, options);
     }
 }
+
+const DELAYED_ERROR_TRANSFER_HANDLER = registerErrorTransferHandler<
+    DelayedError,
+    TransferTag.DELAYED_ERROR,
+    [type: DelayedErrorType, title: string]
+>({
+    tag: TransferTag.DELAYED_ERROR,
+    serialize: (error) => [error.type, error.title],
+    deserialize: (message, cause, [type, title]) => new DelayedError(type, title, {cause}),
+});
+
+// We patch the prototype of the DelayedError here to avoid coupling the ts-utils package with the
+// comlink endpoint.
+Object.defineProperty(DelayedError.prototype, TRANSFER_HANDLER, {
+    value: DELAYED_ERROR_TRANSFER_HANDLER,
+    enumerable: false,
+});

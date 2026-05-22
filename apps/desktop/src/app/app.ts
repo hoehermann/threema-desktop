@@ -1,6 +1,8 @@
 import '../sass/app.scss';
 
 import initComposeArea from '@threema/compose-area/web';
+import {Delayed} from '@threema/ts-utils/delayed/delayed';
+import {ResettableDelayed} from '@threema/ts-utils/delayed/resettable-delayed';
 import {mount, unmount} from 'svelte';
 
 import {APP_CONFIG} from '~/app/config';
@@ -59,7 +61,6 @@ import {DEFAULT_CATEGORY} from '~/common/settings';
 import {parseTestData, type TestDataJson} from '~/common/test-data';
 import type {u53} from '~/common/types';
 import {assertUnreachable, setAssertFailLogger, unwrap} from '~/common/utils/assert';
-import {Delayed, ResettableDelayed} from '~/common/utils/delayed';
 import type {Remote, RemoteProxy} from '~/common/utils/endpoint';
 import type {ReusablePromise} from '~/common/utils/promise';
 import {ResolvablePromise} from '~/common/utils/resolvable-promise';

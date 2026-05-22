@@ -1,3 +1,4 @@
+import {Delayed} from '@threema/ts-utils/delayed/delayed';
 import {expect} from 'chai';
 
 import {NACL_CONSTANTS} from '~/common/crypto';
@@ -50,7 +51,6 @@ import type {u53} from '~/common/types';
 import {assert, unwrap} from '~/common/utils/assert';
 import {byteWithoutZeroPadding} from '~/common/utils/byte';
 import {UTF8} from '~/common/utils/codec';
-import {Delayed} from '~/common/utils/delayed';
 import {Identity} from '~/common/utils/identity';
 import {intoU64, intoUnsignedLong, unixTimestampToDateMs} from '~/common/utils/number';
 import {assertCspPayloadType, assertD2mPayloadType} from '~/test/mocha/common/assertions';

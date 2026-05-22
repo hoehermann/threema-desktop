@@ -1,5 +1,6 @@
+import type {ResettableDelayed} from '@threema/ts-utils/delayed/resettable-delayed';
+
 import type {BackendCreationError, CertificatePinRecoveryHandle} from '~/common/dom/backend';
-import type {ResettableDelayed} from '~/common/utils/delayed';
 import type {RemoteProxy} from '~/common/utils/endpoint';
 
 export interface InvalidCertificatePinsDialogProps {

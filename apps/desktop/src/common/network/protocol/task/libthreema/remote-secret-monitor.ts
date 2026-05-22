@@ -1,4 +1,5 @@
 import {RemoteSecretMonitorProtocol, type RemoteSecretMonitorError} from '@threema/libthreema-wasm';
+import {Delayed} from '@threema/ts-utils/delayed/delayed';
 
 import type {ServicesForBackend} from '~/common/backend';
 import type {BackgroundJobScheduler, JobHandle} from '~/common/background-job-scheduler';
@@ -15,7 +16,6 @@ import {
 } from '~/common/network/types';
 import type {u53} from '~/common/types';
 import {assertUnreachable, unreachable} from '~/common/utils/assert';
-import {Delayed} from '~/common/utils/delayed';
 import {eternalPromise} from '~/common/utils/promise';
 import {TIMER} from '~/common/utils/timer';
 

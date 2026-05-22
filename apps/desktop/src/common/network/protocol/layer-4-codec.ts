@@ -8,6 +8,7 @@
  * - Handles connection errors.
  */
 import type {SyncTransformerCodec} from '@threema/ts-utils/codec/sync-transformer-codec';
+import type {Delayed} from '@threema/ts-utils/delayed/delayed';
 
 import type {ServicesForBackend} from '~/common/backend';
 import type {Logger} from '~/common/logging';
@@ -17,7 +18,6 @@ import type {DeviceCookie} from '~/common/network/types';
 import type {SystemDialogHandle} from '~/common/system-dialog';
 import type {u53} from '~/common/types';
 import {UTF8} from '~/common/utils/codec';
-import type {Delayed} from '~/common/utils/delayed';
 import type {RemoteProxy} from '~/common/utils/endpoint';
 import {dateToUnixTimestampMs} from '~/common/utils/number';
 import {TIMER, type TimerCanceller} from '~/common/utils/timer';

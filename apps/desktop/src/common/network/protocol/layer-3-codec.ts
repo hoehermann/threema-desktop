@@ -6,6 +6,7 @@
  * - Encoding/Decoding CSP message payloads and forwarding D2M messages.
  */
 import type {SyncTransformerCodec} from '@threema/ts-utils/codec/sync-transformer-codec';
+import type {Delayed} from '@threema/ts-utils/delayed/delayed';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
 
 import type {ServicesForBackend} from '~/common/backend';
@@ -46,7 +47,6 @@ import {assert, assertUnreachable, exhausted, unreachable} from '~/common/utils/
 import {byteEncodeSequence, byteEquals, bytePadPkcs7, byteToHex} from '~/common/utils/byte';
 import {ByteBuffer} from '~/common/utils/byte-buffer';
 import {UTF8} from '~/common/utils/codec';
-import type {Delayed} from '~/common/utils/delayed';
 import {intoUnsignedLong} from '~/common/utils/number';
 import type {ResolvablePromise} from '~/common/utils/resolvable-promise';
 import type {MonotonicEnumStore} from '~/common/utils/store';

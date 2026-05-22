@@ -1,3 +1,5 @@
+import {Delayed} from '@threema/ts-utils/delayed/delayed';
+
 import {
     COOKIE_LENGTH,
     NACL_CONSTANTS,
@@ -54,7 +56,6 @@ import {assert, unreachable, unwrap} from '~/common/utils/assert';
 import {u8aToBase64} from '~/common/utils/base64';
 import {byteEquals, bytesToHex} from '~/common/utils/byte';
 import {UTF8} from '~/common/utils/codec';
-import {Delayed} from '~/common/utils/delayed';
 import {
     type ProxyMarked,
     type RemoteProxy,

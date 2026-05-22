@@ -1,3 +1,5 @@
+import {Delayed} from '@threema/ts-utils/delayed/delayed';
+
 import type {ServicesForBackend} from '~/common/backend';
 import {COOKIE_LENGTH, ensureCookie} from '~/common/crypto';
 import type {DeviceGroupBoxes} from '~/common/crypto/device-group-keys';
@@ -21,7 +23,6 @@ import type {
 } from '~/common/network/types';
 import type {ClientKey, TemporaryClientKey} from '~/common/network/types/keys';
 import type {u32, u53} from '~/common/types';
-import {Delayed} from '~/common/utils/delayed';
 import {ResolvablePromise, type QueryablePromise} from '~/common/utils/resolvable-promise';
 import {SequenceNumberU64} from '~/common/utils/sequence-number';
 import type {AbortListener} from '~/common/utils/signal';

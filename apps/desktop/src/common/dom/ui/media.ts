@@ -1,3 +1,5 @@
+import type {Delayed} from '@threema/ts-utils/delayed/delayed';
+
 import type {DbReceiverLookup} from '~/common/db';
 import type {ThumbnailCacheService} from '~/common/dom/ui/thumbnail-cache';
 import {downsizeImage} from '~/common/dom/utils/image';
@@ -5,7 +7,6 @@ import {TRANSFER_HANDLER} from '~/common/index';
 import type {IFrontendMediaService} from '~/common/media';
 import type {MessageId} from '~/common/network/types';
 import type {ReadonlyUint8Array} from '~/common/types';
-import type {Delayed} from '~/common/utils/delayed';
 import {PROXY_HANDLER} from '~/common/utils/endpoint';
 import type {FileBytesAndMediaType} from '~/common/utils/file';
 
