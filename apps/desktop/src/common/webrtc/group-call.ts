@@ -6,6 +6,8 @@ import {tag} from '@threema/ts-utils/meta/newtype';
 import {ResolvablePromise} from '@threema/ts-utils/promise/resolvable-promise';
 import {SequenceNumberU53} from '@threema/ts-utils/sequence-number/sequence-number-u53';
 import {SequenceNumberU64} from '@threema/ts-utils/sequence-number/sequence-number-u64';
+import {TIMER} from '@threema/ts-utils/timer/global-timer';
+import type {TimerCanceller} from '@threema/ts-utils/timer/timer-canceller';
 
 import {
     COOKIE_LENGTH,
@@ -73,7 +75,6 @@ import {dateToUnixTimestampMs, intoUnsignedLong, u64ToBytesLe} from '~/common/ut
 import {AbortRaiser, type AbortListener} from '~/common/utils/signal';
 import {WritableStore, type IQueryableStore, type ReadableStore} from '~/common/utils/store';
 import {derive} from '~/common/utils/store/derived-store';
-import {TIMER, type TimerCanceller} from '~/common/utils/timer';
 import {
     type IceUsernameFragment,
     type IcePassword,

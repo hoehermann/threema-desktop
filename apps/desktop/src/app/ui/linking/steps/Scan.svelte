@@ -1,4 +1,6 @@
 <script lang="ts">
+  import {TIMER} from '@threema/ts-utils/timer/global-timer';
+
   import {globals} from '~/app/globals';
   import SubstitutableText from '~/app/ui/SubstitutableText.svelte';
   import {i18n} from '~/app/ui/i18n';
@@ -8,7 +10,6 @@
   import CircularProgress from '~/app/ui/svelte-components/blocks/CircularProgress/CircularProgress.svelte';
   import MdIcon from '~/app/ui/svelte-components/blocks/Icon/MdIcon.svelte';
   import QrCode from '~/app/ui/svelte-components/generic/QrCode/QrCode.svelte';
-  import {TIMER} from '~/common/utils/timer';
 
   const log = globals.unwrap().uiLogging.logger(`ui.component.linking.scan`);
 

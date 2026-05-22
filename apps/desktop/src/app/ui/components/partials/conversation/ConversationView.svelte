@@ -1,5 +1,6 @@
 <script lang="ts">
   import {ensureError} from '@threema/ts-utils/meta/ensure-error';
+  import {TIMER} from '@threema/ts-utils/timer/global-timer';
   import {onDestroy, onMount, tick, untrack} from 'svelte';
 
   import {globals} from '~/app/globals';
@@ -79,7 +80,6 @@
     getGraphemeClusters,
     getLongestValidMatchingGraphemeSequence,
   } from '~/common/utils/string';
-  import {TIMER} from '~/common/utils/timer';
   import type {ConversationViewModelBundle} from '~/common/viewmodel/conversation/main';
   import type {
     SendFileBasedMessageInformation,

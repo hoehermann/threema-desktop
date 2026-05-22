@@ -4,6 +4,7 @@
 <script lang="ts">
   import type {u53} from '@threema/ts-utils/integer/u53';
   import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
+  import {TIMER} from '@threema/ts-utils/timer/global-timer';
   import {onDestroy, onMount} from 'svelte';
 
   import {globals} from '~/app/globals';
@@ -49,7 +50,6 @@
   import {difference} from '~/common/utils/set';
   import {AbortRaiser} from '~/common/utils/signal';
   import type {RemoteStore} from '~/common/utils/store';
-  import {TIMER} from '~/common/utils/timer';
   import type {ConversationViewModelBundle} from '~/common/viewmodel/conversation/main';
   import type {SelfReceiverData} from '~/common/viewmodel/utils/receiver';
 

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import {TIMER} from '@threema/ts-utils/timer/global-timer';
   import {onMount} from 'svelte';
 
   import type {StepTwoProps} from '~/app/ui/components/partials/contact-add-form/internal/step-two/props';
@@ -11,7 +12,6 @@
   import {MAX_CONTACT_NAME_BYTES} from '~/app/ui/utils/constants';
   import type {SvelteNullableBinding} from '~/app/ui/utils/svelte';
   import {UTF8} from '~/common/utils/codec';
-  import {TIMER} from '~/common/utils/timer';
 
   let {
     contact = $bindable(),

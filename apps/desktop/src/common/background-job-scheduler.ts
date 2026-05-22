@@ -1,12 +1,11 @@
 // Scheduler for background jobs, running in the backend worker.
 
 import type {u53} from '@threema/ts-utils/integer/u53';
+import {TIMER} from '@threema/ts-utils/timer/global-timer';
 
 import type {Logger, LoggerFactory} from '~/common/logging';
 import {assert} from '~/common/utils/assert';
 import {AbortRaiser} from '~/common/utils/signal';
-import {TIMER} from '~/common/utils/timer';
-
 /** Cancels subsequent execution of the job. */
 export type JobCanceller = () => void;
 /** Cancels subsequent execution of the job und restart with updated interval. */

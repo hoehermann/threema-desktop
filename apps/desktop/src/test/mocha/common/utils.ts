@@ -1,9 +1,8 @@
 import type {u53} from '@threema/ts-utils/integer/u53';
+import {TIMER} from '@threema/ts-utils/timer/global-timer';
 import {AssertionError, expect} from 'chai';
 
 import {byteView} from '~/common/utils/byte';
-import {TIMER} from '~/common/utils/timer';
-
 /**
  * Generate fake (non-)random values.
  */

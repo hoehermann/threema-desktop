@@ -2,6 +2,7 @@ import type {AsyncTransformerCodec} from '@threema/ts-utils/codec/async-transfor
 import type {SyncTransformerCodec} from '@threema/ts-utils/codec/sync-transformer-codec';
 import type {TransformerCodecController} from '@threema/ts-utils/codec/transformer-codec-controller';
 import {Delayed} from '@threema/ts-utils/delayed/delayed';
+import type {TimerCanceller} from '@threema/ts-utils/timer/timer-canceller';
 
 import type {ServicesForBackend} from '~/common/backend';
 import type {MediatorPipe} from '~/common/dom/network';
@@ -47,7 +48,6 @@ import {
 } from '~/common/network/protocol/layer-5-codec';
 import {CspAuthStateUtils, D2mAuthStateUtils} from '~/common/network/protocol/state';
 import {unwrap} from '~/common/utils/assert';
-import type {TimerCanceller} from '~/common/utils/timer';
 
 /**
  * See `layer-1-codec.ts` for docs.

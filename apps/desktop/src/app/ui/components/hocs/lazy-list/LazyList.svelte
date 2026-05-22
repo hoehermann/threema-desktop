@@ -7,6 +7,7 @@
 <script lang="ts" generics="TProps extends {readonly id: unknown}">
   import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
   import {ensureError} from '@threema/ts-utils/meta/ensure-error';
+  import {TIMER} from '@threema/ts-utils/timer/global-timer';
   import {onDestroy, onMount, tick} from 'svelte';
 
   import {intersection} from '~/app/ui/actions/intersection';
@@ -16,7 +17,6 @@
   import {reactive, type SvelteNullableBinding} from '~/app/ui/utils/svelte';
   import {assertUnreachable} from '~/common/utils/assert';
   import {createBufferedDispatcher} from '~/common/utils/callback';
-  import {TIMER} from '~/common/utils/timer';
 
   const {
     items,

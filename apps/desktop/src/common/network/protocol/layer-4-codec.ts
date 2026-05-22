@@ -10,6 +10,8 @@
 import type {SyncTransformerCodec} from '@threema/ts-utils/codec/sync-transformer-codec';
 import type {Delayed} from '@threema/ts-utils/delayed/delayed';
 import type {u53} from '@threema/ts-utils/integer/u53';
+import {TIMER} from '@threema/ts-utils/timer/global-timer';
+import type {TimerCanceller} from '@threema/ts-utils/timer/timer-canceller';
 
 import type {ServicesForBackend} from '~/common/backend';
 import type {Logger} from '~/common/logging';
@@ -20,7 +22,6 @@ import type {SystemDialogHandle} from '~/common/system-dialog';
 import {UTF8} from '~/common/utils/codec';
 import type {RemoteProxy} from '~/common/utils/endpoint';
 import {dateToUnixTimestampMs} from '~/common/utils/number';
-import {TIMER, type TimerCanceller} from '~/common/utils/timer';
 
 import {CloseCode} from '..';
 

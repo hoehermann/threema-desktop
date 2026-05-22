@@ -1,9 +1,9 @@
+import {TIMER} from '@threema/ts-utils/timer/global-timer';
+
 import type {Reaction} from '~/app/ui/components/partials/conversation/internal/message-list/internal/regular-message/internal/emoji-reactions-strip/props';
 import type {Logger} from '~/common/logging';
 import type {MessageId, StatusMessageId} from '~/common/network/types';
 import type {SingleUnicodeEmoji} from '~/common/utils/emoji';
-import {TIMER} from '~/common/utils/timer';
-
 /**
  * This object tracks the messages currently visible in the viewport and debounces notifications
  * to the controller.

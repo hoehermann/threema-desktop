@@ -3,6 +3,7 @@
 -->
 <script lang="ts">
   import type {u53} from '@threema/ts-utils/integer/u53';
+  import {TIMER} from '@threema/ts-utils/timer/global-timer';
 
   import Text from '~/app/ui/components/atoms/text/Text.svelte';
   import KeyValueList from '~/app/ui/components/molecules/key-value-list';
@@ -15,7 +16,6 @@
   import {MAX_POLL_DESCRIPTION_SIZE_BYTES, MAX_POLL_SIZE_BYTES} from '~/app/ui/utils/constants';
   import {PollAnnounceType, PollAnswerType, PollDisplayMode, PollState} from '~/common/enum';
   import {UTF8} from '~/common/utils/codec';
-  import {TIMER} from '~/common/utils/timer';
 
   let {
     choices = $bindable(),

@@ -1,4 +1,6 @@
 import type {u53} from '@threema/ts-utils/integer/u53';
+import {TIMER} from '@threema/ts-utils/timer/global-timer';
+import type {TimerCanceller} from '@threema/ts-utils/timer/timer-canceller';
 
 import {TRANSFER_HANDLER} from '~/common/index';
 import type {Logger} from '~/common/logging';
@@ -22,7 +24,6 @@ import {
     WritableStore,
     type StoreTransferDebug,
 } from '~/common/utils/store';
-import {TIMER, type TimerCanceller} from '~/common/utils/timer';
 
 export const DEFAULT_DERIVED_STORE_DISABLE_COOLDOWN_MS = 5000;
 

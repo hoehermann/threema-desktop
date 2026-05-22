@@ -2,6 +2,8 @@
   @component Renders a list of preview cards for the given receivers.
 -->
 <script lang="ts" generics="THandlerProps = never">
+  import {TIMER} from '@threema/ts-utils/timer/global-timer';
+
   import LazyList from '~/app/ui/components/hocs/lazy-list/LazyList.svelte';
   import type {ConversationRouteParams} from '~/app/ui/components/partials/conversation/types';
   import ReceiverPreview from '~/app/ui/components/partials/receiver-preview-list/internal/receiver-preview/ReceiverPreview.svelte';
@@ -11,7 +13,6 @@
   } from '~/app/ui/components/partials/receiver-preview-list/props';
   import {transformContextMenuItemsToContextMenuOptions} from '~/app/ui/components/partials/receiver-preview-list/transformers';
   import {reactive, type SvelteNullableBinding} from '~/app/ui/utils/svelte';
-  import {TIMER} from '~/common/utils/timer';
 
   const {
     contextMenuItems = undefined,

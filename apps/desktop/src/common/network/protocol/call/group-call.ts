@@ -3,6 +3,8 @@ import type {u53} from '@threema/ts-utils/integer/u53';
 import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
 import {tag, type WeakOpaque} from '@threema/ts-utils/meta/newtype';
 import {ResolvablePromise} from '@threema/ts-utils/promise/resolvable-promise';
+import {TIMER} from '@threema/ts-utils/timer/global-timer';
+import type {TimerCanceller} from '@threema/ts-utils/timer/timer-canceller';
 
 import type {PublicKey} from '~/common/crypto';
 import {
@@ -40,7 +42,6 @@ import {PROXY_HANDLER, registerErrorTransferHandler} from '~/common/utils/endpoi
 import {clamp} from '~/common/utils/number';
 import {AbortRaiser, type AbortListener} from '~/common/utils/signal';
 import {type IQueryableStore, WritableStore} from '~/common/utils/store';
-import {TIMER, type TimerCanceller} from '~/common/utils/timer';
 import {MIDS_MAX, type AnyGroupCallContextAbort, GroupCall} from '~/common/webrtc/group-call';
 
 export type ServicesForGroupCall = Pick<

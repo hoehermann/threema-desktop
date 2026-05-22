@@ -4,6 +4,8 @@
 <script lang="ts">
   import type {u53} from '@threema/ts-utils/integer/u53';
   import {ensureError} from '@threema/ts-utils/meta/ensure-error';
+  import {TIMER} from '@threema/ts-utils/timer/global-timer';
+  import type {TimerCanceller} from '@threema/ts-utils/timer/timer-canceller';
 
   import {globals} from '~/app/globals';
   import SubstitutableText from '~/app/ui/SubstitutableText.svelte';
@@ -19,7 +21,6 @@
   import {extractErrorMessage} from '~/common/error';
   import type {LogInfo} from '~/common/node/file-storage/log-info';
   import {byteSizeToHumanReadable} from '~/common/utils/number';
-  import {TIMER, type TimerCanceller} from '~/common/utils/timer';
 
   const log = globals.unwrap().uiLogging.logger('ui.component.settings-about');
 

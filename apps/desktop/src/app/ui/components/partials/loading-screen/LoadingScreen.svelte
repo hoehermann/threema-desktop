@@ -1,6 +1,7 @@
 <script lang="ts">
   import type {u53} from '@threema/ts-utils/integer/u53';
   import {ResolvablePromise} from '@threema/ts-utils/promise/resolvable-promise';
+  import {TIMER} from '@threema/ts-utils/timer/global-timer';
 
   import {globals} from '~/app/globals';
   import Text from '~/app/ui/components/atoms/text/Text.svelte';
@@ -10,7 +11,6 @@
   import type {LoadingState} from '~/common/dom/backend';
   import {assertUnreachable, unreachable} from '~/common/utils/assert';
   import {clamp} from '~/common/utils/number';
-  import {TIMER} from '~/common/utils/timer';
 
   const {uiLogging} = globals.unwrap();
   const {loadingState}: LoadingScreenProps = $props();

@@ -1,5 +1,7 @@
 <script lang="ts">
   import type {u53} from '@threema/ts-utils/integer/u53';
+  import {TIMER} from '@threema/ts-utils/timer/global-timer';
+  import type {TimerCanceller} from '@threema/ts-utils/timer/timer-canceller';
   import {onMount, type Component} from 'svelte';
 
   import {globals} from '~/app/globals';
@@ -26,7 +28,6 @@
   import {ConnectionState} from '~/common/network/protocol/state';
   import {unreachable} from '~/common/utils/assert';
   import type {Remote} from '~/common/utils/endpoint';
-  import {TIMER, type TimerCanceller} from '~/common/utils/timer';
 
   const log = globals.unwrap().uiLogging.logger('ui.component.app');
 

@@ -1,4 +1,5 @@
 import {ResolvablePromise} from '@threema/ts-utils/promise/resolvable-promise';
+import {TIMER} from '@threema/ts-utils/timer/global-timer';
 import {expect} from 'chai';
 
 import type {LoadingState} from '~/common/dom/backend';
@@ -11,7 +12,6 @@ import {LoadingInfo} from '~/common/loading';
 import {NOOP_LOGGER} from '~/common/logging';
 import type {u32, u53} from '~/common/types';
 import {WritableStore} from '~/common/utils/store';
-import {TIMER} from '~/common/utils/timer';
 
 /**
  * Drain all currently-queued microtasks (and any they queue in turn) by yielding to a macrotask.

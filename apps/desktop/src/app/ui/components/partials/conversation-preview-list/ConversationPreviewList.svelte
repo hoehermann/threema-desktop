@@ -2,6 +2,8 @@
   @component Renders a list of preview cards for the given conversations.
 -->
 <script lang="ts" generics="THandlerProps = never">
+  import {TIMER} from '@threema/ts-utils/timer/global-timer';
+
   import {ROUTE_DEFINITIONS} from '~/app/routing/routes';
   import LazyList from '~/app/ui/components/hocs/lazy-list/LazyList.svelte';
   import type {ConversationRouteParams} from '~/app/ui/components/partials/conversation/types';
@@ -14,7 +16,6 @@
   import {reactive, type SvelteNullableBinding} from '~/app/ui/utils/svelte';
   import type {DbReceiverLookup} from '~/common/db';
   import {ReceiverType} from '~/common/enum';
-  import {TIMER} from '~/common/utils/timer';
 
   const {
     contextMenuItems,

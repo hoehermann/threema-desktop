@@ -1,35 +1,19 @@
-import type {u53} from '@threema/ts-utils/integer/u53';
-import type {WeakOpaque} from '@threema/ts-utils/meta/newtype';
+import type {u53} from '../integer/u53.js';
+import type {WeakOpaque} from '../meta/newtype.js';
+import {unwrap} from '../meta/unwrap.js';
 
-import {unwrap} from '~/common/utils/assert';
+import {TimeoutError} from './timeout-error.js';
+import type {TimerCallback} from './timer-callback.js';
+import type {TimerCanceller} from './timer-canceller.js';
 
 // The following globals exist in both DOM and Node, so we'll just assume they're always available.
 type TimeoutId = WeakOpaque<u53, {readonly TimeoutId: unique symbol}>;
-type IntervalId = WeakOpaque<u53, {readonly TimeoutId: unique symbol}>;
+type IntervalId = WeakOpaque<u53, {readonly IntervalId: unique symbol}>;
 declare const setTimeout: (callback: () => void, delayMs: u53) => TimeoutId;
 declare const clearTimeout: (id: TimeoutId) => void;
 declare const setInterval: (callback: () => void, intervalMs: u53) => IntervalId;
 declare const clearInterval: (id: IntervalId) => void;
 declare const queueMicrotask: (callback: () => void) => void;
-
-/**
- * Cancels the timer.
- */
-export type TimerCanceller = () => void;
-
-/**
- * Callback for a timer.
- */
-export type TimerCallback = (canceller: TimerCanceller) => void;
-
-/**
- * Error raised when a timeout occurs.
- */
-export class TimeoutError extends Error {
-    public constructor(timeoutMs: u53) {
-        super(`Timer timed out after ${timeoutMs}ms`);
-    }
-}
 
 /**
  * A timer allowing to schedule timers that fire once after a timeout and those

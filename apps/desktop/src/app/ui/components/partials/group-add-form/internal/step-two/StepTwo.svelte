@@ -1,4 +1,5 @@
 <script lang="ts">
+  import {TIMER} from '@threema/ts-utils/timer/global-timer';
   import {onMount} from 'svelte';
 
   import {globals} from '~/app/globals';
@@ -20,7 +21,6 @@
   import {assertUnreachable, unreachable} from '~/common/utils/assert';
   import {UTF8} from '~/common/utils/codec';
   import {WritableStore} from '~/common/utils/store';
-  import {TIMER} from '~/common/utils/timer';
 
   const {uiLogging} = globals.unwrap();
   const log = uiLogging.logger('ui.component.group-create-form-step-two');

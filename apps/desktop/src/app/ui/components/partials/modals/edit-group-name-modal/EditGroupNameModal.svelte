@@ -1,4 +1,6 @@
 <script lang="ts">
+  import {TIMER} from '@threema/ts-utils/timer/global-timer';
+
   import {globals} from '~/app/globals';
   import Input from '~/app/ui/components/atoms/input/Input.svelte';
   import Text from '~/app/ui/components/atoms/text/Text.svelte';
@@ -13,7 +15,6 @@
   import type {SvelteNullableBinding} from '~/app/ui/utils/svelte';
   import {unreachable} from '~/common/utils/assert';
   import {UTF8} from '~/common/utils/codec';
-  import {TIMER} from '~/common/utils/timer';
 
   const {uiLogging} = globals.unwrap();
   const log = uiLogging.logger('ui.component.edit-group-name-modal');
