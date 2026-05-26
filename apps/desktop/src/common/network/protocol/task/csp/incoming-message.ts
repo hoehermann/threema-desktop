@@ -683,8 +683,8 @@ export class IncomingMessageTask implements ActiveTask<void, 'volatile'> {
             return await this._forward(handle, container);
         }
 
-        // Since we forward unknown message types, at this point we should only have known CSP E2E
-        // message types remaining. (TODO DESK-194: Review if this is still the case.)
+        // Since we forward unknown message types, at this point we should only
+        // have known CSP E2E message types remaining.
         assert(isCspE2eType(type), `Message type ${type} is not a known CSP E2E type`);
 
         // Debug info: Extract message ids referenced by this message
@@ -1022,11 +1022,12 @@ export class IncomingMessageTask implements ActiveTask<void, 'volatile'> {
     ): Promise<'forwarded'> {
         this._discardUnprocessedNonce();
         this._log.error(
-            `TODO(DESK-194): Forwarding of message with unknown inbound CSP E2E type ${
+            `TODO(PRD-156): Forwarding of message with unknown inbound CSP E2E type ${
                 container.type
             } (${cspE2eTypeNameOf(container.type)})`,
         );
-        // TODO(DESK-194): Implement forwarding of unknown message types, ignoring for now
+        // TODO(PRD-156): Implement forwarding of unknown message types via
+        // feature negotiation, ignoring for now.
         return 'forwarded';
     }
 
