@@ -65,6 +65,7 @@
     "@threema/threema-markup": "1.1.0",
     "@threema/ts-utils": "workspace:*",
     "@threema/ui": "workspace:*",
+    "@threema/webrtc": "workspace:*",
     "argon2": "threema-ch/node-argon2#threema-20250402",
     "autolinker": "4.1.5",
     "better-sqlcipher": "threema-ch/better-sqlcipher#12.10.0-sqlcipher4.16.0-bearssl0.6",

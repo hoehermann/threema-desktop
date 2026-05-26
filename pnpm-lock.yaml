@@ -457,6 +457,9 @@ importers:
       '@threema/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      '@threema/webrtc':
+        specifier: workspace:*
+        version: link:../../packages/webrtc
       argon2:
         specifier: threema-ch/node-argon2#threema-20250402
         version: https://codeload.github.com/threema-ch/node-argon2/tar.gz/d25269c471b3ece9831662fab366db531e9cfc90
@@ -1040,6 +1043,30 @@ importers:
       typescript:
         specifier: 'catalog:'
         version: 5.8.3
+
+  packages/webrtc:
+    devDependencies:
+      '@threema/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@threema/ts-config':
+        specifier: workspace:*
+        version: link:../ts-config
+      '@threema/ts-utils':
+        specifier: workspace:*
+        version: link:../ts-utils
+      '@vitest/coverage-istanbul':
+        specifier: 'catalog:'
+        version: 4.1.2(vitest@4.1.2)
+      eslint:
+        specifier: 'catalog:'
+        version: 9.34.0(jiti@2.7.0)
+      typescript:
+        specifier: 'catalog:'
+        version: 5.8.3
+      vitest:
+        specifier: 'catalog:'
+        version: 4.1.2(@types/node@24.12.4)(@vitest/browser-playwright@4.1.2)(vite@7.1.12(@types/node@24.12.4)(jiti@2.7.0)(lightningcss@1.31.1)(sass@1.77.8))
 
   packages/workers:
     devDependencies:

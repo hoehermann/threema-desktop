@@ -38,6 +38,9 @@ build
 # Package: `packages/ui`
 /packages/ui/coverage/
 
+# Package: `packages/webrtc`
+/packages/webrtc/coverage/
+
 # Package: `apps/conferencing`
 /apps/conferencing/dist/
 /apps/conferencing/playwright-report/
