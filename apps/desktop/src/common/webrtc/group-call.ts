@@ -14,6 +14,14 @@ import {SequenceNumberU53} from '@threema/ts-utils/sequence-number/sequence-numb
 import {SequenceNumberU64} from '@threema/ts-utils/sequence-number/sequence-number-u64';
 import {TIMER} from '@threema/ts-utils/timer/global-timer';
 import type {TimerCanceller} from '@threema/ts-utils/timer/timer-canceller';
+import {
+    type DtlsFingerprint,
+    type IcePassword,
+    type IceUsernameFragment,
+    type RtpHeaderExtensionId,
+    type RtpHeaderExtensionIds,
+    SDP_TOKEN_RANGE,
+} from '@threema/webrtc/sdp';
 
 import {
     COOKIE_LENGTH,
@@ -78,14 +86,6 @@ import {
 import {AbortRaiser, type AbortListener} from '~/common/utils/signal';
 import {WritableStore, type IQueryableStore, type ReadableStore} from '~/common/utils/store';
 import {derive} from '~/common/utils/store/derived-store';
-import {
-    type IceUsernameFragment,
-    type IcePassword,
-    type DtlsFingerprint,
-    SDP_TOKEN_RANGE,
-    type RtpHeaderExtensionId,
-    type RtpHeaderExtensionIds,
-} from '~/common/webrtc';
 
 const MIDS = [
     ...SDP_TOKEN_RANGE,

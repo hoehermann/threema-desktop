@@ -8,8 +8,7 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./*": "./src/*.ts",
-    "./sdp": "./src/sdp/*.ts"
+    "./sdp": "./src/sdp/index.ts"
   },
   "scripts": {
     "lint:eslint": "eslint .",

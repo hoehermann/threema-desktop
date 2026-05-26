@@ -3,6 +3,12 @@ import {ensureU53} from '@threema/ts-utils/integer/u53';
 import {ensureU8} from '@threema/ts-utils/integer/u8';
 import {tag} from '@threema/ts-utils/meta/newtype';
 import {unixTimestampToDateMs} from '@threema/ts-utils/number/unix-timestamp-to-date-ms';
+import {
+    ensureDtlsFingerprint,
+    ensureIcePassword,
+    ensureIceUsernameFragment,
+    ensureRtpHeaderExtensionId,
+} from '@threema/webrtc/sdp';
 
 import {
     ensureCookie,
@@ -32,12 +38,6 @@ import {
     nullOptional,
     unsignedLongAsU64,
 } from '~/common/utils/valita-helpers';
-import {
-    ensureIceUsernameFragment,
-    ensureIcePassword,
-    ensureDtlsFingerprint,
-    ensureRtpHeaderExtensionId,
-} from '~/common/webrtc';
 
 export const CALL_STATE_SNAPSHOT_SCHEMA = validator(
     group_call.CallState,

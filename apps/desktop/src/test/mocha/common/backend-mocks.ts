@@ -12,6 +12,7 @@ import type {Delayed} from '@threema/ts-utils/delayed/delayed';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import type {u8} from '@threema/ts-utils/integer/u8';
 import {ResolvablePromise} from '@threema/ts-utils/promise/resolvable-promise';
+import type {DtlsFingerprint} from '@threema/webrtc/sdp';
 import {expect} from 'chai';
 
 import type {ServicesForBackend} from '~/common/backend';
@@ -198,7 +199,7 @@ import {WritableStore, type LocalStore} from '~/common/utils/store';
 import {derive} from '~/common/utils/store/derived-store';
 import {ViewModelRepository} from '~/common/viewmodel';
 import {ViewModelCache} from '~/common/viewmodel/cache';
-import type {DtlsFingerprint, WebRtcService} from '~/common/webrtc';
+import type {WebRtcService} from '~/common/webrtc';
 import {assertCspPayloadType, assertD2mPayloadType} from '~/test/mocha/common/assertions';
 
 export const MOCK_URL = ensureBaseUrl('https://127.0.0.1:9999/', 'https:');

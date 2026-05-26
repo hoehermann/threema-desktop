@@ -2,6 +2,7 @@ import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-ar
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
 import {TIMER} from '@threema/ts-utils/timer/global-timer';
 import {TimeoutError} from '@threema/ts-utils/timer/timeout-error';
+import type {DtlsFingerprint} from '@threema/webrtc/sdp';
 
 import type {ServicesForBackend} from '~/common/backend';
 import {CREATE_BUFFER_TOKEN} from '~/common/crypto/box';
@@ -14,7 +15,6 @@ import {type GroupCallBaseData, GroupCallError} from '~/common/network/protocol/
 import type {SfuToken} from '~/common/network/protocol/directory';
 import type {PeekResponse, SfuHttpBackend} from '~/common/network/protocol/sfu';
 import type {BaseUrl} from '~/common/network/types';
-import type {DtlsFingerprint} from '~/common/webrtc';
 
 const TIMEOUT_MS = {
     PEEK: 5_000,
