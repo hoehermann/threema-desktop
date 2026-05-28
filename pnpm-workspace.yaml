@@ -66,6 +66,9 @@ minimumReleaseAgeExclude:
 
 minimumReleaseAgeStrict: true
 
+overrides:
+  "@electron/rebuild>node-abi": "4.17.0"
+
 pmOnFail: error
 
 publicHoistPattern:
