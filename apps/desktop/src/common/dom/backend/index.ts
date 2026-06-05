@@ -939,12 +939,6 @@ export class Backend {
             logging.logger('com.loading-screen'),
         );
 
-        // Now that we know that the key storage is readable and the password is correct, we're able
-        // to initialize the loading screen.
-        await loadingState.updateState({
-            state: 'initializing',
-        });
-
         // In OnPrem builds, the config needs to be initialized based on the OPPF (On-Prem Provisioning File).
         // In other builds, the config is static.
         let config: Config;
@@ -1113,6 +1107,12 @@ export class Backend {
                     unreachable(error.type);
             }
         }
+
+        // Now that the key storage was read and decrypted successfully (i.e. the password is
+        // correct), we're able to initialize the loading screen.
+        await loadingState.updateState({
+            state: 'initializing',
+        });
 
         const workData: IQueryableStore<ThreemaWorkData | undefined> | undefined =
             import.meta.env.BUILD_VARIANT === 'work' || import.meta.env.BUILD_VARIANT === 'custom'
