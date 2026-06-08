@@ -1,3 +1,4 @@
+import {isReadonlyRawKey} from '@threema/crypto';
 import {byteView} from '@threema/ts-utils/byte/byte-view';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {type u8, isU8} from '@threema/ts-utils/integer/u8';
@@ -10,7 +11,7 @@ import {SqliteConnection} from 'ts-sql-query/connections/SqliteConnection';
 import type {QueryRunner} from 'ts-sql-query/queryRunners/QueryRunner';
 import type {SqliteSqlBuilder} from 'ts-sql-query/sqlBuilders/SqliteSqlBuilder';
 
-import {isNonceHash, isPublicKey, isReadonlyRawKey} from '~/common/crypto';
+import {isNonceHash, isPublicKey} from '~/common/crypto';
 import {GROUP_CALL_KEY_LENGTH, wrapRawGroupCallKey} from '~/common/crypto/group-call';
 import {
     DATABASE_KEY_LENGTH,

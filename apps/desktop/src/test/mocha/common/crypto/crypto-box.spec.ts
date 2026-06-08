@@ -1,3 +1,4 @@
+import {wrapRawKey} from '@threema/crypto';
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import {bytesToHex} from '@threema/ts-utils/byte/bytes-to-hex';
 import {hexToBytes} from '@threema/ts-utils/byte/hex-to-bytes';
@@ -10,7 +11,6 @@ import {
     NONCE_UNGUARDED_SCOPE,
     type PlainData,
     type PublicKey,
-    wrapRawKey,
 } from '~/common/crypto';
 import {CREATE_BUFFER_TOKEN} from '~/common/crypto/box';
 import {TweetNaClBackend} from '~/common/crypto/tweetnacl';

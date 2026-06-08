@@ -1,13 +1,7 @@
+import {wrapRawKey, type RawKey, type ReadonlyRawKey} from '@threema/crypto';
 import type {WeakOpaque} from '@threema/ts-utils/meta/newtype';
 
-import {
-    type CryptoBackend,
-    NACL_CONSTANTS,
-    type PublicKey,
-    type RawKey,
-    type ReadonlyRawKey,
-    wrapRawKey,
-} from '~/common/crypto';
+import {type CryptoBackend, NACL_CONSTANTS, type PublicKey} from '~/common/crypto';
 import type {SecureSharedBoxFactory, SharedBoxFactory} from '~/common/crypto/box';
 import type {CspE2eBox, CspPayloadBox} from '~/common/network/types';
 

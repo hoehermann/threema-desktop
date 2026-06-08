@@ -1,3 +1,4 @@
+import {wrapRawKey} from '@threema/crypto';
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import {u8aToBase64} from '@threema/ts-utils/base64/u8a-to-base64';
 import {byteEquals} from '@threema/ts-utils/byte/byte-equals';
@@ -29,7 +30,6 @@ import {
     NACL_CONSTANTS,
     NONCE_UNGUARDED_SCOPE,
     ensureEncryptedDataWithNonceAhead,
-    wrapRawKey,
     type CryptoBackend,
     type EncryptedData,
     type EncryptedDataWithNonceAhead,

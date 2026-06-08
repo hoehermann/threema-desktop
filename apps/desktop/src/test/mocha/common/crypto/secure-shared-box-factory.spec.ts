@@ -1,14 +1,9 @@
+import {wrapRawKey} from '@threema/crypto';
 import {bytesToHex} from '@threema/ts-utils/byte/bytes-to-hex';
 import {hexToBytes} from '@threema/ts-utils/byte/hex-to-bytes';
 import {expect} from 'chai';
 
-import {
-    ensurePublicKey,
-    NACL_CONSTANTS,
-    type Nonce,
-    type PlainData,
-    wrapRawKey,
-} from '~/common/crypto';
+import {ensurePublicKey, NACL_CONSTANTS, type Nonce, type PlainData} from '~/common/crypto';
 import {CREATE_BUFFER_TOKEN, SecureSharedBoxFactory} from '~/common/crypto/box';
 import {TweetNaClBackend} from '~/common/crypto/tweetnacl';
 import {NonceScope} from '~/common/enum';

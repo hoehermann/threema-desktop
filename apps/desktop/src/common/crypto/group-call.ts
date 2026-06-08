@@ -1,3 +1,12 @@
+import {
+    blake2bHash,
+    deriveKey,
+    wrapRawKey,
+    type RawKey,
+    type ReadonlyRawKey,
+    type UnwrappedRawKey,
+} from '@threema/crypto';
+import {createHash, PERSONALBYTES, SALTBYTES} from '@threema/crypto/blake2b/implementation';
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import {UTF8} from '@threema/ts-utils/codec/utf8';
 import {type u8, ensureU8} from '@threema/ts-utils/integer/u8';
@@ -8,18 +17,12 @@ import type {ServicesForBackend} from '~/common/backend';
 import {
     type CryptoBackend,
     type CryptoBox,
-    type ReadonlyRawKey,
     NONCE_UNGUARDED_SCOPE,
     type NonceUnguardedScope,
-    wrapRawKey,
-    type UnwrappedRawKey,
     type PublicKey,
     type Cookie,
     NACL_CONSTANTS,
-    type RawKey,
 } from '~/common/crypto';
-import {deriveKey, hash} from '~/common/crypto/blake2b';
-import {PERSONALBYTES, SALTBYTES, createHash} from '~/common/crypto/blake2b/implementation';
 import type {SharedBoxFactory} from '~/common/crypto/box';
 import type {GroupView} from '~/common/model';
 import {getIdentityString} from '~/common/model/contact';
@@ -98,7 +101,7 @@ export function deriveGroupCallProperties(
 ): GroupCallKeyDerivations {
     const derivations: {[K in keyof GroupCallKeyDerivations]: GroupCallKeyDerivations[K]} = {
         callId: createGroupCallId(
-            hash(32, undefined, {personal: PERSONAL, salt: 'i'})
+            blake2bHash(32, undefined, {personal: PERSONAL, salt: 'i'})
                 .update(UTF8.encode(getIdentityString(services.device, group.creator)))
                 .update(u64ToBytesLe(group.groupId))
                 .update(Uint8Array.of(ensureU8(data.protocolVersion)))
@@ -107,7 +110,7 @@ export function deriveGroupCallProperties(
                 .digest(),
         ),
         gckh: tag<GroupCallKeyDerivations['gckh']>(
-            hash(32, data.gck, {personal: PERSONAL, salt: '#'}).digest(),
+            blake2bHash(32, data.gck, {personal: PERSONAL, salt: '#'}).digest(),
         ),
         gchk: tag<GroupCallKeyDerivations['gchk']>(
             services.crypto.getSecretBox(

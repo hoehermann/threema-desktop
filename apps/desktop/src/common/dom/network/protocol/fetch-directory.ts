@@ -1,4 +1,5 @@
 import * as v from '@badrap/valita';
+import {blake2bHash} from '@threema/crypto';
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import {base64ToU8a} from '@threema/ts-utils/base64/base64-to-u8a';
 import {u8aToBase64} from '@threema/ts-utils/base64/u8a-to-base64';
@@ -10,7 +11,6 @@ import {TimeoutError} from '@threema/ts-utils/timer/timeout-error';
 
 import type {ServicesForBackend} from '~/common/backend';
 import {ensurePublicKey} from '~/common/crypto';
-import {hash} from '~/common/crypto/blake2b';
 import {deriveDirectoryChallengeResponseKey} from '~/common/crypto/csp-keys';
 import type {ThreemaWorkCredentials} from '~/common/device';
 import {ActivityState} from '~/common/enum';
@@ -559,7 +559,7 @@ export class FetchDirectoryBackend implements DirectoryBackend {
     ): {readonly [x: string]: unknown; readonly token: string; readonly response: string} {
         // Derive the challenge response key and create a MAC for the challenge token
         const responseKey = deriveDirectoryChallengeResponseKey(ck, challenge.tokenRespKeyPub);
-        const response = hash(32, responseKey.asReadonly(), undefined)
+        const response = blake2bHash(32, responseKey.asReadonly(), undefined)
             .update(challenge.token)
             .digest();
         responseKey.purge();

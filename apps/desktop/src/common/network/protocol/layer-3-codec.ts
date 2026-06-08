@@ -5,6 +5,7 @@
  * - Transport layer encryption/decryption of CSP messages.
  * - Encoding/Decoding CSP message payloads and forwarding D2M messages.
  */
+import {blake2bHash} from '@threema/crypto';
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import {ByteBuffer} from '@threema/ts-utils/byte/byte-buffer';
 import {byteEncodeSequence} from '@threema/ts-utils/byte/byte-encode-sequence';
@@ -31,7 +32,6 @@ import {
     type PlainData,
     type PublicKey,
 } from '~/common/crypto';
-import {hash} from '~/common/crypto/blake2b';
 import {deriveVouchKey} from '~/common/crypto/csp-keys';
 import type {DeviceGroupBoxes} from '~/common/crypto/device-group-keys';
 import {randomPkcs7PaddingLength} from '~/common/crypto/random';
@@ -627,7 +627,7 @@ export class Layer3Decoder<TType extends 'full' | 'd2m-only'>
         const {config} = this._services;
         const {csp} = this._controller;
         const vouchKey = deriveVouchKey(config, csp.ck, tsk);
-        const vouchMac = hash(32, vouchKey.asReadonly(), undefined)
+        const vouchMac = blake2bHash(32, vouchKey.asReadonly(), undefined)
             .update(csp.sck.unwrap())
             .update(csp.tck.public)
             .digest();

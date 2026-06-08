@@ -1,4 +1,5 @@
 import * as v from '@badrap/valita';
+import {wrapRawKey, type RawKey} from '@threema/crypto';
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import {base64ToU8a} from '@threema/ts-utils/base64/base64-to-u8a';
 import {u8aToBase64} from '@threema/ts-utils/base64/u8a-to-base64';
@@ -13,8 +14,6 @@ import {
     NACL_CONSTANTS,
     NONCE_UNGUARDED_SCOPE,
     type PlainData,
-    type RawKey,
-    wrapRawKey,
 } from '~/common/crypto';
 import {CREATE_BUFFER_TOKEN} from '~/common/crypto/box';
 import {SafeError} from '~/common/error';

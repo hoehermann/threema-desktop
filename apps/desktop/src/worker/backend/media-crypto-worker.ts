@@ -1,4 +1,5 @@
 import type * as v from '@badrap/valita';
+import {wrapRawKey} from '@threema/crypto';
 import {bytesToHex} from '@threema/ts-utils/byte/bytes-to-hex';
 import type {u8} from '@threema/ts-utils/integer/u8';
 import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
@@ -7,7 +8,6 @@ import {tag} from '@threema/ts-utils/meta/newtype';
 import {ResolvablePromise} from '@threema/ts-utils/promise/resolvable-promise';
 import {SequenceNumberU32} from '@threema/ts-utils/sequence-number/sequence-number-u32';
 
-import {wrapRawKey} from '~/common/crypto';
 import {
     PCMK_LENGTH,
     type MediaCryptoDecryptorBackendHandle,

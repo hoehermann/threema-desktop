@@ -1,3 +1,4 @@
+import {CryptoError} from '@threema/crypto';
 import {Utf8EncodingError} from '@threema/ts-utils/codec/utf8';
 import {DelayedError, type DelayedErrorType} from '@threema/ts-utils/delayed/delayed-error';
 import type {u53} from '@threema/ts-utils/integer/u53';
@@ -110,15 +111,15 @@ const CRYPTO_ERROR_TRANSFER_HANDLER = registerErrorTransferHandler<
 >({
     tag: TransferTag.CRYPTO_ERROR,
     serialize: () => [],
-    deserialize: (message, cause) => new CryptoError(message, {from: cause}),
+    deserialize: (message, cause) => new CryptoError(message, {cause}),
 });
 
-/**
- * A general crypto-related error.
- */
-export class CryptoError extends BaseError {
-    public [TRANSFER_HANDLER] = CRYPTO_ERROR_TRANSFER_HANDLER;
-}
+// We patch the prototype of the CryptoError here to avoid coupling the ts-utils package with
+// the comlink endpoint.
+Object.defineProperty(CryptoError.prototype, TRANSFER_HANDLER, {
+    value: CRYPTO_ERROR_TRANSFER_HANDLER,
+    enumerable: false,
+});
 
 /**
  * Type of the {@link ProtocolError}.

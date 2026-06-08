@@ -1,7 +1,7 @@
+import type {RawKey} from '@threema/crypto';
 import * as libthreema from '@threema/libthreema-wasm';
 
 import type {ServicesForBackend} from '~/common/backend';
-import type {RawKey} from '~/common/crypto';
 import type {ThreemaWorkData} from '~/common/device';
 import type {Logger} from '~/common/logging';
 import type {ServicesForModel} from '~/common/model';

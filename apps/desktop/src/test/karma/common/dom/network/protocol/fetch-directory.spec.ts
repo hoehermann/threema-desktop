@@ -1,9 +1,10 @@
+import {wrapRawKey} from '@threema/crypto';
 import {u8aToBase64} from '@threema/ts-utils/base64/u8a-to-base64';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import * as sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 
-import {ensureNonce, NACL_CONSTANTS, type Nonce, type NonceHash, wrapRawKey} from '~/common/crypto';
+import {ensureNonce, NACL_CONSTANTS, type Nonce, type NonceHash} from '~/common/crypto';
 import {SecureSharedBoxFactory} from '~/common/crypto/box';
 import type {INonceGuard, INonceService} from '~/common/crypto/nonce';
 import {TweetNaClBackend} from '~/common/crypto/tweetnacl';

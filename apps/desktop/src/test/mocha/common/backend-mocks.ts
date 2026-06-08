@@ -6,6 +6,7 @@ import * as fs from 'node:fs';
 import * as os from 'node:os';
 import * as path from 'node:path';
 
+import {wrapRawKey, type RawKey} from '@threema/crypto';
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import {UTF8} from '@threema/ts-utils/codec/utf8';
 import type {Delayed} from '@threema/ts-utils/delayed/delayed';
@@ -25,8 +26,6 @@ import {
     type Nonce,
     type NonceHash,
     type PublicKey,
-    type RawKey,
-    wrapRawKey,
 } from '~/common/crypto';
 import {SecureSharedBoxFactory} from '~/common/crypto/box';
 import {deriveDeviceGroupKeys} from '~/common/crypto/device-group-keys';

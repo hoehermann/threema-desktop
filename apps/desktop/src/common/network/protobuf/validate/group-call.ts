@@ -1,4 +1,5 @@
 import * as v from '@badrap/valita';
+import {wrapRawKey} from '@threema/crypto';
 import {group_call} from '@threema/protocol/protobuf';
 import {ensureU53} from '@threema/ts-utils/integer/u53';
 import {ensureU8} from '@threema/ts-utils/integer/u8';
@@ -11,12 +12,7 @@ import {
     ensureRtpHeaderExtensionId,
 } from '@threema/webrtc/sdp';
 
-import {
-    ensureCookie,
-    ensureEncryptedDataWithNonceAhead,
-    ensurePublicKey,
-    wrapRawKey,
-} from '~/common/crypto';
+import {ensureCookie, ensureEncryptedDataWithNonceAhead, ensurePublicKey} from '~/common/crypto';
 import {
     PCMK_LENGTH,
     type LocalParticipantCookie,

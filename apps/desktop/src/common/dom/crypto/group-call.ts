@@ -1,11 +1,11 @@
 import * as v from '@badrap/valita';
+import {deriveKey} from '@threema/crypto';
+import {PERSONALBYTES} from '@threema/crypto/blake2b/implementation';
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import {UTF8} from '@threema/ts-utils/codec/utf8';
 import {type u8, ensureU8} from '@threema/ts-utils/integer/u8';
 import {tag, type WeakOpaque} from '@threema/ts-utils/meta/newtype';
 
-import {deriveKey} from '~/common/crypto/blake2b';
-import {PERSONALBYTES} from '~/common/crypto/blake2b/implementation';
 import {
     alignMediaKeyStateWith,
     ensureMediaKeySuccessorState,

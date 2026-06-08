@@ -60,6 +60,7 @@
     "@sentry/browser": "9.39.0",
     "@threema/branding": "workspace:*",
     "@threema/compose-area": "~0.4.6",
+    "@threema/crypto": "workspace:*",
     "@threema/dom": "workspace:*",
     "@threema/libthreema-wasm": "workspace:*",
     "@threema/protocol": "workspace:*",

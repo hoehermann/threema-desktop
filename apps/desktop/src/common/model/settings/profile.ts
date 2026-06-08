@@ -1,7 +1,7 @@
+import type {RawKey} from '@threema/crypto';
 import type {WorkProperties} from '@threema/libthreema-wasm';
 import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
 
-import type {RawKey} from '~/common/crypto';
 import {WorkAvailabilityStatusCategory} from '~/common/enum';
 import {TRANSFER_HANDLER} from '~/common/index';
 import type {ServicesForModel} from '~/common/model';

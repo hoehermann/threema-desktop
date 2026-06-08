@@ -1,3 +1,12 @@
+import {
+    CryptoError,
+    deriveKey,
+    wrapRawKey,
+    type Blake2bKdfParameters,
+    type Blake2bKeyLength,
+    type RawKey,
+    type ReadonlyRawKey,
+} from '@threema/crypto';
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import {ByteBuffer} from '@threema/ts-utils/byte/byte-buffer';
 import type {ByteEncoder, ByteLengthEncoder} from '@threema/ts-utils/byte/byte-encoder';
@@ -18,15 +27,10 @@ import {
     type PlainData,
     type PublicKey,
     type RawEncryptedData,
-    type RawKey,
     type RawPlainData,
-    type ReadonlyRawKey,
-    wrapRawKey,
 } from '~/common/crypto';
-import {type Blake2bKeyLength, deriveKey, type Blake2bKdfParameters} from '~/common/crypto/blake2b';
 import {type INonceGuard, type INonceService, NONCE_REUSED} from '~/common/crypto/nonce';
 import type {NonceScope} from '~/common/enum';
-import {CryptoError} from '~/common/error';
 import type {u64} from '~/common/types';
 import {assert} from '~/common/utils/assert';
 
@@ -108,7 +112,7 @@ export class CryptoBoxDecryptor<
                 this._nonce,
             );
         } catch (error) {
-            throw new CryptoError(`Decryption failed`, {from: error});
+            throw new CryptoError(`Decryption failed`, {cause: error});
         }
 
         // Remove cipher-text view

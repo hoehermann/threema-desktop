@@ -27,7 +27,10 @@ build
 /apps/desktop/build/playwright/test-results
 # Forked code, keep differences to original minimal.
 /apps/desktop/src/common/node/db/query-runner.ts
-/apps/desktop/src/common/crypto/blake2b/implementation.js
+
+# Package: `packages/crypto`
+/packages/crypto/coverage/
+/packages/crypto/src/blake2b/implementation.js
 
 # Package: `packages/dom`
 /packages/dom/coverage/

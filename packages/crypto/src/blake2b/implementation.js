@@ -35,7 +35,7 @@
 
 /* eslint-disable */
 
-import {assert} from '../../utils/assert';
+import {assert} from '@threema/ts-utils/meta/assert';
 //// var b2wasm = require('blake2b-wasm')
 
 // 64-bit unsigned addition
