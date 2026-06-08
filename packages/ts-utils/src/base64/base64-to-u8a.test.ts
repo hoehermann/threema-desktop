@@ -24,6 +24,18 @@ describe('base64ToU8a', () => {
         expect(base64ToU8a('')).toEqual(new Uint8Array(0));
     });
 
+    it('decodes a base64 string with URL safe chars correctly', () => {
+        expect(base64ToU8a('-_8=', {urlSafe: true})).toEqual(new Uint8Array([251, 255]));
+    });
+
+    it('re-pads an unpadded URL safe string before decoding', () => {
+        // Missing one '=' (length % 4 === 3)
+        expect(base64ToU8a('-_8', {urlSafe: true})).toEqual(new Uint8Array([251, 255]));
+        // Missing two '=' (length % 4 === 2)
+        expect(base64ToU8a('-w', {urlSafe: true})).toEqual(new Uint8Array([251]));
+        expect(base64ToU8a('_w', {urlSafe: true})).toEqual(new Uint8Array([255]));
+    });
+
     it('throws when it encounters invalid data', () => {
         expect(() => base64ToU8a('AQ#==')).toThrow('Failed to decode base64 string');
         expect(() => base64ToU8a('AQ==##')).toThrow('Failed to decode base64 string');
