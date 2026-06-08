@@ -1,3 +1,5 @@
+import type {WeakOpaque} from '@threema/ts-utils/meta/newtype';
+
 import {
     type CryptoBackend,
     NACL_CONSTANTS,
@@ -8,7 +10,6 @@ import {
 } from '~/common/crypto';
 import type {SecureSharedBoxFactory, SharedBoxFactory} from '~/common/crypto/box';
 import type {CspE2eBox, CspPayloadBox} from '~/common/network/types';
-import type {WeakOpaque} from '~/common/types';
 
 /**
  * The raw Client Key (often internally referred to as `ck` in the code and documentation) is a 32

@@ -1,9 +1,10 @@
+import {tag} from '@threema/ts-utils/meta/newtype';
+
 import type {RemoteGroupEditViewModelStoreValue} from '~/app/ui/components/partials/modals/edit-group-members-modal/types';
 import type {ReceiverPreviewListProps} from '~/app/ui/components/partials/receiver-preview-list/props';
 import type {ReceiverPreviewListId} from '~/app/ui/components/partials/receiver-preview-list/types';
 import {InactiveContactsPolicy} from '~/common/enum';
 import type {AppearanceSettingsView} from '~/common/model/types/settings';
-import {tag} from '~/common/types';
 import type {PropertiesMarked, PropertiesMarkedRemote} from '~/common/utils/endpoint';
 import type {IQueryableStore} from '~/common/utils/store';
 import {derive, type GetAndSubscribeFunction} from '~/common/utils/store/derived-store';

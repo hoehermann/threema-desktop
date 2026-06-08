@@ -1,3 +1,4 @@
+import type {WeakOpaque} from '@threema/ts-utils/meta/newtype';
 import type {
     QueryablePromise,
     ResolvablePromise,
@@ -35,7 +36,6 @@ import type {
 } from '~/common/network/protocol/task/manager';
 import type {IdentityString} from '~/common/network/types';
 import type {ClientKey} from '~/common/network/types/keys';
-import type {WeakOpaque} from '~/common/types';
 import {assertUnreachable, unreachable} from '~/common/utils/assert';
 import {registerErrorTransferHandler} from '~/common/utils/endpoint';
 import {isGroupManagedAndMonitoredByGateway, isGroupManagedByGateway} from '~/common/utils/group';

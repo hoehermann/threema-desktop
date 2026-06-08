@@ -1,3 +1,5 @@
+import {tag, type WeakOpaque} from '@threema/ts-utils/meta/newtype';
+
 import {
     ConversationCategory,
     ConversationVisibility,
@@ -17,7 +19,6 @@ import {
     type D2dSetProfilePicture,
 } from '~/common/network/protocol/task/d2d';
 import type {GroupId, IdentityString} from '~/common/network/types';
-import {tag, type WeakOpaque} from '~/common/types';
 import {dateToUnixTimestampMs, intoUnsignedLong} from '~/common/utils/number';
 
 // Return types for the helper functions to be compatible when creating protobuf messages.

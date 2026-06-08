@@ -1,3 +1,5 @@
+import {tag} from '@threema/ts-utils/meta/newtype';
+
 import type {DbPersistentProtocolState, DbPersistentProtocolStateUid} from '~/common/db';
 import {PersistentProtocolStateType} from '~/common/enum';
 import type {Logger} from '~/common/logging';
@@ -10,7 +12,6 @@ import {
     type UserProfileDistributionCacheValue,
     type UserProfileDistributionProtocolValue,
 } from '~/common/network/types/persistent-protocol-state';
-import {tag} from '~/common/types';
 import {unreachable} from '~/common/utils/assert';
 
 /**

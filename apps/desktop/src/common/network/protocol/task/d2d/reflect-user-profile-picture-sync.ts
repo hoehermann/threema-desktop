@@ -1,3 +1,5 @@
+import type {WeakOpaque} from '@threema/ts-utils/meta/newtype';
+
 import type {TransactionScope} from '~/common/enum';
 import type {Logger} from '~/common/logging';
 import * as protobuf from '~/common/network/protobuf';
@@ -9,7 +11,6 @@ import type {
     ServicesForTasks,
     TransactionRunning,
 } from '~/common/network/protocol/task';
-import type {WeakOpaque} from '~/common/types';
 
 export class ReflectUserProfilePictureSyncTask
     implements ComposableTask<ActiveTaskCodecHandle<'volatile'>, void>

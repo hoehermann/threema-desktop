@@ -1,5 +1,6 @@
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import type {u53} from '@threema/ts-utils/integer/u53';
+import {tag} from '@threema/ts-utils/meta/newtype';
 import {expect} from 'chai';
 
 import {ensureNonce, NACL_CONSTANTS, type NonceHash, type PublicKey} from '~/common/crypto';
@@ -67,7 +68,7 @@ import {
 } from '~/common/network/types';
 import {type RawBlobKey, wrapRawBlobKey} from '~/common/network/types/keys';
 import {STATUS_CODEC} from '~/common/status';
-import {tag, type Dimensions, type u64} from '~/common/types';
+import type {Dimensions, u64} from '~/common/types';
 import {assert, unwrap} from '~/common/utils/assert';
 import {bytesToHex} from '~/common/utils/byte';
 import {Identity} from '~/common/utils/identity';

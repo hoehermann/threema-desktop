@@ -1,5 +1,6 @@
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
+import type {WeakOpaque} from '@threema/ts-utils/meta/newtype';
 import {ResolvablePromise} from '@threema/ts-utils/promise/resolvable-promise';
 import {SequenceNumberU32} from '@threema/ts-utils/sequence-number/sequence-number-u32';
 import {SequenceNumberU53} from '@threema/ts-utils/sequence-number/sequence-number-u53';
@@ -38,7 +39,7 @@ import {
     type ReflectSequenceNumber,
     type ReflectSequenceNumberValue,
 } from '~/common/network/types';
-import type {u32, WeakOpaque} from '~/common/types';
+import type {u32} from '~/common/types';
 import {assert, assertUnreachable, unreachable, unwrap} from '~/common/utils/assert';
 import {intoUnsignedLong, u64ToHexLe} from '~/common/utils/number';
 import {

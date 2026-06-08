@@ -1,8 +1,10 @@
+import type {WeakOpaque} from '@threema/ts-utils/meta/newtype';
+
 import type {DbReceiverLookup} from '~/common/db';
 import type {BackendController} from '~/common/dom/backend/controller';
 import type {Logger} from '~/common/logging';
 import type {MessageId} from '~/common/network/types';
-import type {Dimensions, WeakOpaque} from '~/common/types';
+import type {Dimensions} from '~/common/types';
 import {unreachable} from '~/common/utils/assert';
 import type {FileBytesAndMediaType} from '~/common/utils/file';
 import {WeakValueMap} from '~/common/utils/map';

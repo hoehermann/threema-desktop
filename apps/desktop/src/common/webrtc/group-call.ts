@@ -2,6 +2,7 @@ import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-ar
 import {Delayed} from '@threema/ts-utils/delayed/delayed';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
+import {tag} from '@threema/ts-utils/meta/newtype';
 import {ResolvablePromise} from '@threema/ts-utils/promise/resolvable-promise';
 import {SequenceNumberU53} from '@threema/ts-utils/sequence-number/sequence-number-u53';
 import {SequenceNumberU64} from '@threema/ts-utils/sequence-number/sequence-number-u64';
@@ -57,7 +58,7 @@ import {
     type ParticipantId,
     type ServicesForGroupCall,
 } from '~/common/network/protocol/call/group-call';
-import {tag, type Dimensions, type u64} from '~/common/types';
+import type {Dimensions, u64} from '~/common/types';
 import {assert, unreachable, unwrap} from '~/common/utils/assert';
 import {u8aToBase64} from '~/common/utils/base64';
 import {byteEquals, bytesToHex} from '~/common/utils/byte';

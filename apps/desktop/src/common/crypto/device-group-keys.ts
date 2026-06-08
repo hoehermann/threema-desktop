@@ -1,3 +1,5 @@
+import type {Bare, WeakOpaque} from '@threema/ts-utils/meta/newtype';
+
 import {
     type CryptoBackend,
     type CryptoBox,
@@ -11,7 +13,6 @@ import type {INonceService} from '~/common/crypto/nonce';
 import {NonceScope} from '~/common/enum';
 import {CryptoError} from '~/common/error';
 import type {RawDeviceGroupKey} from '~/common/network/types/keys';
-import type {Bare, WeakOpaque} from '~/common/types';
 
 type SecretBoxWithRandomNonce = CryptoBox<never, never, never, never, NonceScope.D2D>;
 

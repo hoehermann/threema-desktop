@@ -1,8 +1,8 @@
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import type {u8} from '@threema/ts-utils/integer/u8';
+import type {WeakOpaque} from '@threema/ts-utils/meta/newtype';
 
 import type {GroupCallId} from '~/common/network/protocol/call/group-call';
-import type {WeakOpaque} from '~/common/types';
 import type {ProxyMarked} from '~/common/utils/endpoint';
 import type {RemoteAbortListener} from '~/common/utils/signal';
 import type {AnyGroupCallContextAbort, GroupCallContext} from '~/common/webrtc/group-call';

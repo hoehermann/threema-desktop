@@ -1,6 +1,6 @@
 import type {u53} from '@threema/ts-utils/integer/u53';
+import type {WeakOpaque} from '@threema/ts-utils/meta/newtype';
 
-import type {WeakOpaque} from '~/common/types';
 import {unwrap} from '~/common/utils/assert';
 
 // The following globals exist in both DOM and Node, so we'll just assume they're always available.

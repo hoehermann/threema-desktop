@@ -1,5 +1,6 @@
 import type {u53} from '@threema/ts-utils/integer/u53';
 import type {u8} from '@threema/ts-utils/integer/u8';
+import {tag} from '@threema/ts-utils/meta/newtype';
 import {expect} from 'chai';
 
 import type {ServicesForBackend} from '~/common/backend';
@@ -48,7 +49,7 @@ import {
     type Nickname,
 } from '~/common/network/types';
 import type {RawBlobKey} from '~/common/network/types/keys';
-import {type ByteLengthEncoder, type Dimensions, type f64, tag} from '~/common/types';
+import type {ByteLengthEncoder, Dimensions, f64} from '~/common/types';
 import {assert, unreachable, unwrap} from '~/common/utils/assert';
 import {bytesToHex} from '~/common/utils/byte';
 import {UTF8} from '~/common/utils/codec';

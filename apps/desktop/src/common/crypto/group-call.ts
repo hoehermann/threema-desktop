@@ -1,5 +1,6 @@
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import {type u8, ensureU8} from '@threema/ts-utils/integer/u8';
+import {tag, type WeakOpaque} from '@threema/ts-utils/meta/newtype';
 
 import type {ServicesForBackend} from '~/common/backend';
 import {
@@ -27,7 +28,7 @@ import {
     createGroupCallId,
 } from '~/common/network/protocol/call/group-call';
 import type {ClientKey} from '~/common/network/types/keys';
-import {tag, type RepeatedTuple, type WeakOpaque, type u64} from '~/common/types';
+import type {RepeatedTuple, u64} from '~/common/types';
 import {assert} from '~/common/utils/assert';
 import {UTF8} from '~/common/utils/codec';
 import type {ProxyMarked} from '~/common/utils/endpoint';

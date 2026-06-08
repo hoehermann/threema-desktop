@@ -1,4 +1,5 @@
 import type {u53} from '@threema/ts-utils/integer/u53';
+import {tag} from '@threema/ts-utils/meta/newtype';
 
 import type {I18nLocales} from '~/app/ui/i18n-types';
 import type {ServicesForBackend} from '~/common/backend';
@@ -49,7 +50,6 @@ import {
     type EmojiReaction,
 } from '~/common/network/types';
 import {wrapRawBlobKey} from '~/common/network/types/keys';
-import {tag} from '~/common/types';
 import {assert, unreachable, unwrap} from '~/common/utils/assert';
 import {DEFAULT_THUMBS_DOWN_EMOJI, DEFAULT_THUMBS_UP_EMOJI} from '~/common/utils/emoji';
 import {idColorIndex} from '~/common/utils/id-color';

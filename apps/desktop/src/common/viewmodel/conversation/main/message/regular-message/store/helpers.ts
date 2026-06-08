@@ -1,3 +1,5 @@
+import {tag} from '@threema/ts-utils/meta/newtype';
+
 import {
     ImageRenderingType,
     MessageDirection,
@@ -11,7 +13,6 @@ import type {
     AnyFileBasedMessageModel,
     AnyNonDeletedMessageModel,
 } from '~/common/model/types/message';
-import {tag} from '~/common/types';
 import {unreachable} from '~/common/utils/assert';
 import {
     isSingleUnicodeEmoji,

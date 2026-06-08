@@ -1,6 +1,7 @@
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import type {u8} from '@threema/ts-utils/integer/u8';
+import type {WeakOpaque} from '@threema/ts-utils/meta/newtype';
 
 import type {ServicesForBackend} from '~/common/backend';
 import {type NonceHash, type PublicKey, type RawKey, wrapRawKey} from '~/common/crypto';
@@ -59,7 +60,7 @@ import type {
 } from '~/common/network/types';
 import type {RawBlobKey} from '~/common/network/types/keys';
 import type {Settings} from '~/common/settings';
-import type {f64, u64, WeakOpaque, i53} from '~/common/types';
+import type {f64, u64, i53} from '~/common/types';
 import type {SingleUnicodeEmoji} from '~/common/utils/emoji';
 
 /**

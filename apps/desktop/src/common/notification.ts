@@ -1,4 +1,5 @@
 import type {u53} from '@threema/ts-utils/integer/u53';
+import type {WeakOpaque} from '@threema/ts-utils/meta/newtype';
 
 import type {ServicesForBackend} from '~/common/backend';
 import {
@@ -17,7 +18,6 @@ import type {AnyReceiverStore} from '~/common/model/types/receiver';
 import type {ModelStore} from '~/common/model/utils/model-store';
 import type {ChosenGroupCall} from '~/common/network/protocol/call/group-call';
 import type {GroupId, IdentityString} from '~/common/network/types';
-import type {WeakOpaque} from '~/common/types';
 import {unreachable} from '~/common/utils/assert';
 import type {ProxyMarked, RemoteProxy} from '~/common/utils/endpoint';
 import {

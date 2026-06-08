@@ -1,7 +1,8 @@
+import {tag} from '@threema/ts-utils/meta/newtype';
+
 import type {CryptoBackend} from '~/common/crypto';
 import {randomU64} from '~/common/crypto/random';
 import type {GroupId, MessageId, PollId} from '~/common/network/types';
-import {tag} from '~/common/types';
 
 import type {D2mMessage, D2mPayloadType} from '.';
 
