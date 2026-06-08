@@ -380,6 +380,11 @@ interface ImportMetaEnv extends ViteDefaultImportMetaEnv, BuildConfig {
         readonly STORES: boolean;
         readonly WEBRTC: boolean;
     };
+
+    // Feature flags
+    readonly FEATURES: {
+        readonly CONFERENCE_CALLS: boolean;
+    };
 }
 
 interface ImportMeta extends ViteDefaultImportMeta {

@@ -424,6 +424,11 @@ function makeConfig(pkg: PackageJson, env: ConfigEnv): Omit<ImportMeta['env'], '
             WEBRTC: env.environment === 'sandbox',
         },
 
+        // Feature flags
+        FEATURES: {
+            CONFERENCE_CALLS: env.environment === 'sandbox',
+        },
+
         // Build config
         ...makeBuildConfig(env.environment),
     };
