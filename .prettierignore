@@ -48,3 +48,6 @@ build
 
 # Package: `packages/libthreema-wasm`
 /packages/libthreema-wasm/libs/
+
+# Package: `packages/protocol`
+/packages/protocol/src/protobuf/

@@ -71,6 +71,7 @@ structure.
 │   ├── eslint-config/                     # Shared ESLint configuration
 │   ├── eslint-plugin-threema/             # Custom ESLint rules
 │   ├── libthreema-wasm/                   # Threema protocol implementation written in Rust
+│   ├── protocol/                          # Generated Threema protocol bindings (protobuf/structbuf)
 │   ├── ts-config/                         # Shared TypeScript configuration
 │   ├── ts-utils/                          # Shared TypeScript utilities
 │   ├── vite-plugin-commonjs-externals/
@@ -278,6 +279,8 @@ Some code is generated and should NOT be modified manually (usually stated at th
   `pnpm run generate:desktop:safe-enums`.
 - `src/common/network/protobuf/`: Generated from protobuf definitions.
 - `src/common/network/structbuf/`: Generated from structbuf definitions (except `utils.ts`).
+- `packages/protocol/src/`: Generated from the `threema-protocols` repository via
+  `pnpm run update:protocol`.
 
 Generating code should usually be done manually by the user. Always ask first before running any
 `pnpm run generate:*` scripts.

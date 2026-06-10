@@ -104,7 +104,7 @@ function updateMessageClass(class_) {
  *
  * Output:
  *
- *     import type * as tag from "../tag";
+ *     import type * as tag from "./tag";
  */
 function createTagImportNode() {
     return ts.factory.createImportDeclaration(
@@ -114,7 +114,7 @@ function createTagImportNode() {
             ts.factory.createNamespaceImport(ts.factory.createIdentifier('tag')),
             undefined,
         ),
-        ts.factory.createStringLiteral('../tag'),
+        ts.factory.createStringLiteral('./tag'),
     );
 }
 

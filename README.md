@@ -177,10 +177,9 @@ Limitations:
 - Cannot run `pnpm run package:*` commands currently, because this will try to package for Flatpak,
   which is currently not supported by the container's security configuration.
 - Cannot run `pnpm run generate:desktop:icons:*` commands because it needs native MacOS tools.
-- To run `pnpm run generate:desktop:protobuf` the `threema-protocols` repository needs to be cloned
-  inside the project working directory or inside of the container.
-- To run `pnpm run generate:desktop:structbuf` the `structbuf-typescript` project needs to be
-  installed inside the project working directory or inside of the container.
+- To run `pnpm run update:protocol` the `threema-protocols` repository needs to be cloned and the
+  `structbuf-typescript` project needs to be installed inside the project working directory or
+  inside of the container.
 
 ### <a name="no-dev-container"></a>Development Outside Dev Container
 

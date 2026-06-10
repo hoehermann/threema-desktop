@@ -99,9 +99,6 @@
     "generate:safe-enums": {
       "cache": false
     },
-    "generate:structbuf": {
-      "cache": false
-    },
     "generate:translations": {
       "outputs": ["src/translations"]
     },

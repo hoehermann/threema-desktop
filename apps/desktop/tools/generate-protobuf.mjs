@@ -2,9 +2,13 @@
 // @ts-check
 
 /**
- * Generate protobuf bindings.
+ * Generate protobuf bindings for the local (internal) protobuf modules.
  *
  * Requires protoc >= 3.15.0 to be installed!
+ *
+ * When run with `--postinstall` (e.g. as part of the pnpm `postinstall` hook), a missing `protoc`
+ * does not lead to an error but only to a warning, so that `pnpm install` works on systems without
+ * `protoc`.
  */
 import {spawnSync} from 'node:child_process';
 import * as fs from 'node:fs';
@@ -16,16 +20,13 @@ import {fileURLToPath} from 'node:url';
  *
  * @param {string} command The executable to run.
  * @param {readonly string[]} args The arguments to pass.
- * @param {import('node:child_process').SpawnSyncOptions} [options] Additional spawn options.
- * @returns {import('node:child_process').SpawnSyncReturns<string>} The completed spawn result.
  */
-function run(command, args, options = {}) {
-    const result = spawnSync(command, args, {stdio: 'inherit', encoding: 'utf8', ...options});
+function run(command, args) {
+    const result = spawnSync(command, args, {stdio: 'inherit'});
     if (result.status !== 0) {
         console.error(`Error: "${command}" exited with status ${result.status}`);
         process.exit(1);
     }
-    return result;
 }
 
 /**
@@ -42,76 +43,24 @@ function filesWithExtension(directory, extension) {
         .map((name) => path.join(directory, name));
 }
 
+// Parse arguments
+const postinstall = process.argv.includes('--postinstall');
+
 // Ensure protoc is available
 if (spawnSync('protoc', ['--version'], {stdio: 'ignore'}).status !== 0) {
-    console.error(
-        'ERROR: Protobuf compiler "protoc" not found in your PATH. Please install it manually: https://grpc.io/docs/protoc-installation/',
-    );
-    process.exit(1);
-}
-
-// Parse and validate arguments
-const protocolsDir = process.argv[2];
-if (protocolsDir === undefined) {
-    console.error(`Usage: ${process.argv[1]} <path-to-threema-protocols>`);
-    process.exit(1);
-}
-const protocolsDirStat = fs.statSync(protocolsDir, {throwIfNoEntry: false});
-if (protocolsDirStat === undefined || !protocolsDirStat.isDirectory()) {
-    console.error(`Error: protocols directory not found: ${protocolsDir}`);
+    const message =
+        'Protobuf compiler "protoc" not found in your PATH. Please install it manually: https://grpc.io/docs/protoc-installation/';
+    if (postinstall) {
+        console.warn(`Warning: ${message}`);
+        console.warn('Skipping generation of internal protobuf modules.');
+        process.exit(0);
+    }
+    console.error(`ERROR: ${message}`);
     process.exit(1);
 }
 
 // Set the CWD to the project root
 process.chdir(path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'));
-
-// Protocol layer
-const outfile = 'src/common/network/protobuf/js/index.js';
-run('node_modules/.bin/pbjs', [
-    ...filesWithExtension(path.join(protocolsDir, 'src'), '.proto'),
-    '-o',
-    outfile,
-    '-t',
-    'static-module',
-    '-w',
-    'es6',
-    '--force-long',
-    '--force-message',
-    '--no-convert',
-    '--no-create',
-    '--no-delimited',
-    '--no-typeurl',
-    '--no-verify',
-]);
-
-// Generate types, then strip the LongJS `require` (we inject an ES import below instead)
-const types = run('node_modules/.bin/pbts', [outfile], {stdio: ['ignore', 'pipe', 'inherit']});
-const postprocessed = run('tools/generate-protobuf-postprocess.cjs', [], {
-    input: types.stdout,
-    stdio: ['pipe', 'pipe', 'inherit'],
-});
-fs.writeFileSync(
-    'src/common/network/protobuf/js/index.d.ts',
-    postprocessed.stdout
-        .split('\n')
-        .filter((line) => !line.includes('require("long")'))
-        .join('\n'),
-);
-
-// Inject Long global initialization
-const lines = fs.readFileSync(outfile, 'utf8').split('\n');
-fs.writeFileSync(
-    outfile,
-    [
-        ...lines.slice(0, 2),
-        '',
-        '// Use LongJS',
-        "import Long from 'long';",
-        '$protobuf.util.Long = Long;',
-        '$protobuf.configure();',
-        ...lines.slice(2),
-    ].join('\n'),
-);
 
 // Local protobuf modules
 run('protoc', [
