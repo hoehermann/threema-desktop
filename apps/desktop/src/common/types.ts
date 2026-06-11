@@ -29,7 +29,9 @@ export type f64 = number;
 
 // Re-exporting types from @threema/ts-utils for structbuf-typescript
 export type {u8, u53, WeakOpaque, ReadonlyUint8Array, EncoderPick, ByteLengthEncoder};
+export type {OpaqueTag, TagOf, Bare, OpaquePick} from '@threema/ts-utils/meta/newtype';
 export type {BoundedIterable} from '@threema/ts-utils/array/bounded-iterable';
+export {tag} from '@threema/ts-utils/meta/newtype';
 
 /**
  * Type guard for {@link u16}.
