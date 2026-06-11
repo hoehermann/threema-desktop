@@ -1,5 +1,5 @@
 import type Long from "long";
-import type * as types from "~/types";
+import type * as types from "@threema/protocol/types";
 import type * as tag from "./tag";
 import * as $protobuf from "protobufjs";
 /** Namespace common. */

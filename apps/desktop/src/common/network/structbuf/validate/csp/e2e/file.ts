@@ -1,10 +1,10 @@
 import * as v from '@badrap/valita';
+import * as csp from '@threema/protocol/structbuf/csp';
 import {hexToBytes} from '@threema/ts-utils/byte/hex-to-bytes';
 import {UTF8} from '@threema/ts-utils/codec/utf8';
 import {type u53, ensureU53} from '@threema/ts-utils/integer/u53';
 
 import {type BlobId, ensureBlobId} from '~/common/network/protocol/blob';
-import * as csp from '~/common/network/structbuf/csp';
 import {validator} from '~/common/network/structbuf/validate/utils';
 import {type RawBlobKey, wrapRawBlobKey} from '~/common/network/types/keys';
 import {instanceOf} from '~/common/utils/valita-helpers';

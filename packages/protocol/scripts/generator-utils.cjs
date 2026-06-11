@@ -33,9 +33,12 @@ function traverse(root, matchers, transform) {
 /**
  * Create types import (for `WeakOpaque`).
  *
+ * The import self-references the package through its `exports` map, so that the generated
+ * code resolves in any consumer without a path alias.
+ *
  * Output:
  *
- *     import type * as types from "~/types";
+ *     import type * as types from "@threema/protocol/types";
  */
 function createTypesImportNode() {
     return ts.factory.createImportDeclaration(
@@ -45,7 +48,7 @@ function createTypesImportNode() {
             ts.factory.createNamespaceImport(ts.factory.createIdentifier('types')),
             undefined,
         ),
-        ts.factory.createStringLiteral('~/types'),
+        ts.factory.createStringLiteral('@threema/protocol/types'),
     );
 }
 

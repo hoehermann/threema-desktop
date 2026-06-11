@@ -1,7 +1,7 @@
 import * as v from '@badrap/valita';
+import {d2d_sync} from '@threema/protocol/protobuf';
 
 import type {ProfilePictureShareWith} from '~/common/model/settings/profile';
-import {d2d_sync} from '~/common/network/protobuf/js';
 import {validator} from '~/common/network/protobuf/utils';
 import * as DeltaImage from '~/common/network/protobuf/validate/common/delta-image';
 import * as Identities from '~/common/network/protobuf/validate/common/identities';

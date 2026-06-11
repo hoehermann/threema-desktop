@@ -1,4 +1,5 @@
 import * as v from '@badrap/valita';
+import * as csp from '@threema/protocol/structbuf/csp';
 import {UTF8} from '@threema/ts-utils/codec/utf8';
 import {type u53, ensureU53} from '@threema/ts-utils/integer/u53';
 
@@ -14,7 +15,6 @@ import {
     PollState,
     PollStateUtils,
 } from '~/common/enum';
-import * as csp from '~/common/network/structbuf/csp';
 import {validator} from '~/common/network/structbuf/validate/utils';
 import {ensureIdentityString, ensurePollId, type IdentityString} from '~/common/network/types';
 import {ensureI53, type i53} from '~/common/types';

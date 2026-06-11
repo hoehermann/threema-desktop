@@ -13,8 +13,7 @@ export function run(): void {
                 utils.creator(group_call.SfuToParticipant.Envelope, {
                     padding: new Uint8Array(0),
                     hello: utils.creator(group_call.SfuToParticipant.Hello, {
-                        deprecatedParticipantIds: participantIds,
-                        participants: undefined,
+                        participantIds,
                     }),
                     relay: undefined,
                     timestampResponse: undefined,
@@ -34,14 +33,12 @@ export function run(): void {
         // fail in that case.
         it("accepts an SFU 'hello' without any participants", function () {
             const hello = parseHello([]);
-            expect(hello.deprecatedParticipantIds).to.eql([]);
+            expect(hello.participantIds).to.eql([]);
         });
 
         it("accepts an SFU 'hello' with existing participants", function () {
             const hello = parseHello([1, 2, 42]);
-            expect(hello.deprecatedParticipantIds).to.eql(
-                [1, 2, 42].map((id) => ensureParticipantId(id)),
-            );
+            expect(hello.participantIds).to.eql([1, 2, 42].map((id) => ensureParticipantId(id)));
         });
     });
 }

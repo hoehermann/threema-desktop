@@ -69,8 +69,8 @@ const {values, positionals} = parseArgs({
     allowPositionals: true,
     options: {
         'out-dir': {type: 'string', default: path.join(packageRoot, 'src', 'structbuf')},
-        'base-class': {type: 'string', default: 'Struct=~/structbuf/base'},
-        'external-import': {type: 'string', default: 'types=~/types'},
+        'base-class': {type: 'string', default: 'Struct=@threema/protocol/structbuf/base'},
+        'external-import': {type: 'string', default: 'types=@threema/protocol/types'},
     },
 });
 const [structbufTypescriptArg, protocolsDirArg, commitHash] = positionals;

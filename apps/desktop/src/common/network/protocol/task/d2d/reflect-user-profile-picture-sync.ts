@@ -1,9 +1,9 @@
+import type {ProtobufMessage} from '@threema/protocol/protobuf/tag';
 import type {WeakOpaque} from '@threema/ts-utils/meta/newtype';
 
 import type {TransactionScope} from '~/common/enum';
 import type {Logger} from '~/common/logging';
 import * as protobuf from '~/common/network/protobuf';
-import type {ProtobufMessage} from '~/common/network/protobuf/tag';
 import {D2mMessageFlags} from '~/common/network/protocol/flags';
 import type {
     ComposableTask,

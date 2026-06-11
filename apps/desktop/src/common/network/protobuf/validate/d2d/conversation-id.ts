@@ -1,10 +1,10 @@
 import * as v from '@badrap/valita';
+import {d2d} from '@threema/protocol/protobuf';
 import {intoU64} from '@threema/ts-utils/number/into-u64';
 import {intoUnsignedLong} from '@threema/ts-utils/number/into-unsigned-long';
 import Long from 'long';
 
 import {ReceiverType} from '~/common/enum';
-import {d2d} from '~/common/network/protobuf/js';
 import {creator, type ProtobufInstanceOf, validator} from '~/common/network/protobuf/utils';
 import {GroupIdentity} from '~/common/network/protobuf/validate/common';
 import {NULL_OR_UNDEFINED_SCHEMA} from '~/common/network/protobuf/validate/helpers';

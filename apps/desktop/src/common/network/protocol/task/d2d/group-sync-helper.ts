@@ -1,3 +1,4 @@
+import type {ProtobufMessage} from '@threema/protocol/protobuf/tag';
 import {tag, type WeakOpaque} from '@threema/ts-utils/meta/newtype';
 import {dateToUnixTimestampMs} from '@threema/ts-utils/number/date-to-unix-timestamp-ms';
 import {intoUnsignedLong} from '@threema/ts-utils/number/into-unsigned-long';
@@ -14,7 +15,6 @@ import type {
     ConversationView,
 } from '~/common/model/types/conversation';
 import * as protobuf from '~/common/network/protobuf';
-import type {ProtobufMessage} from '~/common/network/protobuf/tag';
 import {
     getDeltaImageMessage,
     type D2dProfilePictureUpdate,

@@ -1,6 +1,7 @@
 /**
  * Incoming message task.
  */
+import type {MessageWithMetadataBoxLike} from '@threema/protocol/structbuf/csp/payload';
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import {byteWithoutPkcs7} from '@threema/ts-utils/byte/byte-without-pkcs7';
 import {byteWithoutZeroPadding} from '@threema/ts-utils/byte/byte-without-zero-padding';
@@ -106,7 +107,6 @@ import {
 } from '~/common/network/protocol/task/message-processing-helpers';
 import {randomMessageId} from '~/common/network/protocol/utils';
 import * as structbuf from '~/common/network/structbuf';
-import type {MessageWithMetadataBoxLike} from '~/common/network/structbuf/csp/payload';
 import {
     type ContactConversationId,
     ensureIdentityString,

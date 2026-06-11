@@ -1,6 +1,6 @@
 import * as v from '@badrap/valita';
+import {d2d, d2d_sync} from '@threema/protocol/protobuf';
 
-import {d2d, d2d_sync} from '~/common/network/protobuf/js';
 import {validator} from '~/common/network/protobuf/utils';
 import {DeltaImage, Identities, Unit} from '~/common/network/protobuf/validate/common';
 import {NULL_OR_UNDEFINED_SCHEMA} from '~/common/network/protobuf/validate/helpers';

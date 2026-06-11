@@ -1,8 +1,8 @@
 import * as v from '@badrap/valita';
+import * as csp from '@threema/protocol/structbuf/csp';
 import {UTF8} from '@threema/ts-utils/codec/utf8';
 
 import {parseLocation} from '~/common/network/protocol/task/common/location';
-import * as csp from '~/common/network/structbuf/csp';
 import {validator} from '~/common/network/structbuf/validate/utils';
 import {instanceOf} from '~/common/utils/valita-helpers';
 

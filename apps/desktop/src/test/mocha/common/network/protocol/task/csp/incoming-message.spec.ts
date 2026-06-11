@@ -1,3 +1,4 @@
+import type {MessageWithMetadataBoxLike} from '@threema/protocol/structbuf/csp/payload';
 import type {ByteLengthEncoder} from '@threema/ts-utils/byte/byte-encoder';
 import {bytesToHex} from '@threema/ts-utils/byte/bytes-to-hex';
 import {UTF8} from '@threema/ts-utils/codec/utf8';
@@ -43,7 +44,6 @@ import {IncomingGroupNameTask} from '~/common/network/protocol/task/csp/group-sy
 import {IncomingMessageTask} from '~/common/network/protocol/task/csp/incoming-message';
 import {randomGroupId, randomMessageId} from '~/common/network/protocol/utils';
 import * as structbuf from '~/common/network/structbuf';
-import type {MessageWithMetadataBoxLike} from '~/common/network/structbuf/csp/payload';
 import type {FileRenderingType} from '~/common/network/structbuf/validate/csp/e2e/file';
 import {
     ensureIdentityString,

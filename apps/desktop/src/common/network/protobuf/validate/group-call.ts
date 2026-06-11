@@ -1,4 +1,5 @@
 import * as v from '@badrap/valita';
+import {group_call} from '@threema/protocol/protobuf';
 import {ensureU53} from '@threema/ts-utils/integer/u53';
 import {ensureU8} from '@threema/ts-utils/integer/u8';
 import {tag} from '@threema/ts-utils/meta/newtype';
@@ -23,7 +24,6 @@ import {
     type RemoteParticipantCallKey,
     type RemoteParticipantCookie,
 } from '~/common/crypto/group-call';
-import {group_call} from '~/common/network/protobuf/js';
 import {validator} from '~/common/network/protobuf/utils';
 import * as Unit from '~/common/network/protobuf/validate/common/unit';
 import {NULL_OR_UNDEFINED_SCHEMA} from '~/common/network/protobuf/validate/helpers';

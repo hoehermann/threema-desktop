@@ -1,4 +1,5 @@
 import * as v from '@badrap/valita';
+import {d2d_sync} from '@threema/protocol/protobuf';
 import {unixTimestampToDateMs} from '@threema/ts-utils/number/unix-timestamp-to-date-ms';
 
 import {ensurePublicKey} from '~/common/crypto';
@@ -15,7 +16,6 @@ import {
     VerificationLevelUtils,
     WorkVerificationLevelUtils,
 } from '~/common/enum';
-import {d2d_sync} from '~/common/network/protobuf/js';
 import {validator} from '~/common/network/protobuf/utils';
 import {DeltaImage} from '~/common/network/protobuf/validate/common';
 import * as WorkAvailabilityStatus from '~/common/network/protobuf/validate/sync/work-availability-status';

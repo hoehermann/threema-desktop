@@ -1,7 +1,7 @@
 import * as v from '@badrap/valita';
+import * as d2m from '@threema/protocol/structbuf/md-d2m';
 import {unixTimestampToDateMs} from '@threema/ts-utils/number/unix-timestamp-to-date-ms';
 
-import * as d2m from '~/common/network/structbuf/md-d2m';
 import {validator} from '~/common/network/structbuf/validate/utils';
 import {instanceOf} from '~/common/utils/valita-helpers';
 

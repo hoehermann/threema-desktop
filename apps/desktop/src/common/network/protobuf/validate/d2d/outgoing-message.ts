@@ -1,8 +1,8 @@
 import * as v from '@badrap/valita';
+import {d2d} from '@threema/protocol/protobuf';
 import {unixTimestampToDateMs} from '@threema/ts-utils/number/unix-timestamp-to-date-ms';
 
 import {ensureNonce} from '~/common/crypto';
-import {d2d} from '~/common/network/protobuf/js';
 import {validator} from '~/common/network/protobuf/utils';
 import {MESSAGE_ID_SCHEMA} from '~/common/network/protobuf/validate/helpers';
 import {instanceOf, nullOptional, unsignedLongAsU64} from '~/common/utils/valita-helpers';

@@ -1,3 +1,9 @@
+import type {
+    FileEncodable,
+    GroupMemberContainerEncodable,
+    PollSetupEncodable,
+    TextEncodable,
+} from '@threema/protocol/structbuf/csp/e2e';
 import {UTF8} from '@threema/ts-utils/codec/utf8';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
 import {u64ToHexLe} from '@threema/ts-utils/number/u64-to-hex-le';
@@ -31,12 +37,6 @@ import {getFileJsonData, getPollJsonData} from '~/common/network/protocol/task/c
 import {OutgoingCspMessagesTask} from '~/common/network/protocol/task/csp/outgoing-csp-messages';
 import type {ValidCspMessageTypeForReceiver} from '~/common/network/protocol/task/csp/types';
 import * as structbuf from '~/common/network/structbuf';
-import type {
-    FileEncodable,
-    GroupMemberContainerEncodable,
-    PollSetupEncodable,
-    TextEncodable,
-} from '~/common/network/structbuf/csp/e2e';
 import {unreachable} from '~/common/utils/assert';
 
 /**

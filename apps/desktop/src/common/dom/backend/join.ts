@@ -1,6 +1,7 @@
 /**
  * Device join protocol.
  */
+import {d2d_join} from '@threema/protocol/protobuf';
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import {Delayed} from '@threema/ts-utils/delayed/delayed';
 
@@ -20,7 +21,6 @@ import {groupDebugString} from '~/common/model/group';
 import type {ProfileSettingsUpdate} from '~/common/model/types/settings';
 import * as protobuf from '~/common/network/protobuf';
 import {validate} from '~/common/network/protobuf';
-import {d2d_join} from '~/common/network/protobuf/js';
 import type {EssentialData} from '~/common/network/protobuf/validate/join';
 import {type BlobId, type BlobIdString, blobIdToString} from '~/common/network/protocol/blob';
 import type {RendezvousCloseCause} from '~/common/network/protocol/rendezvous';
