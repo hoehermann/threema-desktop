@@ -29,6 +29,7 @@ export type f64 = number;
 
 // Re-exporting types from @threema/ts-utils for structbuf-typescript
 export type {u8, u53, WeakOpaque, ReadonlyUint8Array, EncoderPick, ByteLengthEncoder};
+export type {BoundedIterable} from '@threema/ts-utils/array/bounded-iterable';
 
 /**
  * Type guard for {@link u16}.
@@ -119,16 +120,6 @@ export type Mutable<T, K extends keyof T = keyof T> = Omit<T, K> & {-readonly [P
 
 // eslint-disable-next-line @typescript-eslint/no-restricted-types
 export type Primitive = undefined | null | boolean | string | number | bigint;
-
-/**
- * Finite iterable with a specific length.
- */
-export interface BoundedIterable<T> extends Iterable<T> {
-    /**
-     * The amount of items the iterable yields.
-     */
-    length: u53;
-}
 
 /**
  * Definition of possible icon sets.
