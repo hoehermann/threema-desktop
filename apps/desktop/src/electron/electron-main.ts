@@ -1267,7 +1267,7 @@ function main(
                 enableWebSQL: false,
             },
             minHeight: 420,
-            minWidth: 420,
+            minWidth: 92 + 308 + 64,
         });
 
         if (import.meta.env.BUILD_ENVIRONMENT !== 'onprem') {

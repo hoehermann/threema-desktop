@@ -200,8 +200,13 @@
   <div class="app" data-display={$display} data-layout={$layout[$display]}>
     <Snackbar />
 
-    <!-- Nav Panel-->
-    <nav>
+    <!-- Nav Bar -->
+    <nav class="navbar">
+      <!-- TODO -->
+    </nav>
+
+    <!-- Sub-Nav Panel -->
+    <nav class="subnav">
       <NavPanelComponent {services} />
     </nav>
 
@@ -280,7 +285,12 @@
       display: none;
     }
 
-    nav {
+    .navbar {
+      @extend %-panel;
+      background-color: red;
+    }
+
+    .subnav {
       @extend %-panel;
       border-right: 1px solid var(--t-panel-gap-color);
     }
@@ -316,13 +326,13 @@
     // Small
     &[data-display='small'] {
       grid-template:
-        'main' 100%
-        / 100%;
+        'navbar main' 100%
+        / #{rem(92px)} 1fr;
 
       &:has(:global(.activity.collapsed)) {
         grid-template:
-          'main activity' 100%
-          / 1fr rem(64px);
+          'navbar main activity' 100%
+          / #{rem(92px)} 1fr #{rem(64px)};
 
         .activity {
           grid-area: activity;
@@ -332,15 +342,19 @@
       // Activity is expanded (covers entire view).
       &:has(:global(.activity.expanded)) {
         .activity {
-          @include show(main);
+          grid-area: navbar / navbar / main / main;
           border-left: none;
         }
       }
 
       // Activity is hidden or collapsed.
       &:not(:has(.activity.expanded)) {
+        .navbar {
+          @include show(navbar);
+        }
+
         &[data-layout='nav'] {
-          nav {
+          .subnav {
             @include show(main);
           }
         }
@@ -362,13 +376,13 @@
     // Medium
     &[data-display='medium'] {
       grid-template:
-        'nav main' 100%
-        / #{rem(308px)} 1fr;
+        'navbar nav main' 100%
+        / #{rem(92px)} #{rem(308px)} 1fr;
 
       &:has(:global(.activity.collapsed)) {
         grid-template:
-          'nav main activity' 100%
-          / #{rem(308px)} 1fr rem(64px);
+          'navbar nav main activity' 100%
+          / #{rem(92px)} #{rem(308px)} 1fr #{rem(64px)};
 
         .activity {
           grid-area: activity;
@@ -378,15 +392,19 @@
       // Activity is expanded (covers entire view).
       &:has(:global(.activity.expanded)) {
         .activity {
-          grid-area: nav / nav / main / main;
+          grid-area: navbar / navbar / main / main;
           border-left: none;
         }
       }
 
       // Activity is hidden or collapsed.
       &:not(:has(.activity.expanded)) {
+        .navbar {
+          @include show(navbar);
+        }
+
         &[data-layout='nav-main'] {
-          nav {
+          .subnav {
             @include show(nav);
           }
           main {
@@ -395,7 +413,7 @@
         }
 
         &[data-layout='nav-aside'] {
-          nav {
+          .subnav {
             @include show(nav);
           }
           .aside {
@@ -409,13 +427,13 @@
     &[data-display='large'] {
       &[data-layout='nav-main'] {
         grid-template:
-          'nav main' 100%
-          / minmax(rem(308px), rem(400px)) 1fr;
+          'navbar nav main' 100%
+          / #{rem(92px)} #{rem(308px)} 1fr;
 
         &:has(:global(.activity.collapsed)) {
           grid-template:
-            'nav main activity' 100%
-            / minmax(rem(308px), rem(400px)) 1fr rem(308px);
+            'navbar nav main activity' 100%
+            / #{rem(92px)} #{rem(308px)} 1fr #{rem(308px)};
 
           .activity {
             grid-area: activity;
@@ -425,14 +443,18 @@
         // Activity is expanded (covers entire view).
         &:has(:global(.activity.expanded)) {
           .activity {
-            grid-area: nav / nav / main / main;
+            grid-area: navbar / navbar / main / main;
             border-left: none;
           }
         }
 
         // Activity is hidden or collapsed.
         &:not(:has(.activity.expanded)) {
-          nav {
+          .navbar {
+            @include show(navbar);
+          }
+
+          .subnav {
             @include show(nav);
           }
 
@@ -440,17 +462,36 @@
             @include show(main);
           }
         }
+
+        // Without the activity panel there's room to grow the nav panel one breakpoint earlier.
+        @media screen and (min-width: 1500px) {
+          grid-template:
+            'navbar nav main' 100%
+            / #{rem(92px)} #{rem(400px)} 1fr;
+        }
+
+        // With the collapsed activity panel visible, only grow nav at the very large breakpoint
+        // (matching the nav-main-aside layout).
+        @media screen and (min-width: 1720px) {
+          &:has(:global(.activity.collapsed)) {
+            grid-template:
+              'navbar nav main activity' 100%
+              / #{rem(92px)} #{rem(400px)} 1fr #{rem(308px)};
+          }
+        }
       }
 
       &[data-layout='nav-main-aside'] {
+        // Compact tier (>= 1280px): keep nav/aside narrow and the collapsed activity panel at its
+        // minimum, so `main` isn't squeezed between the two side panels.
         grid-template:
-          'nav main aside' 100%
-          / minmax(rem(308px), rem(400px)) minmax(rem(410px), 1fr) rem(308px);
+          'navbar nav main aside' 100%
+          / #{rem(92px)} #{rem(308px)} 1fr #{rem(308px)};
 
         &:has(:global(.activity.collapsed)) {
           grid-template:
-            'nav main aside activity' 100%
-            / minmax(rem(308px), rem(400px)) 1fr rem(308px) rem(64px);
+            'navbar nav main aside activity' 100%
+            / #{rem(92px)} #{rem(308px)} 1fr #{rem(308px)} #{rem(64px)};
 
           .activity {
             grid-area: activity;
@@ -460,14 +501,18 @@
         // Activity is expanded (covers entire view).
         &:has(:global(.activity.expanded)) {
           .activity {
-            grid-area: nav / nav / aside / aside;
+            grid-area: navbar / navbar / aside / aside;
             border-left: none;
           }
         }
 
         // Activity is hidden or collapsed.
         &:not(:has(.activity.expanded)) {
-          nav {
+          .navbar {
+            @include show(navbar);
+          }
+
+          .subnav {
             @include show(nav);
           }
 
@@ -480,19 +525,28 @@
           }
         }
 
-        @media screen and (min-width: rem(1280px)) {
-          &[data-display='large'] {
-            &[data-layout='nav-main-aside'] {
-              grid-template:
-                'nav main aside' 100%
-                / #{rem(400px)} 1fr minmax(rem(308px), rem(400px));
+        // Without the activity panel (4 columns) there's room to grow nav/aside to their max width
+        // here. With the collapsed activity panel present (5 columns), instead grow the activity
+        // panel and keep the side panels narrow for one more breakpoint so `main` isn't starved.
+        @media screen and (min-width: 1500px) {
+          grid-template:
+            'navbar nav main aside' 100%
+            / #{rem(92px)} #{rem(400px)} 1fr #{rem(400px)};
 
-              &:has(:global(.activity.collapsed)) {
-                grid-template:
-                  'nav main aside activity' 100%
-                  / #{rem(400px)} 1fr #{rem(308px)} #{rem(308px)};
-              }
-            }
+          &:has(:global(.activity.collapsed)) {
+            grid-template:
+              'navbar nav main aside activity' 100%
+              / #{rem(92px)} #{rem(308px)} 1fr #{rem(308px)} #{rem(308px)};
+          }
+        }
+
+        // Very large: with all 5 columns visible, nav and aside can finally grow to their max width
+        // too.
+        @media screen and (min-width: 1720px) {
+          &:has(:global(.activity.collapsed)) {
+            grid-template:
+              'navbar nav main aside activity' 100%
+              / #{rem(92px)} #{rem(400px)} 1fr #{rem(400px)} #{rem(308px)};
           }
         }
       }
