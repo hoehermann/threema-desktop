@@ -43,7 +43,7 @@
     - [ ] Send and receive a voice message (counterpart: mobile peer)
     - [ ] 1:1 audio/video call works (counterpart: mobile peer)
     - [ ] Group call works
-    - [ ] UI changes tested: <!-- e.g. ConversationView, AddressBook -->
+    - [ ] UI changes tested:
     - [ ] ...add additional flows if necessary.</details>
 
 ## Review checklist
