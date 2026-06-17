@@ -127,7 +127,7 @@ export default defineConfig(
     {
         files: ['src/app/**'],
         rules: {
-            'import/no-unassigned-import': ['error', {allow: ['**/*.scss']}],
+            'import/no-unassigned-import': ['error', {allow: ['**/*.css', '**/*.scss']}],
         },
         languageOptions: {
             globals: {

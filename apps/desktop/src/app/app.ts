@@ -1,4 +1,5 @@
 import '../sass/app.scss';
+import '../tailwind/index.css';
 
 import initComposeArea from '@threema/compose-area/web';
 import {Delayed} from '@threema/ts-utils/delayed/delayed';

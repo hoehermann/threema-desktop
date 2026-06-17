@@ -24,6 +24,7 @@
   ],
   "files.associations": {
     "**/apps/conferencing/**/*.css": "tailwindcss",
+    "**/apps/desktop/src/tailwind/**/*.css": "tailwindcss",
     "**/packages/ui/**/*.css": "tailwindcss"
   },
   "files.exclude": {
@@ -55,6 +56,7 @@
   "tailwindCSS.classFunctions": ["tv"],
   "tailwindCSS.experimental.configFile": {
     "apps/conferencing/src/app.css": ["apps/conferencing/src/**"],
+    "apps/desktop/src/tailwind/index.css": ["apps/desktop/src/**"],
     "packages/ui/src/theme.css": ["packages/ui/src/**"]
   },
   "tailwindCSS.validate": true

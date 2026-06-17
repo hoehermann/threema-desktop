@@ -4,6 +4,7 @@ import * as process from 'node:process';
 
 import * as v from '@badrap/valita';
 import {svelte} from '@sveltejs/vite-plugin-svelte';
+import tailwindcss from '@tailwindcss/vite';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {unreachable} from '@threema/ts-utils/meta/unreachable';
 import cjsExternals from '@threema/vite-plugin-commonjs-externals';
@@ -537,6 +538,9 @@ export default function defineConfig(viteEnv: ViteConfigEnv): UserConfig {
                 './test/mocha/common/tsconfig.json',
             ],
         }),
+        // Tailwind CSS (used alongside the existing SCSS theme). Must come before the Svelte
+        // plugin. Only relevant for the `app` entry, which is the only one that bundles CSS.
+        tailwind: env.entry === 'app' ? tailwindcss() : undefined,
         svelte:
             env.entry === 'app'
                 ? svelte({
@@ -674,6 +678,7 @@ export default function defineConfig(viteEnv: ViteConfigEnv): UserConfig {
                     '.',
                     '../node_modules',
                     '../../../node_modules/',
+                    '../../../packages/branding',
                     '../../../packages/libthreema-wasm/libs',
                 ],
             },
@@ -683,7 +688,12 @@ export default function defineConfig(viteEnv: ViteConfigEnv): UserConfig {
             format: 'iife',
             plugins: () =>
                 Object.values(plugins)
-                    .filter((plugin) => plugin !== undefined && plugin !== plugins.svelte)
+                    .filter(
+                        (plugin) =>
+                            plugin !== undefined &&
+                            plugin !== plugins.svelte &&
+                            plugin !== plugins.tailwind,
+                    )
                     .flat(),
         },
         experimental: {

@@ -436,6 +436,9 @@ importers:
       '@sentry/browser':
         specifier: 9.39.0
         version: 9.39.0
+      '@threema/branding':
+        specifier: workspace:*
+        version: link:../../packages/branding
       '@threema/compose-area':
         specifier: ~0.4.6
         version: 0.4.6
@@ -451,6 +454,9 @@ importers:
       '@threema/ts-utils':
         specifier: workspace:*
         version: link:../../packages/ts-utils
+      '@threema/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
       argon2:
         specifier: threema-ch/node-argon2#threema-20250402
         version: https://codeload.github.com/threema-ch/node-argon2/tar.gz/d25269c471b3ece9831662fab366db531e9cfc90
@@ -542,6 +548,9 @@ importers:
       '@sveltejs/vite-plugin-svelte':
         specifier: 'catalog:'
         version: 6.2.4(svelte@5.55.2)(vite@7.1.12(@types/node@22.17.2)(jiti@2.7.0)(lightningcss@1.31.1)(sass@1.77.8))
+      '@tailwindcss/vite':
+        specifier: 'catalog:'
+        version: 4.2.1(vite@7.1.12(@types/node@22.17.2)(jiti@2.7.0)(lightningcss@1.31.1)(sass@1.77.8))
       '@threema/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
@@ -665,6 +674,9 @@ importers:
       svelte2tsx:
         specifier: 0.7.53
         version: 0.7.53(svelte@5.55.2)(typescript@5.8.3)
+      tailwindcss:
+        specifier: 'catalog:'
+        version: 4.2.1
       ts-proto:
         specifier: ~2.7.7
         version: 2.7.7
@@ -5892,6 +5904,7 @@ packages:
   tsconfck@3.1.4:
     resolution: {integrity: sha512-kdqWFGVJqe+KGYvlSO9NIaWn9jT1Ny4oKVzAJsKii5eoE9snzTJzL4+MMVOMn+fikWGFmKEylcXL710V/kIPJQ==}
     engines: {node: ^18 || >=20}
+    deprecated: unmaintained
     hasBin: true
     peerDependencies:
       typescript: ^5.0.0
@@ -7406,6 +7419,13 @@ snapshots:
       '@tailwindcss/oxide-wasm32-wasi': 4.2.1
       '@tailwindcss/oxide-win32-arm64-msvc': 4.2.1
       '@tailwindcss/oxide-win32-x64-msvc': 4.2.1
+
+  '@tailwindcss/vite@4.2.1(vite@7.1.12(@types/node@22.17.2)(jiti@2.7.0)(lightningcss@1.31.1)(sass@1.77.8))':
+    dependencies:
+      '@tailwindcss/node': 4.2.1
+      '@tailwindcss/oxide': 4.2.1
+      tailwindcss: 4.2.1
+      vite: 7.1.12(@types/node@22.17.2)(jiti@2.7.0)(lightningcss@1.31.1)(sass@1.77.8)
 
   '@tailwindcss/vite@4.2.1(vite@7.1.12(@types/node@24.12.4)(jiti@2.7.0)(lightningcss@1.31.1)(sass@1.77.8))':
     dependencies:
