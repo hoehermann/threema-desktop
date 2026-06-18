@@ -12,6 +12,7 @@
   import ConversationNav from '~/app/ui/components/partials/conversation-nav/ConversationNav.svelte';
   import GroupDetail from '~/app/ui/components/partials/group-detail/GroupDetail.svelte';
   import EditGroupMembersModal from '~/app/ui/components/partials/modals/edit-group-members-modal/EditGroupMembersModal.svelte';
+  import NavBar from '~/app/ui/components/partials/navbar/NavBar.svelte';
   import ReceiverNav from '~/app/ui/components/partials/receiver-nav/ReceiverNav.svelte';
   import Settings from '~/app/ui/components/partials/settings/Settings.svelte';
   import NavSettingsList from '~/app/ui/components/partials/settings-nav/SettingsNav.svelte';
@@ -201,9 +202,9 @@
     <Snackbar />
 
     <!-- Nav Bar -->
-    <nav class="navbar">
-      <!-- TODO -->
-    </nav>
+    <div class="navbar">
+      <NavBar {services} />
+    </div>
 
     <!-- Sub-Nav Panel -->
     <nav class="subnav">
@@ -287,7 +288,6 @@
 
     .navbar {
       @extend %-panel;
-      background-color: red;
     }
 
     .subnav {

@@ -57,6 +57,28 @@
   --color-grey-800: rgba(44, 44, 43, 1);
   --color-grey-900: rgba(21, 21, 19, 1);
 
+  /*
+   * Profile picture colors, as `light-dark(<light value>, <dark value>)`. The active value is
+   * picked by the `color-scheme` set per theme below (so `system` follows the OS with no
+   * duplication).
+   */
+  --color-profile-yellow: light-dark(#f9a800, #fff176);
+  --color-profile-amber: light-dark(#ff8f00, #ffca28);
+  --color-profile-orange: light-dark(#ef6c00, #ffa726);
+  --color-profile-deep-orange: light-dark(#d84315, #ff7043);
+  --color-profile-red: light-dark(#c62828, #ef5350);
+  --color-profile-pink: light-dark(#ad1457, #ec407a);
+  --color-profile-purple: light-dark(#ac24aa, #ab47bc);
+  --color-profile-deep-purple: light-dark(#7b3ab7, #7e57d6);
+  --color-profile-indigo: light-dark(#283593, #6371ff);
+  --color-profile-blue: light-dark(#1565c0, #42a5f5);
+  --color-profile-light-blue: light-dark(#0288d1, #4fc3f7);
+  --color-profile-cyan: light-dark(#0097a7, #26c6da);
+  --color-profile-teal: light-dark(#00796b, #26a69a);
+  --color-profile-green: light-dark(#2e7d32, #66bb6a);
+  --color-profile-light-green: light-dark(#7cb342, #8bc34a);
+  --color-profile-olive: light-dark(#9e9d24, #9e9d24);
+
   /* Font stacks */
   --font-default:
     'Open Sans', 'Apple Color Emoji', 'Segoe UI Emoji', NotoColorEmoji, 'Noto Color Emoji',
@@ -80,17 +102,38 @@
 @custom-variant branding-work (&:where([data-branding='work'], [data-branding='work'] *));
 
 /*
- * Per-theme variants for conditional styling based on the active theme.
-
- Usage: `<button class="text-black dark:text-white ...">`.
+ * Per-theme variant for conditional styling based on the active theme.
+ *
+ * Applies for the explicit `dark` theme, as well as the `system` theme when the OS prefers a dark
+ * color scheme.
+ *
+ * Usage: `<button class="text-black dark:text-white ...">`.
  */
-@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+@custom-variant dark {
+  &:where([data-theme='dark'], [data-theme='dark'] *) {
+    @slot;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    &:where([data-theme='system'], [data-theme='system'] *) {
+      @slot;
+    }
+  }
+}
+
+[data-theme='light'] {
+  color-scheme: light;
+}
 
 [data-theme='dark'] {
+  color-scheme: dark;
   background-color: var(--color-grey-800);
 }
 
 [data-theme='system'] {
+  /* Follow the OS preference (and pick from `light-dark` values dynamically). */
+  color-scheme: light dark;
+
   @media (prefers-color-scheme: dark) {
     background-color: var(--color-grey-800);
   }

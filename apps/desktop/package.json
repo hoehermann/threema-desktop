@@ -81,6 +81,8 @@
     "scrypt-js": "3.0.1",
     "svelte": "catalog:",
     "synchronous-promise": "~2.0.17",
+    "tailwind-merge": "catalog:",
+    "tailwind-variants": "catalog:",
     "ts-events": "3.4.1",
     "ts-sql-query": "1.67.0",
     "tweetnacl": "1.0.3",

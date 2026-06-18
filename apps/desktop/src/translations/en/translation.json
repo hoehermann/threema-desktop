@@ -53,6 +53,9 @@
     "prose--add-contact-instructions": "Please enter the {shortAppName} ID of the contact you would like to add:",
     "prose--add-contact-instructions-work-directory": "Alternatively, search a contact in the company directory, and add it to your contact list:"
   },
+  "conversations": {
+    "label--title-conversations": "Chats"
+  },
   "dialog--auto-app-update-download": {
     "prose--downloading": "Downloading {shortAppName} {version} for desktop…",
     "prose--restarting": "Preparing installation…"
