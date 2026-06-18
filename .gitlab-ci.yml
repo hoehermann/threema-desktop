@@ -340,6 +340,29 @@ lint:
     - bash scripts/run-with-retry.sh --retries 3 --delay 15 -- pnpm ci
     - pnpm run lint
 
+test:vitest:
+  stage: test
+  needs: [libthreema, image:node-browsers]
+  image: $CI_REGISTRY_IMAGE/node-browsers:latest
+  <<: *linux_nodejs_config
+  variables:
+    <<: *linux_nodejs_variables
+    # Point Vitest's Playwright provider (`executablePath`) at the image's system Chromium.
+    CHROMIUM_BIN: /usr/bin/chromium
+  artifacts:
+    paths:
+      # Make `turbo` cache available to dependent jobs.
+      - .turbo/cache
+      # Export `turbo` task summaries.
+      - .turbo/runs
+  before_script:
+    - set -euo pipefail
+    - *linux_nodejs_before_script
+  script:
+    - set -euo pipefail
+    - bash scripts/run-with-retry.sh --retries 3 --delay 15 -- pnpm ci
+    - pnpm run test:vitest --summarize
+
 test:desktop:karma:consumer-sandbox:linux:
   stage: test
   needs: [libthreema, image:node-browsers]
