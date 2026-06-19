@@ -7,14 +7,13 @@
   import {onMount, tick} from 'svelte';
 
   import {globals} from '~/app/globals';
-  import {ROUTE_DEFINITIONS} from '~/app/routing/routes';
   import AvailabilityBanner from '~/app/ui/components/atoms/availability-banner/AvailabilityBanner.svelte';
   import SearchBar from '~/app/ui/components/molecules/search-bar/SearchBar.svelte';
+  import NavPanelHeader from '~/app/ui/components/organisms/nav-panel-header/NavPanelHeader.svelte';
   import {
     conversationListEvent,
     getContextMenuItems,
   } from '~/app/ui/components/partials/conversation-nav/helpers';
-  import TopBar from '~/app/ui/components/partials/conversation-nav/internal/top-bar/TopBar.svelte';
   import type {ConversationNavProps} from '~/app/ui/components/partials/conversation-nav/props';
   import {conversationListItemSetStoreToConversationPreviewListPropsStore} from '~/app/ui/components/partials/conversation-nav/transformers';
   import type {
@@ -40,7 +39,6 @@
   import {WorkAvailabilityStatusCategory} from '~/common/enum';
   import {extractErrorMessage} from '~/common/error';
   import type {WorkAvailabilityStatus} from '~/common/model/types/work-availability-status';
-  import {DEFAULT_CATEGORY} from '~/common/settings';
   import {assertUnreachable, unreachable} from '~/common/utils/assert';
   import type {Remote} from '~/common/utils/endpoint';
   import {hasProperty} from '~/common/utils/object';
@@ -100,22 +98,6 @@
 
   function handleHotkeyControlF(): void {
     searchBarComponent?.focusAndSelect();
-  }
-
-  function handleClickReceiverListButton(): void {
-    router.go({
-      nav: ROUTE_DEFINITIONS.nav.receiverList.withParams({
-        addressBookState: 'receiver-preview-list',
-      }),
-    });
-  }
-
-  function handleClickProfilePicture(): void {
-    router.goToSettings({category: DEFAULT_CATEGORY});
-  }
-
-  function handleClickSettingsButton(): void {
-    router.goToSettings({category: DEFAULT_CATEGORY});
   }
 
   async function handleClearSearchBar(): Promise<void> {
@@ -395,17 +377,10 @@
 
 <div class="container">
   <div class="top-bar">
-    <!-- eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -->
-    {#if $profileViewModelStore !== undefined}
-      <TopBar
-        initials={$profileViewModelStore.initials}
-        onclickprofilepicture={handleClickProfilePicture}
-        onclickreceiverlistbutton={handleClickReceiverListButton}
-        onclicksettingsbutton={handleClickSettingsButton}
-        profilePicture={$profileViewModelStore.profilePicture}
-        {services}
-      />
-    {/if}
+    <NavPanelHeader
+      title={$i18n.t('conversations.label--title-conversations', 'Chats')}
+      {services}
+    />
   </div>
 
   <div class="search">
@@ -474,14 +449,14 @@
     overflow: hidden;
     background-color: var(--t-nav-background-color);
     grid-template:
-      'top-bar' rem(64px)
+      'top-bar' min-content
       'search' rem(52px)
       'list' 1fr
       / 100%;
 
     &:global(:has(> .availability)) {
       grid-template:
-        'top-bar' rem(64px)
+        'top-bar' min-content
         'availability' rem(64px)
         'search' rem(52px)
         'list' 1fr
@@ -490,10 +465,6 @@
 
     .top-bar {
       grid-area: top-bar;
-
-      display: flex;
-      align-items: stretch;
-      justify-content: stretch;
     }
 
     .availability {

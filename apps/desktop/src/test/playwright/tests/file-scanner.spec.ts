@@ -26,12 +26,10 @@ test('File scanner no-op allows inbound txt attachment to download successfully'
     const fileBuffer = Buffer.from('File scanner extension-point test payload.');
 
     // Arrange: Set auto-download incoming media to never download
-    await page.getByRole('button', {name: 'more_vert'}).click();
-    await page.getByRole('button', {name: 'Settings'}).click();
+    await page.getByTestId('nav-item-settings').click();
     await page.getByRole('button', {name: 'Media and Storage'}).click();
     await page.getByRole('button', {name: 'Auto-Download Incoming Media'}).click();
     await page.getByRole('button', {name: 'Never download'}).click();
-    await page.getByRole('button', {name: 'arrow_back'}).click();
 
     // Act
     await conversationPage.addContact('ECHOECHO');

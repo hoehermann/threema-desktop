@@ -12,7 +12,7 @@ test.beforeAll(async ({electronApp}) => {
     await page.getByText('App Password', {exact: true}).fill('CHANGE_ME');
     await page.getByRole('button', {name: 'Continue'}).click();
 
-    await expect(page.getByRole('button', {name: 'person_outline'})).toBeVisible({
+    await expect(page.getByTestId('nav-item-contacts')).toBeVisible({
         timeout: loginTimeout,
     });
 });

@@ -19,19 +19,19 @@ export class ConversationPage {
     }
 
     public async gotoConversation(name: string): Promise<void> {
-        await this._page.getByRole('button', {name: 'person_outline'}).click();
+        await this._page.getByTestId('nav-item-contacts').click();
         await this._page.getByRole('button', {name}).last().click();
     }
 
     public async addMultipleContacts(identities: string): Promise<void> {
-        await this._page.getByRole('button', {name: 'person_outline'}).click();
+        await this._page.getByTestId('nav-item-contacts').click();
         await this._page.getByRole('button', {name: 'add New Contact'}).click();
         await this._page.getByPlaceholder('Threema ID').fill(identities);
         await this._page.getByRole('button', {name: 'Next'}).click();
     }
 
     public async addContact(identity: string): Promise<void> {
-        await this._page.getByRole('button', {name: 'person_outline'}).click();
+        await this._page.getByTestId('nav-item-contacts').click();
         await this._page.getByRole('button', {name: 'add New Contact'}).click();
         await this._page.getByPlaceholder('Threema ID').fill(identity);
         await this._page.getByRole('button', {name: 'Next'}).click();
@@ -41,7 +41,7 @@ export class ConversationPage {
 
     public async addGroup(groupName: string, testIds: string[]): Promise<void> {
         await this.goto();
-        await this._page.getByRole('button', {name: 'person_outline'}).click();
+        await this._page.getByTestId('nav-item-contacts').click();
         await this._page.getByRole('button', {name: 'group'}).click();
         await this._page.getByRole('button', {name: 'add New Group'}).click();
         for (const id of testIds) {
