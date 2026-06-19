@@ -113,8 +113,6 @@
       message-audio-slider-neutral-color:  rgba(255, 255, 255, 0.2),
       slider-thumb-color-off--disabled:  rgba(255, 255, 255, 0.2),
 
-
-
       // File Message
       message-file-icon-background-image: url('/res/theme/dark/icon/file.svg'),
       message-file-icon-width: em(32px),
@@ -130,7 +128,7 @@
       message-image-placeholder-background-color: rgba(#000000, 12%),
 
       // Status Message
-      status-message-background-color: theme.$grey-800
+      status-message-background-color: theme.$grey-900
     ),
     compound-components: (
       // Profile picture upload
