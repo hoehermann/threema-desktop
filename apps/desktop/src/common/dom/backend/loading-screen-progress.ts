@@ -1,7 +1,8 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
+
 import type {LoadingState} from '~/common/dom/backend';
 import {ConnectionState} from '~/common/enum';
 import type {Logger} from '~/common/logging';
-import type {u53} from '~/common/types';
 import {assertUnreachable} from '~/common/utils/assert';
 import type {IQueryableStore} from '~/common/utils/store';
 

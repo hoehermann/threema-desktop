@@ -1,3 +1,4 @@
+import type {u53} from '@threema/ts-utils/integer/u53';
 import {ResolvablePromise} from '@threema/ts-utils/promise/resolvable-promise';
 import {TIMER} from '@threema/ts-utils/timer/global-timer';
 import {expect} from 'chai';
@@ -10,7 +11,7 @@ import {
 import {ConnectionState} from '~/common/enum';
 import {LoadingInfo} from '~/common/loading';
 import {NOOP_LOGGER} from '~/common/logging';
-import type {u32, u53} from '~/common/types';
+import type {u32} from '~/common/types';
 import {WritableStore} from '~/common/utils/store';
 
 /**

@@ -195,7 +195,7 @@ pnpm run test:desktop:playwright:consumer-sandbox # E2E tests
   - `PascalCase` for components, classes, types, and interfaces.
   - `kebab-case` for file and directory names.
 - **Imports**: In the desktop app, use imports relative to the base paths defined in
-  `apps/desktop/src/tsconfig.base.json`, e.g. `import type {u53} from '~/common/types';`.
+  `apps/desktop/src/tsconfig.base.json`, e.g. `import {D2mPayloadTypeUtils} from '~/common/enum';`.
 - **Entry points**: Only files matching `entry.*.ts` or `entry.ts` are valid entry points. This
   ensures no side effects when importing for unit testing.
 
