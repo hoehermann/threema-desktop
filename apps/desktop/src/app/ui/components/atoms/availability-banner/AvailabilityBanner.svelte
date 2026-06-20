@@ -44,8 +44,7 @@
 
   .container {
     width: 100%;
-    min-height: rem(56px);
-    padding: rem(8px);
+    padding: 0 rem(10px) rem(8px);
     display: flex;
     align-items: center;
 
@@ -55,7 +54,7 @@
       display: flex;
       align-items: center;
       border-radius: rem(10px);
-      padding: 0 rem(16px);
+      padding: rem(4px) rem(16px);
       gap: rem(8px);
       color: var(--t-text-e1-color);
 
@@ -105,12 +104,13 @@
 
       appearance: none;
       font: inherit;
-      padding: 0 rem(12px);
+      padding: rem(4px) rem(8px);
 
-      border: rem(1px) solid var(--t-nav-background-color);
       border-radius: rem(8px);
-      background-color: var(--t-nav-background-color);
+      background-color: var(--cc-availability-status-banner-button-background-color);
       color: var(--t-text-e1-color);
+      font-size: rem(12px);
+      line-height: rem(18px);
 
       &:hover {
         background-color: var(--c-input-text-background-color--active);

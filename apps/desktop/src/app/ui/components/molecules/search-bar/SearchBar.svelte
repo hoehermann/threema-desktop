@@ -121,8 +121,8 @@
 
       & {
         color: var(--cc-search-input-icon-color, inherit);
-        padding: rem(8px);
-        font-size: em(24px);
+        padding: rem(9px);
+        font-size: rem(24px);
         user-select: none;
         display: grid;
         place-items: center;

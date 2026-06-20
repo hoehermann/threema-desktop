@@ -242,6 +242,8 @@ $brandings: (
     -g($cc, availability-status-banner-busy),
     --cc-availability-status-banner-unavailable-color:
     -g($cc, availability-status-banner-unavailable),
+    --cc-availability-status-banner-button-background-color:
+    -g($cc, availability-status-banner-button-background),
 
     // Conversation
     --cc-conversation-header-background-color: -g($cc, conversation-header-background-color),

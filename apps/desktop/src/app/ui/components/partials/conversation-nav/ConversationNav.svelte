@@ -383,16 +383,6 @@
     />
   </div>
 
-  <div class="search">
-    <SearchBar
-      bind:this={searchBarComponent}
-      bind:term={searchTerm}
-      onclear={handleClearSearchBar}
-      onrequestrefresh={handleRequestRefreshSearchResults}
-      placeholder={$i18n.t('search.label--search-input-placeholder', 'Search...')}
-    />
-  </div>
-
   {#if import.meta.env.BUILD_FLAVOR === 'work-sandbox' || import.meta.env.BUILD_FLAVOR === 'work-live'}
     {#if workAvailabilityStatus.category !== WorkAvailabilityStatusCategory.NONE}
       <div class="availability">
@@ -406,6 +396,16 @@
       </div>
     {/if}
   {/if}
+
+  <div class="search">
+    <SearchBar
+      bind:this={searchBarComponent}
+      bind:term={searchTerm}
+      onclear={handleClearSearchBar}
+      onrequestrefresh={handleRequestRefreshSearchResults}
+      placeholder={$i18n.t('search.label--search-input-placeholder', 'Search...')}
+    />
+  </div>
 
   <div bind:this={listElement} class="list">
     {#if currentPreviewList.length > 0}
@@ -450,15 +450,15 @@
     background-color: var(--t-nav-background-color);
     grid-template:
       'top-bar' min-content
-      'search' rem(52px)
+      'search' min-content
       'list' 1fr
       / 100%;
 
     &:global(:has(> .availability)) {
       grid-template:
         'top-bar' min-content
-        'availability' rem(64px)
-        'search' rem(52px)
+        'availability' min-content
+        'search' min-content
         'list' 1fr
         / 100%;
     }
