@@ -14,6 +14,7 @@ build
 # Package: `apps/desktop`
 /apps/desktop/.nyc_output_karma
 /apps/desktop/.nyc_output_mocha
+/apps/desktop/.temp
 /apps/desktop/coverage/
 /apps/desktop/export/
 /apps/desktop/junit/
