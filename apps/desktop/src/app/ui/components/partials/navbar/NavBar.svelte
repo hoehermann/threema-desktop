@@ -13,6 +13,7 @@
   import {cx} from 'tailwind-variants';
 
   import {globals} from '~/app/globals';
+  import type {UpdateRouterState} from '~/app/routing/router';
   import {ROUTE_DEFINITIONS} from '~/app/routing/routes';
   import type {AppServicesForSvelte} from '~/app/types';
   import {i18n} from '~/app/ui/i18n';
@@ -38,13 +39,24 @@
     new ReadableStore(undefined),
   );
 
+  /**
+   * Determines the `main` (and `aside`) panel updates to apply when switching between the top-level
+   * nav lists, so that the freshly selected list is actually visible.
+   */
+  function getCommonRouterTargetState(): Pick<UpdateRouterState, 'main' | 'aside'> {
+    if ($display === 'small') {
+      return {main: ROUTE_DEFINITIONS.main.welcome.withoutParams(), aside: 'close'};
+    }
+    if (router.get().nav.id === 'settingsList') {
+      return {main: ROUTE_DEFINITIONS.main.welcome.withoutParams()};
+    }
+    return {};
+  }
+
   function handleClickChats(): void {
     router.go({
       nav: ROUTE_DEFINITIONS.nav.conversationList.withoutParams(),
-      main:
-        router.get().nav.id === 'settingsList'
-          ? ROUTE_DEFINITIONS.main.welcome.withoutParams()
-          : undefined,
+      ...getCommonRouterTargetState(),
     });
   }
 
@@ -53,10 +65,7 @@
       nav: ROUTE_DEFINITIONS.nav.receiverList.withParams({
         addressBookState: 'receiver-preview-list',
       }),
-      main:
-        router.get().nav.id === 'settingsList'
-          ? ROUTE_DEFINITIONS.main.welcome.withoutParams()
-          : undefined,
+      ...getCommonRouterTargetState(),
     });
   }
 
