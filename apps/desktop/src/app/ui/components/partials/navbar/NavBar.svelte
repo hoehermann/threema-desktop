@@ -118,8 +118,8 @@
 
 <div
   class={cx(
-    'box-border flex w-full flex-col overflow-hidden border-r border-transparent',
-    $display === 'small' ? 'border-grey-200 dark:border-grey-700' : undefined,
+    'box-border flex w-full flex-col overflow-hidden border-r',
+    $display === 'small' ? 'border-grey-200 dark:border-grey-700' : 'border-transparent',
   )}
 >
   {#if import.meta.env.BUILD_PLATFORM === 'macos'}
