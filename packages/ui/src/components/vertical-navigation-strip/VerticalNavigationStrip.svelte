@@ -69,7 +69,7 @@
      */
     readonly active?: boolean;
     /**
-     * Callback invoked when the item is triggered.
+     * Callback invoked when the item is triggered, and is not already `active`.
      */
     readonly onclick?: (event: MouseEvent) => void;
     /**
@@ -150,6 +150,13 @@
 
   const slots = $derived(verticalNavigationStripVariants());
 
+  function handleClick(target: NavTarget, event: MouseEvent): void {
+    if (target.active ?? false) {
+      return;
+    }
+    target.onclick?.(event);
+  }
+
   // Object URL for the avatar's profile picture, derived from its raw image bytes. Using `$effect`
   // to assign a value is an antipattern, but is used here to be able to cleanly create and revoke
   // object URLs.
@@ -181,7 +188,7 @@
     class={itemSlots.item()}
     aria-current={ariaCurrent}
     data-testid={item.testId}
-    onclick={item.onclick}
+    onclick={(event) => handleClick(item, event)}
   >
     <span class={itemSlots.iconBox()}>
       <span class={itemSlots.icon()} aria-hidden="true">{item.icon}</span>
@@ -199,7 +206,7 @@
     aria-current={(data.active ?? false) ? 'page' : undefined}
     aria-label={data.label}
     data-testid={data.testId}
-    onclick={data.onclick}
+    onclick={(event) => handleClick(data, event)}
     title={data.label}
   >
     {#if avatarImageUrl !== undefined}

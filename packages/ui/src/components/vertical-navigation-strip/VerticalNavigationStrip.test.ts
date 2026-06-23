@@ -45,6 +45,16 @@ describe('VerticalNavigationStrip.svelte', () => {
         expect(onclick).toHaveBeenCalledTimes(1);
     });
 
+    it('does not invoke the `onclick` handler when the active item is clicked', async () => {
+        const onclick = vi.fn();
+        render(VerticalNavigationStrip, {
+            startItems: [{icon: 'chat_bubble', label: 'Chats', active: true, onclick}],
+        });
+
+        await page.getByRole('button', {name: 'Chats'}).click();
+        expect(onclick).not.toHaveBeenCalled();
+    });
+
     it('renders the avatar button with its label as accessible name', async () => {
         render(VerticalNavigationStrip, {
             startItems: [{icon: 'chat_bubble', label: 'Chats'}],
