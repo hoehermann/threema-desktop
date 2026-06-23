@@ -128,7 +128,7 @@
   {/if}
 
   <VerticalNavigationStrip
-    class={cx('pt-3 pb-6', import.meta.env.BUILD_PLATFORM === 'macos' ? 'pt-0' : undefined)}
+    class={cx('pb-6', import.meta.env.BUILD_PLATFORM === 'macos' ? 'pt-2' : 'pt-2.5')}
     {avatar}
     {endItems}
     {startItems}

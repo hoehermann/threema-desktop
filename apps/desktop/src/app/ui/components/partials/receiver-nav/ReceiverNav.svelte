@@ -197,7 +197,7 @@
     {services}
   >
     {#snippet snippetTopbar()}
-      <NavPanelHeader title={$i18n.t('contacts.label--contacts', 'Contacts')} {services} />
+      <NavPanelHeader {services} />
     {/snippet}
   </AddressBook>
 </div>

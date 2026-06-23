@@ -74,6 +74,7 @@
     background-color: var(--t-nav-background-color);
     grid-template:
       'bar' rem(64px)
+      '.' rem(8px)
       'search' auto
       'content' auto
       '.' 1fr

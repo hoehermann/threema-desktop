@@ -46,6 +46,7 @@
     align-items: center;
     justify-content: stretch;
     gap: rem(4px);
+    width: 100%;
 
     .tab {
       @extend %neutral-input;

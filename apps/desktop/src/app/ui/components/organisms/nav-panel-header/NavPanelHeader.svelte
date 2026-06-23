@@ -13,7 +13,7 @@
 
   import type {NavPanelHeaderProps} from '~/app/ui/components/organisms/nav-panel-header/props';
 
-  const {services, title}: NavPanelHeaderProps = $props();
+  const {services}: NavPanelHeaderProps = $props();
 
   const {
     settings: {
@@ -58,34 +58,18 @@
   });
 </script>
 
-<header
-  class={cx(
-    'flex w-full flex-col pb-5 select-none',
-    logoUrl === undefined ? 'pt-4' : 'gap-1',
-    logoUrl === undefined && import.meta.env.BUILD_PLATFORM === 'macos'
-      ? '[-webkit-app-region:drag]'
-      : undefined,
-  )}
->
-  {#if logoUrl !== undefined}
-    <div
-      class={cx(
-        'flex h-16 items-center justify-center px-4',
-        import.meta.env.BUILD_PLATFORM === 'macos' ? '[-webkit-app-region:drag]' : undefined,
-      )}
-    >
-      <img
-        class="h-full max-h-10 w-full max-w-52 object-contain"
-        alt="logo"
-        draggable="false"
-        src={logoUrl}
-      />
-    </div>
-  {/if}
-
-  <h1
-    class="m-0 w-full overflow-hidden px-4 text-2xl leading-7 font-bold text-ellipsis text-black dark:text-white"
+{#if logoUrl !== undefined}
+  <header
+    class={cx(
+      'flex h-16 w-full flex-col items-center justify-center px-4 select-none',
+      import.meta.env.BUILD_PLATFORM === 'macos' ? '[-webkit-app-region:drag]' : undefined,
+    )}
   >
-    {title}
-  </h1>
-</header>
+    <img
+      class="h-full max-h-10 w-full max-w-52 object-contain"
+      alt="logo"
+      draggable="false"
+      src={logoUrl}
+    />
+  </header>
+{/if}

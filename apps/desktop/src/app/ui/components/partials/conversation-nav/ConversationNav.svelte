@@ -377,10 +377,7 @@
 
 <div class="container">
   <div class="top-bar">
-    <NavPanelHeader
-      title={$i18n.t('conversations.label--title-conversations', 'Chats')}
-      {services}
-    />
+    <NavPanelHeader {services} />
   </div>
 
   {#if import.meta.env.BUILD_FLAVOR === 'work-sandbox' || import.meta.env.BUILD_FLAVOR === 'work-live'}
@@ -450,15 +447,41 @@
     background-color: var(--t-nav-background-color);
     grid-template:
       'top-bar' min-content
-      'search' min-content
+      'search' minmax(rem(64px), min-content)
       'list' 1fr
       / 100%;
 
-    &:global(:has(> .availability)) {
+    &:has(> .availability) {
       grid-template:
         'top-bar' min-content
-        'availability' min-content
+        'availability' minmax(rem(64px), min-content)
+        '.' rem(8px)
         'search' min-content
+        '.' rem(12px)
+        'list' 1fr
+        / 100%;
+    }
+
+    // Logo is present and followed by availability status.
+    &:has(> .top-bar:not(:empty) + .availability) {
+      grid-template:
+        'top-bar' min-content
+        '.' rem(8px)
+        'availability' min-content
+        '.' rem(8px)
+        'search' min-content
+        '.' rem(12px)
+        'list' 1fr
+        / 100%;
+    }
+
+    // Logo is present and is followed by the search box.
+    &:has(> .top-bar:not(:empty) + .search) {
+      grid-template:
+        'top-bar' min-content
+        '.' rem(8px)
+        'search' min-content
+        '.' rem(12px)
         'list' 1fr
         / 100%;
     }
@@ -469,12 +492,20 @@
 
     .availability {
       grid-area: availability;
+
+      display: flex;
+      align-items: center;
+      justify-content: stretch;
+      padding: 0 rem(8px);
     }
 
     .search {
       grid-area: search;
 
-      padding: 0 rem(16px) rem(12px);
+      display: flex;
+      align-items: center;
+      justify-content: stretch;
+      padding: 0 rem(16px);
     }
 
     .list {

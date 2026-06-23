@@ -5,8 +5,4 @@ import type {AppServicesForSvelte} from '~/app/types';
  */
 export interface NavPanelHeaderProps {
     readonly services: Pick<AppServicesForSvelte, 'settings' | 'storage'>;
-    /**
-     * Title text shown below the logo area.
-     */
-    readonly title: string;
 }

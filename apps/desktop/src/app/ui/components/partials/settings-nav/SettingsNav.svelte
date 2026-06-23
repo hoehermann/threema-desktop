@@ -5,14 +5,13 @@
   import NavPanelHeader from '~/app/ui/components/organisms/nav-panel-header/NavPanelHeader.svelte';
   import SettingsNavList from '~/app/ui/components/partials/settings-nav/internal/settings-nav-list/SettingsNavList.svelte';
   import type {SettingsNavProps} from '~/app/ui/components/partials/settings-nav/props';
-  import {i18n} from '~/app/ui/i18n';
 
   const {services}: SettingsNavProps = $props();
 </script>
 
 <div class="container">
   <div class="top-bar">
-    <NavPanelHeader title={$i18n.t('settings.label--title')} {services} />
+    <NavPanelHeader {services} />
   </div>
 
   <div class="list">
@@ -34,6 +33,10 @@
 
     .top-bar {
       grid-area: top-bar;
+
+      &:not(:empty) {
+        margin-bottom: rem(8px);
+      }
     }
 
     .list {

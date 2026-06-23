@@ -321,8 +321,11 @@
 {#if componentState === 'receiver-preview-list'}
   <div class="container">
     {#if snippetTopbar}
-      {@render snippetTopbar?.()}
+      <div class="top-bar">
+        {@render snippetTopbar?.()}
+      </div>
     {/if}
+
     <div class="tab-bar">
       <TabBar tabs={getTabBarTabs()} initiallySelectedId={tabState} />
     </div>
@@ -406,25 +409,43 @@
     overflow: hidden;
     max-height: 100%;
     max-width: 100%;
-
     grid-template:
       'top-bar' min-content
-      'tab-bar' min-content
+      'tab-bar' minmax(rem(64px), min-content)
+      '.' rem(8px)
       'search' min-content
+      '.' rem(12px)
       'add' min-content
       'list' 1fr
       / 100%;
 
+    // Logo is present.
+    &:has(> .top-bar:not(:empty)) {
+      grid-template:
+        'top-bar' min-content
+        '.' rem(8px)
+        'tab-bar' minmax(rem(44px), min-content)
+        '.' rem(8px)
+        'search' min-content
+        '.' rem(12px)
+        'add' min-content
+        'list' 1fr
+        / 100%;
+    }
+
     .tab-bar {
       grid-area: tab-bar;
 
-      padding: 0 rem(16px) rem(16px);
+      display: flex;
+      align-items: center;
+      justify-content: stretch;
+      padding: 0 rem(16px);
     }
 
     .search {
       grid-area: search;
 
-      padding: 0 rem(16px) rem(12px);
+      padding: 0 rem(16px);
     }
 
     .add {

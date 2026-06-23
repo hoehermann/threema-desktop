@@ -1377,21 +1377,21 @@
     height: 100%;
     overflow: clip;
 
-    &:has(:global(.availability)) {
+    &:has(.availability) {
       grid-template:
         'header' rem(64px)
-        'availability' rem(56px)
+        'availability' min-content
         'messages' minmax(0, 1fr)
         'footer' min-content
         / 100%;
 
       .messages :global(> .chat > .list) {
-        padding-top: calc(rem(64px) + rem(8px) + rem(56px));
-        scroll-padding-top: calc(rem(64px) + rem(8px) + rem(56px));
+        padding-top: calc(rem(64px) + rem(8px) + rem(52px));
+        scroll-padding-top: calc(rem(64px) + rem(8px) + rem(52px));
       }
 
       .messages :global(> .chat > .empty-chat > .notice) {
-        margin-top: calc(rem(16px) + rem(64px) + rem(56px));
+        margin-top: calc(rem(64px) + rem(16px) + rem(52px));
       }
     }
 
@@ -1410,6 +1410,7 @@
       z-index: 1;
 
       grid-area: availability;
+      padding: rem(8px) rem(8px) 0;
     }
 
     .messages {

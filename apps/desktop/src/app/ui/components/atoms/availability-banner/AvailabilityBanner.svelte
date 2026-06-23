@@ -44,7 +44,6 @@
 
   .container {
     width: 100%;
-    padding: 0 rem(10px) rem(8px);
     display: flex;
     align-items: center;
 
