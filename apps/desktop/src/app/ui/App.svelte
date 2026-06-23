@@ -463,8 +463,8 @@
           }
         }
 
-        // Without the activity panel there's room to grow the nav panel one breakpoint earlier.
-        @media screen and (min-width: 1500px) {
+        // Without the activity panel there's room to grow the nav panel two breakpoints earlier.
+        @media screen and (min-width: 1280px) {
           grid-template:
             'navbar nav main' 100%
             / #{rem(92px)} #{rem(400px)} 1fr;
