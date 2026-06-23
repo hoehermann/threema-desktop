@@ -1396,7 +1396,7 @@
     }
 
     .header {
-      z-index: 1;
+      z-index: 2;
 
       grid-area: header;
 
@@ -1430,7 +1430,7 @@
     }
 
     .private {
-      z-index: 2;
+      z-index: 3;
 
       grid-row-start: messages;
       grid-column-start: messages;
@@ -1460,7 +1460,7 @@
     }
 
     .footer {
-      z-index: 1;
+      z-index: 2;
       grid-area: footer;
 
       display: flex;
