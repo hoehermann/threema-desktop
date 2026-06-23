@@ -8,7 +8,6 @@ import type {u64} from '~/common/types';
 import type {Remote} from '~/common/utils/endpoint';
 import type {ConversationListViewModelBundle} from '~/common/viewmodel/conversation/list';
 import type {ConversationListItemViewModelBundle} from '~/common/viewmodel/conversation/list/item';
-import type {ProfileViewModelStore} from '~/common/viewmodel/profile';
 
 /**
  * Type of the value contained in a `ConversationListViewModelStore` transferred from {@link Remote}.
@@ -16,11 +15,6 @@ import type {ProfileViewModelStore} from '~/common/viewmodel/profile';
 export type RemoteConversationListViewModelStoreValue = ReturnType<
     Remote<ConversationListViewModelBundle>['viewModelStore']['get']
 >;
-
-/**
- * Type of the value contained in a `ProfileViewModelStore` transferred from {@link Remote}.
- */
-export type RemoteProfileViewModelStoreValue = ReturnType<Remote<ProfileViewModelStore>['get']>;
 
 /**
  * Branded type for a list item.

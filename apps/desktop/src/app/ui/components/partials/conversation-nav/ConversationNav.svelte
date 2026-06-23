@@ -20,7 +20,6 @@
     ModalState,
     ContextMenuItemHandlerProps,
     RemoteConversationListViewModelStoreValue,
-    RemoteProfileViewModelStoreValue,
     ConversationPreviewListId,
   } from '~/app/ui/components/partials/conversation-nav/types';
   import ConversationPreviewList from '~/app/ui/components/partials/conversation-preview-list/ConversationPreviewList.svelte';
@@ -43,7 +42,7 @@
   import type {Remote} from '~/common/utils/endpoint';
   import {hasProperty} from '~/common/utils/object';
   import {ReadableStore, type IQueryableStore} from '~/common/utils/store';
-  import type {SettingsViewModelBundle} from '~/common/viewmodel/settings';
+  import type {ConversationListViewModelBundle} from '~/common/viewmodel/conversation/list';
 
   const {uiLogging, hotkeyManager} = globals.unwrap();
   const log = uiLogging.logger('ui.component.conversation-nav');
@@ -61,14 +60,10 @@
   let viewModelStore = $state<
     IQueryableStore<RemoteConversationListViewModelStoreValue | undefined>
   >(new ReadableStore(undefined));
-
-  let profileViewModelStore = $state<IQueryableStore<RemoteProfileViewModelStoreValue | undefined>>(
-    new ReadableStore(undefined),
-  );
-
-  let settingsViewModelController:
-    | Remote<SettingsViewModelBundle>['viewModelController']
+  let viewModelController:
+    | Remote<ConversationListViewModelBundle>['viewModelController']
     | undefined = undefined;
+  let isViewModelLoaded = $state<boolean>(false);
 
   let modalState = $state<ModalState>({type: 'none'});
 
@@ -79,22 +74,8 @@
     $state<SvelteNullableBinding<ConversationPreviewList<ContextMenuItemHandlerProps>>>(null);
   let searchResultListComponent = $state<SvelteNullableBinding<SearchResultList>>(null);
 
-  let listElement = $state<SvelteNullableBinding<HTMLElement>>(null);
-
-  const workAvailabilityStatus: WorkAvailabilityStatus = $derived.by(() => {
-    if ($profileViewModelStore?.workAvailabilityStatus !== undefined) {
-      const {category, description} = $profileViewModelStore.workAvailabilityStatus;
-      return {
-        category,
-        description,
-      };
-    }
-
-    return {
-      category: WorkAvailabilityStatusCategory.NONE,
-      description: '',
-    };
-  });
+  const workAvailabilityStatusStore = $derived($viewModelStore?.workAvailabilityStatus);
+  const workAvailabilityStatus = $derived($workAvailabilityStatusStore);
 
   function handleHotkeyControlF(): void {
     searchBarComponent?.focusAndSelect();
@@ -182,14 +163,17 @@
   }
 
   function handleOpenSetAvailabilityStatusModal(): void {
+    // Opening the modal should not be possible if no status is currently set.
+    if (workAvailabilityStatus === undefined) {
+      return;
+    }
+
     modalState = {
       type: 'set-availability-status',
       props: {
         workAvailabilityStatus,
         onsubmit: async (newWorkAvailabilityStatus: WorkAvailabilityStatus): Promise<void> => {
-          await settingsViewModelController?.updateWorkAvailabilityStatus(
-            newWorkAvailabilityStatus,
-          );
+          await viewModelController?.updateWorkAvailabilityStatus(newWorkAvailabilityStatus);
         },
       },
     };
@@ -319,6 +303,8 @@
       .then((viewModelBundle) => {
         // Replace `viewModelBundle`.
         viewModelStore = viewModelBundle.viewModelStore;
+        viewModelController = viewModelBundle.viewModelController;
+        isViewModelLoaded = true;
       })
       .catch((error: unknown) => {
         log.error(`Failed to load ConversationListViewModelBundle: ${ensureError(error)}`);
@@ -326,25 +312,6 @@
         toast.addSimpleFailure(
           i18n.get().t('messaging.error--conversation-list-load', 'Chats could not be loaded'),
         );
-      });
-
-    await backend.viewModel
-      .profile()
-      .then((store) => {
-        // Replace `profileViewModelStore`.
-        profileViewModelStore = store;
-      })
-      .catch((error: unknown) => {
-        log.error(`Failed to load ProfileViewModel: ${ensureError(error)}`);
-      });
-
-    await backend.viewModel
-      .settings()
-      .then((store) => {
-        settingsViewModelController = store.viewModelController;
-      })
-      .catch((error: unknown) => {
-        log.error(`Failed to load SettingsViewModelController: ${ensureError(error)}`);
       });
 
     await scrollToActiveItem();
@@ -380,48 +347,50 @@
     <NavPanelHeader {services} />
   </div>
 
-  {#if import.meta.env.BUILD_FLAVOR === 'work-sandbox' || import.meta.env.BUILD_FLAVOR === 'work-live'}
-    {#if workAvailabilityStatus.category !== WorkAvailabilityStatusCategory.NONE}
-      <div class="availability">
-        <AvailabilityBanner
-          status={workAvailabilityStatus.category}
-          description={workAvailabilityStatus.description}
-          showIcon
-          align="left"
-          onEdit={handleOpenSetAvailabilityStatusModal}
-        ></AvailabilityBanner>
-      </div>
-    {/if}
-  {/if}
-
-  <div class="search">
-    <SearchBar
-      bind:this={searchBarComponent}
-      bind:term={searchTerm}
-      onclear={handleClearSearchBar}
-      onrequestrefresh={handleRequestRefreshSearchResults}
-      placeholder={$i18n.t('search.label--search-input-placeholder', 'Search...')}
-    />
-  </div>
-
-  <div bind:this={listElement} class="list">
-    {#if currentPreviewList.length > 0}
-      {#if searchTerm === undefined || searchTerm === ''}
-        <ConversationPreviewList
-          bind:this={conversationPreviewListComponent}
-          contextMenuItems={(item) =>
-            getContextMenuItems(item, $i18n, log, handleOpenClearModal, handleOpenDeleteModal)}
-          items={currentPreviewList}
-          onitementereddebounced={handleItemEntered}
-          {services}
-        />
-      {:else}
-        <SearchResultList bind:this={searchResultListComponent} {searchTerm} {services} />
+  {#if $viewModelStore !== undefined && isViewModelLoaded}
+    {#if import.meta.env.BUILD_FLAVOR === 'work-sandbox' || import.meta.env.BUILD_FLAVOR === 'work-live'}
+      {#if workAvailabilityStatus !== undefined && workAvailabilityStatus.category !== WorkAvailabilityStatusCategory.NONE}
+        <div class="availability">
+          <AvailabilityBanner
+            align="left"
+            description={workAvailabilityStatus.description}
+            onEdit={handleOpenSetAvailabilityStatusModal}
+            showIcon
+            status={workAvailabilityStatus.category}
+          ></AvailabilityBanner>
+        </div>
       {/if}
-    {:else}
-      <!-- No chats. -->
     {/if}
-  </div>
+
+    <div class="search">
+      <SearchBar
+        bind:this={searchBarComponent}
+        bind:term={searchTerm}
+        onclear={handleClearSearchBar}
+        onrequestrefresh={handleRequestRefreshSearchResults}
+        placeholder={$i18n.t('search.label--search-input-placeholder', 'Search...')}
+      />
+    </div>
+
+    <div class="list">
+      {#if currentPreviewList.length > 0}
+        {#if searchTerm === undefined || searchTerm === ''}
+          <ConversationPreviewList
+            bind:this={conversationPreviewListComponent}
+            contextMenuItems={(item) =>
+              getContextMenuItems(item, $i18n, log, handleOpenClearModal, handleOpenDeleteModal)}
+            items={currentPreviewList}
+            onitementereddebounced={handleItemEntered}
+            {services}
+          />
+        {:else}
+          <SearchResultList bind:this={searchResultListComponent} {searchTerm} {services} />
+        {/if}
+      {:else}
+        <!-- No chats. -->
+      {/if}
+    </div>
+  {/if}
 </div>
 
 {#if modalState.type === 'none'}
