@@ -227,10 +227,13 @@
       padding: rem(12px) rem(8px);
       display: grid;
       grid-template:
-        'left center right' minmax(rem(40px), min-content)
+        'left center right'
         / rem(40px) auto rem(40px);
       gap: rem(12px);
       align-items: center;
+
+      height: rem(64px);
+      user-select: none;
 
       .left {
         grid-area: left;
@@ -262,20 +265,6 @@
         .left .back {
           // Keep item clickable in drag area.
           -webkit-app-region: no-drag;
-        }
-      }
-
-      &[data-display='small'] {
-        .top-bar {
-          grid-template:
-            'left center right' min-content
-            / rem(119px) auto rem(119px);
-
-          .left {
-            display: flex;
-            align-items: center;
-            justify-content: right;
-          }
         }
       }
     }

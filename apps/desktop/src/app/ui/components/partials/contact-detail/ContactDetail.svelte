@@ -216,7 +216,7 @@
     overflow: hidden;
 
     grid-template:
-      'top-bar' min-content
+      'top-bar' rem(64px)
       'content' 1fr
       / 100%;
 
