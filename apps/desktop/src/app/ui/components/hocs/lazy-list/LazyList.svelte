@@ -260,7 +260,10 @@
 
     list-style-type: none;
     overflow: clip auto;
-    overscroll-behavior-y: contain;
+    // Note: Must stay `auto` (not `contain`). Since Chromium 144 (Electron 40),
+    // `overscroll-behavior` is honored even on scroll containers with no overflow of their own, so
+    // `contain` would swallow wheel/touch gestures when this list is embedded in another scroller.
+    overscroll-behavior-y: auto;
     scroll-snap-type: y mandatory;
 
     .item {
