@@ -6,6 +6,11 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "pins": {
+    "protoc": "35.1",
+    "structbuf-typescript": "f61f79e3",
+    "threema-protocols": "f991fc5a"
+  },
   "exports": {
     "./types": "./src/types.ts",
     "./types.js": "./src/types.ts",

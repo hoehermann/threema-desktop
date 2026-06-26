@@ -26,18 +26,17 @@ function runScript(script, args) {
     }
 }
 
-// Parse and validate arguments
-const [structbufTypescript, protocolsDir, commitHash] = process.argv.slice(2);
-if (structbufTypescript === undefined || protocolsDir === undefined || commitHash === undefined) {
+// Parse and validate arguments.
+const [structbufTypescript, protocolsDir] = process.argv.slice(2);
+if (structbufTypescript === undefined || protocolsDir === undefined) {
     console.error(
-        `Usage: ${process.argv[1]} <path-to-structbuf-typescript-bin.js> <path-to-threema-protocols> <commit-hash>`,
+        `Usage: ${process.argv[1]} <path-to-structbuf-typescript-bin.js> <path-to-threema-protocols>`,
     );
     process.exit(1);
 }
 
-runScript('generate-protobuf.mjs', [path.resolve(protocolsDir), commitHash]);
+runScript('generate-protobuf.mjs', [path.resolve(protocolsDir)]);
 runScript('generate-structbuf.mjs', [
     path.resolve(structbufTypescript),
     path.resolve(protocolsDir),
-    commitHash,
 ]);

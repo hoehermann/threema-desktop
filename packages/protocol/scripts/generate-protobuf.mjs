@@ -9,6 +9,8 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {fileURLToPath} from 'node:url';
 
+import {readPins} from './metadata.mjs';
+
 /**
  * Run a command and fail if it does not exit cleanly.
  *
@@ -59,12 +61,13 @@ function checkoutCommit(repoDir, commitHash) {
     run('git', ['checkout', commitHash], {cwd: repoDir});
 }
 
-// Parse and validate arguments
-const [protocolsDirArg, commitHash] = process.argv.slice(2);
-if (protocolsDirArg === undefined || commitHash === undefined) {
-    console.error(`Usage: ${process.argv[1]} <path-to-threema-protocols> <commit-hash>`);
+// Parse and validate arguments. The commit to generate from is pinned in `package.json`.
+const [protocolsDirArg] = process.argv.slice(2);
+if (protocolsDirArg === undefined) {
+    console.error(`Usage: ${process.argv[1]} <path-to-threema-protocols>`);
     process.exit(1);
 }
+const commitHash = readPins()['threema-protocols'];
 const protocolsDir = path.resolve(protocolsDirArg);
 const protocolsDirStat = fs.statSync(protocolsDir, {throwIfNoEntry: false});
 if (protocolsDirStat === undefined || !protocolsDirStat.isDirectory()) {

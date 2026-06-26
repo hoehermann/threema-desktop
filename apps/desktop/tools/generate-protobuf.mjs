@@ -4,11 +4,12 @@
 /**
  * Generate protobuf bindings for the local (internal) protobuf modules.
  *
- * Requires protoc >= 3.15.0 to be installed!
+ * Requires the pinned `protoc` version to be installed (see `pins.protoc` in the
+ * `@threema/protocol` package).
  *
- * When run with `--postinstall` (e.g. as part of the pnpm `postinstall` hook), a missing `protoc`
- * does not lead to an error but only to a warning, so that `pnpm install` works on systems without
- * `protoc`.
+ * When run with `--postinstall` (e.g. as part of the pnpm `postinstall` hook), a missing or
+ * mismatched `protoc` does not lead to an error but only to a warning, so that `pnpm install` works
+ * on systems without the pinned `protoc`.
  */
 import {spawnSync} from 'node:child_process';
 import * as fs from 'node:fs';
@@ -46,10 +47,14 @@ function filesWithExtension(directory, extension) {
 // Parse arguments
 const postinstall = process.argv.includes('--postinstall');
 
-// Ensure protoc is available
-if (spawnSync('protoc', ['--version'], {stdio: 'ignore'}).status !== 0) {
-    const message =
-        'Protobuf compiler "protoc" not found in your PATH. Please install it manually: https://grpc.io/docs/protoc-installation/';
+/**
+ * Abort generation. Under `--postinstall` this is a non-fatal warning (so `pnpm install` succeeds
+ * on systems without the pinned `protoc`); otherwise it is a hard error.
+ *
+ * @param {string} message The reason for aborting.
+ * @returns {never} Nothing.
+ */
+function abort(message) {
     if (postinstall) {
         console.warn(`Warning: ${message}`);
         console.warn('Skipping generation of internal protobuf modules.');
@@ -59,10 +64,36 @@ if (spawnSync('protoc', ['--version'], {stdio: 'ignore'}).status !== 0) {
     process.exit(1);
 }
 
-// Set the CWD to the project root
+// Read the pinned `protoc` version.
+const protocolPackageJson = path.resolve(
+    path.dirname(fileURLToPath(import.meta.url)),
+    '../../../packages/protocol/package.json',
+);
+const expectedProtocVersion = JSON.parse(fs.readFileSync(protocolPackageJson, 'utf8')).pins?.protoc;
+if (typeof expectedProtocVersion !== 'string') {
+    abort(`Could not read pinned 'protoc' version from ${protocolPackageJson}`);
+}
+
+// Ensure protoc is available and matches the pinned version.
+const protocVersion = spawnSync('protoc', ['--version'], {encoding: 'utf8'});
+if (protocVersion.status !== 0) {
+    abort(
+        'Protobuf compiler "protoc" not found in your PATH. Please install it manually: https://protobuf.dev/installation/',
+    );
+}
+const installedProtocVersion = protocVersion.stdout.trim().replace(/^libprotoc\s+/u, '');
+if (installedProtocVersion !== expectedProtocVersion) {
+    abort(
+        `Protobuf compiler "protoc" version mismatch: expected libprotoc ${expectedProtocVersion}, ` +
+            `found "${protocVersion.stdout.trim()}". Please install protoc ${expectedProtocVersion}: ` +
+            'https://protobuf.dev/installation/',
+    );
+}
+
+// Set the CWD to the project root.
 process.chdir(path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'));
 
-// Local protobuf modules
+// Local protobuf modules.
 run('protoc', [
     '--plugin=./node_modules/.bin/protoc-gen-ts_proto',
     '--ts_proto_out=.',

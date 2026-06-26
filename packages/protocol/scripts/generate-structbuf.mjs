@@ -14,6 +14,8 @@ import * as path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {parseArgs} from 'node:util';
 
+import {readPins} from './metadata.mjs';
+
 /**
  * Run a command and fail if it does not exit cleanly.
  *
@@ -73,17 +75,14 @@ const {values, positionals} = parseArgs({
         'external-import': {type: 'string', default: 'types=@threema/protocol/types'},
     },
 });
-const [structbufTypescriptArg, protocolsDirArg, commitHash] = positionals;
-if (
-    structbufTypescriptArg === undefined ||
-    protocolsDirArg === undefined ||
-    commitHash === undefined
-) {
+const [structbufTypescriptArg, protocolsDirArg] = positionals;
+if (structbufTypescriptArg === undefined || protocolsDirArg === undefined) {
     console.error(
-        `Usage: ${process.argv[1]} [options] <path-to-structbuf-typescript-bin.js> <path-to-threema-protocols> <commit-hash>`,
+        `Usage: ${process.argv[1]} [options] <path-to-structbuf-typescript-bin.js> <path-to-threema-protocols>`,
     );
     process.exit(1);
 }
+const commitHash = readPins()['threema-protocols'];
 const structbufTypescript = path.resolve(structbufTypescriptArg);
 const structbufTypescriptStat = fs.statSync(structbufTypescript, {throwIfNoEntry: false});
 if (structbufTypescriptStat === undefined || !structbufTypescriptStat.isFile()) {

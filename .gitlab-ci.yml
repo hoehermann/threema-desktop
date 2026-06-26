@@ -14,6 +14,10 @@ variables:
   # `libthreema`. Must be the full semver (e.g. 1.94.0). Used for distribution archive downloads.
   RUST_VERSION: '1.94.0'
   WASM_BINDGEN_VERSION: '0.2.114'
+  # Repositories used by the protocol drift checks. They are cloned via `CI_JOB_TOKEN`, which
+  # requires this project to be on each repository's job token allowlist.
+  STRUCTBUF_TYPESCRIPT_REPO: '${CI_SERVER_HOST}/clients/protocols/structbuf-typescript.git'
+  THREEMA_PROTOCOLS_REPO: '${CI_SERVER_HOST}/clients/protocols/threema-protocols.git'
 
 default:
   image: node:${NODE_VERSION}-bookworm
@@ -561,6 +565,130 @@ coverage:desktop:consumer-sandbox:
     # that tests don't need to run again.
     - pnpm run coverage:desktop:consumer-sandbox
 
+# Drift- & misc. sanity-checks.
+
+# Install the pinned `protoc` version required by `@threema/protocol`.
+.linux_protoc_before_script: &linux_protoc_before_script
+  - |
+    set -euo pipefail
+    PROTOC_VERSION="$(node -p "require('./packages/protocol/package.json').pins.protoc")"
+    echo "Installing protoc ${PROTOC_VERSION}..."
+    # `protoc` uses `aarch_64` (not `aarch64`) in its release asset names.
+    case "$(uname -m)" in
+      x86_64) PROTOC_ARCH="x86_64" ;;
+      aarch64) PROTOC_ARCH="aarch_64" ;;
+      *) echo "ERROR: unsupported architecture for protoc: $(uname -m)"; exit 1 ;;
+    esac
+    command -v unzip >/dev/null 2>&1 || (apt-get update && apt-get install -y --no-install-recommends unzip)
+    PROTOC_TMPDIR="$(mktemp -d)"
+    bash scripts/run-with-retry.sh --retries 3 --delay 15 -- \
+      curl --proto '=https' --tlsv1.3 -LSsf \
+      "https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOC_VERSION}/protoc-${PROTOC_VERSION}-linux-${PROTOC_ARCH}.zip" \
+      -o "${PROTOC_TMPDIR}/protoc.zip"
+    unzip -q "${PROTOC_TMPDIR}/protoc.zip" -d "${PROTOC_TMPDIR}/protoc"
+    install -m 0755 "${PROTOC_TMPDIR}/protoc/bin/protoc" /usr/local/bin/protoc
+    rm -rf "${PROTOC_TMPDIR}"
+    protoc --version
+
+# Clone `threema-protocols`. Exports `THREEMA_PROTOCOLS_DIR` for the script section.
+.linux_threema_protocols_before_script: &linux_threema_protocols_before_script
+  - |
+    set -euo pipefail
+    export THREEMA_PROTOCOLS_DIR="${CI_PROJECT_DIR}/.protocols/threema-protocols"
+    rm -rf "${THREEMA_PROTOCOLS_DIR}"
+    bash scripts/run-with-retry.sh --retries 3 --delay 15 -- \
+      git clone "https://gitlab-ci-token:${CI_JOB_TOKEN}@${THREEMA_PROTOCOLS_REPO}" "${THREEMA_PROTOCOLS_DIR}"
+
+# Clone `structbuf-typescript`. Exports `STRUCTBUF_TYPESCRIPT_BIN` for the script section.
+.linux_structbuf_typescript_before_script: &linux_structbuf_typescript_before_script
+  - |
+    set -euo pipefail
+    STRUCTBUF_TYPESCRIPT_DIR="${CI_PROJECT_DIR}/.protocols/structbuf-typescript"
+    STRUCTBUF_TYPESCRIPT_REF="$(node -p "require('./packages/protocol/package.json').pins['structbuf-typescript']")"
+    rm -rf "${STRUCTBUF_TYPESCRIPT_DIR}"
+    bash scripts/run-with-retry.sh --retries 3 --delay 15 -- \
+      git clone "https://gitlab-ci-token:${CI_JOB_TOKEN}@${STRUCTBUF_TYPESCRIPT_REPO}" "${STRUCTBUF_TYPESCRIPT_DIR}"
+    git -C "${STRUCTBUF_TYPESCRIPT_DIR}" checkout "${STRUCTBUF_TYPESCRIPT_REF}"
+    bash scripts/run-with-retry.sh --retries 3 --delay 15 -- \
+      npm --prefix "${STRUCTBUF_TYPESCRIPT_DIR}" ci
+    export STRUCTBUF_TYPESCRIPT_BIN="${STRUCTBUF_TYPESCRIPT_DIR}/structbuf-typescript-bin.js"
+
+# Regenerate the desktop-internal protobuf modules and fail if anything drifts.
+diff:desktop:protobuf:
+  stage: test
+  needs: []
+  <<: *linux_nodejs_config
+  before_script:
+    - set -euo pipefail
+    - *linux_nodejs_before_script
+    - *linux_protoc_before_script
+  script:
+    - set -euo pipefail
+    - bash scripts/run-with-retry.sh --retries 3 --delay 15 -- pnpm ci
+    # Regenerate the desktop-internal protobuf modules.
+    - pnpm run generate:desktop:protobuf
+    # Ensure that there are no local changes to the generated files.
+    - |
+      DIFF="$(git diff)"
+      if [[ -n "$DIFF" ]]; then
+        echo -e "\e[31mFound local changes after running 'pnpm run generate:desktop:protobuf'. Internal protobuf out of sync (or wrong protoc version)?\e[0m"
+        echo -e "\n$ git diff:\n$DIFF"
+        exit 1
+      else
+        echo -e "\e[32mNo changes detected after running 'pnpm run generate:desktop:protobuf'\e[0m"
+      fi
+
+# Regenerate the protobuf bindings in `@threema/protocol` and fail if anything drifts.
+diff:protocol:protobuf:
+  stage: test
+  needs: []
+  <<: *linux_nodejs_config
+  before_script:
+    - set -euo pipefail
+    - *linux_nodejs_before_script
+    - *linux_threema_protocols_before_script
+  script:
+    - set -euo pipefail
+    - bash scripts/run-with-retry.sh --retries 3 --delay 15 -- pnpm ci
+    # Regenerate the protobuf bindings at the commit pinned in `@threema/protocol`.
+    - pnpm run generate:protocol:protobuf -- "$THREEMA_PROTOCOLS_DIR"
+    # Ensure that there are no local changes to the generated files.
+    - |
+      DIFF="$(git diff)"
+      if [[ -n "$DIFF" ]]; then
+        echo -e "\e[31mFound local changes after running 'pnpm run generate:protocol:protobuf'. Protobuf bindings out of sync?\e[0m"
+        echo -e "\n$ git diff:\n$DIFF"
+        exit 1
+      else
+        echo -e "\e[32mNo changes detected after running 'pnpm run generate:protocol:protobuf'\e[0m"
+      fi
+
+# Regenerate the structbuf bindings in `@threema/protocol` and fail if anything drifts.
+diff:protocol:structbuf:
+  stage: test
+  needs: []
+  <<: *linux_nodejs_config
+  before_script:
+    - set -euo pipefail
+    - *linux_nodejs_before_script
+    - *linux_threema_protocols_before_script
+    - *linux_structbuf_typescript_before_script
+  script:
+    - set -euo pipefail
+    - bash scripts/run-with-retry.sh --retries 3 --delay 15 -- pnpm ci
+    # Regenerate the structbuf bindings at the commit pinned in `@threema/protocol`.
+    - pnpm run generate:protocol:structbuf -- "$STRUCTBUF_TYPESCRIPT_BIN" "$THREEMA_PROTOCOLS_DIR"
+    # Ensure that there are no local changes to the generated files.
+    - |
+      DIFF="$(git diff)"
+      if [[ -n "$DIFF" ]]; then
+        echo -e "\e[31mFound local changes after running 'pnpm run generate:protocol:structbuf'. Structbuf bindings out of sync?\e[0m"
+        echo -e "\n$ git diff:\n$DIFF"
+        exit 1
+      else
+        echo -e "\e[32mNo changes detected after running 'pnpm run generate:protocol:structbuf'\e[0m"
+      fi
+
 diff:pnpm-lock:
   stage: test
   needs: []
@@ -607,7 +735,7 @@ diff:translations:
         echo -e "\e[32mNo changes detected after running 'pnpm run generate:desktop:translations'\e[0m"
       fi
 
-validate:flatpak:metainfo:
+validate:desktop:flatpak:metainfo:
   stage: test
   needs: []
   before_script:
@@ -630,7 +758,7 @@ validate:flatpak:metainfo:
     exit_codes:
       - 123
 
-peer-dependencies-met:
+validate:peer-dependencies-met:
   stage: test
   needs: []
   <<: *linux_nodejs_config
@@ -642,7 +770,7 @@ peer-dependencies-met:
     - bash scripts/run-with-retry.sh --retries 3 --delay 15 -- pnpm ci
     - pnpm peers check
 
-socket:
+validate:socket:
   stage: test
   needs: []
   image:
@@ -661,7 +789,7 @@ socket:
         --scm gitlab \
         $(if [ "$CI_DEFAULT_BRANCH" == "$CI_COMMIT_BRANCH" ] || [ "$CI_DEFAULT_BRANCH" == "$CI_COMMIT_REF_NAME" ]; then echo --default_branch; fi)
 
-rust-versions-in-sync:
+validate:rust-versions-in-sync:
   stage: test
   needs: []
   script:
