@@ -616,6 +616,7 @@
     "error--add-files-empty": "Dateien konnten nicht hinzugefügt werden",
     "error--add-files-inaccessible": "Dateien konnten nicht geöffnet werden",
     "error--add-files-partially-inaccessible": "Einige Dateien konnten nicht geöffnet werden",
+    "error--call-camera-unavailable": "Kamera konnte nicht eingeschaltet werden",
     "error--call-disconnected": "Anruf wurde aufgrund eines Verbindungsunterbruchs beendet",
     "error--call-disconnected-due-to-inactivity": "Anruf wurde aufgrund von Inaktivität beendet",
     "error--call-group-calls-disabled": "Gruppenanrufe sind deaktiviert",
