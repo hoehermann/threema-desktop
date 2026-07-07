@@ -2,7 +2,7 @@ import type {ContextMenuItem} from '~/app/ui/components/hocs/context-menu-provid
 import type {
     AudioInputDeviceInfo,
     AudioOutputDeviceInfo,
-} from '~/app/ui/components/partials/call-activity/internal/control-bar/types';
+} from '~/app/ui/components/partials/call-shared/internal/control-bar/types';
 import type {I18nType} from '~/app/ui/i18n-types';
 import {truncate} from '~/common/utils/string';
 

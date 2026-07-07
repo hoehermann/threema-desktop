@@ -4,8 +4,8 @@
 <script lang="ts">
   import {type u53, isU53} from '@threema/ts-utils/integer/u53';
 
-  import type {VideoPanelProps} from '~/app/ui/components/partials/call-activity/internal/video-panel/props';
   import ParticipantFeed from '~/app/ui/components/partials/call-participant-feed/ParticipantFeed.svelte';
+  import type {VideoPanelProps} from '~/app/ui/components/partials/call-shared/internal/video-panel/props';
 
   const {feeds, activity, onchangefullview, services}: VideoPanelProps = $props();
 

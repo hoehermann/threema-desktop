@@ -12,6 +12,10 @@
     "label--attach-file": "Attach File",
     "label--create-poll": "Create Poll"
   },
+  "conference-call": {
+    "action--copy-invite": "Copy conference link",
+    "action--invite": "Invite people"
+  },
   "contacts": {
     "action--add-contact": "New Contact",
     "action--add-contact-from-work-directory": "Add Contact from Company Directory",

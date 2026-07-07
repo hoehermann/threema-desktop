@@ -3,7 +3,7 @@
 -->
 <script lang="ts">
   import Timer from '~/app/ui/components/atoms/timer/Timer.svelte';
-  import type {TopBarProps} from '~/app/ui/components/partials/call-activity/internal/top-bar/props';
+  import type {TopBarProps} from '~/app/ui/components/partials/call-shared/internal/top-bar/props';
   import {i18n} from '~/app/ui/i18n';
   import IconButton from '~/app/ui/svelte-components/blocks/Button/IconButton.svelte';
   import MdIcon from '~/app/ui/svelte-components/blocks/Icon/MdIcon.svelte';

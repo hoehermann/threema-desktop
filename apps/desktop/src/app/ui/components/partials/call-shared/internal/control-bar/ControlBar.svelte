@@ -9,13 +9,13 @@
   import ContextMenuProvider from '~/app/ui/components/hocs/context-menu-provider/ContextMenuProvider.svelte';
   import type {ContextMenuItem} from '~/app/ui/components/hocs/context-menu-provider/types';
   import RadialExclusionMaskProvider from '~/app/ui/components/hocs/radial-exclusion-mask-provider/RadialExclusionMaskProvider.svelte';
-  import {getAudioDeviceContextMenuItems} from '~/app/ui/components/partials/call-activity/internal/control-bar/helpers';
-  import type {ControlBarProps} from '~/app/ui/components/partials/call-activity/internal/control-bar/props';
+  import {getAudioDeviceContextMenuItems} from '~/app/ui/components/partials/call-shared/internal/control-bar/helpers';
+  import type {ControlBarProps} from '~/app/ui/components/partials/call-shared/internal/control-bar/props';
   import type {
     AudioInputDeviceInfo,
     AudioOutputDeviceInfo,
     VideoDeviceInfo,
-  } from '~/app/ui/components/partials/call-activity/internal/control-bar/types';
+  } from '~/app/ui/components/partials/call-shared/internal/control-bar/types';
   import type Popover from '~/app/ui/generic/popover/Popover.svelte';
   import {i18n} from '~/app/ui/i18n';
   import MdIcon from '~/app/ui/svelte-components/blocks/Icon/MdIcon.svelte';
@@ -28,6 +28,7 @@
     currentAudioInputDeviceId,
     currentAudioOutputDeviceId,
     currentVideoDeviceId,
+    lastSelectedVideoDeviceLabel,
     isAudioEnabled,
     isVideoEnabled,
     isScreenSharingEnabled,
@@ -39,6 +40,7 @@
     onselectaudiooutputdevice,
     onselectvideodevice,
     options,
+    invite,
   }: ControlBarProps = $props();
 
   const mediaDevicesAsyncLock: AsyncLock = new AsyncLock();
@@ -85,6 +87,12 @@
     ),
   );
 
+  const selectedVideoDeviceId = $derived(
+    currentVideoDeviceId ??
+      videoDevices.find((device) => device.label === lastSelectedVideoDeviceLabel)?.deviceId ??
+      videoDevices[0]?.deviceId,
+  );
+
   const videoDeviceContextMenuItems = $derived(
     videoDevices.map<ContextMenuItem>((device) => ({
       type: 'option',
@@ -93,10 +101,29 @@
           onselectvideodevice(device);
         }
       },
-      icon: device.deviceId === currentVideoDeviceId ? {name: 'check'} : undefined,
+      icon: device.deviceId === selectedVideoDeviceId ? {name: 'check'} : undefined,
       label: truncate(device.label, 24, 'end'),
       labelOnHover: device.label,
     })),
+  );
+
+  const inviteContextMenuItems = $derived<ContextMenuItem[]>(
+    invite === undefined
+      ? []
+      : [
+          {
+            type: 'option',
+            handler: invite.onclickcopy,
+            icon: {name: 'content_copy'},
+            label: $i18n.t('conference-call.action--copy-invite', 'Copy conference link'),
+          },
+          {
+            type: 'option',
+            handler: invite.onclickshare,
+            icon: {name: 'person_add'},
+            label: $i18n.t('conference-call.action--invite', 'Invite people'),
+          },
+        ],
   );
 
   onMount(() => {
@@ -256,6 +283,32 @@
             {/if}
           </MdIcon>
         </button>
+      </div>
+    {/if}
+
+    {#if invite !== undefined}
+      <div class="control">
+        <ContextMenuProvider
+          anchorPoints={{
+            reference: {
+              horizontal: 'left',
+              vertical: 'top',
+            },
+            popover: {
+              horizontal: 'left',
+              vertical: 'bottom',
+            },
+          }}
+          flip={false}
+          items={inviteContextMenuItems}
+        >
+          <button
+            class="toggle"
+            aria-label={$i18n.t('conference-call.action--invite', 'Invite people')}
+          >
+            <MdIcon theme="Outlined">person_add</MdIcon>
+          </button>
+        </ContextMenuProvider>
       </div>
     {/if}
   </div>

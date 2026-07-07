@@ -1,9 +1,9 @@
 import type {AppServicesForSvelte} from '~/app/types';
-import type {ActivityLayout} from '~/app/ui/components/partials/call-activity/helpers';
 import type {
     FeedType,
     ParticipantFeedProps,
 } from '~/app/ui/components/partials/call-participant-feed/props';
+import type {ActivityLayout} from '~/app/ui/components/partials/call-shared/helpers';
 
 /**
  * Props accepted by the `VideoPanel` component.

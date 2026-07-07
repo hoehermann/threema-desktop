@@ -2,7 +2,7 @@ import type {
     AudioInputDeviceInfo,
     AudioOutputDeviceInfo,
     VideoDeviceInfo,
-} from '~/app/ui/components/partials/call-activity/internal/control-bar/types';
+} from '~/app/ui/components/partials/call-shared/internal/control-bar/types';
 
 /**
  * Props accepted by the `ControlBar` component.
@@ -20,6 +20,11 @@ export interface ControlBarProps {
      * The `deviceId` of the currently active video device.
      */
     readonly currentVideoDeviceId: string | undefined;
+    /**
+     * The label of the last selected camera (persisted in settings). Used to mark the selected
+     * camera in the device menu while the camera is off (and thus has no active device).
+     */
+    readonly lastSelectedVideoDeviceLabel: string | undefined;
     /**
      * Whether the user is actively sharing audio with the other call participants.
      */
@@ -56,5 +61,19 @@ export interface ControlBarProps {
          * Whether users should see an option to share their screen. Defaults to `false`.
          */
         readonly allowScreenSharing?: boolean;
+    };
+    /**
+     * In-call invite sharing.
+     */
+    readonly invite?: {
+        /**
+         * Handler callback which is invoked when the user chooses to copy the invite link to the
+         * clipboard.
+         */
+        readonly onclickcopy: () => void;
+        /**
+         * Handler callback which is invoked when the user chooses to share the invite.
+         */
+        readonly onclickshare: () => void;
     };
 }

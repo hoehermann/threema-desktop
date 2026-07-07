@@ -12,6 +12,10 @@
     "label--attach-file": "Datei anhängen",
     "label--create-poll": "Umfrage erstellen"
   },
+  "conference-call": {
+    "action--copy-invite": "Konferenzlink kopieren",
+    "action--invite": "Personen einladen"
+  },
   "contacts": {
     "action--add-contact": "Neuer Kontakt",
     "action--add-contact-from-work-directory": "Kontakt aus dem Unternehmensverzeichnis hinzufügen",

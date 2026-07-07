@@ -23,17 +23,17 @@
     findMediaDevice,
     updateRemoteParticipantScreens,
     startScreenSharing,
-  } from '~/app/ui/components/partials/call-activity/helpers';
-  import ControlBar from '~/app/ui/components/partials/call-activity/internal/control-bar/ControlBar.svelte';
+  } from '~/app/ui/components/partials/call-shared/helpers';
+  import ControlBar from '~/app/ui/components/partials/call-shared/internal/control-bar/ControlBar.svelte';
   import type {
     AudioInputDeviceInfo,
     AudioOutputDeviceInfo,
     VideoDeviceInfo,
-  } from '~/app/ui/components/partials/call-activity/internal/control-bar/types';
-  import TopBar from '~/app/ui/components/partials/call-activity/internal/top-bar/TopBar.svelte';
-  import VideoPanel from '~/app/ui/components/partials/call-activity/internal/video-panel/VideoPanel.svelte';
+  } from '~/app/ui/components/partials/call-shared/internal/control-bar/types';
+  import TopBar from '~/app/ui/components/partials/call-shared/internal/top-bar/TopBar.svelte';
+  import VideoPanel from '~/app/ui/components/partials/call-shared/internal/video-panel/VideoPanel.svelte';
   import type {GroupCallActivityProps} from '~/app/ui/components/partials/call-activity/props';
-  import type {AugmentedOngoingGroupCallViewModelBundle} from '~/app/ui/components/partials/call-activity/transformer';
+  import type {AugmentedOngoingGroupCallViewModelBundle} from '~/app/ui/components/partials/call-shared/transformer';
   import {
     isVideoFeedType,
     type FeedType,

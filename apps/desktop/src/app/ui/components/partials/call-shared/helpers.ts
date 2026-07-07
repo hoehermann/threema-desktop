@@ -4,7 +4,7 @@ import type {AppServicesForSvelte} from '~/app/types';
 import {
     transformOngoingGroupCallProps,
     type AugmentedOngoingGroupCallViewModelBundle,
-} from '~/app/ui/components/partials/call-activity/transformer';
+} from '~/app/ui/components/partials/call-shared/transformer';
 import type {ElectronIpcService} from '~/common/dom/electron-service';
 import {
     DEFAULT_CAMERA_TRACK_CONSTRAINTS,
@@ -19,6 +19,8 @@ import type {AbortRaiser} from '~/common/utils/signal';
 import {WritableStore, type ReadableStore} from '~/common/utils/store';
 import type {ConversationViewModelBundle} from '~/common/viewmodel/conversation/main';
 import type {AnyGroupCallContextAbort, CaptureState} from '~/common/webrtc/group-call';
+
+export type AnyAugmentedOngoingCallViewModelBundle = AugmentedOngoingGroupCallViewModelBundle;
 
 export type AnyExtendedGroupCallContextAbort =
     | AnyGroupCallContextAbort
@@ -139,7 +141,7 @@ async function selectMicrophoneDeviceInternal(
 
 export async function selectMicrophoneDevice(
     guard: CaptureDevicesGuard,
-    call: AugmentedOngoingGroupCallViewModelBundle | undefined,
+    call: AnyAugmentedOngoingCallViewModelBundle | undefined,
     target: {
         readonly device: 'default' | {readonly deviceId: string};
         readonly state: 'on' | 'off';
@@ -199,7 +201,7 @@ async function selectCameraDeviceInternal(
 
 export async function selectCameraDevice(
     guard: CaptureDevicesGuard,
-    call: AugmentedOngoingGroupCallViewModelBundle | undefined,
+    call: AnyAugmentedOngoingCallViewModelBundle | undefined,
     target: {
         readonly device: 'default' | {readonly deviceId: string};
         readonly facing: 'user' | 'environment';
@@ -223,11 +225,31 @@ export async function selectCameraDevice(
     }, 'select-camera');
 }
 
+/**
+ * Release the camera device.
+ *
+ * Detaches the track from the transceiver, announces the `'off'` capture state and clears the store
+ * entry, then explicitly stops the previously held track.
+ *
+ * IMPORTANT: {@link attachLocalDeviceAndAnnounceCaptureState} does *not* stop the previous track, so
+ * the explicit `stop()` is required to actually release the hardware. We detach first, then stop.
+ */
+export async function releaseCameraDevice(
+    guard: CaptureDevicesGuard,
+    call: AnyAugmentedOngoingCallViewModelBundle | undefined,
+): Promise<void> {
+    return await guard.with(async (store) => {
+        const current = store.get().camera;
+        await attachLocalDeviceAndAnnounceCaptureState(guard, call, store, 'camera', undefined);
+        current?.track.stop();
+    }, 'select-camera');
+}
+
 export async function startScreenSharing(
     electron: ElectronIpcService,
     guard: CaptureDevicesGuard,
     store: WritableStore<CaptureDevices>,
-    call: AugmentedOngoingGroupCallViewModelBundle | undefined,
+    call: AnyAugmentedOngoingCallViewModelBundle | undefined,
     message: string,
     buttonLabel: string,
 ): Promise<void> {
@@ -257,7 +279,7 @@ export async function startScreenSharing(
 async function stopScreenSharing(
     electron: ElectronIpcService,
     guard: CaptureDevicesGuard,
-    call: AugmentedOngoingGroupCallViewModelBundle | undefined,
+    call: AnyAugmentedOngoingCallViewModelBundle | undefined,
 ): Promise<void> {
     await guard.with(async (store) => {
         const screen = store.get().screen;
@@ -311,15 +333,19 @@ export async function selectInitialCaptureDevices(
         } catch {
             log.debug('No microphone device to capture from');
         }
+        // Only acquire the camera if it should be turned on initially. Otherwise, leave the camera
+        // hardware released and acquire it lazily once the user turns it on.
         let camera: CaptureDevices['camera'];
-        try {
-            camera = await selectCameraDeviceInternal(undefined, {
-                device: options?.preferredDevices?.camera ?? {type: 'default'},
-                facing: 'user',
-                state: state.camera.state,
-            });
-        } catch {
-            log.debug('No camera device to capture from');
+        if (state.camera.state === 'on') {
+            try {
+                camera = await selectCameraDeviceInternal(undefined, {
+                    device: options?.preferredDevices?.camera ?? {type: 'default'},
+                    facing: 'user',
+                    state: state.camera.state,
+                });
+            } catch {
+                log.debug('No camera device to capture from');
+            }
         }
 
         // Do not request screen sharing before the user does so.
@@ -341,7 +367,7 @@ export async function selectInitialCaptureDevices(
  */
 export async function attachLocalDeviceAndAnnounceCaptureState(
     guard: CaptureDevicesGuard,
-    call: AugmentedOngoingGroupCallViewModelBundle | undefined,
+    call: AnyAugmentedOngoingCallViewModelBundle | undefined,
     store: WritableStore<CaptureDevices>,
     kind: 'microphone' | 'camera' | 'screen',
     updated:
@@ -403,7 +429,7 @@ export async function updateRemoteParticipantRemoteCameras({
     participantId,
     dimensions,
 }: {
-    readonly controller: AugmentedOngoingGroupCallViewModelBundle['controller'];
+    readonly controller: AnyAugmentedOngoingCallViewModelBundle['controller'];
     readonly participantId: ParticipantId;
 
     /**
@@ -438,7 +464,7 @@ export async function updateRemoteParticipantScreens({
     participantId,
     dimensions,
 }: {
-    readonly controller: AugmentedOngoingGroupCallViewModelBundle['controller'];
+    readonly controller: AnyAugmentedOngoingCallViewModelBundle['controller'];
     readonly participantId: ParticipantId;
     readonly dimensions: Dimensions | undefined;
 }): Promise<void> {
