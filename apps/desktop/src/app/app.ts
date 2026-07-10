@@ -400,6 +400,25 @@ async function main(): Promise<() => Promise<void>> {
     window.addEventListener('focus', handleAppVisibilityChange);
     window.addEventListener('blur', handleAppVisibilityChange);
 
+    // Prevent the default behavior ("save link as") if a user ALT + clicks an anchor tag. This
+    // would try to download the linked resource, which is a footgun when used in conjunction with
+    // TLS certificate pinning.
+    //
+    // Note: Only the default action is cancelled, propagation is left intact.
+    function suppressAltClickDefault(event: MouseEvent): void {
+        if (!event.altKey) {
+            return;
+        }
+        // Note: `event.target` is an `Element` for any actual click, but narrow instead of casting
+        // so that a synthetic click dispatched on e.g. `document` cannot throw in here.
+        const target = event.target;
+        if (target instanceof Element && target.closest('a[href]') !== null) {
+            log.debug('Suppressed ALT + click default action on anchor');
+            event.preventDefault();
+        }
+    }
+    document.addEventListener('click', suppressAltClickDefault, {capture: true});
+
     // Load the backend worker.
     //
     // IMPORTANT: This MUST be a template literal and reference `BUILD_TARGET` as we otherwise
