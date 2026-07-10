@@ -84,7 +84,7 @@ stages:
   COREPACK_ENABLE_DOWNLOAD_PROMPT: '0'
   COREPACK_HOME: '$CI_PROJECT_DIR/.corepack'
   NVM_DIR: '$CI_PROJECT_DIR/.nvm'
-  PNPM_STORE_DIR: '$CI_PROJECT_DIR/.pnpm-store'
+  PNPM_CONFIG_STORE_DIR: '$CI_PROJECT_DIR/.pnpm-store'
 
 # Common config options for Linux-based jobs that require a NodeJS environment.
 .linux_nodejs_config: &linux_nodejs_config
@@ -158,14 +158,14 @@ stages:
   # Set corepack & pnpm paths.
   - $env:COREPACK_HOME = "$env:CI_PROJECT_DIR\.corepack"
   - $env:COREPACK_ENABLE_DOWNLOAD_PROMPT = "0"
-  - $env:PNPM_STORE_DIR = "$env:CI_PROJECT_DIR\.pnpm-store"
+  - $env:PNPM_CONFIG_STORE_DIR = "$env:CI_PROJECT_DIR\.pnpm-store"
   # Print some env variables for debugging purposes.
   - >-
     echo "CI_PROJECT_DIR: $env:CI_PROJECT_DIR"
   - >-
     echo "COREPACK_HOME: $env:COREPACK_HOME"
   - >-
-    echo "PNPM_STORE_DIR: $env:PNPM_STORE_DIR"
+    echo "PNPM_CONFIG_STORE_DIR: $env:PNPM_CONFIG_STORE_DIR"
 
   # Set up `nvm`.
   - $env:Path += ";C:\\ProgramData\\nvm"
@@ -1043,7 +1043,7 @@ package:desktop:flatpak:publish:public:
 .macos_nodejs_variables: &macos_nodejs_variables
   COREPACK_ENABLE_DOWNLOAD_PROMPT: '0'
   COREPACK_HOME: '$CI_PROJECT_DIR/.corepack'
-  PNPM_STORE_DIR: '$CI_PROJECT_DIR/.pnpm-store'
+  PNPM_CONFIG_STORE_DIR: '$CI_PROJECT_DIR/.pnpm-store'
 
 .macos_config: &macos_config
   stage: package
