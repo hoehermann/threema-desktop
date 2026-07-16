@@ -147,7 +147,7 @@ class SecretKey<TLength extends SecretKeyLength> {
 
     /** Check if the key has been purged (or transferred). */
     public get purged(): boolean {
-        return this.#_key() !== undefined;
+        return this.#_key() === undefined;
     }
 
     /** Cast a {@link RawKey} to a {@link ReadonlyRawKey}. */

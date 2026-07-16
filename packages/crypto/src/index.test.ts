@@ -127,17 +127,15 @@ describe('RawKey', () => {
     it('changes the reported "purged" state when the key is purged', () => {
         // Arrange
         const key = wrapRawKey(new Uint8Array(32), 32);
-        const before = key.purged;
+
+        // Assert
+        expect(key.purged).toBe(false);
 
         // Act
         key.purge();
 
         // Assert
-        //
-        // Note: Only the state *transition* is asserted here because the getter currently returns
-        // `true` while the key is still present and `false` once purged, contradicting its
-        // documentation ("Check if the key has been purged").
-        expect(key.purged).not.toBe(before);
+        expect(key.purged).toBe(true);
     });
 
     it('treats a key whose underlying buffer was transferred as purged', () => {
