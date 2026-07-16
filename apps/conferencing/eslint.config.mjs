@@ -1,6 +1,5 @@
 import {getConfig as getCommonConfig, getTypeScriptConfigMixin} from '@threema/eslint-config';
 import {defineConfig, globalIgnores} from 'eslint/config';
-import svelte from 'eslint-plugin-svelte';
 import globals from 'globals';
 import svelteParser from 'svelte-eslint-parser';
 
@@ -75,6 +74,5 @@ export default defineConfig(
                 ],
             },
         }),
-        extends: [svelte.configs['flat/prettier']],
     },
 );

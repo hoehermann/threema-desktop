@@ -28,6 +28,7 @@ export function getConfig(
         importPlugin.flatConfigs.typescript,
         jsdoc.configs['flat/recommended'],
         svelte.configs['flat/recommended'],
+        svelte.configs['flat/prettier'],
         prettier,
 
         {
