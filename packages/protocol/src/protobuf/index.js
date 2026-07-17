@@ -40,7 +40,7 @@ export const common = $root.common = (() => {
         function Unit(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -53,9 +53,13 @@ export const common = $root.common = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        Unit.encode = function encode(message, writer) {
+        Unit.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             return writer;
         };
 
@@ -70,9 +74,13 @@ export const common = $root.common = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        Unit.decode = function decode(reader, length, error) {
+        Unit.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.common.Unit();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -80,7 +88,7 @@ export const common = $root.common = (() => {
                     break;
                 switch (tag >>> 3) {
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -113,7 +121,7 @@ export const common = $root.common = (() => {
         function Blob(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -158,9 +166,13 @@ export const common = $root.common = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        Blob.encode = function encode(message, writer) {
+        Blob.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.id != null && Object.hasOwnProperty.call(message, "id"))
                 writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.id);
             if (message.nonce != null && Object.hasOwnProperty.call(message, "nonce"))
@@ -183,9 +195,13 @@ export const common = $root.common = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        Blob.decode = function decode(reader, length, error) {
+        Blob.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.common.Blob();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -209,7 +225,7 @@ export const common = $root.common = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -240,7 +256,7 @@ export const common = $root.common = (() => {
         function BlobData(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -269,9 +285,13 @@ export const common = $root.common = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        BlobData.encode = function encode(message, writer) {
+        BlobData.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.id != null && Object.hasOwnProperty.call(message, "id"))
                 writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.id);
             if (message.data != null && Object.hasOwnProperty.call(message, "data"))
@@ -290,9 +310,13 @@ export const common = $root.common = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        BlobData.decode = function decode(reader, length, error) {
+        BlobData.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.common.BlobData();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -308,7 +332,7 @@ export const common = $root.common = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -339,7 +363,7 @@ export const common = $root.common = (() => {
         function Image(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -368,13 +392,17 @@ export const common = $root.common = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        Image.encode = function encode(message, writer) {
+        Image.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.type != null && Object.hasOwnProperty.call(message, "type"))
                 writer.uint32(/* id 1, wireType 0 =*/8).int32(message.type);
             if (message.blob != null && Object.hasOwnProperty.call(message, "blob"))
-                $root.common.Blob.encode(message.blob, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                $root.common.Blob.encode(message.blob, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -389,9 +417,13 @@ export const common = $root.common = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        Image.decode = function decode(reader, length, error) {
+        Image.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.common.Image();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -403,11 +435,11 @@ export const common = $root.common = (() => {
                         break;
                     }
                 case 2: {
-                        message.blob = $root.common.Blob.decode(reader, reader.uint32());
+                        message.blob = $root.common.Blob.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -450,7 +482,7 @@ export const common = $root.common = (() => {
         function GroupIdentity(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -460,7 +492,7 @@ export const common = $root.common = (() => {
          * @memberof common.GroupIdentity
          * @instance
          */
-        GroupIdentity.prototype.groupId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        GroupIdentity.prototype.groupId = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * GroupIdentity creatorIdentity.
@@ -479,9 +511,13 @@ export const common = $root.common = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        GroupIdentity.encode = function encode(message, writer) {
+        GroupIdentity.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.groupId != null && Object.hasOwnProperty.call(message, "groupId"))
                 writer.uint32(/* id 1, wireType 1 =*/9).fixed64(message.groupId);
             if (message.creatorIdentity != null && Object.hasOwnProperty.call(message, "creatorIdentity"))
@@ -500,9 +536,13 @@ export const common = $root.common = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        GroupIdentity.decode = function decode(reader, length, error) {
+        GroupIdentity.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.common.GroupIdentity();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -518,7 +558,7 @@ export const common = $root.common = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -549,7 +589,7 @@ export const common = $root.common = (() => {
         function DeltaImage(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -592,13 +632,17 @@ export const common = $root.common = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        DeltaImage.encode = function encode(message, writer) {
+        DeltaImage.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.removed != null && Object.hasOwnProperty.call(message, "removed"))
-                $root.common.Unit.encode(message.removed, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                $root.common.Unit.encode(message.removed, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
             if (message.updated != null && Object.hasOwnProperty.call(message, "updated"))
-                $root.common.Image.encode(message.updated, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                $root.common.Image.encode(message.updated, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -613,9 +657,13 @@ export const common = $root.common = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        DeltaImage.decode = function decode(reader, length, error) {
+        DeltaImage.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.common.DeltaImage();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -623,15 +671,15 @@ export const common = $root.common = (() => {
                     break;
                 switch (tag >>> 3) {
                 case 1: {
-                        message.removed = $root.common.Unit.decode(reader, reader.uint32());
+                        message.removed = $root.common.Unit.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 2: {
-                        message.updated = $root.common.Image.decode(reader, reader.uint32());
+                        message.updated = $root.common.Image.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -662,7 +710,7 @@ export const common = $root.common = (() => {
         function Timespan(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -691,9 +739,13 @@ export const common = $root.common = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        Timespan.encode = function encode(message, writer) {
+        Timespan.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.from != null && Object.hasOwnProperty.call(message, "from"))
                 writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.from);
             if (message.to != null && Object.hasOwnProperty.call(message, "to"))
@@ -712,9 +764,13 @@ export const common = $root.common = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        Timespan.decode = function decode(reader, length, error) {
+        Timespan.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.common.Timespan();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -730,7 +786,7 @@ export const common = $root.common = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -761,7 +817,7 @@ export const common = $root.common = (() => {
             this.identities = [];
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -782,9 +838,13 @@ export const common = $root.common = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        Identities.encode = function encode(message, writer) {
+        Identities.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.identities != null && message.identities.length)
                 for (let i = 0; i < message.identities.length; ++i)
                     writer.uint32(/* id 1, wireType 2 =*/10).string(message.identities[i]);
@@ -802,9 +862,13 @@ export const common = $root.common = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        Identities.decode = function decode(reader, length, error) {
+        Identities.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.common.Identities();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -818,7 +882,7 @@ export const common = $root.common = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -849,7 +913,7 @@ export const common = $root.common = (() => {
         function Resolution(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -878,9 +942,13 @@ export const common = $root.common = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        Resolution.encode = function encode(message, writer) {
+        Resolution.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.width != null && Object.hasOwnProperty.call(message, "width"))
                 writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.width);
             if (message.height != null && Object.hasOwnProperty.call(message, "height"))
@@ -899,9 +967,13 @@ export const common = $root.common = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        Resolution.decode = function decode(reader, length, error) {
+        Resolution.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.common.Resolution();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -917,7 +989,7 @@ export const common = $root.common = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -1112,7 +1184,7 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
         function VersionRange(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -1141,9 +1213,13 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        VersionRange.encode = function encode(message, writer) {
+        VersionRange.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.min != null && Object.hasOwnProperty.call(message, "min"))
                 writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.min);
             if (message.max != null && Object.hasOwnProperty.call(message, "max"))
@@ -1162,9 +1238,13 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        VersionRange.decode = function decode(reader, length, error) {
+        VersionRange.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.csp_e2e_fs.VersionRange();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -1180,7 +1260,7 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -1215,7 +1295,7 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
         function Envelope(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -1290,21 +1370,25 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        Envelope.encode = function encode(message, writer) {
+        Envelope.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.sessionId != null && Object.hasOwnProperty.call(message, "sessionId"))
                 writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.sessionId);
             if (message.init != null && Object.hasOwnProperty.call(message, "init"))
-                $root.csp_e2e_fs.Init.encode(message.init, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                $root.csp_e2e_fs.Init.encode(message.init, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
             if (message.accept != null && Object.hasOwnProperty.call(message, "accept"))
-                $root.csp_e2e_fs.Accept.encode(message.accept, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                $root.csp_e2e_fs.Accept.encode(message.accept, writer.uint32(/* id 3, wireType 2 =*/26).fork(), q + 1).ldelim();
             if (message.reject != null && Object.hasOwnProperty.call(message, "reject"))
-                $root.csp_e2e_fs.Reject.encode(message.reject, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                $root.csp_e2e_fs.Reject.encode(message.reject, writer.uint32(/* id 4, wireType 2 =*/34).fork(), q + 1).ldelim();
             if (message.terminate != null && Object.hasOwnProperty.call(message, "terminate"))
-                $root.csp_e2e_fs.Terminate.encode(message.terminate, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                $root.csp_e2e_fs.Terminate.encode(message.terminate, writer.uint32(/* id 5, wireType 2 =*/42).fork(), q + 1).ldelim();
             if (message.encapsulated != null && Object.hasOwnProperty.call(message, "encapsulated"))
-                $root.csp_e2e_fs.Encapsulated.encode(message.encapsulated, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+                $root.csp_e2e_fs.Encapsulated.encode(message.encapsulated, writer.uint32(/* id 6, wireType 2 =*/50).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -1319,9 +1403,13 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        Envelope.decode = function decode(reader, length, error) {
+        Envelope.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.csp_e2e_fs.Envelope();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -1333,27 +1421,27 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
                         break;
                     }
                 case 2: {
-                        message.init = $root.csp_e2e_fs.Init.decode(reader, reader.uint32());
+                        message.init = $root.csp_e2e_fs.Init.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 3: {
-                        message.accept = $root.csp_e2e_fs.Accept.decode(reader, reader.uint32());
+                        message.accept = $root.csp_e2e_fs.Accept.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 4: {
-                        message.reject = $root.csp_e2e_fs.Reject.decode(reader, reader.uint32());
+                        message.reject = $root.csp_e2e_fs.Reject.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 5: {
-                        message.terminate = $root.csp_e2e_fs.Terminate.decode(reader, reader.uint32());
+                        message.terminate = $root.csp_e2e_fs.Terminate.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 6: {
-                        message.encapsulated = $root.csp_e2e_fs.Encapsulated.decode(reader, reader.uint32());
+                        message.encapsulated = $root.csp_e2e_fs.Encapsulated.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -1384,7 +1472,7 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
         function Init(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -1413,13 +1501,17 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        Init.encode = function encode(message, writer) {
+        Init.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.fssk != null && Object.hasOwnProperty.call(message, "fssk"))
                 writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.fssk);
             if (message.supportedVersion != null && Object.hasOwnProperty.call(message, "supportedVersion"))
-                $root.csp_e2e_fs.VersionRange.encode(message.supportedVersion, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                $root.csp_e2e_fs.VersionRange.encode(message.supportedVersion, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -1434,9 +1526,13 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        Init.decode = function decode(reader, length, error) {
+        Init.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.csp_e2e_fs.Init();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -1444,7 +1540,7 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
                     break;
                 switch (tag >>> 3) {
                 case 2: {
-                        message.supportedVersion = $root.csp_e2e_fs.VersionRange.decode(reader, reader.uint32());
+                        message.supportedVersion = $root.csp_e2e_fs.VersionRange.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 1: {
@@ -1452,7 +1548,7 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -1483,7 +1579,7 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
         function Accept(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -1512,13 +1608,17 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        Accept.encode = function encode(message, writer) {
+        Accept.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.fssk != null && Object.hasOwnProperty.call(message, "fssk"))
                 writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.fssk);
             if (message.supportedVersion != null && Object.hasOwnProperty.call(message, "supportedVersion"))
-                $root.csp_e2e_fs.VersionRange.encode(message.supportedVersion, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                $root.csp_e2e_fs.VersionRange.encode(message.supportedVersion, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -1533,9 +1633,13 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        Accept.decode = function decode(reader, length, error) {
+        Accept.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.csp_e2e_fs.Accept();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -1543,7 +1647,7 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
                     break;
                 switch (tag >>> 3) {
                 case 2: {
-                        message.supportedVersion = $root.csp_e2e_fs.VersionRange.decode(reader, reader.uint32());
+                        message.supportedVersion = $root.csp_e2e_fs.VersionRange.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 1: {
@@ -1551,7 +1655,7 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -1583,7 +1687,7 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
         function Reject(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -1593,7 +1697,7 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
          * @memberof csp_e2e_fs.Reject
          * @instance
          */
-        Reject.prototype.messageId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        Reject.prototype.messageId = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * Reject groupIdentity.
@@ -1620,15 +1724,19 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        Reject.encode = function encode(message, writer) {
+        Reject.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.messageId != null && Object.hasOwnProperty.call(message, "messageId"))
                 writer.uint32(/* id 1, wireType 1 =*/9).fixed64(message.messageId);
             if (message.cause != null && Object.hasOwnProperty.call(message, "cause"))
                 writer.uint32(/* id 2, wireType 0 =*/16).int32(message.cause);
             if (message.groupIdentity != null && Object.hasOwnProperty.call(message, "groupIdentity"))
-                $root.common.GroupIdentity.encode(message.groupIdentity, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                $root.common.GroupIdentity.encode(message.groupIdentity, writer.uint32(/* id 3, wireType 2 =*/26).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -1643,9 +1751,13 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        Reject.decode = function decode(reader, length, error) {
+        Reject.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.csp_e2e_fs.Reject();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -1657,7 +1769,7 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
                         break;
                     }
                 case 3: {
-                        message.groupIdentity = $root.common.GroupIdentity.decode(reader, reader.uint32());
+                        message.groupIdentity = $root.common.GroupIdentity.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 2: {
@@ -1665,7 +1777,7 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -1711,7 +1823,7 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
         function Terminate(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -1732,9 +1844,13 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        Terminate.encode = function encode(message, writer) {
+        Terminate.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.cause != null && Object.hasOwnProperty.call(message, "cause"))
                 writer.uint32(/* id 1, wireType 0 =*/8).int32(message.cause);
             return writer;
@@ -1751,9 +1867,13 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        Terminate.decode = function decode(reader, length, error) {
+        Terminate.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.csp_e2e_fs.Terminate();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -1765,7 +1885,7 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -1818,7 +1938,7 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
         function Encapsulated(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -1879,9 +1999,13 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        Encapsulated.encode = function encode(message, writer) {
+        Encapsulated.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.dhType != null && Object.hasOwnProperty.call(message, "dhType"))
                 writer.uint32(/* id 1, wireType 0 =*/8).int32(message.dhType);
             if (message.counter != null && Object.hasOwnProperty.call(message, "counter"))
@@ -1893,7 +2017,7 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
             if (message.appliedVersion != null && Object.hasOwnProperty.call(message, "appliedVersion"))
                 writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.appliedVersion);
             if (message.groupIdentity != null && Object.hasOwnProperty.call(message, "groupIdentity"))
-                $root.common.GroupIdentity.encode(message.groupIdentity, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+                $root.common.GroupIdentity.encode(message.groupIdentity, writer.uint32(/* id 6, wireType 2 =*/50).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -1908,9 +2032,13 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        Encapsulated.decode = function decode(reader, length, error) {
+        Encapsulated.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.csp_e2e_fs.Encapsulated();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -1934,7 +2062,7 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
                         break;
                     }
                 case 6: {
-                        message.groupIdentity = $root.common.GroupIdentity.decode(reader, reader.uint32());
+                        message.groupIdentity = $root.common.GroupIdentity.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 3: {
@@ -1942,7 +2070,7 @@ export const csp_e2e_fs = $root.csp_e2e_fs = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -2001,7 +2129,7 @@ export const csp_e2e = $root.csp_e2e = (() => {
         function MessageMetadata(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -2019,7 +2147,7 @@ export const csp_e2e = $root.csp_e2e = (() => {
          * @memberof csp_e2e.MessageMetadata
          * @instance
          */
-        MessageMetadata.prototype.messageId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        MessageMetadata.prototype.messageId = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * MessageMetadata createdAt.
@@ -2060,9 +2188,13 @@ export const csp_e2e = $root.csp_e2e = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        MessageMetadata.encode = function encode(message, writer) {
+        MessageMetadata.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.padding != null && Object.hasOwnProperty.call(message, "padding"))
                 writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.padding);
             if (message.nickname != null && Object.hasOwnProperty.call(message, "nickname"))
@@ -2085,9 +2217,13 @@ export const csp_e2e = $root.csp_e2e = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        MessageMetadata.decode = function decode(reader, length, error) {
+        MessageMetadata.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.csp_e2e.MessageMetadata();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -2111,7 +2247,7 @@ export const csp_e2e = $root.csp_e2e = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -2142,7 +2278,7 @@ export const csp_e2e = $root.csp_e2e = (() => {
         function EditMessage(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -2152,7 +2288,7 @@ export const csp_e2e = $root.csp_e2e = (() => {
          * @memberof csp_e2e.EditMessage
          * @instance
          */
-        EditMessage.prototype.messageId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        EditMessage.prototype.messageId = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * EditMessage text.
@@ -2171,9 +2307,13 @@ export const csp_e2e = $root.csp_e2e = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        EditMessage.encode = function encode(message, writer) {
+        EditMessage.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.messageId != null && Object.hasOwnProperty.call(message, "messageId"))
                 writer.uint32(/* id 1, wireType 1 =*/9).fixed64(message.messageId);
             if (message.text != null && Object.hasOwnProperty.call(message, "text"))
@@ -2192,9 +2332,13 @@ export const csp_e2e = $root.csp_e2e = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        EditMessage.decode = function decode(reader, length, error) {
+        EditMessage.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.csp_e2e.EditMessage();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -2210,7 +2354,7 @@ export const csp_e2e = $root.csp_e2e = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -2240,7 +2384,7 @@ export const csp_e2e = $root.csp_e2e = (() => {
         function DeleteMessage(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -2250,7 +2394,7 @@ export const csp_e2e = $root.csp_e2e = (() => {
          * @memberof csp_e2e.DeleteMessage
          * @instance
          */
-        DeleteMessage.prototype.messageId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        DeleteMessage.prototype.messageId = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * Encodes the specified DeleteMessage message. Does not implicitly {@link csp_e2e.DeleteMessage.verify|verify} messages.
@@ -2261,9 +2405,13 @@ export const csp_e2e = $root.csp_e2e = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        DeleteMessage.encode = function encode(message, writer) {
+        DeleteMessage.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.messageId != null && Object.hasOwnProperty.call(message, "messageId"))
                 writer.uint32(/* id 1, wireType 1 =*/9).fixed64(message.messageId);
             return writer;
@@ -2280,9 +2428,13 @@ export const csp_e2e = $root.csp_e2e = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        DeleteMessage.decode = function decode(reader, length, error) {
+        DeleteMessage.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.csp_e2e.DeleteMessage();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -2294,7 +2446,7 @@ export const csp_e2e = $root.csp_e2e = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -2326,7 +2478,7 @@ export const csp_e2e = $root.csp_e2e = (() => {
         function GroupCallStart(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -2363,9 +2515,13 @@ export const csp_e2e = $root.csp_e2e = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        GroupCallStart.encode = function encode(message, writer) {
+        GroupCallStart.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.protocolVersion != null && Object.hasOwnProperty.call(message, "protocolVersion"))
                 writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.protocolVersion);
             if (message.gck != null && Object.hasOwnProperty.call(message, "gck"))
@@ -2386,9 +2542,13 @@ export const csp_e2e = $root.csp_e2e = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        GroupCallStart.decode = function decode(reader, length, error) {
+        GroupCallStart.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.csp_e2e.GroupCallStart();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -2408,7 +2568,7 @@ export const csp_e2e = $root.csp_e2e = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -2440,7 +2600,7 @@ export const csp_e2e = $root.csp_e2e = (() => {
         function Reaction(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -2450,7 +2610,7 @@ export const csp_e2e = $root.csp_e2e = (() => {
          * @memberof csp_e2e.Reaction
          * @instance
          */
-        Reaction.prototype.messageId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        Reaction.prototype.messageId = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * Reaction apply.
@@ -2491,9 +2651,13 @@ export const csp_e2e = $root.csp_e2e = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        Reaction.encode = function encode(message, writer) {
+        Reaction.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.messageId != null && Object.hasOwnProperty.call(message, "messageId"))
                 writer.uint32(/* id 1, wireType 1 =*/9).fixed64(message.messageId);
             if (message.apply != null && Object.hasOwnProperty.call(message, "apply"))
@@ -2514,9 +2678,13 @@ export const csp_e2e = $root.csp_e2e = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        Reaction.decode = function decode(reader, length, error) {
+        Reaction.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.csp_e2e.Reaction();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -2536,7 +2704,7 @@ export const csp_e2e = $root.csp_e2e = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -2567,7 +2735,7 @@ export const csp_e2e = $root.csp_e2e = (() => {
         function WorkSyncDelta(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -2610,13 +2778,17 @@ export const csp_e2e = $root.csp_e2e = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        WorkSyncDelta.encode = function encode(message, writer) {
+        WorkSyncDelta.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.requireWorkSync != null && Object.hasOwnProperty.call(message, "requireWorkSync"))
-                $root.common.Unit.encode(message.requireWorkSync, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                $root.common.Unit.encode(message.requireWorkSync, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
             if (message.apply != null && Object.hasOwnProperty.call(message, "apply"))
-                $root.csp_e2e.WorkSyncDelta.Apply.encode(message.apply, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                $root.csp_e2e.WorkSyncDelta.Apply.encode(message.apply, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -2631,9 +2803,13 @@ export const csp_e2e = $root.csp_e2e = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        WorkSyncDelta.decode = function decode(reader, length, error) {
+        WorkSyncDelta.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.csp_e2e.WorkSyncDelta();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -2641,15 +2817,15 @@ export const csp_e2e = $root.csp_e2e = (() => {
                     break;
                 switch (tag >>> 3) {
                 case 1: {
-                        message.requireWorkSync = $root.common.Unit.decode(reader, reader.uint32());
+                        message.requireWorkSync = $root.common.Unit.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 2: {
-                        message.apply = $root.csp_e2e.WorkSyncDelta.Apply.decode(reader, reader.uint32());
+                        message.apply = $root.csp_e2e.WorkSyncDelta.Apply.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -2676,7 +2852,7 @@ export const csp_e2e = $root.csp_e2e = (() => {
             function ContactSync(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -2711,11 +2887,15 @@ export const csp_e2e = $root.csp_e2e = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            ContactSync.encode = function encode(message, writer) {
+            ContactSync.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.update != null && Object.hasOwnProperty.call(message, "update"))
-                    $root.csp_e2e.WorkSyncDelta.ContactSync.Update.encode(message.update, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.csp_e2e.WorkSyncDelta.ContactSync.Update.encode(message.update, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                 return writer;
             };
 
@@ -2730,9 +2910,13 @@ export const csp_e2e = $root.csp_e2e = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            ContactSync.decode = function decode(reader, length, error) {
+            ContactSync.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.csp_e2e.WorkSyncDelta.ContactSync();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -2740,11 +2924,11 @@ export const csp_e2e = $root.csp_e2e = (() => {
                         break;
                     switch (tag >>> 3) {
                     case 1: {
-                            message.update = $root.csp_e2e.WorkSyncDelta.ContactSync.Update.decode(reader, reader.uint32());
+                            message.update = $root.csp_e2e.WorkSyncDelta.ContactSync.Update.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -2772,7 +2956,7 @@ export const csp_e2e = $root.csp_e2e = (() => {
                 function Update(properties) {
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -2801,13 +2985,17 @@ export const csp_e2e = $root.csp_e2e = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                Update.encode = function encode(message, writer) {
+                Update.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     if (message.identity != null && Object.hasOwnProperty.call(message, "identity"))
                         writer.uint32(/* id 1, wireType 2 =*/10).string(message.identity);
                     if (message.availabilityStatus != null && Object.hasOwnProperty.call(message, "availabilityStatus"))
-                        $root.d2d_sync.WorkAvailabilityStatus.encode(message.availabilityStatus, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                        $root.d2d_sync.WorkAvailabilityStatus.encode(message.availabilityStatus, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
                     return writer;
                 };
 
@@ -2822,9 +3010,13 @@ export const csp_e2e = $root.csp_e2e = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Update.decode = function decode(reader, length, error) {
+                Update.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.csp_e2e.WorkSyncDelta.ContactSync.Update();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -2836,11 +3028,11 @@ export const csp_e2e = $root.csp_e2e = (() => {
                                 break;
                             }
                         case 2: {
-                                message.availabilityStatus = $root.d2d_sync.WorkAvailabilityStatus.decode(reader, reader.uint32());
+                                message.availabilityStatus = $root.d2d_sync.WorkAvailabilityStatus.decode(reader, reader.uint32(), undefined, long + 1);
                                 break;
                             }
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -2874,7 +3066,7 @@ export const csp_e2e = $root.csp_e2e = (() => {
             function Delta(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -2917,13 +3109,17 @@ export const csp_e2e = $root.csp_e2e = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Delta.encode = function encode(message, writer) {
+            Delta.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.appliedAt != null && Object.hasOwnProperty.call(message, "appliedAt"))
                     writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.appliedAt);
                 if (message.contactSync != null && Object.hasOwnProperty.call(message, "contactSync"))
-                    $root.csp_e2e.WorkSyncDelta.ContactSync.encode(message.contactSync, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                    $root.csp_e2e.WorkSyncDelta.ContactSync.encode(message.contactSync, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
                 return writer;
             };
 
@@ -2938,9 +3134,13 @@ export const csp_e2e = $root.csp_e2e = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Delta.decode = function decode(reader, length, error) {
+            Delta.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.csp_e2e.WorkSyncDelta.Delta();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -2952,11 +3152,11 @@ export const csp_e2e = $root.csp_e2e = (() => {
                             break;
                         }
                     case 2: {
-                            message.contactSync = $root.csp_e2e.WorkSyncDelta.ContactSync.decode(reader, reader.uint32());
+                            message.contactSync = $root.csp_e2e.WorkSyncDelta.ContactSync.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -2987,7 +3187,7 @@ export const csp_e2e = $root.csp_e2e = (() => {
                 this.deltas = [];
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -3008,12 +3208,16 @@ export const csp_e2e = $root.csp_e2e = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Apply.encode = function encode(message, writer) {
+            Apply.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.deltas != null && message.deltas.length)
                     for (let i = 0; i < message.deltas.length; ++i)
-                        $root.csp_e2e.WorkSyncDelta.Delta.encode(message.deltas[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                        $root.csp_e2e.WorkSyncDelta.Delta.encode(message.deltas[i], writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                 return writer;
             };
 
@@ -3028,9 +3232,13 @@ export const csp_e2e = $root.csp_e2e = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Apply.decode = function decode(reader, length, error) {
+            Apply.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.csp_e2e.WorkSyncDelta.Apply();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -3040,11 +3248,11 @@ export const csp_e2e = $root.csp_e2e = (() => {
                     case 1: {
                             if (!(message.deltas && message.deltas.length))
                                 message.deltas = [];
-                            message.deltas.push($root.csp_e2e.WorkSyncDelta.Delta.decode(reader, reader.uint32()));
+                            message.deltas.push($root.csp_e2e.WorkSyncDelta.Delta.decode(reader, reader.uint32(), undefined, long + 1));
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -3134,7 +3342,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
         function WorkAvailabilityStatus(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -3163,9 +3371,13 @@ export const d2d_sync = $root.d2d_sync = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        WorkAvailabilityStatus.encode = function encode(message, writer) {
+        WorkAvailabilityStatus.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.category != null && Object.hasOwnProperty.call(message, "category"))
                 writer.uint32(/* id 1, wireType 0 =*/8).int32(message.category);
             if (message.description != null && Object.hasOwnProperty.call(message, "description"))
@@ -3184,9 +3396,13 @@ export const d2d_sync = $root.d2d_sync = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        WorkAvailabilityStatus.decode = function decode(reader, length, error) {
+        WorkAvailabilityStatus.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_sync.WorkAvailabilityStatus();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -3202,7 +3418,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -3266,7 +3482,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
             this.threemaParameters = {};
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -3303,18 +3519,22 @@ export const d2d_sync = $root.d2d_sync = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        MdmParameters.encode = function encode(message, writer) {
+        MdmParameters.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.externalParameters != null && Object.hasOwnProperty.call(message, "externalParameters"))
                 for (let keys = Object.keys(message.externalParameters), i = 0; i < keys.length; ++i) {
                     writer.uint32(/* id 1, wireType 2 =*/10).fork().uint32(/* id 1, wireType 2 =*/10).string(keys[i]);
-                    $root.d2d_sync.MdmParameters.Parameter.encode(message.externalParameters[keys[i]], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim().ldelim();
+                    $root.d2d_sync.MdmParameters.Parameter.encode(message.externalParameters[keys[i]], writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim().ldelim();
                 }
             if (message.threemaParameters != null && Object.hasOwnProperty.call(message, "threemaParameters"))
                 for (let keys = Object.keys(message.threemaParameters), i = 0; i < keys.length; ++i) {
                     writer.uint32(/* id 2, wireType 2 =*/18).fork().uint32(/* id 1, wireType 2 =*/10).string(keys[i]);
-                    $root.d2d_sync.MdmParameters.Parameter.encode(message.threemaParameters[keys[i]], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim().ldelim();
+                    $root.d2d_sync.MdmParameters.Parameter.encode(message.threemaParameters[keys[i]], writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim().ldelim();
                 }
             if (message.parameterPrecedence != null && Object.hasOwnProperty.call(message, "parameterPrecedence"))
                 writer.uint32(/* id 3, wireType 0 =*/24).int32(message.parameterPrecedence);
@@ -3332,9 +3552,13 @@ export const d2d_sync = $root.d2d_sync = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        MdmParameters.decode = function decode(reader, length, error) {
+        MdmParameters.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_sync.MdmParameters(), key, value;
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -3354,13 +3578,15 @@ export const d2d_sync = $root.d2d_sync = (() => {
                                 key = reader.string();
                                 break;
                             case 2:
-                                value = $root.d2d_sync.MdmParameters.Parameter.decode(reader, reader.uint32());
+                                value = $root.d2d_sync.MdmParameters.Parameter.decode(reader, reader.uint32(), undefined, long + 1);
                                 break;
                             default:
-                                reader.skipType(tag2 & 7);
+                                reader.skipType(tag2 & 7, long);
                                 break;
                             }
                         }
+                        if (key === "__proto__")
+                            $util.makeProp(message.externalParameters, key);
                         message.externalParameters[key] = value;
                         break;
                     }
@@ -3377,13 +3603,15 @@ export const d2d_sync = $root.d2d_sync = (() => {
                                 key = reader.string();
                                 break;
                             case 2:
-                                value = $root.d2d_sync.MdmParameters.Parameter.decode(reader, reader.uint32());
+                                value = $root.d2d_sync.MdmParameters.Parameter.decode(reader, reader.uint32(), undefined, long + 1);
                                 break;
                             default:
-                                reader.skipType(tag2 & 7);
+                                reader.skipType(tag2 & 7, long);
                                 break;
                             }
                         }
+                        if (key === "__proto__")
+                            $util.makeProp(message.threemaParameters, key);
                         message.threemaParameters[key] = value;
                         break;
                     }
@@ -3392,7 +3620,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -3421,7 +3649,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
             function Parameter(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -3472,9 +3700,13 @@ export const d2d_sync = $root.d2d_sync = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Parameter.encode = function encode(message, writer) {
+            Parameter.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.stringValue != null && Object.hasOwnProperty.call(message, "stringValue"))
                     writer.uint32(/* id 1, wireType 2 =*/10).string(message.stringValue);
                 if (message.booleanValue != null && Object.hasOwnProperty.call(message, "booleanValue"))
@@ -3495,9 +3727,13 @@ export const d2d_sync = $root.d2d_sync = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Parameter.decode = function decode(reader, length, error) {
+            Parameter.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_sync.MdmParameters.Parameter();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -3517,7 +3753,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -3565,7 +3801,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
         function ThreemaWorkCredentials(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -3594,9 +3830,13 @@ export const d2d_sync = $root.d2d_sync = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        ThreemaWorkCredentials.encode = function encode(message, writer) {
+        ThreemaWorkCredentials.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.username != null && Object.hasOwnProperty.call(message, "username"))
                 writer.uint32(/* id 1, wireType 2 =*/10).string(message.username);
             if (message.password != null && Object.hasOwnProperty.call(message, "password"))
@@ -3615,9 +3855,13 @@ export const d2d_sync = $root.d2d_sync = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        ThreemaWorkCredentials.decode = function decode(reader, length, error) {
+        ThreemaWorkCredentials.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_sync.ThreemaWorkCredentials();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -3633,7 +3877,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -3667,7 +3911,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
         function UserProfile(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -3734,19 +3978,23 @@ export const d2d_sync = $root.d2d_sync = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        UserProfile.encode = function encode(message, writer) {
+        UserProfile.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.nickname != null && Object.hasOwnProperty.call(message, "nickname"))
                 writer.uint32(/* id 1, wireType 2 =*/10).string(message.nickname);
             if (message.profilePicture != null && Object.hasOwnProperty.call(message, "profilePicture"))
-                $root.common.DeltaImage.encode(message.profilePicture, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                $root.common.DeltaImage.encode(message.profilePicture, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
             if (message.profilePictureShareWith != null && Object.hasOwnProperty.call(message, "profilePictureShareWith"))
-                $root.d2d_sync.UserProfile.ProfilePictureShareWith.encode(message.profilePictureShareWith, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                $root.d2d_sync.UserProfile.ProfilePictureShareWith.encode(message.profilePictureShareWith, writer.uint32(/* id 3, wireType 2 =*/26).fork(), q + 1).ldelim();
             if (message.identityLinks != null && Object.hasOwnProperty.call(message, "identityLinks"))
-                $root.d2d_sync.UserProfile.IdentityLinks.encode(message.identityLinks, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                $root.d2d_sync.UserProfile.IdentityLinks.encode(message.identityLinks, writer.uint32(/* id 4, wireType 2 =*/34).fork(), q + 1).ldelim();
             if (message.workAvailabilityStatus != null && Object.hasOwnProperty.call(message, "workAvailabilityStatus"))
-                $root.d2d_sync.WorkAvailabilityStatus.encode(message.workAvailabilityStatus, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                $root.d2d_sync.WorkAvailabilityStatus.encode(message.workAvailabilityStatus, writer.uint32(/* id 5, wireType 2 =*/42).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -3761,9 +4009,13 @@ export const d2d_sync = $root.d2d_sync = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        UserProfile.decode = function decode(reader, length, error) {
+        UserProfile.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_sync.UserProfile();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -3775,23 +4027,23 @@ export const d2d_sync = $root.d2d_sync = (() => {
                         break;
                     }
                 case 2: {
-                        message.profilePicture = $root.common.DeltaImage.decode(reader, reader.uint32());
+                        message.profilePicture = $root.common.DeltaImage.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 3: {
-                        message.profilePictureShareWith = $root.d2d_sync.UserProfile.ProfilePictureShareWith.decode(reader, reader.uint32());
+                        message.profilePictureShareWith = $root.d2d_sync.UserProfile.ProfilePictureShareWith.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 4: {
-                        message.identityLinks = $root.d2d_sync.UserProfile.IdentityLinks.decode(reader, reader.uint32());
+                        message.identityLinks = $root.d2d_sync.UserProfile.IdentityLinks.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 5: {
-                        message.workAvailabilityStatus = $root.d2d_sync.WorkAvailabilityStatus.decode(reader, reader.uint32());
+                        message.workAvailabilityStatus = $root.d2d_sync.WorkAvailabilityStatus.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -3820,7 +4072,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
             function ProfilePictureShareWith(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -3871,15 +4123,19 @@ export const d2d_sync = $root.d2d_sync = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            ProfilePictureShareWith.encode = function encode(message, writer) {
+            ProfilePictureShareWith.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.nobody != null && Object.hasOwnProperty.call(message, "nobody"))
-                    $root.common.Unit.encode(message.nobody, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.common.Unit.encode(message.nobody, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                 if (message.everyone != null && Object.hasOwnProperty.call(message, "everyone"))
-                    $root.common.Unit.encode(message.everyone, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                    $root.common.Unit.encode(message.everyone, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
                 if (message.allowList != null && Object.hasOwnProperty.call(message, "allowList"))
-                    $root.common.Identities.encode(message.allowList, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                    $root.common.Identities.encode(message.allowList, writer.uint32(/* id 3, wireType 2 =*/26).fork(), q + 1).ldelim();
                 return writer;
             };
 
@@ -3894,9 +4150,13 @@ export const d2d_sync = $root.d2d_sync = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            ProfilePictureShareWith.decode = function decode(reader, length, error) {
+            ProfilePictureShareWith.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_sync.UserProfile.ProfilePictureShareWith();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -3904,19 +4164,19 @@ export const d2d_sync = $root.d2d_sync = (() => {
                         break;
                     switch (tag >>> 3) {
                     case 1: {
-                            message.nobody = $root.common.Unit.decode(reader, reader.uint32());
+                            message.nobody = $root.common.Unit.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     case 2: {
-                            message.everyone = $root.common.Unit.decode(reader, reader.uint32());
+                            message.everyone = $root.common.Unit.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     case 3: {
-                            message.allowList = $root.common.Identities.decode(reader, reader.uint32());
+                            message.allowList = $root.common.Identities.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -3947,7 +4207,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
                 this.links = [];
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -3968,12 +4228,16 @@ export const d2d_sync = $root.d2d_sync = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            IdentityLinks.encode = function encode(message, writer) {
+            IdentityLinks.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.links != null && message.links.length)
                     for (let i = 0; i < message.links.length; ++i)
-                        $root.d2d_sync.UserProfile.IdentityLinks.IdentityLink.encode(message.links[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                        $root.d2d_sync.UserProfile.IdentityLinks.IdentityLink.encode(message.links[i], writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                 return writer;
             };
 
@@ -3988,9 +4252,13 @@ export const d2d_sync = $root.d2d_sync = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            IdentityLinks.decode = function decode(reader, length, error) {
+            IdentityLinks.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_sync.UserProfile.IdentityLinks();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -4000,11 +4268,11 @@ export const d2d_sync = $root.d2d_sync = (() => {
                     case 1: {
                             if (!(message.links && message.links.length))
                                 message.links = [];
-                            message.links.push($root.d2d_sync.UserProfile.IdentityLinks.IdentityLink.decode(reader, reader.uint32()));
+                            message.links.push($root.d2d_sync.UserProfile.IdentityLinks.IdentityLink.decode(reader, reader.uint32(), undefined, long + 1));
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -4033,7 +4301,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
                 function IdentityLink(properties) {
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -4084,9 +4352,13 @@ export const d2d_sync = $root.d2d_sync = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                IdentityLink.encode = function encode(message, writer) {
+                IdentityLink.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     if (message.phoneNumber != null && Object.hasOwnProperty.call(message, "phoneNumber"))
                         writer.uint32(/* id 1, wireType 2 =*/10).string(message.phoneNumber);
                     if (message.email != null && Object.hasOwnProperty.call(message, "email"))
@@ -4107,9 +4379,13 @@ export const d2d_sync = $root.d2d_sync = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                IdentityLink.decode = function decode(reader, length, error) {
+                IdentityLink.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_sync.UserProfile.IdentityLinks.IdentityLink();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -4129,7 +4405,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
                                 break;
                             }
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -4187,7 +4463,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
         function Contact(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -4552,9 +4828,13 @@ export const d2d_sync = $root.d2d_sync = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        Contact.encode = function encode(message, writer) {
+        Contact.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.identity != null && Object.hasOwnProperty.call(message, "identity"))
                 writer.uint32(/* id 1, wireType 2 =*/10).string(message.identity);
             if (message.publicKey != null && Object.hasOwnProperty.call(message, "publicKey"))
@@ -4582,25 +4862,25 @@ export const d2d_sync = $root.d2d_sync = (() => {
             if (message.syncState != null && Object.hasOwnProperty.call(message, "syncState"))
                 writer.uint32(/* id 13, wireType 0 =*/104).int32(message.syncState);
             if (message.contactDefinedProfilePicture != null && Object.hasOwnProperty.call(message, "contactDefinedProfilePicture"))
-                $root.common.DeltaImage.encode(message.contactDefinedProfilePicture, writer.uint32(/* id 14, wireType 2 =*/114).fork()).ldelim();
+                $root.common.DeltaImage.encode(message.contactDefinedProfilePicture, writer.uint32(/* id 14, wireType 2 =*/114).fork(), q + 1).ldelim();
             if (message.userDefinedProfilePicture != null && Object.hasOwnProperty.call(message, "userDefinedProfilePicture"))
-                $root.common.DeltaImage.encode(message.userDefinedProfilePicture, writer.uint32(/* id 15, wireType 2 =*/122).fork()).ldelim();
+                $root.common.DeltaImage.encode(message.userDefinedProfilePicture, writer.uint32(/* id 15, wireType 2 =*/122).fork(), q + 1).ldelim();
             if (message.readReceiptPolicyOverride != null && Object.hasOwnProperty.call(message, "readReceiptPolicyOverride"))
-                $root.d2d_sync.Contact.ReadReceiptPolicyOverride.encode(message.readReceiptPolicyOverride, writer.uint32(/* id 16, wireType 2 =*/130).fork()).ldelim();
+                $root.d2d_sync.Contact.ReadReceiptPolicyOverride.encode(message.readReceiptPolicyOverride, writer.uint32(/* id 16, wireType 2 =*/130).fork(), q + 1).ldelim();
             if (message.typingIndicatorPolicyOverride != null && Object.hasOwnProperty.call(message, "typingIndicatorPolicyOverride"))
-                $root.d2d_sync.Contact.TypingIndicatorPolicyOverride.encode(message.typingIndicatorPolicyOverride, writer.uint32(/* id 17, wireType 2 =*/138).fork()).ldelim();
+                $root.d2d_sync.Contact.TypingIndicatorPolicyOverride.encode(message.typingIndicatorPolicyOverride, writer.uint32(/* id 17, wireType 2 =*/138).fork(), q + 1).ldelim();
             if (message.featureMask != null && Object.hasOwnProperty.call(message, "featureMask"))
                 writer.uint32(/* id 18, wireType 0 =*/144).uint64(message.featureMask);
             if (message.notificationTriggerPolicyOverride != null && Object.hasOwnProperty.call(message, "notificationTriggerPolicyOverride"))
-                $root.d2d_sync.Contact.NotificationTriggerPolicyOverride.encode(message.notificationTriggerPolicyOverride, writer.uint32(/* id 19, wireType 2 =*/154).fork()).ldelim();
+                $root.d2d_sync.Contact.NotificationTriggerPolicyOverride.encode(message.notificationTriggerPolicyOverride, writer.uint32(/* id 19, wireType 2 =*/154).fork(), q + 1).ldelim();
             if (message.deprecatedNotificationSoundPolicyOverride != null && Object.hasOwnProperty.call(message, "deprecatedNotificationSoundPolicyOverride"))
-                $root.d2d_sync.Contact.DeprecatedNotificationSoundPolicyOverride.encode(message.deprecatedNotificationSoundPolicyOverride, writer.uint32(/* id 20, wireType 2 =*/162).fork()).ldelim();
+                $root.d2d_sync.Contact.DeprecatedNotificationSoundPolicyOverride.encode(message.deprecatedNotificationSoundPolicyOverride, writer.uint32(/* id 20, wireType 2 =*/162).fork(), q + 1).ldelim();
             if (message.workVerificationLevel != null && Object.hasOwnProperty.call(message, "workVerificationLevel"))
                 writer.uint32(/* id 21, wireType 0 =*/168).int32(message.workVerificationLevel);
             if (message.workLastFullSyncAt != null && Object.hasOwnProperty.call(message, "workLastFullSyncAt"))
                 writer.uint32(/* id 26, wireType 0 =*/208).uint64(message.workLastFullSyncAt);
             if (message.workAvailabilityStatus != null && Object.hasOwnProperty.call(message, "workAvailabilityStatus"))
-                $root.d2d_sync.WorkAvailabilityStatus.encode(message.workAvailabilityStatus, writer.uint32(/* id 27, wireType 2 =*/218).fork()).ldelim();
+                $root.d2d_sync.WorkAvailabilityStatus.encode(message.workAvailabilityStatus, writer.uint32(/* id 27, wireType 2 =*/218).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -4615,9 +4895,13 @@ export const d2d_sync = $root.d2d_sync = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        Contact.decode = function decode(reader, length, error) {
+        Contact.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_sync.Contact();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -4677,11 +4961,11 @@ export const d2d_sync = $root.d2d_sync = (() => {
                         break;
                     }
                 case 14: {
-                        message.contactDefinedProfilePicture = $root.common.DeltaImage.decode(reader, reader.uint32());
+                        message.contactDefinedProfilePicture = $root.common.DeltaImage.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 15: {
-                        message.userDefinedProfilePicture = $root.common.DeltaImage.decode(reader, reader.uint32());
+                        message.userDefinedProfilePicture = $root.common.DeltaImage.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 26: {
@@ -4689,23 +4973,23 @@ export const d2d_sync = $root.d2d_sync = (() => {
                         break;
                     }
                 case 27: {
-                        message.workAvailabilityStatus = $root.d2d_sync.WorkAvailabilityStatus.decode(reader, reader.uint32());
+                        message.workAvailabilityStatus = $root.d2d_sync.WorkAvailabilityStatus.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 16: {
-                        message.readReceiptPolicyOverride = $root.d2d_sync.Contact.ReadReceiptPolicyOverride.decode(reader, reader.uint32());
+                        message.readReceiptPolicyOverride = $root.d2d_sync.Contact.ReadReceiptPolicyOverride.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 17: {
-                        message.typingIndicatorPolicyOverride = $root.d2d_sync.Contact.TypingIndicatorPolicyOverride.decode(reader, reader.uint32());
+                        message.typingIndicatorPolicyOverride = $root.d2d_sync.Contact.TypingIndicatorPolicyOverride.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 19: {
-                        message.notificationTriggerPolicyOverride = $root.d2d_sync.Contact.NotificationTriggerPolicyOverride.decode(reader, reader.uint32());
+                        message.notificationTriggerPolicyOverride = $root.d2d_sync.Contact.NotificationTriggerPolicyOverride.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 20: {
-                        message.deprecatedNotificationSoundPolicyOverride = $root.d2d_sync.Contact.DeprecatedNotificationSoundPolicyOverride.decode(reader, reader.uint32());
+                        message.deprecatedNotificationSoundPolicyOverride = $root.d2d_sync.Contact.DeprecatedNotificationSoundPolicyOverride.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 11: {
@@ -4717,7 +5001,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -4835,7 +5119,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
             function ReadReceiptPolicyOverride(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -4878,11 +5162,15 @@ export const d2d_sync = $root.d2d_sync = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            ReadReceiptPolicyOverride.encode = function encode(message, writer) {
+            ReadReceiptPolicyOverride.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message["default"] != null && Object.hasOwnProperty.call(message, "default"))
-                    $root.common.Unit.encode(message["default"], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.common.Unit.encode(message["default"], writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                 if (message.policy != null && Object.hasOwnProperty.call(message, "policy"))
                     writer.uint32(/* id 2, wireType 0 =*/16).int32(message.policy);
                 return writer;
@@ -4899,9 +5187,13 @@ export const d2d_sync = $root.d2d_sync = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            ReadReceiptPolicyOverride.decode = function decode(reader, length, error) {
+            ReadReceiptPolicyOverride.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_sync.Contact.ReadReceiptPolicyOverride();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -4909,7 +5201,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
                         break;
                     switch (tag >>> 3) {
                     case 1: {
-                            message["default"] = $root.common.Unit.decode(reader, reader.uint32());
+                            message["default"] = $root.common.Unit.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     case 2: {
@@ -4917,7 +5209,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -4948,7 +5240,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
             function TypingIndicatorPolicyOverride(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -4991,11 +5283,15 @@ export const d2d_sync = $root.d2d_sync = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            TypingIndicatorPolicyOverride.encode = function encode(message, writer) {
+            TypingIndicatorPolicyOverride.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message["default"] != null && Object.hasOwnProperty.call(message, "default"))
-                    $root.common.Unit.encode(message["default"], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.common.Unit.encode(message["default"], writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                 if (message.policy != null && Object.hasOwnProperty.call(message, "policy"))
                     writer.uint32(/* id 2, wireType 0 =*/16).int32(message.policy);
                 return writer;
@@ -5012,9 +5308,13 @@ export const d2d_sync = $root.d2d_sync = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            TypingIndicatorPolicyOverride.decode = function decode(reader, length, error) {
+            TypingIndicatorPolicyOverride.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_sync.Contact.TypingIndicatorPolicyOverride();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -5022,7 +5322,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
                         break;
                     switch (tag >>> 3) {
                     case 1: {
-                            message["default"] = $root.common.Unit.decode(reader, reader.uint32());
+                            message["default"] = $root.common.Unit.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     case 2: {
@@ -5030,7 +5330,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -5061,7 +5361,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
             function NotificationTriggerPolicyOverride(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -5104,13 +5404,17 @@ export const d2d_sync = $root.d2d_sync = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            NotificationTriggerPolicyOverride.encode = function encode(message, writer) {
+            NotificationTriggerPolicyOverride.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message["default"] != null && Object.hasOwnProperty.call(message, "default"))
-                    $root.common.Unit.encode(message["default"], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.common.Unit.encode(message["default"], writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                 if (message.policy != null && Object.hasOwnProperty.call(message, "policy"))
-                    $root.d2d_sync.Contact.NotificationTriggerPolicyOverride.Policy.encode(message.policy, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                    $root.d2d_sync.Contact.NotificationTriggerPolicyOverride.Policy.encode(message.policy, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
                 return writer;
             };
 
@@ -5125,9 +5429,13 @@ export const d2d_sync = $root.d2d_sync = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            NotificationTriggerPolicyOverride.decode = function decode(reader, length, error) {
+            NotificationTriggerPolicyOverride.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_sync.Contact.NotificationTriggerPolicyOverride();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -5135,15 +5443,15 @@ export const d2d_sync = $root.d2d_sync = (() => {
                         break;
                     switch (tag >>> 3) {
                     case 1: {
-                            message["default"] = $root.common.Unit.decode(reader, reader.uint32());
+                            message["default"] = $root.common.Unit.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     case 2: {
-                            message.policy = $root.d2d_sync.Contact.NotificationTriggerPolicyOverride.Policy.decode(reader, reader.uint32());
+                            message.policy = $root.d2d_sync.Contact.NotificationTriggerPolicyOverride.Policy.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -5171,7 +5479,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
                 function Policy(properties) {
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -5214,9 +5522,13 @@ export const d2d_sync = $root.d2d_sync = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                Policy.encode = function encode(message, writer) {
+                Policy.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     if (message.policy != null && Object.hasOwnProperty.call(message, "policy"))
                         writer.uint32(/* id 1, wireType 0 =*/8).int32(message.policy);
                     if (message.expiresAt != null && Object.hasOwnProperty.call(message, "expiresAt"))
@@ -5235,9 +5547,13 @@ export const d2d_sync = $root.d2d_sync = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Policy.decode = function decode(reader, length, error) {
+                Policy.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_sync.Contact.NotificationTriggerPolicyOverride.Policy();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -5253,7 +5569,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
                                 break;
                             }
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -5298,7 +5614,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
             function DeprecatedNotificationSoundPolicyOverride(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -5333,11 +5649,15 @@ export const d2d_sync = $root.d2d_sync = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            DeprecatedNotificationSoundPolicyOverride.encode = function encode(message, writer) {
+            DeprecatedNotificationSoundPolicyOverride.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message["default"] != null && Object.hasOwnProperty.call(message, "default"))
-                    $root.common.Unit.encode(message["default"], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.common.Unit.encode(message["default"], writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                 return writer;
             };
 
@@ -5352,9 +5672,13 @@ export const d2d_sync = $root.d2d_sync = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            DeprecatedNotificationSoundPolicyOverride.decode = function decode(reader, length, error) {
+            DeprecatedNotificationSoundPolicyOverride.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_sync.Contact.DeprecatedNotificationSoundPolicyOverride();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -5362,11 +5686,11 @@ export const d2d_sync = $root.d2d_sync = (() => {
                         break;
                     switch (tag >>> 3) {
                     case 1: {
-                            message["default"] = $root.common.Unit.decode(reader, reader.uint32());
+                            message["default"] = $root.common.Unit.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -5408,7 +5732,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
         function Group(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -5559,11 +5883,15 @@ export const d2d_sync = $root.d2d_sync = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        Group.encode = function encode(message, writer) {
+        Group.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.groupIdentity != null && Object.hasOwnProperty.call(message, "groupIdentity"))
-                $root.common.GroupIdentity.encode(message.groupIdentity, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                $root.common.GroupIdentity.encode(message.groupIdentity, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
             if (message.name != null && Object.hasOwnProperty.call(message, "name"))
                 writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
             if (message.createdAt != null && Object.hasOwnProperty.call(message, "createdAt"))
@@ -5575,13 +5903,13 @@ export const d2d_sync = $root.d2d_sync = (() => {
             if (message.userState != null && Object.hasOwnProperty.call(message, "userState"))
                 writer.uint32(/* id 6, wireType 0 =*/48).int32(message.userState);
             if (message.profilePicture != null && Object.hasOwnProperty.call(message, "profilePicture"))
-                $root.common.DeltaImage.encode(message.profilePicture, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
+                $root.common.DeltaImage.encode(message.profilePicture, writer.uint32(/* id 7, wireType 2 =*/58).fork(), q + 1).ldelim();
             if (message.memberIdentities != null && Object.hasOwnProperty.call(message, "memberIdentities"))
-                $root.common.Identities.encode(message.memberIdentities, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
+                $root.common.Identities.encode(message.memberIdentities, writer.uint32(/* id 8, wireType 2 =*/66).fork(), q + 1).ldelim();
             if (message.notificationTriggerPolicyOverride != null && Object.hasOwnProperty.call(message, "notificationTriggerPolicyOverride"))
-                $root.d2d_sync.Group.NotificationTriggerPolicyOverride.encode(message.notificationTriggerPolicyOverride, writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
+                $root.d2d_sync.Group.NotificationTriggerPolicyOverride.encode(message.notificationTriggerPolicyOverride, writer.uint32(/* id 9, wireType 2 =*/74).fork(), q + 1).ldelim();
             if (message.deprecatedNotificationSoundPolicyOverride != null && Object.hasOwnProperty.call(message, "deprecatedNotificationSoundPolicyOverride"))
-                $root.d2d_sync.Group.DeprecatedNotificationSoundPolicyOverride.encode(message.deprecatedNotificationSoundPolicyOverride, writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
+                $root.d2d_sync.Group.DeprecatedNotificationSoundPolicyOverride.encode(message.deprecatedNotificationSoundPolicyOverride, writer.uint32(/* id 10, wireType 2 =*/82).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -5596,9 +5924,13 @@ export const d2d_sync = $root.d2d_sync = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        Group.decode = function decode(reader, length, error) {
+        Group.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_sync.Group();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -5606,7 +5938,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
                     break;
                 switch (tag >>> 3) {
                 case 1: {
-                        message.groupIdentity = $root.common.GroupIdentity.decode(reader, reader.uint32());
+                        message.groupIdentity = $root.common.GroupIdentity.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 2: {
@@ -5622,19 +5954,19 @@ export const d2d_sync = $root.d2d_sync = (() => {
                         break;
                     }
                 case 7: {
-                        message.profilePicture = $root.common.DeltaImage.decode(reader, reader.uint32());
+                        message.profilePicture = $root.common.DeltaImage.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 8: {
-                        message.memberIdentities = $root.common.Identities.decode(reader, reader.uint32());
+                        message.memberIdentities = $root.common.Identities.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 9: {
-                        message.notificationTriggerPolicyOverride = $root.d2d_sync.Group.NotificationTriggerPolicyOverride.decode(reader, reader.uint32());
+                        message.notificationTriggerPolicyOverride = $root.d2d_sync.Group.NotificationTriggerPolicyOverride.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 10: {
-                        message.deprecatedNotificationSoundPolicyOverride = $root.d2d_sync.Group.DeprecatedNotificationSoundPolicyOverride.decode(reader, reader.uint32());
+                        message.deprecatedNotificationSoundPolicyOverride = $root.d2d_sync.Group.DeprecatedNotificationSoundPolicyOverride.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 4: {
@@ -5646,7 +5978,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -5690,7 +6022,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
             function NotificationTriggerPolicyOverride(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -5733,13 +6065,17 @@ export const d2d_sync = $root.d2d_sync = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            NotificationTriggerPolicyOverride.encode = function encode(message, writer) {
+            NotificationTriggerPolicyOverride.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message["default"] != null && Object.hasOwnProperty.call(message, "default"))
-                    $root.common.Unit.encode(message["default"], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.common.Unit.encode(message["default"], writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                 if (message.policy != null && Object.hasOwnProperty.call(message, "policy"))
-                    $root.d2d_sync.Group.NotificationTriggerPolicyOverride.Policy.encode(message.policy, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                    $root.d2d_sync.Group.NotificationTriggerPolicyOverride.Policy.encode(message.policy, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
                 return writer;
             };
 
@@ -5754,9 +6090,13 @@ export const d2d_sync = $root.d2d_sync = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            NotificationTriggerPolicyOverride.decode = function decode(reader, length, error) {
+            NotificationTriggerPolicyOverride.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_sync.Group.NotificationTriggerPolicyOverride();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -5764,15 +6104,15 @@ export const d2d_sync = $root.d2d_sync = (() => {
                         break;
                     switch (tag >>> 3) {
                     case 1: {
-                            message["default"] = $root.common.Unit.decode(reader, reader.uint32());
+                            message["default"] = $root.common.Unit.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     case 2: {
-                            message.policy = $root.d2d_sync.Group.NotificationTriggerPolicyOverride.Policy.decode(reader, reader.uint32());
+                            message.policy = $root.d2d_sync.Group.NotificationTriggerPolicyOverride.Policy.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -5800,7 +6140,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
                 function Policy(properties) {
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -5843,9 +6183,13 @@ export const d2d_sync = $root.d2d_sync = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                Policy.encode = function encode(message, writer) {
+                Policy.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     if (message.policy != null && Object.hasOwnProperty.call(message, "policy"))
                         writer.uint32(/* id 1, wireType 0 =*/8).int32(message.policy);
                     if (message.expiresAt != null && Object.hasOwnProperty.call(message, "expiresAt"))
@@ -5864,9 +6208,13 @@ export const d2d_sync = $root.d2d_sync = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Policy.decode = function decode(reader, length, error) {
+                Policy.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_sync.Group.NotificationTriggerPolicyOverride.Policy();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -5882,7 +6230,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
                                 break;
                             }
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -5929,7 +6277,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
             function DeprecatedNotificationSoundPolicyOverride(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -5964,11 +6312,15 @@ export const d2d_sync = $root.d2d_sync = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            DeprecatedNotificationSoundPolicyOverride.encode = function encode(message, writer) {
+            DeprecatedNotificationSoundPolicyOverride.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message["default"] != null && Object.hasOwnProperty.call(message, "default"))
-                    $root.common.Unit.encode(message["default"], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.common.Unit.encode(message["default"], writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                 return writer;
             };
 
@@ -5983,9 +6335,13 @@ export const d2d_sync = $root.d2d_sync = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            DeprecatedNotificationSoundPolicyOverride.decode = function decode(reader, length, error) {
+            DeprecatedNotificationSoundPolicyOverride.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_sync.Group.DeprecatedNotificationSoundPolicyOverride();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -5993,11 +6349,11 @@ export const d2d_sync = $root.d2d_sync = (() => {
                         break;
                     switch (tag >>> 3) {
                     case 1: {
-                            message["default"] = $root.common.Unit.decode(reader, reader.uint32());
+                            message["default"] = $root.common.Unit.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -6035,7 +6391,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
         function DistributionList(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -6045,7 +6401,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
          * @memberof d2d_sync.DistributionList
          * @instance
          */
-        DistributionList.prototype.distributionListId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        DistributionList.prototype.distributionListId = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * DistributionList name.
@@ -6143,9 +6499,13 @@ export const d2d_sync = $root.d2d_sync = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        DistributionList.encode = function encode(message, writer) {
+        DistributionList.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.distributionListId != null && Object.hasOwnProperty.call(message, "distributionListId"))
                 writer.uint32(/* id 1, wireType 1 =*/9).fixed64(message.distributionListId);
             if (message.name != null && Object.hasOwnProperty.call(message, "name"))
@@ -6157,7 +6517,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
             if (message.conversationVisibility != null && Object.hasOwnProperty.call(message, "conversationVisibility"))
                 writer.uint32(/* id 5, wireType 0 =*/40).int32(message.conversationVisibility);
             if (message.memberIdentities != null && Object.hasOwnProperty.call(message, "memberIdentities"))
-                $root.common.Identities.encode(message.memberIdentities, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+                $root.common.Identities.encode(message.memberIdentities, writer.uint32(/* id 6, wireType 2 =*/50).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -6172,9 +6532,13 @@ export const d2d_sync = $root.d2d_sync = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        DistributionList.decode = function decode(reader, length, error) {
+        DistributionList.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_sync.DistributionList();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -6194,7 +6558,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
                         break;
                     }
                 case 6: {
-                        message.memberIdentities = $root.common.Identities.decode(reader, reader.uint32());
+                        message.memberIdentities = $root.common.Identities.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 4: {
@@ -6206,7 +6570,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -6247,7 +6611,7 @@ export const d2d_sync = $root.d2d_sync = (() => {
         function Settings(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -6469,9 +6833,13 @@ export const d2d_sync = $root.d2d_sync = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        Settings.encode = function encode(message, writer) {
+        Settings.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.contactSyncPolicy != null && Object.hasOwnProperty.call(message, "contactSyncPolicy"))
                 writer.uint32(/* id 1, wireType 0 =*/8).int32(message.contactSyncPolicy);
             if (message.unknownContactPolicy != null && Object.hasOwnProperty.call(message, "unknownContactPolicy"))
@@ -6489,9 +6857,9 @@ export const d2d_sync = $root.d2d_sync = (() => {
             if (message.keyboardDataCollectionPolicy != null && Object.hasOwnProperty.call(message, "keyboardDataCollectionPolicy"))
                 writer.uint32(/* id 8, wireType 0 =*/64).int32(message.keyboardDataCollectionPolicy);
             if (message.blockedIdentities != null && Object.hasOwnProperty.call(message, "blockedIdentities"))
-                $root.common.Identities.encode(message.blockedIdentities, writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
+                $root.common.Identities.encode(message.blockedIdentities, writer.uint32(/* id 9, wireType 2 =*/74).fork(), q + 1).ldelim();
             if (message.excludeFromSyncIdentities != null && Object.hasOwnProperty.call(message, "excludeFromSyncIdentities"))
-                $root.common.Identities.encode(message.excludeFromSyncIdentities, writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
+                $root.common.Identities.encode(message.excludeFromSyncIdentities, writer.uint32(/* id 10, wireType 2 =*/82).fork(), q + 1).ldelim();
             if (message.groupCallPolicy != null && Object.hasOwnProperty.call(message, "groupCallPolicy"))
                 writer.uint32(/* id 11, wireType 0 =*/88).int32(message.groupCallPolicy);
             if (message.o2oCallVideoPolicy != null && Object.hasOwnProperty.call(message, "o2oCallVideoPolicy"))
@@ -6510,9 +6878,13 @@ export const d2d_sync = $root.d2d_sync = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        Settings.decode = function decode(reader, length, error) {
+        Settings.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_sync.Settings();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -6560,15 +6932,15 @@ export const d2d_sync = $root.d2d_sync = (() => {
                         break;
                     }
                 case 9: {
-                        message.blockedIdentities = $root.common.Identities.decode(reader, reader.uint32());
+                        message.blockedIdentities = $root.common.Identities.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 10: {
-                        message.excludeFromSyncIdentities = $root.common.Identities.decode(reader, reader.uint32());
+                        message.excludeFromSyncIdentities = $root.common.Identities.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -6722,7 +7094,7 @@ export const directory = $root.directory = (() => {
         function WorkProperties(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -6743,11 +7115,15 @@ export const directory = $root.directory = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        WorkProperties.encode = function encode(message, writer) {
+        WorkProperties.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.availabilityStatus != null && Object.hasOwnProperty.call(message, "availabilityStatus"))
-                $root.d2d_sync.WorkAvailabilityStatus.encode(message.availabilityStatus, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                $root.d2d_sync.WorkAvailabilityStatus.encode(message.availabilityStatus, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -6762,9 +7138,13 @@ export const directory = $root.directory = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        WorkProperties.decode = function decode(reader, length, error) {
+        WorkProperties.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.directory.WorkProperties();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -6772,11 +7152,11 @@ export const directory = $root.directory = (() => {
                     break;
                 switch (tag >>> 3) {
                 case 1: {
-                        message.availabilityStatus = $root.d2d_sync.WorkAvailabilityStatus.decode(reader, reader.uint32());
+                        message.availabilityStatus = $root.d2d_sync.WorkAvailabilityStatus.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -6822,7 +7202,7 @@ export const group_call = $root.group_call = (() => {
             this.participants = {};
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -6867,9 +7247,13 @@ export const group_call = $root.group_call = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        CallState.encode = function encode(message, writer) {
+        CallState.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.padding != null && Object.hasOwnProperty.call(message, "padding"))
                 writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.padding);
             if (message.stateCreatedBy != null && Object.hasOwnProperty.call(message, "stateCreatedBy"))
@@ -6879,7 +7263,7 @@ export const group_call = $root.group_call = (() => {
             if (message.participants != null && Object.hasOwnProperty.call(message, "participants"))
                 for (let keys = Object.keys(message.participants), i = 0; i < keys.length; ++i) {
                     writer.uint32(/* id 4, wireType 2 =*/34).fork().uint32(/* id 1, wireType 0 =*/8).uint32(keys[i]);
-                    $root.group_call.CallState.Participant.encode(message.participants[keys[i]], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim().ldelim();
+                    $root.group_call.CallState.Participant.encode(message.participants[keys[i]], writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim().ldelim();
                 }
             return writer;
         };
@@ -6895,9 +7279,13 @@ export const group_call = $root.group_call = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        CallState.decode = function decode(reader, length, error) {
+        CallState.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.CallState(), key, value;
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -6929,10 +7317,10 @@ export const group_call = $root.group_call = (() => {
                                 key = reader.uint32();
                                 break;
                             case 2:
-                                value = $root.group_call.CallState.Participant.decode(reader, reader.uint32());
+                                value = $root.group_call.CallState.Participant.decode(reader, reader.uint32(), undefined, long + 1);
                                 break;
                             default:
-                                reader.skipType(tag2 & 7);
+                                reader.skipType(tag2 & 7, long);
                                 break;
                             }
                         }
@@ -6940,7 +7328,7 @@ export const group_call = $root.group_call = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -6968,7 +7356,7 @@ export const group_call = $root.group_call = (() => {
             function Participant(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -7011,13 +7399,17 @@ export const group_call = $root.group_call = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Participant.encode = function encode(message, writer) {
+            Participant.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.threema != null && Object.hasOwnProperty.call(message, "threema"))
-                    $root.group_call.CallState.Participant.Normal.encode(message.threema, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                    $root.group_call.CallState.Participant.Normal.encode(message.threema, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
                 if (message.guest != null && Object.hasOwnProperty.call(message, "guest"))
-                    $root.group_call.CallState.Participant.Guest.encode(message.guest, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                    $root.group_call.CallState.Participant.Guest.encode(message.guest, writer.uint32(/* id 3, wireType 2 =*/26).fork(), q + 1).ldelim();
                 return writer;
             };
 
@@ -7032,9 +7424,13 @@ export const group_call = $root.group_call = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Participant.decode = function decode(reader, length, error) {
+            Participant.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.CallState.Participant();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -7042,15 +7438,15 @@ export const group_call = $root.group_call = (() => {
                         break;
                     switch (tag >>> 3) {
                     case 2: {
-                            message.threema = $root.group_call.CallState.Participant.Normal.decode(reader, reader.uint32());
+                            message.threema = $root.group_call.CallState.Participant.Normal.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     case 3: {
-                            message.guest = $root.group_call.CallState.Participant.Guest.decode(reader, reader.uint32());
+                            message.guest = $root.group_call.CallState.Participant.Guest.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -7078,7 +7474,7 @@ export const group_call = $root.group_call = (() => {
                 function Normal(properties) {
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -7107,9 +7503,13 @@ export const group_call = $root.group_call = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                Normal.encode = function encode(message, writer) {
+                Normal.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     if (message.identity != null && Object.hasOwnProperty.call(message, "identity"))
                         writer.uint32(/* id 1, wireType 2 =*/10).string(message.identity);
                     if (message.nickname != null && Object.hasOwnProperty.call(message, "nickname"))
@@ -7128,9 +7528,13 @@ export const group_call = $root.group_call = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Normal.decode = function decode(reader, length, error) {
+                Normal.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.CallState.Participant.Normal();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -7146,7 +7550,7 @@ export const group_call = $root.group_call = (() => {
                                 break;
                             }
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -7176,7 +7580,7 @@ export const group_call = $root.group_call = (() => {
                 function Guest(properties) {
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -7197,9 +7601,13 @@ export const group_call = $root.group_call = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                Guest.encode = function encode(message, writer) {
+                Guest.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     if (message.name != null && Object.hasOwnProperty.call(message, "name"))
                         writer.uint32(/* id 1, wireType 2 =*/10).string(message.name);
                     return writer;
@@ -7216,9 +7624,13 @@ export const group_call = $root.group_call = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Guest.decode = function decode(reader, length, error) {
+                Guest.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.CallState.Participant.Guest();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -7230,7 +7642,7 @@ export const group_call = $root.group_call = (() => {
                                 break;
                             }
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -7279,7 +7691,7 @@ export const group_call = $root.group_call = (() => {
         function SfuHttpRequest(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -7292,9 +7704,13 @@ export const group_call = $root.group_call = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        SfuHttpRequest.encode = function encode(message, writer) {
+        SfuHttpRequest.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             return writer;
         };
 
@@ -7309,9 +7725,13 @@ export const group_call = $root.group_call = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        SfuHttpRequest.decode = function decode(reader, length, error) {
+        SfuHttpRequest.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.SfuHttpRequest();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -7319,7 +7739,7 @@ export const group_call = $root.group_call = (() => {
                     break;
                 switch (tag >>> 3) {
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -7346,7 +7766,7 @@ export const group_call = $root.group_call = (() => {
             function Peek(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -7367,9 +7787,13 @@ export const group_call = $root.group_call = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Peek.encode = function encode(message, writer) {
+            Peek.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.callId != null && Object.hasOwnProperty.call(message, "callId"))
                     writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.callId);
                 return writer;
@@ -7386,9 +7810,13 @@ export const group_call = $root.group_call = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Peek.decode = function decode(reader, length, error) {
+            Peek.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.SfuHttpRequest.Peek();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -7400,7 +7828,7 @@ export const group_call = $root.group_call = (() => {
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -7432,7 +7860,7 @@ export const group_call = $root.group_call = (() => {
             function Join(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -7469,9 +7897,13 @@ export const group_call = $root.group_call = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Join.encode = function encode(message, writer) {
+            Join.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.callId != null && Object.hasOwnProperty.call(message, "callId"))
                     writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.callId);
                 if (message.protocolVersion != null && Object.hasOwnProperty.call(message, "protocolVersion"))
@@ -7492,9 +7924,13 @@ export const group_call = $root.group_call = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Join.decode = function decode(reader, length, error) {
+            Join.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.SfuHttpRequest.Join();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -7514,7 +7950,7 @@ export const group_call = $root.group_call = (() => {
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -7546,7 +7982,7 @@ export const group_call = $root.group_call = (() => {
         function SfuHttpResponse(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -7559,9 +7995,13 @@ export const group_call = $root.group_call = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        SfuHttpResponse.encode = function encode(message, writer) {
+        SfuHttpResponse.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             return writer;
         };
 
@@ -7576,9 +8016,13 @@ export const group_call = $root.group_call = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        SfuHttpResponse.decode = function decode(reader, length, error) {
+        SfuHttpResponse.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.SfuHttpResponse();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -7586,7 +8030,7 @@ export const group_call = $root.group_call = (() => {
                     break;
                 switch (tag >>> 3) {
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -7615,7 +8059,7 @@ export const group_call = $root.group_call = (() => {
             function Peek(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -7666,9 +8110,13 @@ export const group_call = $root.group_call = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Peek.encode = function encode(message, writer) {
+            Peek.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.startedAt != null && Object.hasOwnProperty.call(message, "startedAt"))
                     writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.startedAt);
                 if (message.maxParticipants != null && Object.hasOwnProperty.call(message, "maxParticipants"))
@@ -7689,9 +8137,13 @@ export const group_call = $root.group_call = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Peek.decode = function decode(reader, length, error) {
+            Peek.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.SfuHttpResponse.Peek();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -7711,7 +8163,7 @@ export const group_call = $root.group_call = (() => {
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -7750,7 +8202,7 @@ export const group_call = $root.group_call = (() => {
                 this.addresses = [];
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -7835,9 +8287,13 @@ export const group_call = $root.group_call = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Join.encode = function encode(message, writer) {
+            Join.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.startedAt != null && Object.hasOwnProperty.call(message, "startedAt"))
                     writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.startedAt);
                 if (message.maxParticipants != null && Object.hasOwnProperty.call(message, "maxParticipants"))
@@ -7846,7 +8302,7 @@ export const group_call = $root.group_call = (() => {
                     writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.participantId);
                 if (message.addresses != null && message.addresses.length)
                     for (let i = 0; i < message.addresses.length; ++i)
-                        $root.group_call.SfuHttpResponse.Join.Address.encode(message.addresses[i], writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                        $root.group_call.SfuHttpResponse.Join.Address.encode(message.addresses[i], writer.uint32(/* id 4, wireType 2 =*/34).fork(), q + 1).ldelim();
                 if (message.iceUsernameFragment != null && Object.hasOwnProperty.call(message, "iceUsernameFragment"))
                     writer.uint32(/* id 5, wireType 2 =*/42).string(message.iceUsernameFragment);
                 if (message.icePassword != null && Object.hasOwnProperty.call(message, "icePassword"))
@@ -7856,7 +8312,7 @@ export const group_call = $root.group_call = (() => {
                 if (message.supportedFeatures != null && Object.hasOwnProperty.call(message, "supportedFeatures"))
                     writer.uint32(/* id 8, wireType 0 =*/64).uint64(message.supportedFeatures);
                 if (message.rtpHeaderExtensionIds != null && Object.hasOwnProperty.call(message, "rtpHeaderExtensionIds"))
-                    $root.group_call.SfuHttpResponse.Join.RtpHeaderExtensionIds.encode(message.rtpHeaderExtensionIds, writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
+                    $root.group_call.SfuHttpResponse.Join.RtpHeaderExtensionIds.encode(message.rtpHeaderExtensionIds, writer.uint32(/* id 9, wireType 2 =*/74).fork(), q + 1).ldelim();
                 return writer;
             };
 
@@ -7871,9 +8327,13 @@ export const group_call = $root.group_call = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Join.decode = function decode(reader, length, error) {
+            Join.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.SfuHttpResponse.Join();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -7895,7 +8355,7 @@ export const group_call = $root.group_call = (() => {
                     case 4: {
                             if (!(message.addresses && message.addresses.length))
                                 message.addresses = [];
-                            message.addresses.push($root.group_call.SfuHttpResponse.Join.Address.decode(reader, reader.uint32()));
+                            message.addresses.push($root.group_call.SfuHttpResponse.Join.Address.decode(reader, reader.uint32(), undefined, long + 1));
                             break;
                         }
                     case 5: {
@@ -7911,7 +8371,7 @@ export const group_call = $root.group_call = (() => {
                             break;
                         }
                     case 9: {
-                            message.rtpHeaderExtensionIds = $root.group_call.SfuHttpResponse.Join.RtpHeaderExtensionIds.decode(reader, reader.uint32());
+                            message.rtpHeaderExtensionIds = $root.group_call.SfuHttpResponse.Join.RtpHeaderExtensionIds.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     case 8: {
@@ -7919,7 +8379,7 @@ export const group_call = $root.group_call = (() => {
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -7948,7 +8408,7 @@ export const group_call = $root.group_call = (() => {
                 function Address(properties) {
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -7985,9 +8445,13 @@ export const group_call = $root.group_call = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                Address.encode = function encode(message, writer) {
+                Address.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     if (message.protocol != null && Object.hasOwnProperty.call(message, "protocol"))
                         writer.uint32(/* id 1, wireType 0 =*/8).int32(message.protocol);
                     if (message.port != null && Object.hasOwnProperty.call(message, "port"))
@@ -8008,9 +8472,13 @@ export const group_call = $root.group_call = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Address.decode = function decode(reader, length, error) {
+                Address.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.SfuHttpResponse.Join.Address();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -8030,7 +8498,7 @@ export const group_call = $root.group_call = (() => {
                                 break;
                             }
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -8078,7 +8546,7 @@ export const group_call = $root.group_call = (() => {
                 function RtpHeaderExtensionIds(properties) {
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -8147,9 +8615,13 @@ export const group_call = $root.group_call = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                RtpHeaderExtensionIds.encode = function encode(message, writer) {
+                RtpHeaderExtensionIds.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     if (message.mid != null && Object.hasOwnProperty.call(message, "mid"))
                         writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.mid);
                     if (message.rtpStreamId != null && Object.hasOwnProperty.call(message, "rtpStreamId"))
@@ -8178,9 +8650,13 @@ export const group_call = $root.group_call = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                RtpHeaderExtensionIds.decode = function decode(reader, length, error) {
+                RtpHeaderExtensionIds.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.SfuHttpResponse.Join.RtpHeaderExtensionIds();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -8216,7 +8692,7 @@ export const group_call = $root.group_call = (() => {
                                 break;
                             }
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -8251,7 +8727,7 @@ export const group_call = $root.group_call = (() => {
         function SfuToParticipant(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -8264,9 +8740,13 @@ export const group_call = $root.group_call = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        SfuToParticipant.encode = function encode(message, writer) {
+        SfuToParticipant.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             return writer;
         };
 
@@ -8281,9 +8761,13 @@ export const group_call = $root.group_call = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        SfuToParticipant.decode = function decode(reader, length, error) {
+        SfuToParticipant.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.SfuToParticipant();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -8291,7 +8775,7 @@ export const group_call = $root.group_call = (() => {
                     break;
                 switch (tag >>> 3) {
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -8323,7 +8807,7 @@ export const group_call = $root.group_call = (() => {
             function Envelope(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -8398,21 +8882,25 @@ export const group_call = $root.group_call = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Envelope.encode = function encode(message, writer) {
+            Envelope.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.padding != null && Object.hasOwnProperty.call(message, "padding"))
                     writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.padding);
                 if (message.relay != null && Object.hasOwnProperty.call(message, "relay"))
-                    $root.group_call.ParticipantToParticipant.OuterEnvelope.encode(message.relay, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                    $root.group_call.ParticipantToParticipant.OuterEnvelope.encode(message.relay, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
                 if (message.hello != null && Object.hasOwnProperty.call(message, "hello"))
-                    $root.group_call.SfuToParticipant.Hello.encode(message.hello, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                    $root.group_call.SfuToParticipant.Hello.encode(message.hello, writer.uint32(/* id 3, wireType 2 =*/26).fork(), q + 1).ldelim();
                 if (message.participantJoined != null && Object.hasOwnProperty.call(message, "participantJoined"))
-                    $root.group_call.SfuToParticipant.ParticipantJoined.encode(message.participantJoined, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                    $root.group_call.SfuToParticipant.ParticipantJoined.encode(message.participantJoined, writer.uint32(/* id 4, wireType 2 =*/34).fork(), q + 1).ldelim();
                 if (message.participantLeft != null && Object.hasOwnProperty.call(message, "participantLeft"))
-                    $root.group_call.SfuToParticipant.ParticipantLeft.encode(message.participantLeft, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                    $root.group_call.SfuToParticipant.ParticipantLeft.encode(message.participantLeft, writer.uint32(/* id 5, wireType 2 =*/42).fork(), q + 1).ldelim();
                 if (message.timestampResponse != null && Object.hasOwnProperty.call(message, "timestampResponse"))
-                    $root.group_call.SfuToParticipant.Timestamp.encode(message.timestampResponse, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+                    $root.group_call.SfuToParticipant.Timestamp.encode(message.timestampResponse, writer.uint32(/* id 6, wireType 2 =*/50).fork(), q + 1).ldelim();
                 return writer;
             };
 
@@ -8427,9 +8915,13 @@ export const group_call = $root.group_call = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Envelope.decode = function decode(reader, length, error) {
+            Envelope.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.SfuToParticipant.Envelope();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -8441,27 +8933,27 @@ export const group_call = $root.group_call = (() => {
                             break;
                         }
                     case 2: {
-                            message.relay = $root.group_call.ParticipantToParticipant.OuterEnvelope.decode(reader, reader.uint32());
+                            message.relay = $root.group_call.ParticipantToParticipant.OuterEnvelope.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     case 3: {
-                            message.hello = $root.group_call.SfuToParticipant.Hello.decode(reader, reader.uint32());
+                            message.hello = $root.group_call.SfuToParticipant.Hello.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     case 6: {
-                            message.timestampResponse = $root.group_call.SfuToParticipant.Timestamp.decode(reader, reader.uint32());
+                            message.timestampResponse = $root.group_call.SfuToParticipant.Timestamp.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     case 4: {
-                            message.participantJoined = $root.group_call.SfuToParticipant.ParticipantJoined.decode(reader, reader.uint32());
+                            message.participantJoined = $root.group_call.SfuToParticipant.ParticipantJoined.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     case 5: {
-                            message.participantLeft = $root.group_call.SfuToParticipant.ParticipantLeft.decode(reader, reader.uint32());
+                            message.participantLeft = $root.group_call.SfuToParticipant.ParticipantLeft.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -8492,7 +8984,7 @@ export const group_call = $root.group_call = (() => {
                 this.participantIds = [];
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -8513,9 +9005,13 @@ export const group_call = $root.group_call = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Hello.encode = function encode(message, writer) {
+            Hello.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.participantIds != null && message.participantIds.length) {
                     writer.uint32(/* id 1, wireType 2 =*/10).fork();
                     for (let i = 0; i < message.participantIds.length; ++i)
@@ -8536,9 +9032,13 @@ export const group_call = $root.group_call = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Hello.decode = function decode(reader, length, error) {
+            Hello.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.SfuToParticipant.Hello();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -8557,7 +9057,7 @@ export const group_call = $root.group_call = (() => {
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -8587,7 +9087,7 @@ export const group_call = $root.group_call = (() => {
             function ParticipantJoined(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -8608,9 +9108,13 @@ export const group_call = $root.group_call = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            ParticipantJoined.encode = function encode(message, writer) {
+            ParticipantJoined.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.participantId != null && Object.hasOwnProperty.call(message, "participantId"))
                     writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.participantId);
                 return writer;
@@ -8627,9 +9131,13 @@ export const group_call = $root.group_call = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            ParticipantJoined.decode = function decode(reader, length, error) {
+            ParticipantJoined.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.SfuToParticipant.ParticipantJoined();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -8641,7 +9149,7 @@ export const group_call = $root.group_call = (() => {
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -8671,7 +9179,7 @@ export const group_call = $root.group_call = (() => {
             function ParticipantLeft(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -8692,9 +9200,13 @@ export const group_call = $root.group_call = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            ParticipantLeft.encode = function encode(message, writer) {
+            ParticipantLeft.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.participantId != null && Object.hasOwnProperty.call(message, "participantId"))
                     writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.participantId);
                 return writer;
@@ -8711,9 +9223,13 @@ export const group_call = $root.group_call = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            ParticipantLeft.decode = function decode(reader, length, error) {
+            ParticipantLeft.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.SfuToParticipant.ParticipantLeft();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -8725,7 +9241,7 @@ export const group_call = $root.group_call = (() => {
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -8755,7 +9271,7 @@ export const group_call = $root.group_call = (() => {
             function Timestamp(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -8776,9 +9292,13 @@ export const group_call = $root.group_call = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Timestamp.encode = function encode(message, writer) {
+            Timestamp.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.ms != null && Object.hasOwnProperty.call(message, "ms"))
                     writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.ms);
                 return writer;
@@ -8795,9 +9315,13 @@ export const group_call = $root.group_call = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Timestamp.decode = function decode(reader, length, error) {
+            Timestamp.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.SfuToParticipant.Timestamp();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -8809,7 +9333,7 @@ export const group_call = $root.group_call = (() => {
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -8841,7 +9365,7 @@ export const group_call = $root.group_call = (() => {
         function ParticipantToSfu(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -8854,9 +9378,13 @@ export const group_call = $root.group_call = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        ParticipantToSfu.encode = function encode(message, writer) {
+        ParticipantToSfu.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             return writer;
         };
 
@@ -8871,9 +9399,13 @@ export const group_call = $root.group_call = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        ParticipantToSfu.decode = function decode(reader, length, error) {
+        ParticipantToSfu.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToSfu();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -8881,7 +9413,7 @@ export const group_call = $root.group_call = (() => {
                     break;
                 switch (tag >>> 3) {
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -8914,7 +9446,7 @@ export const group_call = $root.group_call = (() => {
             function Envelope(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -8997,23 +9529,27 @@ export const group_call = $root.group_call = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Envelope.encode = function encode(message, writer) {
+            Envelope.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.padding != null && Object.hasOwnProperty.call(message, "padding"))
                     writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.padding);
                 if (message.relay != null && Object.hasOwnProperty.call(message, "relay"))
-                    $root.group_call.ParticipantToParticipant.OuterEnvelope.encode(message.relay, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                    $root.group_call.ParticipantToParticipant.OuterEnvelope.encode(message.relay, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
                 if (message.updateCallState != null && Object.hasOwnProperty.call(message, "updateCallState"))
-                    $root.group_call.ParticipantToSfu.UpdateCallState.encode(message.updateCallState, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                    $root.group_call.ParticipantToSfu.UpdateCallState.encode(message.updateCallState, writer.uint32(/* id 3, wireType 2 =*/26).fork(), q + 1).ldelim();
                 if (message.requestParticipantCamera != null && Object.hasOwnProperty.call(message, "requestParticipantCamera"))
-                    $root.group_call.ParticipantToSfu.ParticipantCamera.encode(message.requestParticipantCamera, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                    $root.group_call.ParticipantToSfu.ParticipantCamera.encode(message.requestParticipantCamera, writer.uint32(/* id 4, wireType 2 =*/34).fork(), q + 1).ldelim();
                 if (message.requestParticipantScreen != null && Object.hasOwnProperty.call(message, "requestParticipantScreen"))
-                    $root.group_call.ParticipantToSfu.ParticipantScreen.encode(message.requestParticipantScreen, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                    $root.group_call.ParticipantToSfu.ParticipantScreen.encode(message.requestParticipantScreen, writer.uint32(/* id 5, wireType 2 =*/42).fork(), q + 1).ldelim();
                 if (message.requestParticipantMicrophone != null && Object.hasOwnProperty.call(message, "requestParticipantMicrophone"))
-                    $root.group_call.ParticipantToSfu.ParticipantMicrophone.encode(message.requestParticipantMicrophone, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+                    $root.group_call.ParticipantToSfu.ParticipantMicrophone.encode(message.requestParticipantMicrophone, writer.uint32(/* id 6, wireType 2 =*/50).fork(), q + 1).ldelim();
                 if (message.requestTimestamp != null && Object.hasOwnProperty.call(message, "requestTimestamp"))
-                    $root.group_call.ParticipantToSfu.RequestTimestamp.encode(message.requestTimestamp, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
+                    $root.group_call.ParticipantToSfu.RequestTimestamp.encode(message.requestTimestamp, writer.uint32(/* id 7, wireType 2 =*/58).fork(), q + 1).ldelim();
                 return writer;
             };
 
@@ -9028,9 +9564,13 @@ export const group_call = $root.group_call = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Envelope.decode = function decode(reader, length, error) {
+            Envelope.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToSfu.Envelope();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -9042,31 +9582,31 @@ export const group_call = $root.group_call = (() => {
                             break;
                         }
                     case 2: {
-                            message.relay = $root.group_call.ParticipantToParticipant.OuterEnvelope.decode(reader, reader.uint32());
+                            message.relay = $root.group_call.ParticipantToParticipant.OuterEnvelope.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     case 3: {
-                            message.updateCallState = $root.group_call.ParticipantToSfu.UpdateCallState.decode(reader, reader.uint32());
+                            message.updateCallState = $root.group_call.ParticipantToSfu.UpdateCallState.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     case 7: {
-                            message.requestTimestamp = $root.group_call.ParticipantToSfu.RequestTimestamp.decode(reader, reader.uint32());
+                            message.requestTimestamp = $root.group_call.ParticipantToSfu.RequestTimestamp.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     case 6: {
-                            message.requestParticipantMicrophone = $root.group_call.ParticipantToSfu.ParticipantMicrophone.decode(reader, reader.uint32());
+                            message.requestParticipantMicrophone = $root.group_call.ParticipantToSfu.ParticipantMicrophone.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     case 4: {
-                            message.requestParticipantCamera = $root.group_call.ParticipantToSfu.ParticipantCamera.decode(reader, reader.uint32());
+                            message.requestParticipantCamera = $root.group_call.ParticipantToSfu.ParticipantCamera.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     case 5: {
-                            message.requestParticipantScreen = $root.group_call.ParticipantToSfu.ParticipantScreen.decode(reader, reader.uint32());
+                            message.requestParticipantScreen = $root.group_call.ParticipantToSfu.ParticipantScreen.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -9095,7 +9635,7 @@ export const group_call = $root.group_call = (() => {
             function RequestTimestamp(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -9108,9 +9648,13 @@ export const group_call = $root.group_call = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            RequestTimestamp.encode = function encode(message, writer) {
+            RequestTimestamp.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 return writer;
             };
 
@@ -9125,9 +9669,13 @@ export const group_call = $root.group_call = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            RequestTimestamp.decode = function decode(reader, length, error) {
+            RequestTimestamp.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToSfu.RequestTimestamp();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -9135,7 +9683,7 @@ export const group_call = $root.group_call = (() => {
                         break;
                     switch (tag >>> 3) {
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -9165,7 +9713,7 @@ export const group_call = $root.group_call = (() => {
             function UpdateCallState(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -9186,9 +9734,13 @@ export const group_call = $root.group_call = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            UpdateCallState.encode = function encode(message, writer) {
+            UpdateCallState.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.encryptedCallState != null && Object.hasOwnProperty.call(message, "encryptedCallState"))
                     writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.encryptedCallState);
                 return writer;
@@ -9205,9 +9757,13 @@ export const group_call = $root.group_call = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            UpdateCallState.decode = function decode(reader, length, error) {
+            UpdateCallState.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToSfu.UpdateCallState();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -9219,7 +9775,7 @@ export const group_call = $root.group_call = (() => {
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -9251,7 +9807,7 @@ export const group_call = $root.group_call = (() => {
             function ParticipantMicrophone(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -9302,15 +9858,19 @@ export const group_call = $root.group_call = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            ParticipantMicrophone.encode = function encode(message, writer) {
+            ParticipantMicrophone.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.participantId != null && Object.hasOwnProperty.call(message, "participantId"))
                     writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.participantId);
                 if (message.subscribe != null && Object.hasOwnProperty.call(message, "subscribe"))
-                    $root.group_call.ParticipantToSfu.ParticipantMicrophone.Subscribe.encode(message.subscribe, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                    $root.group_call.ParticipantToSfu.ParticipantMicrophone.Subscribe.encode(message.subscribe, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
                 if (message.unsubscribe != null && Object.hasOwnProperty.call(message, "unsubscribe"))
-                    $root.group_call.ParticipantToSfu.ParticipantMicrophone.Unsubscribe.encode(message.unsubscribe, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                    $root.group_call.ParticipantToSfu.ParticipantMicrophone.Unsubscribe.encode(message.unsubscribe, writer.uint32(/* id 3, wireType 2 =*/26).fork(), q + 1).ldelim();
                 return writer;
             };
 
@@ -9325,9 +9885,13 @@ export const group_call = $root.group_call = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            ParticipantMicrophone.decode = function decode(reader, length, error) {
+            ParticipantMicrophone.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToSfu.ParticipantMicrophone();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -9339,15 +9903,15 @@ export const group_call = $root.group_call = (() => {
                             break;
                         }
                     case 2: {
-                            message.subscribe = $root.group_call.ParticipantToSfu.ParticipantMicrophone.Subscribe.decode(reader, reader.uint32());
+                            message.subscribe = $root.group_call.ParticipantToSfu.ParticipantMicrophone.Subscribe.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     case 3: {
-                            message.unsubscribe = $root.group_call.ParticipantToSfu.ParticipantMicrophone.Unsubscribe.decode(reader, reader.uint32());
+                            message.unsubscribe = $root.group_call.ParticipantToSfu.ParticipantMicrophone.Unsubscribe.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -9373,7 +9937,7 @@ export const group_call = $root.group_call = (() => {
                 function Subscribe(properties) {
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -9386,9 +9950,13 @@ export const group_call = $root.group_call = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                Subscribe.encode = function encode(message, writer) {
+                Subscribe.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     return writer;
                 };
 
@@ -9403,9 +9971,13 @@ export const group_call = $root.group_call = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Subscribe.decode = function decode(reader, length, error) {
+                Subscribe.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToSfu.ParticipantMicrophone.Subscribe();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -9413,7 +9985,7 @@ export const group_call = $root.group_call = (() => {
                             break;
                         switch (tag >>> 3) {
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -9442,7 +10014,7 @@ export const group_call = $root.group_call = (() => {
                 function Unsubscribe(properties) {
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -9455,9 +10027,13 @@ export const group_call = $root.group_call = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                Unsubscribe.encode = function encode(message, writer) {
+                Unsubscribe.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     return writer;
                 };
 
@@ -9472,9 +10048,13 @@ export const group_call = $root.group_call = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Unsubscribe.decode = function decode(reader, length, error) {
+                Unsubscribe.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToSfu.ParticipantMicrophone.Unsubscribe();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -9482,7 +10062,7 @@ export const group_call = $root.group_call = (() => {
                             break;
                         switch (tag >>> 3) {
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -9517,7 +10097,7 @@ export const group_call = $root.group_call = (() => {
             function ParticipantCamera(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -9568,15 +10148,19 @@ export const group_call = $root.group_call = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            ParticipantCamera.encode = function encode(message, writer) {
+            ParticipantCamera.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.participantId != null && Object.hasOwnProperty.call(message, "participantId"))
                     writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.participantId);
                 if (message.subscribe != null && Object.hasOwnProperty.call(message, "subscribe"))
-                    $root.group_call.ParticipantToSfu.ParticipantCamera.Subscribe.encode(message.subscribe, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                    $root.group_call.ParticipantToSfu.ParticipantCamera.Subscribe.encode(message.subscribe, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
                 if (message.unsubscribe != null && Object.hasOwnProperty.call(message, "unsubscribe"))
-                    $root.group_call.ParticipantToSfu.ParticipantCamera.Unsubscribe.encode(message.unsubscribe, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                    $root.group_call.ParticipantToSfu.ParticipantCamera.Unsubscribe.encode(message.unsubscribe, writer.uint32(/* id 3, wireType 2 =*/26).fork(), q + 1).ldelim();
                 return writer;
             };
 
@@ -9591,9 +10175,13 @@ export const group_call = $root.group_call = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            ParticipantCamera.decode = function decode(reader, length, error) {
+            ParticipantCamera.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToSfu.ParticipantCamera();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -9605,15 +10193,15 @@ export const group_call = $root.group_call = (() => {
                             break;
                         }
                     case 2: {
-                            message.subscribe = $root.group_call.ParticipantToSfu.ParticipantCamera.Subscribe.decode(reader, reader.uint32());
+                            message.subscribe = $root.group_call.ParticipantToSfu.ParticipantCamera.Subscribe.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     case 3: {
-                            message.unsubscribe = $root.group_call.ParticipantToSfu.ParticipantCamera.Unsubscribe.decode(reader, reader.uint32());
+                            message.unsubscribe = $root.group_call.ParticipantToSfu.ParticipantCamera.Unsubscribe.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -9641,7 +10229,7 @@ export const group_call = $root.group_call = (() => {
                 function Subscribe(properties) {
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -9670,11 +10258,15 @@ export const group_call = $root.group_call = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                Subscribe.encode = function encode(message, writer) {
+                Subscribe.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     if (message.desiredResolution != null && Object.hasOwnProperty.call(message, "desiredResolution"))
-                        $root.common.Resolution.encode(message.desiredResolution, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                        $root.common.Resolution.encode(message.desiredResolution, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                     if (message.desiredFps != null && Object.hasOwnProperty.call(message, "desiredFps"))
                         writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.desiredFps);
                     return writer;
@@ -9691,9 +10283,13 @@ export const group_call = $root.group_call = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Subscribe.decode = function decode(reader, length, error) {
+                Subscribe.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToSfu.ParticipantCamera.Subscribe();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -9701,7 +10297,7 @@ export const group_call = $root.group_call = (() => {
                             break;
                         switch (tag >>> 3) {
                         case 1: {
-                                message.desiredResolution = $root.common.Resolution.decode(reader, reader.uint32());
+                                message.desiredResolution = $root.common.Resolution.decode(reader, reader.uint32(), undefined, long + 1);
                                 break;
                             }
                         case 2: {
@@ -9709,7 +10305,7 @@ export const group_call = $root.group_call = (() => {
                                 break;
                             }
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -9738,7 +10334,7 @@ export const group_call = $root.group_call = (() => {
                 function Unsubscribe(properties) {
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -9751,9 +10347,13 @@ export const group_call = $root.group_call = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                Unsubscribe.encode = function encode(message, writer) {
+                Unsubscribe.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     return writer;
                 };
 
@@ -9768,9 +10368,13 @@ export const group_call = $root.group_call = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Unsubscribe.decode = function decode(reader, length, error) {
+                Unsubscribe.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToSfu.ParticipantCamera.Unsubscribe();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -9778,7 +10382,7 @@ export const group_call = $root.group_call = (() => {
                             break;
                         switch (tag >>> 3) {
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -9813,7 +10417,7 @@ export const group_call = $root.group_call = (() => {
             function ParticipantScreen(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -9864,15 +10468,19 @@ export const group_call = $root.group_call = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            ParticipantScreen.encode = function encode(message, writer) {
+            ParticipantScreen.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.participantId != null && Object.hasOwnProperty.call(message, "participantId"))
                     writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.participantId);
                 if (message.subscribe != null && Object.hasOwnProperty.call(message, "subscribe"))
-                    $root.group_call.ParticipantToSfu.ParticipantScreen.Subscribe.encode(message.subscribe, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                    $root.group_call.ParticipantToSfu.ParticipantScreen.Subscribe.encode(message.subscribe, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
                 if (message.unsubscribe != null && Object.hasOwnProperty.call(message, "unsubscribe"))
-                    $root.group_call.ParticipantToSfu.ParticipantScreen.Unsubscribe.encode(message.unsubscribe, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                    $root.group_call.ParticipantToSfu.ParticipantScreen.Unsubscribe.encode(message.unsubscribe, writer.uint32(/* id 3, wireType 2 =*/26).fork(), q + 1).ldelim();
                 return writer;
             };
 
@@ -9887,9 +10495,13 @@ export const group_call = $root.group_call = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            ParticipantScreen.decode = function decode(reader, length, error) {
+            ParticipantScreen.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToSfu.ParticipantScreen();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -9901,15 +10513,15 @@ export const group_call = $root.group_call = (() => {
                             break;
                         }
                     case 2: {
-                            message.subscribe = $root.group_call.ParticipantToSfu.ParticipantScreen.Subscribe.decode(reader, reader.uint32());
+                            message.subscribe = $root.group_call.ParticipantToSfu.ParticipantScreen.Subscribe.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     case 3: {
-                            message.unsubscribe = $root.group_call.ParticipantToSfu.ParticipantScreen.Unsubscribe.decode(reader, reader.uint32());
+                            message.unsubscribe = $root.group_call.ParticipantToSfu.ParticipantScreen.Unsubscribe.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -9937,7 +10549,7 @@ export const group_call = $root.group_call = (() => {
                 function Subscribe(properties) {
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -9966,11 +10578,15 @@ export const group_call = $root.group_call = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                Subscribe.encode = function encode(message, writer) {
+                Subscribe.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     if (message.desiredResolution != null && Object.hasOwnProperty.call(message, "desiredResolution"))
-                        $root.common.Resolution.encode(message.desiredResolution, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                        $root.common.Resolution.encode(message.desiredResolution, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                     if (message.desiredFps != null && Object.hasOwnProperty.call(message, "desiredFps"))
                         writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.desiredFps);
                     return writer;
@@ -9987,9 +10603,13 @@ export const group_call = $root.group_call = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Subscribe.decode = function decode(reader, length, error) {
+                Subscribe.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToSfu.ParticipantScreen.Subscribe();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -9997,7 +10617,7 @@ export const group_call = $root.group_call = (() => {
                             break;
                         switch (tag >>> 3) {
                         case 1: {
-                                message.desiredResolution = $root.common.Resolution.decode(reader, reader.uint32());
+                                message.desiredResolution = $root.common.Resolution.decode(reader, reader.uint32(), undefined, long + 1);
                                 break;
                             }
                         case 2: {
@@ -10005,7 +10625,7 @@ export const group_call = $root.group_call = (() => {
                                 break;
                             }
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -10034,7 +10654,7 @@ export const group_call = $root.group_call = (() => {
                 function Unsubscribe(properties) {
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -10047,9 +10667,13 @@ export const group_call = $root.group_call = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                Unsubscribe.encode = function encode(message, writer) {
+                Unsubscribe.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     return writer;
                 };
 
@@ -10064,9 +10688,13 @@ export const group_call = $root.group_call = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Unsubscribe.decode = function decode(reader, length, error) {
+                Unsubscribe.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToSfu.ParticipantScreen.Unsubscribe();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -10074,7 +10702,7 @@ export const group_call = $root.group_call = (() => {
                             break;
                         switch (tag >>> 3) {
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -10109,7 +10737,7 @@ export const group_call = $root.group_call = (() => {
         function ParticipantToParticipant(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -10122,9 +10750,13 @@ export const group_call = $root.group_call = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        ParticipantToParticipant.encode = function encode(message, writer) {
+        ParticipantToParticipant.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             return writer;
         };
 
@@ -10139,9 +10771,13 @@ export const group_call = $root.group_call = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        ParticipantToParticipant.decode = function decode(reader, length, error) {
+        ParticipantToParticipant.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToParticipant();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -10149,7 +10785,7 @@ export const group_call = $root.group_call = (() => {
                     break;
                 switch (tag >>> 3) {
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -10178,7 +10814,7 @@ export const group_call = $root.group_call = (() => {
             function OuterEnvelope(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -10215,9 +10851,13 @@ export const group_call = $root.group_call = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            OuterEnvelope.encode = function encode(message, writer) {
+            OuterEnvelope.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.sender != null && Object.hasOwnProperty.call(message, "sender"))
                     writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.sender);
                 if (message.receiver != null && Object.hasOwnProperty.call(message, "receiver"))
@@ -10238,9 +10878,13 @@ export const group_call = $root.group_call = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            OuterEnvelope.decode = function decode(reader, length, error) {
+            OuterEnvelope.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToParticipant.OuterEnvelope();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -10260,7 +10904,7 @@ export const group_call = $root.group_call = (() => {
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -10289,7 +10933,7 @@ export const group_call = $root.group_call = (() => {
             function Handshake(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -10302,9 +10946,13 @@ export const group_call = $root.group_call = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Handshake.encode = function encode(message, writer) {
+            Handshake.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 return writer;
             };
 
@@ -10319,9 +10967,13 @@ export const group_call = $root.group_call = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Handshake.decode = function decode(reader, length, error) {
+            Handshake.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToParticipant.Handshake();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -10329,7 +10981,7 @@ export const group_call = $root.group_call = (() => {
                         break;
                     switch (tag >>> 3) {
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -10358,7 +11010,7 @@ export const group_call = $root.group_call = (() => {
                 function HelloEnvelope(properties) {
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -10409,15 +11061,19 @@ export const group_call = $root.group_call = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                HelloEnvelope.encode = function encode(message, writer) {
+                HelloEnvelope.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     if (message.padding != null && Object.hasOwnProperty.call(message, "padding"))
                         writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.padding);
                     if (message.hello != null && Object.hasOwnProperty.call(message, "hello"))
-                        $root.group_call.ParticipantToParticipant.Handshake.Hello.encode(message.hello, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                        $root.group_call.ParticipantToParticipant.Handshake.Hello.encode(message.hello, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
                     if (message.guestHello != null && Object.hasOwnProperty.call(message, "guestHello"))
-                        $root.group_call.ParticipantToParticipant.Handshake.GuestHello.encode(message.guestHello, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                        $root.group_call.ParticipantToParticipant.Handshake.GuestHello.encode(message.guestHello, writer.uint32(/* id 3, wireType 2 =*/26).fork(), q + 1).ldelim();
                     return writer;
                 };
 
@@ -10432,9 +11088,13 @@ export const group_call = $root.group_call = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                HelloEnvelope.decode = function decode(reader, length, error) {
+                HelloEnvelope.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToParticipant.Handshake.HelloEnvelope();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -10446,15 +11106,15 @@ export const group_call = $root.group_call = (() => {
                                 break;
                             }
                         case 2: {
-                                message.hello = $root.group_call.ParticipantToParticipant.Handshake.Hello.decode(reader, reader.uint32());
+                                message.hello = $root.group_call.ParticipantToParticipant.Handshake.Hello.decode(reader, reader.uint32(), undefined, long + 1);
                                 break;
                             }
                         case 3: {
-                                message.guestHello = $root.group_call.ParticipantToParticipant.Handshake.GuestHello.decode(reader, reader.uint32());
+                                message.guestHello = $root.group_call.ParticipantToParticipant.Handshake.GuestHello.decode(reader, reader.uint32(), undefined, long + 1);
                                 break;
                             }
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -10486,7 +11146,7 @@ export const group_call = $root.group_call = (() => {
                 function AuthEnvelope(properties) {
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -10537,15 +11197,19 @@ export const group_call = $root.group_call = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                AuthEnvelope.encode = function encode(message, writer) {
+                AuthEnvelope.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     if (message.padding != null && Object.hasOwnProperty.call(message, "padding"))
                         writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.padding);
                     if (message.auth != null && Object.hasOwnProperty.call(message, "auth"))
-                        $root.group_call.ParticipantToParticipant.Handshake.Auth.encode(message.auth, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                        $root.group_call.ParticipantToParticipant.Handshake.Auth.encode(message.auth, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
                     if (message.guestAuth != null && Object.hasOwnProperty.call(message, "guestAuth"))
-                        $root.group_call.ParticipantToParticipant.Handshake.GuestAuth.encode(message.guestAuth, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                        $root.group_call.ParticipantToParticipant.Handshake.GuestAuth.encode(message.guestAuth, writer.uint32(/* id 3, wireType 2 =*/26).fork(), q + 1).ldelim();
                     return writer;
                 };
 
@@ -10560,9 +11224,13 @@ export const group_call = $root.group_call = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                AuthEnvelope.decode = function decode(reader, length, error) {
+                AuthEnvelope.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToParticipant.Handshake.AuthEnvelope();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -10574,15 +11242,15 @@ export const group_call = $root.group_call = (() => {
                                 break;
                             }
                         case 2: {
-                                message.auth = $root.group_call.ParticipantToParticipant.Handshake.Auth.decode(reader, reader.uint32());
+                                message.auth = $root.group_call.ParticipantToParticipant.Handshake.Auth.decode(reader, reader.uint32(), undefined, long + 1);
                                 break;
                             }
                         case 3: {
-                                message.guestAuth = $root.group_call.ParticipantToParticipant.Handshake.GuestAuth.decode(reader, reader.uint32());
+                                message.guestAuth = $root.group_call.ParticipantToParticipant.Handshake.GuestAuth.decode(reader, reader.uint32(), undefined, long + 1);
                                 break;
                             }
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -10615,7 +11283,7 @@ export const group_call = $root.group_call = (() => {
                 function Hello(properties) {
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -10660,9 +11328,13 @@ export const group_call = $root.group_call = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                Hello.encode = function encode(message, writer) {
+                Hello.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     if (message.identity != null && Object.hasOwnProperty.call(message, "identity"))
                         writer.uint32(/* id 1, wireType 2 =*/10).string(message.identity);
                     if (message.nickname != null && Object.hasOwnProperty.call(message, "nickname"))
@@ -10685,9 +11357,13 @@ export const group_call = $root.group_call = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Hello.decode = function decode(reader, length, error) {
+                Hello.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToParticipant.Handshake.Hello();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -10711,7 +11387,7 @@ export const group_call = $root.group_call = (() => {
                                 break;
                             }
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -10744,7 +11420,7 @@ export const group_call = $root.group_call = (() => {
                     this.mediaKeys = [];
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -10781,16 +11457,20 @@ export const group_call = $root.group_call = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                Auth.encode = function encode(message, writer) {
+                Auth.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     if (message.pck != null && Object.hasOwnProperty.call(message, "pck"))
                         writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.pck);
                     if (message.pcck != null && Object.hasOwnProperty.call(message, "pcck"))
                         writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.pcck);
                     if (message.mediaKeys != null && message.mediaKeys.length)
                         for (let i = 0; i < message.mediaKeys.length; ++i)
-                            $root.group_call.ParticipantToParticipant.MediaKey.encode(message.mediaKeys[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            $root.group_call.ParticipantToParticipant.MediaKey.encode(message.mediaKeys[i], writer.uint32(/* id 3, wireType 2 =*/26).fork(), q + 1).ldelim();
                     return writer;
                 };
 
@@ -10805,9 +11485,13 @@ export const group_call = $root.group_call = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Auth.decode = function decode(reader, length, error) {
+                Auth.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToParticipant.Handshake.Auth();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -10825,11 +11509,11 @@ export const group_call = $root.group_call = (() => {
                         case 3: {
                                 if (!(message.mediaKeys && message.mediaKeys.length))
                                     message.mediaKeys = [];
-                                message.mediaKeys.push($root.group_call.ParticipantToParticipant.MediaKey.decode(reader, reader.uint32()));
+                                message.mediaKeys.push($root.group_call.ParticipantToParticipant.MediaKey.decode(reader, reader.uint32(), undefined, long + 1));
                                 break;
                             }
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -10861,7 +11545,7 @@ export const group_call = $root.group_call = (() => {
                 function GuestHello(properties) {
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -10898,9 +11582,13 @@ export const group_call = $root.group_call = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                GuestHello.encode = function encode(message, writer) {
+                GuestHello.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     if (message.name != null && Object.hasOwnProperty.call(message, "name"))
                         writer.uint32(/* id 1, wireType 2 =*/10).string(message.name);
                     if (message.pck != null && Object.hasOwnProperty.call(message, "pck"))
@@ -10921,9 +11609,13 @@ export const group_call = $root.group_call = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                GuestHello.decode = function decode(reader, length, error) {
+                GuestHello.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToParticipant.Handshake.GuestHello();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -10943,7 +11635,7 @@ export const group_call = $root.group_call = (() => {
                                 break;
                             }
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -10976,7 +11668,7 @@ export const group_call = $root.group_call = (() => {
                     this.mediaKeys = [];
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -11013,16 +11705,20 @@ export const group_call = $root.group_call = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                GuestAuth.encode = function encode(message, writer) {
+                GuestAuth.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     if (message.pck != null && Object.hasOwnProperty.call(message, "pck"))
                         writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.pck);
                     if (message.pcck != null && Object.hasOwnProperty.call(message, "pcck"))
                         writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.pcck);
                     if (message.mediaKeys != null && message.mediaKeys.length)
                         for (let i = 0; i < message.mediaKeys.length; ++i)
-                            $root.group_call.ParticipantToParticipant.MediaKey.encode(message.mediaKeys[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            $root.group_call.ParticipantToParticipant.MediaKey.encode(message.mediaKeys[i], writer.uint32(/* id 3, wireType 2 =*/26).fork(), q + 1).ldelim();
                     return writer;
                 };
 
@@ -11037,9 +11733,13 @@ export const group_call = $root.group_call = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                GuestAuth.decode = function decode(reader, length, error) {
+                GuestAuth.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToParticipant.Handshake.GuestAuth();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -11057,11 +11757,11 @@ export const group_call = $root.group_call = (() => {
                         case 3: {
                                 if (!(message.mediaKeys && message.mediaKeys.length))
                                     message.mediaKeys = [];
-                                message.mediaKeys.push($root.group_call.ParticipantToParticipant.MediaKey.decode(reader, reader.uint32()));
+                                message.mediaKeys.push($root.group_call.ParticipantToParticipant.MediaKey.decode(reader, reader.uint32(), undefined, long + 1));
                                 break;
                             }
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -11098,7 +11798,7 @@ export const group_call = $root.group_call = (() => {
             function Envelope(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -11165,19 +11865,23 @@ export const group_call = $root.group_call = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Envelope.encode = function encode(message, writer) {
+            Envelope.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.padding != null && Object.hasOwnProperty.call(message, "padding"))
                     writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.padding);
                 if (message.encryptedAdminEnvelope != null && Object.hasOwnProperty.call(message, "encryptedAdminEnvelope"))
                     writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.encryptedAdminEnvelope);
                 if (message.rekey != null && Object.hasOwnProperty.call(message, "rekey"))
-                    $root.group_call.ParticipantToParticipant.MediaKey.encode(message.rekey, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                    $root.group_call.ParticipantToParticipant.MediaKey.encode(message.rekey, writer.uint32(/* id 3, wireType 2 =*/26).fork(), q + 1).ldelim();
                 if (message.captureState != null && Object.hasOwnProperty.call(message, "captureState"))
-                    $root.group_call.ParticipantToParticipant.CaptureState.encode(message.captureState, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                    $root.group_call.ParticipantToParticipant.CaptureState.encode(message.captureState, writer.uint32(/* id 4, wireType 2 =*/34).fork(), q + 1).ldelim();
                 if (message.holdState != null && Object.hasOwnProperty.call(message, "holdState"))
-                    $root.group_call.ParticipantToParticipant.HoldState.encode(message.holdState, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                    $root.group_call.ParticipantToParticipant.HoldState.encode(message.holdState, writer.uint32(/* id 5, wireType 2 =*/42).fork(), q + 1).ldelim();
                 return writer;
             };
 
@@ -11192,9 +11896,13 @@ export const group_call = $root.group_call = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Envelope.decode = function decode(reader, length, error) {
+            Envelope.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToParticipant.Envelope();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -11210,19 +11918,19 @@ export const group_call = $root.group_call = (() => {
                             break;
                         }
                     case 3: {
-                            message.rekey = $root.group_call.ParticipantToParticipant.MediaKey.decode(reader, reader.uint32());
+                            message.rekey = $root.group_call.ParticipantToParticipant.MediaKey.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     case 4: {
-                            message.captureState = $root.group_call.ParticipantToParticipant.CaptureState.decode(reader, reader.uint32());
+                            message.captureState = $root.group_call.ParticipantToParticipant.CaptureState.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     case 5: {
-                            message.holdState = $root.group_call.ParticipantToParticipant.HoldState.decode(reader, reader.uint32());
+                            message.holdState = $root.group_call.ParticipantToParticipant.HoldState.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -11251,7 +11959,7 @@ export const group_call = $root.group_call = (() => {
             function Admin(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -11264,9 +11972,13 @@ export const group_call = $root.group_call = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Admin.encode = function encode(message, writer) {
+            Admin.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 return writer;
             };
 
@@ -11281,9 +11993,13 @@ export const group_call = $root.group_call = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Admin.decode = function decode(reader, length, error) {
+            Admin.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToParticipant.Admin();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -11291,7 +12007,7 @@ export const group_call = $root.group_call = (() => {
                         break;
                     switch (tag >>> 3) {
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -11322,7 +12038,7 @@ export const group_call = $root.group_call = (() => {
                 function Envelope(properties) {
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -11389,19 +12105,23 @@ export const group_call = $root.group_call = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                Envelope.encode = function encode(message, writer) {
+                Envelope.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     if (message.reportAsAdmin != null && Object.hasOwnProperty.call(message, "reportAsAdmin"))
-                        $root.group_call.ParticipantToParticipant.Admin.ReportAsAdmin.encode(message.reportAsAdmin, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                        $root.group_call.ParticipantToParticipant.Admin.ReportAsAdmin.encode(message.reportAsAdmin, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                     if (message.promoteToAdmin != null && Object.hasOwnProperty.call(message, "promoteToAdmin"))
-                        $root.group_call.ParticipantToParticipant.Admin.PromoteToAdmin.encode(message.promoteToAdmin, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                        $root.group_call.ParticipantToParticipant.Admin.PromoteToAdmin.encode(message.promoteToAdmin, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
                     if (message.forceLeave != null && Object.hasOwnProperty.call(message, "forceLeave"))
-                        $root.group_call.ParticipantToParticipant.Admin.ForceLeave.encode(message.forceLeave, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                        $root.group_call.ParticipantToParticipant.Admin.ForceLeave.encode(message.forceLeave, writer.uint32(/* id 3, wireType 2 =*/26).fork(), q + 1).ldelim();
                     if (message.forceCaptureStateOff != null && Object.hasOwnProperty.call(message, "forceCaptureStateOff"))
-                        $root.group_call.ParticipantToParticipant.Admin.ForceCaptureStateOff.encode(message.forceCaptureStateOff, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                        $root.group_call.ParticipantToParticipant.Admin.ForceCaptureStateOff.encode(message.forceCaptureStateOff, writer.uint32(/* id 4, wireType 2 =*/34).fork(), q + 1).ldelim();
                     if (message.forceFocus != null && Object.hasOwnProperty.call(message, "forceFocus"))
-                        $root.group_call.ParticipantToParticipant.Admin.ForceFocus.encode(message.forceFocus, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                        $root.group_call.ParticipantToParticipant.Admin.ForceFocus.encode(message.forceFocus, writer.uint32(/* id 5, wireType 2 =*/42).fork(), q + 1).ldelim();
                     return writer;
                 };
 
@@ -11416,9 +12136,13 @@ export const group_call = $root.group_call = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Envelope.decode = function decode(reader, length, error) {
+                Envelope.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToParticipant.Admin.Envelope();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -11426,27 +12150,27 @@ export const group_call = $root.group_call = (() => {
                             break;
                         switch (tag >>> 3) {
                         case 1: {
-                                message.reportAsAdmin = $root.group_call.ParticipantToParticipant.Admin.ReportAsAdmin.decode(reader, reader.uint32());
+                                message.reportAsAdmin = $root.group_call.ParticipantToParticipant.Admin.ReportAsAdmin.decode(reader, reader.uint32(), undefined, long + 1);
                                 break;
                             }
                         case 2: {
-                                message.promoteToAdmin = $root.group_call.ParticipantToParticipant.Admin.PromoteToAdmin.decode(reader, reader.uint32());
+                                message.promoteToAdmin = $root.group_call.ParticipantToParticipant.Admin.PromoteToAdmin.decode(reader, reader.uint32(), undefined, long + 1);
                                 break;
                             }
                         case 3: {
-                                message.forceLeave = $root.group_call.ParticipantToParticipant.Admin.ForceLeave.decode(reader, reader.uint32());
+                                message.forceLeave = $root.group_call.ParticipantToParticipant.Admin.ForceLeave.decode(reader, reader.uint32(), undefined, long + 1);
                                 break;
                             }
                         case 4: {
-                                message.forceCaptureStateOff = $root.group_call.ParticipantToParticipant.Admin.ForceCaptureStateOff.decode(reader, reader.uint32());
+                                message.forceCaptureStateOff = $root.group_call.ParticipantToParticipant.Admin.ForceCaptureStateOff.decode(reader, reader.uint32(), undefined, long + 1);
                                 break;
                             }
                         case 5: {
-                                message.forceFocus = $root.group_call.ParticipantToParticipant.Admin.ForceFocus.decode(reader, reader.uint32());
+                                message.forceFocus = $root.group_call.ParticipantToParticipant.Admin.ForceFocus.decode(reader, reader.uint32(), undefined, long + 1);
                                 break;
                             }
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -11475,7 +12199,7 @@ export const group_call = $root.group_call = (() => {
                 function ReportAsAdmin(properties) {
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -11488,9 +12212,13 @@ export const group_call = $root.group_call = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                ReportAsAdmin.encode = function encode(message, writer) {
+                ReportAsAdmin.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     return writer;
                 };
 
@@ -11505,9 +12233,13 @@ export const group_call = $root.group_call = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                ReportAsAdmin.decode = function decode(reader, length, error) {
+                ReportAsAdmin.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToParticipant.Admin.ReportAsAdmin();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -11515,7 +12247,7 @@ export const group_call = $root.group_call = (() => {
                             break;
                         switch (tag >>> 3) {
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -11545,7 +12277,7 @@ export const group_call = $root.group_call = (() => {
                 function PromoteToAdmin(properties) {
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -11566,9 +12298,13 @@ export const group_call = $root.group_call = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                PromoteToAdmin.encode = function encode(message, writer) {
+                PromoteToAdmin.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     if (message.gcak != null && Object.hasOwnProperty.call(message, "gcak"))
                         writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.gcak);
                     return writer;
@@ -11585,9 +12321,13 @@ export const group_call = $root.group_call = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                PromoteToAdmin.decode = function decode(reader, length, error) {
+                PromoteToAdmin.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToParticipant.Admin.PromoteToAdmin();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -11599,7 +12339,7 @@ export const group_call = $root.group_call = (() => {
                                 break;
                             }
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -11628,7 +12368,7 @@ export const group_call = $root.group_call = (() => {
                 function ForceLeave(properties) {
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -11641,9 +12381,13 @@ export const group_call = $root.group_call = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                ForceLeave.encode = function encode(message, writer) {
+                ForceLeave.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     return writer;
                 };
 
@@ -11658,9 +12402,13 @@ export const group_call = $root.group_call = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                ForceLeave.decode = function decode(reader, length, error) {
+                ForceLeave.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToParticipant.Admin.ForceLeave();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -11668,7 +12416,7 @@ export const group_call = $root.group_call = (() => {
                             break;
                         switch (tag >>> 3) {
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -11698,7 +12446,7 @@ export const group_call = $root.group_call = (() => {
                 function ForceCaptureStateOff(properties) {
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -11719,9 +12467,13 @@ export const group_call = $root.group_call = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                ForceCaptureStateOff.encode = function encode(message, writer) {
+                ForceCaptureStateOff.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     if (message.device != null && Object.hasOwnProperty.call(message, "device"))
                         writer.uint32(/* id 1, wireType 0 =*/8).int32(message.device);
                     return writer;
@@ -11738,9 +12490,13 @@ export const group_call = $root.group_call = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                ForceCaptureStateOff.decode = function decode(reader, length, error) {
+                ForceCaptureStateOff.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToParticipant.Admin.ForceCaptureStateOff();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -11752,7 +12508,7 @@ export const group_call = $root.group_call = (() => {
                                 break;
                             }
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -11800,7 +12556,7 @@ export const group_call = $root.group_call = (() => {
                 function ForceFocus(properties) {
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -11821,9 +12577,13 @@ export const group_call = $root.group_call = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                ForceFocus.encode = function encode(message, writer) {
+                ForceFocus.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     if (message.participantId != null && Object.hasOwnProperty.call(message, "participantId"))
                         writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.participantId);
                     return writer;
@@ -11840,9 +12600,13 @@ export const group_call = $root.group_call = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                ForceFocus.decode = function decode(reader, length, error) {
+                ForceFocus.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToParticipant.Admin.ForceFocus();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -11854,7 +12618,7 @@ export const group_call = $root.group_call = (() => {
                                 break;
                             }
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -11889,7 +12653,7 @@ export const group_call = $root.group_call = (() => {
             function MediaKey(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -11926,9 +12690,13 @@ export const group_call = $root.group_call = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            MediaKey.encode = function encode(message, writer) {
+            MediaKey.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.epoch != null && Object.hasOwnProperty.call(message, "epoch"))
                     writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.epoch);
                 if (message.ratchetCounter != null && Object.hasOwnProperty.call(message, "ratchetCounter"))
@@ -11949,9 +12717,13 @@ export const group_call = $root.group_call = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            MediaKey.decode = function decode(reader, length, error) {
+            MediaKey.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToParticipant.MediaKey();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -11971,7 +12743,7 @@ export const group_call = $root.group_call = (() => {
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -12003,7 +12775,7 @@ export const group_call = $root.group_call = (() => {
             function CaptureState(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -12054,15 +12826,19 @@ export const group_call = $root.group_call = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            CaptureState.encode = function encode(message, writer) {
+            CaptureState.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.microphone != null && Object.hasOwnProperty.call(message, "microphone"))
-                    $root.group_call.ParticipantToParticipant.CaptureState.Microphone.encode(message.microphone, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.group_call.ParticipantToParticipant.CaptureState.Microphone.encode(message.microphone, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                 if (message.camera != null && Object.hasOwnProperty.call(message, "camera"))
-                    $root.group_call.ParticipantToParticipant.CaptureState.Camera.encode(message.camera, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                    $root.group_call.ParticipantToParticipant.CaptureState.Camera.encode(message.camera, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
                 if (message.screen != null && Object.hasOwnProperty.call(message, "screen"))
-                    $root.group_call.ParticipantToParticipant.CaptureState.Screen.encode(message.screen, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                    $root.group_call.ParticipantToParticipant.CaptureState.Screen.encode(message.screen, writer.uint32(/* id 3, wireType 2 =*/26).fork(), q + 1).ldelim();
                 return writer;
             };
 
@@ -12077,9 +12853,13 @@ export const group_call = $root.group_call = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            CaptureState.decode = function decode(reader, length, error) {
+            CaptureState.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToParticipant.CaptureState();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -12087,19 +12867,19 @@ export const group_call = $root.group_call = (() => {
                         break;
                     switch (tag >>> 3) {
                     case 1: {
-                            message.microphone = $root.group_call.ParticipantToParticipant.CaptureState.Microphone.decode(reader, reader.uint32());
+                            message.microphone = $root.group_call.ParticipantToParticipant.CaptureState.Microphone.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     case 2: {
-                            message.camera = $root.group_call.ParticipantToParticipant.CaptureState.Camera.decode(reader, reader.uint32());
+                            message.camera = $root.group_call.ParticipantToParticipant.CaptureState.Camera.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     case 3: {
-                            message.screen = $root.group_call.ParticipantToParticipant.CaptureState.Screen.decode(reader, reader.uint32());
+                            message.screen = $root.group_call.ParticipantToParticipant.CaptureState.Screen.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -12127,7 +12907,7 @@ export const group_call = $root.group_call = (() => {
                 function Microphone(properties) {
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -12170,13 +12950,17 @@ export const group_call = $root.group_call = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                Microphone.encode = function encode(message, writer) {
+                Microphone.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     if (message.on != null && Object.hasOwnProperty.call(message, "on"))
-                        $root.common.Unit.encode(message.on, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                        $root.common.Unit.encode(message.on, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                     if (message.off != null && Object.hasOwnProperty.call(message, "off"))
-                        $root.common.Unit.encode(message.off, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                        $root.common.Unit.encode(message.off, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
                     return writer;
                 };
 
@@ -12191,9 +12975,13 @@ export const group_call = $root.group_call = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Microphone.decode = function decode(reader, length, error) {
+                Microphone.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToParticipant.CaptureState.Microphone();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -12201,15 +12989,15 @@ export const group_call = $root.group_call = (() => {
                             break;
                         switch (tag >>> 3) {
                         case 1: {
-                                message.on = $root.common.Unit.decode(reader, reader.uint32());
+                                message.on = $root.common.Unit.decode(reader, reader.uint32(), undefined, long + 1);
                                 break;
                             }
                         case 2: {
-                                message.off = $root.common.Unit.decode(reader, reader.uint32());
+                                message.off = $root.common.Unit.decode(reader, reader.uint32(), undefined, long + 1);
                                 break;
                             }
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -12240,7 +13028,7 @@ export const group_call = $root.group_call = (() => {
                 function Camera(properties) {
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -12283,13 +13071,17 @@ export const group_call = $root.group_call = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                Camera.encode = function encode(message, writer) {
+                Camera.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     if (message.on != null && Object.hasOwnProperty.call(message, "on"))
-                        $root.common.Unit.encode(message.on, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                        $root.common.Unit.encode(message.on, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                     if (message.off != null && Object.hasOwnProperty.call(message, "off"))
-                        $root.common.Unit.encode(message.off, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                        $root.common.Unit.encode(message.off, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
                     return writer;
                 };
 
@@ -12304,9 +13096,13 @@ export const group_call = $root.group_call = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Camera.decode = function decode(reader, length, error) {
+                Camera.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToParticipant.CaptureState.Camera();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -12314,15 +13110,15 @@ export const group_call = $root.group_call = (() => {
                             break;
                         switch (tag >>> 3) {
                         case 1: {
-                                message.on = $root.common.Unit.decode(reader, reader.uint32());
+                                message.on = $root.common.Unit.decode(reader, reader.uint32(), undefined, long + 1);
                                 break;
                             }
                         case 2: {
-                                message.off = $root.common.Unit.decode(reader, reader.uint32());
+                                message.off = $root.common.Unit.decode(reader, reader.uint32(), undefined, long + 1);
                                 break;
                             }
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -12353,7 +13149,7 @@ export const group_call = $root.group_call = (() => {
                 function Screen(properties) {
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -12396,13 +13192,17 @@ export const group_call = $root.group_call = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                Screen.encode = function encode(message, writer) {
+                Screen.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     if (message.on != null && Object.hasOwnProperty.call(message, "on"))
-                        $root.group_call.ParticipantToParticipant.CaptureState.Screen.On.encode(message.on, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                        $root.group_call.ParticipantToParticipant.CaptureState.Screen.On.encode(message.on, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                     if (message.off != null && Object.hasOwnProperty.call(message, "off"))
-                        $root.common.Unit.encode(message.off, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                        $root.common.Unit.encode(message.off, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
                     return writer;
                 };
 
@@ -12417,9 +13217,13 @@ export const group_call = $root.group_call = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Screen.decode = function decode(reader, length, error) {
+                Screen.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToParticipant.CaptureState.Screen();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -12427,15 +13231,15 @@ export const group_call = $root.group_call = (() => {
                             break;
                         switch (tag >>> 3) {
                         case 1: {
-                                message.on = $root.group_call.ParticipantToParticipant.CaptureState.Screen.On.decode(reader, reader.uint32());
+                                message.on = $root.group_call.ParticipantToParticipant.CaptureState.Screen.On.decode(reader, reader.uint32(), undefined, long + 1);
                                 break;
                             }
                         case 2: {
-                                message.off = $root.common.Unit.decode(reader, reader.uint32());
+                                message.off = $root.common.Unit.decode(reader, reader.uint32(), undefined, long + 1);
                                 break;
                             }
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -12462,7 +13266,7 @@ export const group_call = $root.group_call = (() => {
                     function On(properties) {
                         if (properties)
                             for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                                if (properties[keys[i]] != null)
+                                if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                     this[keys[i]] = properties[keys[i]];
                     }
 
@@ -12483,9 +13287,13 @@ export const group_call = $root.group_call = (() => {
                      * @param {$protobuf.Writer} [writer] Writer to encode to
                      * @returns {$protobuf.Writer} Writer
                      */
-                    On.encode = function encode(message, writer) {
+                    On.encode = function encode(message, writer, q) {
                         if (!writer)
                             writer = $Writer.create();
+                        if (q === undefined)
+                            q = 0;
+                        if (q > $util.recursionLimit)
+                            throw Error("max depth exceeded");
                         if (message.startedAt != null && Object.hasOwnProperty.call(message, "startedAt"))
                             writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.startedAt);
                         return writer;
@@ -12502,9 +13310,13 @@ export const group_call = $root.group_call = (() => {
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    On.decode = function decode(reader, length, error) {
+                    On.decode = function decode(reader, length, error, long) {
                         if (!(reader instanceof $Reader))
                             reader = $Reader.create(reader);
+                        if (long === undefined)
+                            long = 0;
+                        if (long > $Reader.recursionLimit)
+                            throw Error("maximum nesting depth exceeded");
                         let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToParticipant.CaptureState.Screen.On();
                         while (reader.pos < end) {
                             let tag = reader.uint32();
@@ -12516,7 +13328,7 @@ export const group_call = $root.group_call = (() => {
                                     break;
                                 }
                             default:
-                                reader.skipType(tag & 7);
+                                reader.skipType(tag & 7, long);
                                 break;
                             }
                         }
@@ -12551,7 +13363,7 @@ export const group_call = $root.group_call = (() => {
             function HoldState(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -12564,9 +13376,13 @@ export const group_call = $root.group_call = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            HoldState.encode = function encode(message, writer) {
+            HoldState.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 return writer;
             };
 
@@ -12581,9 +13397,13 @@ export const group_call = $root.group_call = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            HoldState.decode = function decode(reader, length, error) {
+            HoldState.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.group_call.ParticipantToParticipant.HoldState();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -12591,7 +13411,7 @@ export const group_call = $root.group_call = (() => {
                         break;
                     switch (tag >>> 3) {
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -12637,7 +13457,7 @@ export const d2d_history = $root.d2d_history = (() => {
         function DdToSd(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -12680,13 +13500,17 @@ export const d2d_history = $root.d2d_history = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        DdToSd.encode = function encode(message, writer) {
+        DdToSd.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.getSummary != null && Object.hasOwnProperty.call(message, "getSummary"))
-                $root.d2d_history.GetSummary.encode(message.getSummary, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                $root.d2d_history.GetSummary.encode(message.getSummary, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
             if (message.beginTransfer != null && Object.hasOwnProperty.call(message, "beginTransfer"))
-                $root.d2d_history.BeginTransfer.encode(message.beginTransfer, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                $root.d2d_history.BeginTransfer.encode(message.beginTransfer, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -12701,9 +13525,13 @@ export const d2d_history = $root.d2d_history = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        DdToSd.decode = function decode(reader, length, error) {
+        DdToSd.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_history.DdToSd();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -12711,15 +13539,15 @@ export const d2d_history = $root.d2d_history = (() => {
                     break;
                 switch (tag >>> 3) {
                 case 1: {
-                        message.getSummary = $root.d2d_history.GetSummary.decode(reader, reader.uint32());
+                        message.getSummary = $root.d2d_history.GetSummary.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 2: {
-                        message.beginTransfer = $root.d2d_history.BeginTransfer.decode(reader, reader.uint32());
+                        message.beginTransfer = $root.d2d_history.BeginTransfer.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -12751,7 +13579,7 @@ export const d2d_history = $root.d2d_history = (() => {
         function SdToDd(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -12802,15 +13630,19 @@ export const d2d_history = $root.d2d_history = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        SdToDd.encode = function encode(message, writer) {
+        SdToDd.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.summary != null && Object.hasOwnProperty.call(message, "summary"))
-                $root.d2d_history.Summary.encode(message.summary, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                $root.d2d_history.Summary.encode(message.summary, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
             if (message.blobData != null && Object.hasOwnProperty.call(message, "blobData"))
-                $root.common.BlobData.encode(message.blobData, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                $root.common.BlobData.encode(message.blobData, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
             if (message.data != null && Object.hasOwnProperty.call(message, "data"))
-                $root.d2d_history.Data.encode(message.data, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                $root.d2d_history.Data.encode(message.data, writer.uint32(/* id 3, wireType 2 =*/26).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -12825,9 +13657,13 @@ export const d2d_history = $root.d2d_history = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        SdToDd.decode = function decode(reader, length, error) {
+        SdToDd.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_history.SdToDd();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -12835,19 +13671,19 @@ export const d2d_history = $root.d2d_history = (() => {
                     break;
                 switch (tag >>> 3) {
                 case 1: {
-                        message.summary = $root.d2d_history.Summary.decode(reader, reader.uint32());
+                        message.summary = $root.d2d_history.Summary.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 2: {
-                        message.blobData = $root.common.BlobData.decode(reader, reader.uint32());
+                        message.blobData = $root.common.BlobData.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 3: {
-                        message.data = $root.d2d_history.Data.decode(reader, reader.uint32());
+                        message.data = $root.d2d_history.Data.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -12892,7 +13728,7 @@ export const d2d_history = $root.d2d_history = (() => {
             this.media = [];
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -12929,13 +13765,17 @@ export const d2d_history = $root.d2d_history = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        GetSummary.encode = function encode(message, writer) {
+        GetSummary.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.id != null && Object.hasOwnProperty.call(message, "id"))
                 writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.id);
             if (message.timespan != null && Object.hasOwnProperty.call(message, "timespan"))
-                $root.common.Timespan.encode(message.timespan, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                $root.common.Timespan.encode(message.timespan, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
             if (message.media != null && message.media.length) {
                 writer.uint32(/* id 3, wireType 2 =*/26).fork();
                 for (let i = 0; i < message.media.length; ++i)
@@ -12956,9 +13796,13 @@ export const d2d_history = $root.d2d_history = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        GetSummary.decode = function decode(reader, length, error) {
+        GetSummary.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_history.GetSummary();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -12970,7 +13814,7 @@ export const d2d_history = $root.d2d_history = (() => {
                         break;
                     }
                 case 2: {
-                        message.timespan = $root.common.Timespan.decode(reader, reader.uint32());
+                        message.timespan = $root.common.Timespan.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 3: {
@@ -12985,7 +13829,7 @@ export const d2d_history = $root.d2d_history = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -13017,7 +13861,7 @@ export const d2d_history = $root.d2d_history = (() => {
         function Summary(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -13054,9 +13898,13 @@ export const d2d_history = $root.d2d_history = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        Summary.encode = function encode(message, writer) {
+        Summary.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.id != null && Object.hasOwnProperty.call(message, "id"))
                 writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.id);
             if (message.messages != null && Object.hasOwnProperty.call(message, "messages"))
@@ -13077,9 +13925,13 @@ export const d2d_history = $root.d2d_history = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        Summary.decode = function decode(reader, length, error) {
+        Summary.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_history.Summary();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -13099,7 +13951,7 @@ export const d2d_history = $root.d2d_history = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -13129,7 +13981,7 @@ export const d2d_history = $root.d2d_history = (() => {
         function BeginTransfer(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -13150,9 +14002,13 @@ export const d2d_history = $root.d2d_history = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        BeginTransfer.encode = function encode(message, writer) {
+        BeginTransfer.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.id != null && Object.hasOwnProperty.call(message, "id"))
                 writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.id);
             return writer;
@@ -13169,9 +14025,13 @@ export const d2d_history = $root.d2d_history = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        BeginTransfer.decode = function decode(reader, length, error) {
+        BeginTransfer.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_history.BeginTransfer();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -13183,7 +14043,7 @@ export const d2d_history = $root.d2d_history = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -13215,7 +14075,7 @@ export const d2d_history = $root.d2d_history = (() => {
             this.messages = [];
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -13244,12 +14104,16 @@ export const d2d_history = $root.d2d_history = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        Data.encode = function encode(message, writer) {
+        Data.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.messages != null && message.messages.length)
                 for (let i = 0; i < message.messages.length; ++i)
-                    $root.d2d_history.PastMessage.encode(message.messages[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.d2d_history.PastMessage.encode(message.messages[i], writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
             if (message.remaining != null && Object.hasOwnProperty.call(message, "remaining"))
                 writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.remaining);
             return writer;
@@ -13266,9 +14130,13 @@ export const d2d_history = $root.d2d_history = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        Data.decode = function decode(reader, length, error) {
+        Data.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_history.Data();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -13278,7 +14146,7 @@ export const d2d_history = $root.d2d_history = (() => {
                 case 1: {
                         if (!(message.messages && message.messages.length))
                             message.messages = [];
-                        message.messages.push($root.d2d_history.PastMessage.decode(reader, reader.uint32()));
+                        message.messages.push($root.d2d_history.PastMessage.decode(reader, reader.uint32(), undefined, long + 1));
                         break;
                     }
                 case 2: {
@@ -13286,7 +14154,7 @@ export const d2d_history = $root.d2d_history = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -13317,7 +14185,7 @@ export const d2d_history = $root.d2d_history = (() => {
         function PastMessage(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -13360,13 +14228,17 @@ export const d2d_history = $root.d2d_history = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        PastMessage.encode = function encode(message, writer) {
+        PastMessage.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.incoming != null && Object.hasOwnProperty.call(message, "incoming"))
-                $root.d2d_history.PastIncomingMessage.encode(message.incoming, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                $root.d2d_history.PastIncomingMessage.encode(message.incoming, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
             if (message.outgoing != null && Object.hasOwnProperty.call(message, "outgoing"))
-                $root.d2d_history.PastOutgoingMessage.encode(message.outgoing, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                $root.d2d_history.PastOutgoingMessage.encode(message.outgoing, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -13381,9 +14253,13 @@ export const d2d_history = $root.d2d_history = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        PastMessage.decode = function decode(reader, length, error) {
+        PastMessage.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_history.PastMessage();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -13391,15 +14267,15 @@ export const d2d_history = $root.d2d_history = (() => {
                     break;
                 switch (tag >>> 3) {
                 case 1: {
-                        message.incoming = $root.d2d_history.PastIncomingMessage.decode(reader, reader.uint32());
+                        message.incoming = $root.d2d_history.PastIncomingMessage.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 2: {
-                        message.outgoing = $root.d2d_history.PastOutgoingMessage.decode(reader, reader.uint32());
+                        message.outgoing = $root.d2d_history.PastOutgoingMessage.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -13430,7 +14306,7 @@ export const d2d_history = $root.d2d_history = (() => {
         function Reaction(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -13459,9 +14335,13 @@ export const d2d_history = $root.d2d_history = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        Reaction.encode = function encode(message, writer) {
+        Reaction.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.at != null && Object.hasOwnProperty.call(message, "at"))
                 writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.at);
             if (message.type != null && Object.hasOwnProperty.call(message, "type"))
@@ -13480,9 +14360,13 @@ export const d2d_history = $root.d2d_history = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        Reaction.decode = function decode(reader, length, error) {
+        Reaction.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_history.Reaction();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -13498,7 +14382,7 @@ export const d2d_history = $root.d2d_history = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -13545,7 +14429,7 @@ export const d2d_history = $root.d2d_history = (() => {
         function PastOutgoingMessage(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -13604,17 +14488,21 @@ export const d2d_history = $root.d2d_history = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        PastOutgoingMessage.encode = function encode(message, writer) {
+        PastOutgoingMessage.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.message != null && Object.hasOwnProperty.call(message, "message"))
-                $root.d2d.OutgoingMessage.encode(message.message, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                $root.d2d.OutgoingMessage.encode(message.message, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
             if (message.sentAt != null && Object.hasOwnProperty.call(message, "sentAt"))
                 writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.sentAt);
             if (message.readAt != null && Object.hasOwnProperty.call(message, "readAt"))
                 writer.uint32(/* id 3, wireType 0 =*/24).uint64(message.readAt);
             if (message.lastReactionAt != null && Object.hasOwnProperty.call(message, "lastReactionAt"))
-                $root.d2d_history.Reaction.encode(message.lastReactionAt, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                $root.d2d_history.Reaction.encode(message.lastReactionAt, writer.uint32(/* id 4, wireType 2 =*/34).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -13629,9 +14517,13 @@ export const d2d_history = $root.d2d_history = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        PastOutgoingMessage.decode = function decode(reader, length, error) {
+        PastOutgoingMessage.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_history.PastOutgoingMessage();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -13639,7 +14531,7 @@ export const d2d_history = $root.d2d_history = (() => {
                     break;
                 switch (tag >>> 3) {
                 case 1: {
-                        message.message = $root.d2d.OutgoingMessage.decode(reader, reader.uint32());
+                        message.message = $root.d2d.OutgoingMessage.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 2: {
@@ -13651,11 +14543,11 @@ export const d2d_history = $root.d2d_history = (() => {
                         break;
                     }
                 case 4: {
-                        message.lastReactionAt = $root.d2d_history.Reaction.decode(reader, reader.uint32());
+                        message.lastReactionAt = $root.d2d_history.Reaction.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -13688,7 +14580,7 @@ export const d2d_history = $root.d2d_history = (() => {
         function PastIncomingMessage(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -13747,17 +14639,21 @@ export const d2d_history = $root.d2d_history = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        PastIncomingMessage.encode = function encode(message, writer) {
+        PastIncomingMessage.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.message != null && Object.hasOwnProperty.call(message, "message"))
-                $root.d2d.IncomingMessage.encode(message.message, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                $root.d2d.IncomingMessage.encode(message.message, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
             if (message.receivedAt != null && Object.hasOwnProperty.call(message, "receivedAt"))
                 writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.receivedAt);
             if (message.readAt != null && Object.hasOwnProperty.call(message, "readAt"))
                 writer.uint32(/* id 3, wireType 0 =*/24).uint64(message.readAt);
             if (message.lastReactionAt != null && Object.hasOwnProperty.call(message, "lastReactionAt"))
-                $root.d2d_history.Reaction.encode(message.lastReactionAt, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                $root.d2d_history.Reaction.encode(message.lastReactionAt, writer.uint32(/* id 4, wireType 2 =*/34).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -13772,9 +14668,13 @@ export const d2d_history = $root.d2d_history = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        PastIncomingMessage.decode = function decode(reader, length, error) {
+        PastIncomingMessage.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_history.PastIncomingMessage();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -13782,7 +14682,7 @@ export const d2d_history = $root.d2d_history = (() => {
                     break;
                 switch (tag >>> 3) {
                 case 1: {
-                        message.message = $root.d2d.IncomingMessage.decode(reader, reader.uint32());
+                        message.message = $root.d2d.IncomingMessage.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 2: {
@@ -13794,11 +14694,11 @@ export const d2d_history = $root.d2d_history = (() => {
                         break;
                     }
                 case 4: {
-                        message.lastReactionAt = $root.d2d_history.Reaction.decode(reader, reader.uint32());
+                        message.lastReactionAt = $root.d2d_history.Reaction.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -13859,7 +14759,7 @@ export const d2d = $root.d2d = (() => {
         function SharedDeviceData(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -13888,9 +14788,13 @@ export const d2d = $root.d2d = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        SharedDeviceData.encode = function encode(message, writer) {
+        SharedDeviceData.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.padding != null && Object.hasOwnProperty.call(message, "padding"))
                 writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.padding);
             if (message.version != null && Object.hasOwnProperty.call(message, "version"))
@@ -13909,9 +14813,13 @@ export const d2d = $root.d2d = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        SharedDeviceData.decode = function decode(reader, length, error) {
+        SharedDeviceData.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d.SharedDeviceData();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -13927,7 +14835,7 @@ export const d2d = $root.d2d = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -13961,7 +14869,7 @@ export const d2d = $root.d2d = (() => {
         function DeviceInfo(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -14014,9 +14922,13 @@ export const d2d = $root.d2d = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        DeviceInfo.encode = function encode(message, writer) {
+        DeviceInfo.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.padding != null && Object.hasOwnProperty.call(message, "padding"))
                 writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.padding);
             if (message.platform != null && Object.hasOwnProperty.call(message, "platform"))
@@ -14041,9 +14953,13 @@ export const d2d = $root.d2d = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        DeviceInfo.decode = function decode(reader, length, error) {
+        DeviceInfo.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d.DeviceInfo();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -14071,7 +14987,7 @@ export const d2d = $root.d2d = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -14121,7 +15037,7 @@ export const d2d = $root.d2d = (() => {
         function TransactionScope(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -14142,9 +15058,13 @@ export const d2d = $root.d2d = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        TransactionScope.encode = function encode(message, writer) {
+        TransactionScope.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.scope != null && Object.hasOwnProperty.call(message, "scope"))
                 writer.uint32(/* id 1, wireType 0 =*/8).int32(message.scope);
             return writer;
@@ -14161,9 +15081,13 @@ export const d2d = $root.d2d = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        TransactionScope.decode = function decode(reader, length, error) {
+        TransactionScope.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d.TransactionScope();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -14175,7 +15099,7 @@ export const d2d = $root.d2d = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -14245,7 +15169,7 @@ export const d2d = $root.d2d = (() => {
         function Envelope(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -14263,7 +15187,7 @@ export const d2d = $root.d2d = (() => {
          * @memberof d2d.Envelope
          * @instance
          */
-        Envelope.prototype.deviceId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        Envelope.prototype.deviceId = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * Envelope protocolVersion.
@@ -14376,33 +15300,37 @@ export const d2d = $root.d2d = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        Envelope.encode = function encode(message, writer) {
+        Envelope.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.padding != null && Object.hasOwnProperty.call(message, "padding"))
                 writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.padding);
             if (message.outgoingMessage != null && Object.hasOwnProperty.call(message, "outgoingMessage"))
-                $root.d2d.OutgoingMessage.encode(message.outgoingMessage, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                $root.d2d.OutgoingMessage.encode(message.outgoingMessage, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
             if (message.protocolVersion != null && Object.hasOwnProperty.call(message, "protocolVersion"))
                 writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.protocolVersion);
             if (message.incomingMessage != null && Object.hasOwnProperty.call(message, "incomingMessage"))
-                $root.d2d.IncomingMessage.encode(message.incomingMessage, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                $root.d2d.IncomingMessage.encode(message.incomingMessage, writer.uint32(/* id 4, wireType 2 =*/34).fork(), q + 1).ldelim();
             if (message.userProfileSync != null && Object.hasOwnProperty.call(message, "userProfileSync"))
-                $root.d2d.UserProfileSync.encode(message.userProfileSync, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                $root.d2d.UserProfileSync.encode(message.userProfileSync, writer.uint32(/* id 5, wireType 2 =*/42).fork(), q + 1).ldelim();
             if (message.contactSync != null && Object.hasOwnProperty.call(message, "contactSync"))
-                $root.d2d.ContactSync.encode(message.contactSync, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+                $root.d2d.ContactSync.encode(message.contactSync, writer.uint32(/* id 6, wireType 2 =*/50).fork(), q + 1).ldelim();
             if (message.groupSync != null && Object.hasOwnProperty.call(message, "groupSync"))
-                $root.d2d.GroupSync.encode(message.groupSync, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
+                $root.d2d.GroupSync.encode(message.groupSync, writer.uint32(/* id 7, wireType 2 =*/58).fork(), q + 1).ldelim();
             if (message.distributionListSync != null && Object.hasOwnProperty.call(message, "distributionListSync"))
-                $root.d2d.DistributionListSync.encode(message.distributionListSync, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
+                $root.d2d.DistributionListSync.encode(message.distributionListSync, writer.uint32(/* id 8, wireType 2 =*/66).fork(), q + 1).ldelim();
             if (message.settingsSync != null && Object.hasOwnProperty.call(message, "settingsSync"))
-                $root.d2d.SettingsSync.encode(message.settingsSync, writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
+                $root.d2d.SettingsSync.encode(message.settingsSync, writer.uint32(/* id 9, wireType 2 =*/74).fork(), q + 1).ldelim();
             if (message.outgoingMessageUpdate != null && Object.hasOwnProperty.call(message, "outgoingMessageUpdate"))
-                $root.d2d.OutgoingMessageUpdate.encode(message.outgoingMessageUpdate, writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
+                $root.d2d.OutgoingMessageUpdate.encode(message.outgoingMessageUpdate, writer.uint32(/* id 10, wireType 2 =*/82).fork(), q + 1).ldelim();
             if (message.incomingMessageUpdate != null && Object.hasOwnProperty.call(message, "incomingMessageUpdate"))
-                $root.d2d.IncomingMessageUpdate.encode(message.incomingMessageUpdate, writer.uint32(/* id 11, wireType 2 =*/90).fork()).ldelim();
+                $root.d2d.IncomingMessageUpdate.encode(message.incomingMessageUpdate, writer.uint32(/* id 11, wireType 2 =*/90).fork(), q + 1).ldelim();
             if (message.mdmParameterSync != null && Object.hasOwnProperty.call(message, "mdmParameterSync"))
-                $root.d2d.MdmParameterSync.encode(message.mdmParameterSync, writer.uint32(/* id 12, wireType 2 =*/98).fork()).ldelim();
+                $root.d2d.MdmParameterSync.encode(message.mdmParameterSync, writer.uint32(/* id 12, wireType 2 =*/98).fork(), q + 1).ldelim();
             if (message.deviceId != null && Object.hasOwnProperty.call(message, "deviceId"))
                 writer.uint32(/* id 13, wireType 1 =*/105).fixed64(message.deviceId);
             return writer;
@@ -14419,9 +15347,13 @@ export const d2d = $root.d2d = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        Envelope.decode = function decode(reader, length, error) {
+        Envelope.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d.Envelope();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -14441,47 +15373,47 @@ export const d2d = $root.d2d = (() => {
                         break;
                     }
                 case 2: {
-                        message.outgoingMessage = $root.d2d.OutgoingMessage.decode(reader, reader.uint32());
+                        message.outgoingMessage = $root.d2d.OutgoingMessage.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 10: {
-                        message.outgoingMessageUpdate = $root.d2d.OutgoingMessageUpdate.decode(reader, reader.uint32());
+                        message.outgoingMessageUpdate = $root.d2d.OutgoingMessageUpdate.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 4: {
-                        message.incomingMessage = $root.d2d.IncomingMessage.decode(reader, reader.uint32());
+                        message.incomingMessage = $root.d2d.IncomingMessage.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 11: {
-                        message.incomingMessageUpdate = $root.d2d.IncomingMessageUpdate.decode(reader, reader.uint32());
+                        message.incomingMessageUpdate = $root.d2d.IncomingMessageUpdate.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 5: {
-                        message.userProfileSync = $root.d2d.UserProfileSync.decode(reader, reader.uint32());
+                        message.userProfileSync = $root.d2d.UserProfileSync.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 6: {
-                        message.contactSync = $root.d2d.ContactSync.decode(reader, reader.uint32());
+                        message.contactSync = $root.d2d.ContactSync.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 7: {
-                        message.groupSync = $root.d2d.GroupSync.decode(reader, reader.uint32());
+                        message.groupSync = $root.d2d.GroupSync.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 8: {
-                        message.distributionListSync = $root.d2d.DistributionListSync.decode(reader, reader.uint32());
+                        message.distributionListSync = $root.d2d.DistributionListSync.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 9: {
-                        message.settingsSync = $root.d2d.SettingsSync.decode(reader, reader.uint32());
+                        message.settingsSync = $root.d2d.SettingsSync.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 12: {
-                        message.mdmParameterSync = $root.d2d.MdmParameterSync.decode(reader, reader.uint32());
+                        message.mdmParameterSync = $root.d2d.MdmParameterSync.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -14513,7 +15445,7 @@ export const d2d = $root.d2d = (() => {
         function ConversationId(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -14564,15 +15496,19 @@ export const d2d = $root.d2d = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        ConversationId.encode = function encode(message, writer) {
+        ConversationId.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.contact != null && Object.hasOwnProperty.call(message, "contact"))
                 writer.uint32(/* id 1, wireType 2 =*/10).string(message.contact);
             if (message.distributionList != null && Object.hasOwnProperty.call(message, "distributionList"))
                 writer.uint32(/* id 2, wireType 1 =*/17).fixed64(message.distributionList);
             if (message.group != null && Object.hasOwnProperty.call(message, "group"))
-                $root.common.GroupIdentity.encode(message.group, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                $root.common.GroupIdentity.encode(message.group, writer.uint32(/* id 3, wireType 2 =*/26).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -14587,9 +15523,13 @@ export const d2d = $root.d2d = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        ConversationId.decode = function decode(reader, length, error) {
+        ConversationId.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d.ConversationId();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -14605,11 +15545,11 @@ export const d2d = $root.d2d = (() => {
                         break;
                     }
                 case 3: {
-                        message.group = $root.common.GroupIdentity.decode(reader, reader.uint32());
+                        message.group = $root.common.GroupIdentity.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -14646,7 +15586,7 @@ export const d2d = $root.d2d = (() => {
             this.nonces = [];
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -14664,7 +15604,7 @@ export const d2d = $root.d2d = (() => {
          * @memberof d2d.OutgoingMessage
          * @instance
          */
-        OutgoingMessage.prototype.messageId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        OutgoingMessage.prototype.messageId = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * OutgoingMessage threadMessageId.
@@ -14729,11 +15669,15 @@ export const d2d = $root.d2d = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        OutgoingMessage.encode = function encode(message, writer) {
+        OutgoingMessage.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.conversation != null && Object.hasOwnProperty.call(message, "conversation"))
-                $root.d2d.ConversationId.encode(message.conversation, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                $root.d2d.ConversationId.encode(message.conversation, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
             if (message.messageId != null && Object.hasOwnProperty.call(message, "messageId"))
                 writer.uint32(/* id 2, wireType 1 =*/17).fixed64(message.messageId);
             if (message.createdAt != null && Object.hasOwnProperty.call(message, "createdAt"))
@@ -14761,9 +15705,13 @@ export const d2d = $root.d2d = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        OutgoingMessage.decode = function decode(reader, length, error) {
+        OutgoingMessage.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d.OutgoingMessage();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -14771,7 +15719,7 @@ export const d2d = $root.d2d = (() => {
                     break;
                 switch (tag >>> 3) {
                 case 1: {
-                        message.conversation = $root.d2d.ConversationId.decode(reader, reader.uint32());
+                        message.conversation = $root.d2d.ConversationId.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 2: {
@@ -14801,7 +15749,7 @@ export const d2d = $root.d2d = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -14832,7 +15780,7 @@ export const d2d = $root.d2d = (() => {
             this.updates = [];
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -14853,12 +15801,16 @@ export const d2d = $root.d2d = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        OutgoingMessageUpdate.encode = function encode(message, writer) {
+        OutgoingMessageUpdate.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.updates != null && message.updates.length)
                 for (let i = 0; i < message.updates.length; ++i)
-                    $root.d2d.OutgoingMessageUpdate.Update.encode(message.updates[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.d2d.OutgoingMessageUpdate.Update.encode(message.updates[i], writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -14873,9 +15825,13 @@ export const d2d = $root.d2d = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        OutgoingMessageUpdate.decode = function decode(reader, length, error) {
+        OutgoingMessageUpdate.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d.OutgoingMessageUpdate();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -14885,11 +15841,11 @@ export const d2d = $root.d2d = (() => {
                 case 1: {
                         if (!(message.updates && message.updates.length))
                             message.updates = [];
-                        message.updates.push($root.d2d.OutgoingMessageUpdate.Update.decode(reader, reader.uint32()));
+                        message.updates.push($root.d2d.OutgoingMessageUpdate.Update.decode(reader, reader.uint32(), undefined, long + 1));
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -14915,7 +15871,7 @@ export const d2d = $root.d2d = (() => {
             function Sent(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -14928,9 +15884,13 @@ export const d2d = $root.d2d = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Sent.encode = function encode(message, writer) {
+            Sent.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 return writer;
             };
 
@@ -14945,9 +15905,13 @@ export const d2d = $root.d2d = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Sent.decode = function decode(reader, length, error) {
+            Sent.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d.OutgoingMessageUpdate.Sent();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -14955,7 +15919,7 @@ export const d2d = $root.d2d = (() => {
                         break;
                     switch (tag >>> 3) {
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -14987,7 +15951,7 @@ export const d2d = $root.d2d = (() => {
             function Update(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -15005,7 +15969,7 @@ export const d2d = $root.d2d = (() => {
              * @memberof d2d.OutgoingMessageUpdate.Update
              * @instance
              */
-            Update.prototype.messageId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            Update.prototype.messageId = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
             /**
              * Update sent.
@@ -15038,15 +16002,19 @@ export const d2d = $root.d2d = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Update.encode = function encode(message, writer) {
+            Update.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.conversation != null && Object.hasOwnProperty.call(message, "conversation"))
-                    $root.d2d.ConversationId.encode(message.conversation, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.d2d.ConversationId.encode(message.conversation, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                 if (message.messageId != null && Object.hasOwnProperty.call(message, "messageId"))
                     writer.uint32(/* id 2, wireType 1 =*/17).fixed64(message.messageId);
                 if (message.sent != null && Object.hasOwnProperty.call(message, "sent"))
-                    $root.d2d.OutgoingMessageUpdate.Sent.encode(message.sent, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                    $root.d2d.OutgoingMessageUpdate.Sent.encode(message.sent, writer.uint32(/* id 3, wireType 2 =*/26).fork(), q + 1).ldelim();
                 return writer;
             };
 
@@ -15061,9 +16029,13 @@ export const d2d = $root.d2d = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Update.decode = function decode(reader, length, error) {
+            Update.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d.OutgoingMessageUpdate.Update();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -15071,7 +16043,7 @@ export const d2d = $root.d2d = (() => {
                         break;
                     switch (tag >>> 3) {
                     case 1: {
-                            message.conversation = $root.d2d.ConversationId.decode(reader, reader.uint32());
+                            message.conversation = $root.d2d.ConversationId.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     case 2: {
@@ -15079,11 +16051,11 @@ export const d2d = $root.d2d = (() => {
                             break;
                         }
                     case 3: {
-                            message.sent = $root.d2d.OutgoingMessageUpdate.Sent.decode(reader, reader.uint32());
+                            message.sent = $root.d2d.OutgoingMessageUpdate.Sent.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -15121,7 +16093,7 @@ export const d2d = $root.d2d = (() => {
         function IncomingMessage(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -15139,7 +16111,7 @@ export const d2d = $root.d2d = (() => {
          * @memberof d2d.IncomingMessage
          * @instance
          */
-        IncomingMessage.prototype.messageId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        IncomingMessage.prototype.messageId = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * IncomingMessage createdAt.
@@ -15182,9 +16154,13 @@ export const d2d = $root.d2d = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        IncomingMessage.encode = function encode(message, writer) {
+        IncomingMessage.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.senderIdentity != null && Object.hasOwnProperty.call(message, "senderIdentity"))
                 writer.uint32(/* id 1, wireType 2 =*/10).string(message.senderIdentity);
             if (message.messageId != null && Object.hasOwnProperty.call(message, "messageId"))
@@ -15211,9 +16187,13 @@ export const d2d = $root.d2d = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        IncomingMessage.decode = function decode(reader, length, error) {
+        IncomingMessage.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d.IncomingMessage();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -15245,7 +16225,7 @@ export const d2d = $root.d2d = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -15276,7 +16256,7 @@ export const d2d = $root.d2d = (() => {
             this.updates = [];
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -15297,12 +16277,16 @@ export const d2d = $root.d2d = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        IncomingMessageUpdate.encode = function encode(message, writer) {
+        IncomingMessageUpdate.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.updates != null && message.updates.length)
                 for (let i = 0; i < message.updates.length; ++i)
-                    $root.d2d.IncomingMessageUpdate.Update.encode(message.updates[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.d2d.IncomingMessageUpdate.Update.encode(message.updates[i], writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -15317,9 +16301,13 @@ export const d2d = $root.d2d = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        IncomingMessageUpdate.decode = function decode(reader, length, error) {
+        IncomingMessageUpdate.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d.IncomingMessageUpdate();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -15329,11 +16317,11 @@ export const d2d = $root.d2d = (() => {
                 case 1: {
                         if (!(message.updates && message.updates.length))
                             message.updates = [];
-                        message.updates.push($root.d2d.IncomingMessageUpdate.Update.decode(reader, reader.uint32()));
+                        message.updates.push($root.d2d.IncomingMessageUpdate.Update.decode(reader, reader.uint32(), undefined, long + 1));
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -15360,7 +16348,7 @@ export const d2d = $root.d2d = (() => {
             function Read(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -15381,9 +16369,13 @@ export const d2d = $root.d2d = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Read.encode = function encode(message, writer) {
+            Read.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.at != null && Object.hasOwnProperty.call(message, "at"))
                     writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.at);
                 return writer;
@@ -15400,9 +16392,13 @@ export const d2d = $root.d2d = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Read.decode = function decode(reader, length, error) {
+            Read.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d.IncomingMessageUpdate.Read();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -15414,7 +16410,7 @@ export const d2d = $root.d2d = (() => {
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -15446,7 +16442,7 @@ export const d2d = $root.d2d = (() => {
             function Update(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -15464,7 +16460,7 @@ export const d2d = $root.d2d = (() => {
              * @memberof d2d.IncomingMessageUpdate.Update
              * @instance
              */
-            Update.prototype.messageId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            Update.prototype.messageId = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
             /**
              * Update read.
@@ -15497,15 +16493,19 @@ export const d2d = $root.d2d = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Update.encode = function encode(message, writer) {
+            Update.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.conversation != null && Object.hasOwnProperty.call(message, "conversation"))
-                    $root.d2d.ConversationId.encode(message.conversation, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.d2d.ConversationId.encode(message.conversation, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                 if (message.messageId != null && Object.hasOwnProperty.call(message, "messageId"))
                     writer.uint32(/* id 2, wireType 1 =*/17).fixed64(message.messageId);
                 if (message.read != null && Object.hasOwnProperty.call(message, "read"))
-                    $root.d2d.IncomingMessageUpdate.Read.encode(message.read, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                    $root.d2d.IncomingMessageUpdate.Read.encode(message.read, writer.uint32(/* id 3, wireType 2 =*/26).fork(), q + 1).ldelim();
                 return writer;
             };
 
@@ -15520,9 +16520,13 @@ export const d2d = $root.d2d = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Update.decode = function decode(reader, length, error) {
+            Update.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d.IncomingMessageUpdate.Update();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -15530,7 +16534,7 @@ export const d2d = $root.d2d = (() => {
                         break;
                     switch (tag >>> 3) {
                     case 1: {
-                            message.conversation = $root.d2d.ConversationId.decode(reader, reader.uint32());
+                            message.conversation = $root.d2d.ConversationId.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     case 2: {
@@ -15538,11 +16542,11 @@ export const d2d = $root.d2d = (() => {
                             break;
                         }
                     case 3: {
-                            message.read = $root.d2d.IncomingMessageUpdate.Read.decode(reader, reader.uint32());
+                            message.read = $root.d2d.IncomingMessageUpdate.Read.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -15575,7 +16579,7 @@ export const d2d = $root.d2d = (() => {
         function UserProfileSync(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -15610,11 +16614,15 @@ export const d2d = $root.d2d = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        UserProfileSync.encode = function encode(message, writer) {
+        UserProfileSync.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.update != null && Object.hasOwnProperty.call(message, "update"))
-                $root.d2d.UserProfileSync.Update.encode(message.update, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                $root.d2d.UserProfileSync.Update.encode(message.update, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -15629,9 +16637,13 @@ export const d2d = $root.d2d = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        UserProfileSync.decode = function decode(reader, length, error) {
+        UserProfileSync.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d.UserProfileSync();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -15639,11 +16651,11 @@ export const d2d = $root.d2d = (() => {
                     break;
                 switch (tag >>> 3) {
                 case 1: {
-                        message.update = $root.d2d.UserProfileSync.Update.decode(reader, reader.uint32());
+                        message.update = $root.d2d.UserProfileSync.Update.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -15670,7 +16682,7 @@ export const d2d = $root.d2d = (() => {
             function Update(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -15691,11 +16703,15 @@ export const d2d = $root.d2d = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Update.encode = function encode(message, writer) {
+            Update.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.userProfile != null && Object.hasOwnProperty.call(message, "userProfile"))
-                    $root.d2d_sync.UserProfile.encode(message.userProfile, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.d2d_sync.UserProfile.encode(message.userProfile, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                 return writer;
             };
 
@@ -15710,9 +16726,13 @@ export const d2d = $root.d2d = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Update.decode = function decode(reader, length, error) {
+            Update.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d.UserProfileSync.Update();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -15720,11 +16740,11 @@ export const d2d = $root.d2d = (() => {
                         break;
                     switch (tag >>> 3) {
                     case 1: {
-                            message.userProfile = $root.d2d_sync.UserProfile.decode(reader, reader.uint32());
+                            message.userProfile = $root.d2d_sync.UserProfile.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -15758,7 +16778,7 @@ export const d2d = $root.d2d = (() => {
         function ContactSync(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -15801,13 +16821,17 @@ export const d2d = $root.d2d = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        ContactSync.encode = function encode(message, writer) {
+        ContactSync.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.create != null && Object.hasOwnProperty.call(message, "create"))
-                $root.d2d.ContactSync.Create.encode(message.create, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                $root.d2d.ContactSync.Create.encode(message.create, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
             if (message.update != null && Object.hasOwnProperty.call(message, "update"))
-                $root.d2d.ContactSync.Update.encode(message.update, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                $root.d2d.ContactSync.Update.encode(message.update, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -15822,9 +16846,13 @@ export const d2d = $root.d2d = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        ContactSync.decode = function decode(reader, length, error) {
+        ContactSync.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d.ContactSync();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -15832,15 +16860,15 @@ export const d2d = $root.d2d = (() => {
                     break;
                 switch (tag >>> 3) {
                 case 1: {
-                        message.create = $root.d2d.ContactSync.Create.decode(reader, reader.uint32());
+                        message.create = $root.d2d.ContactSync.Create.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 2: {
-                        message.update = $root.d2d.ContactSync.Update.decode(reader, reader.uint32());
+                        message.update = $root.d2d.ContactSync.Update.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -15867,7 +16895,7 @@ export const d2d = $root.d2d = (() => {
             function Create(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -15888,11 +16916,15 @@ export const d2d = $root.d2d = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Create.encode = function encode(message, writer) {
+            Create.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.contact != null && Object.hasOwnProperty.call(message, "contact"))
-                    $root.d2d_sync.Contact.encode(message.contact, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.d2d_sync.Contact.encode(message.contact, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                 return writer;
             };
 
@@ -15907,9 +16939,13 @@ export const d2d = $root.d2d = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Create.decode = function decode(reader, length, error) {
+            Create.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d.ContactSync.Create();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -15917,11 +16953,11 @@ export const d2d = $root.d2d = (() => {
                         break;
                     switch (tag >>> 3) {
                     case 1: {
-                            message.contact = $root.d2d_sync.Contact.decode(reader, reader.uint32());
+                            message.contact = $root.d2d_sync.Contact.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -15951,7 +16987,7 @@ export const d2d = $root.d2d = (() => {
             function Update(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -15972,11 +17008,15 @@ export const d2d = $root.d2d = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Update.encode = function encode(message, writer) {
+            Update.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.contact != null && Object.hasOwnProperty.call(message, "contact"))
-                    $root.d2d_sync.Contact.encode(message.contact, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.d2d_sync.Contact.encode(message.contact, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                 return writer;
             };
 
@@ -15991,9 +17031,13 @@ export const d2d = $root.d2d = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Update.decode = function decode(reader, length, error) {
+            Update.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d.ContactSync.Update();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -16001,11 +17045,11 @@ export const d2d = $root.d2d = (() => {
                         break;
                     switch (tag >>> 3) {
                     case 1: {
-                            message.contact = $root.d2d_sync.Contact.decode(reader, reader.uint32());
+                            message.contact = $root.d2d_sync.Contact.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -16040,7 +17084,7 @@ export const d2d = $root.d2d = (() => {
         function GroupSync(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -16091,15 +17135,19 @@ export const d2d = $root.d2d = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        GroupSync.encode = function encode(message, writer) {
+        GroupSync.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.create != null && Object.hasOwnProperty.call(message, "create"))
-                $root.d2d.GroupSync.Create.encode(message.create, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                $root.d2d.GroupSync.Create.encode(message.create, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
             if (message.update != null && Object.hasOwnProperty.call(message, "update"))
-                $root.d2d.GroupSync.Update.encode(message.update, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                $root.d2d.GroupSync.Update.encode(message.update, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
             if (message["delete"] != null && Object.hasOwnProperty.call(message, "delete"))
-                $root.d2d.GroupSync.Delete.encode(message["delete"], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                $root.d2d.GroupSync.Delete.encode(message["delete"], writer.uint32(/* id 3, wireType 2 =*/26).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -16114,9 +17162,13 @@ export const d2d = $root.d2d = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        GroupSync.decode = function decode(reader, length, error) {
+        GroupSync.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d.GroupSync();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -16124,19 +17176,19 @@ export const d2d = $root.d2d = (() => {
                     break;
                 switch (tag >>> 3) {
                 case 1: {
-                        message.create = $root.d2d.GroupSync.Create.decode(reader, reader.uint32());
+                        message.create = $root.d2d.GroupSync.Create.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 2: {
-                        message.update = $root.d2d.GroupSync.Update.decode(reader, reader.uint32());
+                        message.update = $root.d2d.GroupSync.Update.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 3: {
-                        message["delete"] = $root.d2d.GroupSync.Delete.decode(reader, reader.uint32());
+                        message["delete"] = $root.d2d.GroupSync.Delete.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -16163,7 +17215,7 @@ export const d2d = $root.d2d = (() => {
             function Create(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -16184,11 +17236,15 @@ export const d2d = $root.d2d = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Create.encode = function encode(message, writer) {
+            Create.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.group != null && Object.hasOwnProperty.call(message, "group"))
-                    $root.d2d_sync.Group.encode(message.group, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.d2d_sync.Group.encode(message.group, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                 return writer;
             };
 
@@ -16203,9 +17259,13 @@ export const d2d = $root.d2d = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Create.decode = function decode(reader, length, error) {
+            Create.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d.GroupSync.Create();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -16213,11 +17273,11 @@ export const d2d = $root.d2d = (() => {
                         break;
                     switch (tag >>> 3) {
                     case 1: {
-                            message.group = $root.d2d_sync.Group.decode(reader, reader.uint32());
+                            message.group = $root.d2d_sync.Group.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -16249,7 +17309,7 @@ export const d2d = $root.d2d = (() => {
                 this.memberStateChanges = {};
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -16278,11 +17338,15 @@ export const d2d = $root.d2d = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Update.encode = function encode(message, writer) {
+            Update.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.group != null && Object.hasOwnProperty.call(message, "group"))
-                    $root.d2d_sync.Group.encode(message.group, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.d2d_sync.Group.encode(message.group, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                 if (message.memberStateChanges != null && Object.hasOwnProperty.call(message, "memberStateChanges"))
                     for (let keys = Object.keys(message.memberStateChanges), i = 0; i < keys.length; ++i)
                         writer.uint32(/* id 2, wireType 2 =*/18).fork().uint32(/* id 1, wireType 2 =*/10).string(keys[i]).uint32(/* id 2, wireType 0 =*/16).int32(message.memberStateChanges[keys[i]]).ldelim();
@@ -16300,9 +17364,13 @@ export const d2d = $root.d2d = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Update.decode = function decode(reader, length, error) {
+            Update.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d.GroupSync.Update(), key, value;
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -16310,7 +17378,7 @@ export const d2d = $root.d2d = (() => {
                         break;
                     switch (tag >>> 3) {
                     case 1: {
-                            message.group = $root.d2d_sync.Group.decode(reader, reader.uint32());
+                            message.group = $root.d2d_sync.Group.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     case 2: {
@@ -16329,15 +17397,17 @@ export const d2d = $root.d2d = (() => {
                                     value = reader.int32();
                                     break;
                                 default:
-                                    reader.skipType(tag2 & 7);
+                                    reader.skipType(tag2 & 7, long);
                                     break;
                                 }
                             }
+                            if (key === "__proto__")
+                                $util.makeProp(message.memberStateChanges, key);
                             message.memberStateChanges[key] = value;
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -16383,7 +17453,7 @@ export const d2d = $root.d2d = (() => {
             function Delete(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -16404,11 +17474,15 @@ export const d2d = $root.d2d = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Delete.encode = function encode(message, writer) {
+            Delete.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.groupIdentity != null && Object.hasOwnProperty.call(message, "groupIdentity"))
-                    $root.common.GroupIdentity.encode(message.groupIdentity, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.common.GroupIdentity.encode(message.groupIdentity, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                 return writer;
             };
 
@@ -16423,9 +17497,13 @@ export const d2d = $root.d2d = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Delete.decode = function decode(reader, length, error) {
+            Delete.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d.GroupSync.Delete();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -16433,11 +17511,11 @@ export const d2d = $root.d2d = (() => {
                         break;
                     switch (tag >>> 3) {
                     case 1: {
-                            message.groupIdentity = $root.common.GroupIdentity.decode(reader, reader.uint32());
+                            message.groupIdentity = $root.common.GroupIdentity.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -16472,7 +17550,7 @@ export const d2d = $root.d2d = (() => {
         function DistributionListSync(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -16523,15 +17601,19 @@ export const d2d = $root.d2d = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        DistributionListSync.encode = function encode(message, writer) {
+        DistributionListSync.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.create != null && Object.hasOwnProperty.call(message, "create"))
-                $root.d2d.DistributionListSync.Create.encode(message.create, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                $root.d2d.DistributionListSync.Create.encode(message.create, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
             if (message.update != null && Object.hasOwnProperty.call(message, "update"))
-                $root.d2d.DistributionListSync.Update.encode(message.update, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                $root.d2d.DistributionListSync.Update.encode(message.update, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
             if (message["delete"] != null && Object.hasOwnProperty.call(message, "delete"))
-                $root.d2d.DistributionListSync.Delete.encode(message["delete"], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                $root.d2d.DistributionListSync.Delete.encode(message["delete"], writer.uint32(/* id 3, wireType 2 =*/26).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -16546,9 +17628,13 @@ export const d2d = $root.d2d = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        DistributionListSync.decode = function decode(reader, length, error) {
+        DistributionListSync.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d.DistributionListSync();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -16556,19 +17642,19 @@ export const d2d = $root.d2d = (() => {
                     break;
                 switch (tag >>> 3) {
                 case 1: {
-                        message.create = $root.d2d.DistributionListSync.Create.decode(reader, reader.uint32());
+                        message.create = $root.d2d.DistributionListSync.Create.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 2: {
-                        message.update = $root.d2d.DistributionListSync.Update.decode(reader, reader.uint32());
+                        message.update = $root.d2d.DistributionListSync.Update.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 3: {
-                        message["delete"] = $root.d2d.DistributionListSync.Delete.decode(reader, reader.uint32());
+                        message["delete"] = $root.d2d.DistributionListSync.Delete.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -16595,7 +17681,7 @@ export const d2d = $root.d2d = (() => {
             function Create(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -16616,11 +17702,15 @@ export const d2d = $root.d2d = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Create.encode = function encode(message, writer) {
+            Create.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.distributionList != null && Object.hasOwnProperty.call(message, "distributionList"))
-                    $root.d2d_sync.DistributionList.encode(message.distributionList, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.d2d_sync.DistributionList.encode(message.distributionList, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                 return writer;
             };
 
@@ -16635,9 +17725,13 @@ export const d2d = $root.d2d = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Create.decode = function decode(reader, length, error) {
+            Create.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d.DistributionListSync.Create();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -16645,11 +17739,11 @@ export const d2d = $root.d2d = (() => {
                         break;
                     switch (tag >>> 3) {
                     case 1: {
-                            message.distributionList = $root.d2d_sync.DistributionList.decode(reader, reader.uint32());
+                            message.distributionList = $root.d2d_sync.DistributionList.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -16679,7 +17773,7 @@ export const d2d = $root.d2d = (() => {
             function Update(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -16700,11 +17794,15 @@ export const d2d = $root.d2d = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Update.encode = function encode(message, writer) {
+            Update.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.distributionList != null && Object.hasOwnProperty.call(message, "distributionList"))
-                    $root.d2d_sync.DistributionList.encode(message.distributionList, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.d2d_sync.DistributionList.encode(message.distributionList, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                 return writer;
             };
 
@@ -16719,9 +17817,13 @@ export const d2d = $root.d2d = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Update.decode = function decode(reader, length, error) {
+            Update.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d.DistributionListSync.Update();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -16729,11 +17831,11 @@ export const d2d = $root.d2d = (() => {
                         break;
                     switch (tag >>> 3) {
                     case 1: {
-                            message.distributionList = $root.d2d_sync.DistributionList.decode(reader, reader.uint32());
+                            message.distributionList = $root.d2d_sync.DistributionList.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -16763,7 +17865,7 @@ export const d2d = $root.d2d = (() => {
             function Delete(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -16773,7 +17875,7 @@ export const d2d = $root.d2d = (() => {
              * @memberof d2d.DistributionListSync.Delete
              * @instance
              */
-            Delete.prototype.distributionListId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            Delete.prototype.distributionListId = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
             /**
              * Encodes the specified Delete message. Does not implicitly {@link d2d.DistributionListSync.Delete.verify|verify} messages.
@@ -16784,9 +17886,13 @@ export const d2d = $root.d2d = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Delete.encode = function encode(message, writer) {
+            Delete.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.distributionListId != null && Object.hasOwnProperty.call(message, "distributionListId"))
                     writer.uint32(/* id 1, wireType 1 =*/9).fixed64(message.distributionListId);
                 return writer;
@@ -16803,9 +17909,13 @@ export const d2d = $root.d2d = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Delete.decode = function decode(reader, length, error) {
+            Delete.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d.DistributionListSync.Delete();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -16817,7 +17927,7 @@ export const d2d = $root.d2d = (() => {
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -16850,7 +17960,7 @@ export const d2d = $root.d2d = (() => {
         function SettingsSync(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -16885,11 +17995,15 @@ export const d2d = $root.d2d = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        SettingsSync.encode = function encode(message, writer) {
+        SettingsSync.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.update != null && Object.hasOwnProperty.call(message, "update"))
-                $root.d2d.SettingsSync.Update.encode(message.update, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                $root.d2d.SettingsSync.Update.encode(message.update, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -16904,9 +18018,13 @@ export const d2d = $root.d2d = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        SettingsSync.decode = function decode(reader, length, error) {
+        SettingsSync.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d.SettingsSync();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -16914,11 +18032,11 @@ export const d2d = $root.d2d = (() => {
                     break;
                 switch (tag >>> 3) {
                 case 1: {
-                        message.update = $root.d2d.SettingsSync.Update.decode(reader, reader.uint32());
+                        message.update = $root.d2d.SettingsSync.Update.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -16945,7 +18063,7 @@ export const d2d = $root.d2d = (() => {
             function Update(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -16966,11 +18084,15 @@ export const d2d = $root.d2d = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Update.encode = function encode(message, writer) {
+            Update.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.settings != null && Object.hasOwnProperty.call(message, "settings"))
-                    $root.d2d_sync.Settings.encode(message.settings, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.d2d_sync.Settings.encode(message.settings, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                 return writer;
             };
 
@@ -16985,9 +18107,13 @@ export const d2d = $root.d2d = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Update.decode = function decode(reader, length, error) {
+            Update.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d.SettingsSync.Update();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -16995,11 +18121,11 @@ export const d2d = $root.d2d = (() => {
                         break;
                     switch (tag >>> 3) {
                     case 1: {
-                            message.settings = $root.d2d_sync.Settings.decode(reader, reader.uint32());
+                            message.settings = $root.d2d_sync.Settings.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -17032,7 +18158,7 @@ export const d2d = $root.d2d = (() => {
         function MdmParameterSync(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -17067,11 +18193,15 @@ export const d2d = $root.d2d = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        MdmParameterSync.encode = function encode(message, writer) {
+        MdmParameterSync.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.update != null && Object.hasOwnProperty.call(message, "update"))
-                $root.d2d.MdmParameterSync.Update.encode(message.update, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                $root.d2d.MdmParameterSync.Update.encode(message.update, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -17086,9 +18216,13 @@ export const d2d = $root.d2d = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        MdmParameterSync.decode = function decode(reader, length, error) {
+        MdmParameterSync.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d.MdmParameterSync();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -17096,11 +18230,11 @@ export const d2d = $root.d2d = (() => {
                     break;
                 switch (tag >>> 3) {
                 case 1: {
-                        message.update = $root.d2d.MdmParameterSync.Update.decode(reader, reader.uint32());
+                        message.update = $root.d2d.MdmParameterSync.Update.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -17127,7 +18261,7 @@ export const d2d = $root.d2d = (() => {
             function Update(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -17148,11 +18282,15 @@ export const d2d = $root.d2d = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Update.encode = function encode(message, writer) {
+            Update.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.parameters != null && Object.hasOwnProperty.call(message, "parameters"))
-                    $root.d2d_sync.MdmParameters.encode(message.parameters, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.d2d_sync.MdmParameters.encode(message.parameters, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                 return writer;
             };
 
@@ -17167,9 +18305,13 @@ export const d2d = $root.d2d = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Update.decode = function decode(reader, length, error) {
+            Update.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d.MdmParameterSync.Update();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -17177,11 +18319,11 @@ export const d2d = $root.d2d = (() => {
                         break;
                     switch (tag >>> 3) {
                     case 1: {
-                            message.parameters = $root.d2d_sync.MdmParameters.decode(reader, reader.uint32());
+                            message.parameters = $root.d2d_sync.MdmParameters.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -17226,7 +18368,7 @@ export const d2d_join = $root.d2d_join = (() => {
         function NdToEd(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -17261,11 +18403,15 @@ export const d2d_join = $root.d2d_join = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        NdToEd.encode = function encode(message, writer) {
+        NdToEd.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.registered != null && Object.hasOwnProperty.call(message, "registered"))
-                $root.d2d_join.Registered.encode(message.registered, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                $root.d2d_join.Registered.encode(message.registered, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -17280,9 +18426,13 @@ export const d2d_join = $root.d2d_join = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        NdToEd.decode = function decode(reader, length, error) {
+        NdToEd.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_join.NdToEd();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -17290,11 +18440,11 @@ export const d2d_join = $root.d2d_join = (() => {
                     break;
                 switch (tag >>> 3) {
                 case 1: {
-                        message.registered = $root.d2d_join.Registered.decode(reader, reader.uint32());
+                        message.registered = $root.d2d_join.Registered.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -17326,7 +18476,7 @@ export const d2d_join = $root.d2d_join = (() => {
         function EdToNd(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -17377,15 +18527,19 @@ export const d2d_join = $root.d2d_join = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        EdToNd.encode = function encode(message, writer) {
+        EdToNd.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.begin != null && Object.hasOwnProperty.call(message, "begin"))
-                $root.d2d_join.Begin.encode(message.begin, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                $root.d2d_join.Begin.encode(message.begin, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
             if (message.blobData != null && Object.hasOwnProperty.call(message, "blobData"))
-                $root.common.BlobData.encode(message.blobData, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                $root.common.BlobData.encode(message.blobData, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
             if (message.essentialData != null && Object.hasOwnProperty.call(message, "essentialData"))
-                $root.d2d_join.EssentialData.encode(message.essentialData, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                $root.d2d_join.EssentialData.encode(message.essentialData, writer.uint32(/* id 3, wireType 2 =*/26).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -17400,9 +18554,13 @@ export const d2d_join = $root.d2d_join = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        EdToNd.decode = function decode(reader, length, error) {
+        EdToNd.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_join.EdToNd();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -17410,19 +18568,19 @@ export const d2d_join = $root.d2d_join = (() => {
                     break;
                 switch (tag >>> 3) {
                 case 1: {
-                        message.begin = $root.d2d_join.Begin.decode(reader, reader.uint32());
+                        message.begin = $root.d2d_join.Begin.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 2: {
-                        message.blobData = $root.common.BlobData.decode(reader, reader.uint32());
+                        message.blobData = $root.common.BlobData.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 3: {
-                        message.essentialData = $root.d2d_join.EssentialData.decode(reader, reader.uint32());
+                        message.essentialData = $root.d2d_join.EssentialData.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -17451,7 +18609,7 @@ export const d2d_join = $root.d2d_join = (() => {
         function Begin(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -17464,9 +18622,13 @@ export const d2d_join = $root.d2d_join = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        Begin.encode = function encode(message, writer) {
+        Begin.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             return writer;
         };
 
@@ -17481,9 +18643,13 @@ export const d2d_join = $root.d2d_join = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        Begin.decode = function decode(reader, length, error) {
+        Begin.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_join.Begin();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -17491,7 +18657,7 @@ export const d2d_join = $root.d2d_join = (() => {
                     break;
                 switch (tag >>> 3) {
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -17536,7 +18702,7 @@ export const d2d_join = $root.d2d_join = (() => {
             this.d2dHashedNonces = [];
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -17637,28 +18803,32 @@ export const d2d_join = $root.d2d_join = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        EssentialData.encode = function encode(message, writer) {
+        EssentialData.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.identityData != null && Object.hasOwnProperty.call(message, "identityData"))
-                $root.d2d_join.EssentialData.IdentityData.encode(message.identityData, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                $root.d2d_join.EssentialData.IdentityData.encode(message.identityData, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
             if (message.deviceGroupData != null && Object.hasOwnProperty.call(message, "deviceGroupData"))
-                $root.d2d_join.EssentialData.DeviceGroupData.encode(message.deviceGroupData, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                $root.d2d_join.EssentialData.DeviceGroupData.encode(message.deviceGroupData, writer.uint32(/* id 3, wireType 2 =*/26).fork(), q + 1).ldelim();
             if (message.userProfile != null && Object.hasOwnProperty.call(message, "userProfile"))
-                $root.d2d_sync.UserProfile.encode(message.userProfile, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                $root.d2d_sync.UserProfile.encode(message.userProfile, writer.uint32(/* id 4, wireType 2 =*/34).fork(), q + 1).ldelim();
             if (message.settings != null && Object.hasOwnProperty.call(message, "settings"))
-                $root.d2d_sync.Settings.encode(message.settings, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                $root.d2d_sync.Settings.encode(message.settings, writer.uint32(/* id 5, wireType 2 =*/42).fork(), q + 1).ldelim();
             if (message.mdmParameters != null && Object.hasOwnProperty.call(message, "mdmParameters"))
-                $root.d2d_sync.MdmParameters.encode(message.mdmParameters, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+                $root.d2d_sync.MdmParameters.encode(message.mdmParameters, writer.uint32(/* id 6, wireType 2 =*/50).fork(), q + 1).ldelim();
             if (message.contacts != null && message.contacts.length)
                 for (let i = 0; i < message.contacts.length; ++i)
-                    $root.d2d_join.EssentialData.AugmentedContact.encode(message.contacts[i], writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
+                    $root.d2d_join.EssentialData.AugmentedContact.encode(message.contacts[i], writer.uint32(/* id 7, wireType 2 =*/58).fork(), q + 1).ldelim();
             if (message.groups != null && message.groups.length)
                 for (let i = 0; i < message.groups.length; ++i)
-                    $root.d2d_join.EssentialData.AugmentedGroup.encode(message.groups[i], writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
+                    $root.d2d_join.EssentialData.AugmentedGroup.encode(message.groups[i], writer.uint32(/* id 8, wireType 2 =*/66).fork(), q + 1).ldelim();
             if (message.distributionLists != null && message.distributionLists.length)
                 for (let i = 0; i < message.distributionLists.length; ++i)
-                    $root.d2d_join.EssentialData.AugmentedDistributionList.encode(message.distributionLists[i], writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
+                    $root.d2d_join.EssentialData.AugmentedDistributionList.encode(message.distributionLists[i], writer.uint32(/* id 9, wireType 2 =*/74).fork(), q + 1).ldelim();
             if (message.cspHashedNonces != null && message.cspHashedNonces.length)
                 for (let i = 0; i < message.cspHashedNonces.length; ++i)
                     writer.uint32(/* id 10, wireType 2 =*/82).bytes(message.cspHashedNonces[i]);
@@ -17666,7 +18836,7 @@ export const d2d_join = $root.d2d_join = (() => {
                 for (let i = 0; i < message.d2dHashedNonces.length; ++i)
                     writer.uint32(/* id 11, wireType 2 =*/90).bytes(message.d2dHashedNonces[i]);
             if (message.workCredentials != null && Object.hasOwnProperty.call(message, "workCredentials"))
-                $root.d2d_sync.ThreemaWorkCredentials.encode(message.workCredentials, writer.uint32(/* id 12, wireType 2 =*/98).fork()).ldelim();
+                $root.d2d_sync.ThreemaWorkCredentials.encode(message.workCredentials, writer.uint32(/* id 12, wireType 2 =*/98).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -17681,9 +18851,13 @@ export const d2d_join = $root.d2d_join = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        EssentialData.decode = function decode(reader, length, error) {
+        EssentialData.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_join.EssentialData();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -17691,45 +18865,45 @@ export const d2d_join = $root.d2d_join = (() => {
                     break;
                 switch (tag >>> 3) {
                 case 2: {
-                        message.identityData = $root.d2d_join.EssentialData.IdentityData.decode(reader, reader.uint32());
+                        message.identityData = $root.d2d_join.EssentialData.IdentityData.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 12: {
-                        message.workCredentials = $root.d2d_sync.ThreemaWorkCredentials.decode(reader, reader.uint32());
+                        message.workCredentials = $root.d2d_sync.ThreemaWorkCredentials.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 3: {
-                        message.deviceGroupData = $root.d2d_join.EssentialData.DeviceGroupData.decode(reader, reader.uint32());
+                        message.deviceGroupData = $root.d2d_join.EssentialData.DeviceGroupData.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 4: {
-                        message.userProfile = $root.d2d_sync.UserProfile.decode(reader, reader.uint32());
+                        message.userProfile = $root.d2d_sync.UserProfile.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 5: {
-                        message.settings = $root.d2d_sync.Settings.decode(reader, reader.uint32());
+                        message.settings = $root.d2d_sync.Settings.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 6: {
-                        message.mdmParameters = $root.d2d_sync.MdmParameters.decode(reader, reader.uint32());
+                        message.mdmParameters = $root.d2d_sync.MdmParameters.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 7: {
                         if (!(message.contacts && message.contacts.length))
                             message.contacts = [];
-                        message.contacts.push($root.d2d_join.EssentialData.AugmentedContact.decode(reader, reader.uint32()));
+                        message.contacts.push($root.d2d_join.EssentialData.AugmentedContact.decode(reader, reader.uint32(), undefined, long + 1));
                         break;
                     }
                 case 8: {
                         if (!(message.groups && message.groups.length))
                             message.groups = [];
-                        message.groups.push($root.d2d_join.EssentialData.AugmentedGroup.decode(reader, reader.uint32()));
+                        message.groups.push($root.d2d_join.EssentialData.AugmentedGroup.decode(reader, reader.uint32(), undefined, long + 1));
                         break;
                     }
                 case 9: {
                         if (!(message.distributionLists && message.distributionLists.length))
                             message.distributionLists = [];
-                        message.distributionLists.push($root.d2d_join.EssentialData.AugmentedDistributionList.decode(reader, reader.uint32()));
+                        message.distributionLists.push($root.d2d_join.EssentialData.AugmentedDistributionList.decode(reader, reader.uint32(), undefined, long + 1));
                         break;
                     }
                 case 10: {
@@ -17745,7 +18919,7 @@ export const d2d_join = $root.d2d_join = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -17775,7 +18949,7 @@ export const d2d_join = $root.d2d_join = (() => {
             function IdentityData(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -17820,9 +18994,13 @@ export const d2d_join = $root.d2d_join = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            IdentityData.encode = function encode(message, writer) {
+            IdentityData.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.identity != null && Object.hasOwnProperty.call(message, "identity"))
                     writer.uint32(/* id 1, wireType 2 =*/10).string(message.identity);
                 if (message.ck != null && Object.hasOwnProperty.call(message, "ck"))
@@ -17845,9 +19023,13 @@ export const d2d_join = $root.d2d_join = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            IdentityData.decode = function decode(reader, length, error) {
+            IdentityData.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_join.EssentialData.IdentityData();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -17871,7 +19053,7 @@ export const d2d_join = $root.d2d_join = (() => {
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -17901,7 +19083,7 @@ export const d2d_join = $root.d2d_join = (() => {
             function DeviceGroupData(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -17922,9 +19104,13 @@ export const d2d_join = $root.d2d_join = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            DeviceGroupData.encode = function encode(message, writer) {
+            DeviceGroupData.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.dgk != null && Object.hasOwnProperty.call(message, "dgk"))
                     writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.dgk);
                 return writer;
@@ -17941,9 +19127,13 @@ export const d2d_join = $root.d2d_join = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            DeviceGroupData.decode = function decode(reader, length, error) {
+            DeviceGroupData.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_join.EssentialData.DeviceGroupData();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -17955,7 +19145,7 @@ export const d2d_join = $root.d2d_join = (() => {
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -17986,7 +19176,7 @@ export const d2d_join = $root.d2d_join = (() => {
             function AugmentedContact(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -18029,11 +19219,15 @@ export const d2d_join = $root.d2d_join = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            AugmentedContact.encode = function encode(message, writer) {
+            AugmentedContact.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.contact != null && Object.hasOwnProperty.call(message, "contact"))
-                    $root.d2d_sync.Contact.encode(message.contact, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.d2d_sync.Contact.encode(message.contact, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                 if (message.lastUpdateAt != null && Object.hasOwnProperty.call(message, "lastUpdateAt"))
                     writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.lastUpdateAt);
                 return writer;
@@ -18050,9 +19244,13 @@ export const d2d_join = $root.d2d_join = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            AugmentedContact.decode = function decode(reader, length, error) {
+            AugmentedContact.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_join.EssentialData.AugmentedContact();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -18060,7 +19258,7 @@ export const d2d_join = $root.d2d_join = (() => {
                         break;
                     switch (tag >>> 3) {
                     case 1: {
-                            message.contact = $root.d2d_sync.Contact.decode(reader, reader.uint32());
+                            message.contact = $root.d2d_sync.Contact.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     case 2: {
@@ -18068,7 +19266,7 @@ export const d2d_join = $root.d2d_join = (() => {
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -18099,7 +19297,7 @@ export const d2d_join = $root.d2d_join = (() => {
             function AugmentedGroup(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -18128,11 +19326,15 @@ export const d2d_join = $root.d2d_join = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            AugmentedGroup.encode = function encode(message, writer) {
+            AugmentedGroup.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.group != null && Object.hasOwnProperty.call(message, "group"))
-                    $root.d2d_sync.Group.encode(message.group, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.d2d_sync.Group.encode(message.group, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                 if (message.lastUpdateAt != null && Object.hasOwnProperty.call(message, "lastUpdateAt"))
                     writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.lastUpdateAt);
                 return writer;
@@ -18149,9 +19351,13 @@ export const d2d_join = $root.d2d_join = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            AugmentedGroup.decode = function decode(reader, length, error) {
+            AugmentedGroup.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_join.EssentialData.AugmentedGroup();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -18159,7 +19365,7 @@ export const d2d_join = $root.d2d_join = (() => {
                         break;
                     switch (tag >>> 3) {
                     case 1: {
-                            message.group = $root.d2d_sync.Group.decode(reader, reader.uint32());
+                            message.group = $root.d2d_sync.Group.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     case 2: {
@@ -18167,7 +19373,7 @@ export const d2d_join = $root.d2d_join = (() => {
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -18198,7 +19404,7 @@ export const d2d_join = $root.d2d_join = (() => {
             function AugmentedDistributionList(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -18227,11 +19433,15 @@ export const d2d_join = $root.d2d_join = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            AugmentedDistributionList.encode = function encode(message, writer) {
+            AugmentedDistributionList.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.distributionList != null && Object.hasOwnProperty.call(message, "distributionList"))
-                    $root.d2d_sync.DistributionList.encode(message.distributionList, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.d2d_sync.DistributionList.encode(message.distributionList, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                 if (message.lastUpdateAt != null && Object.hasOwnProperty.call(message, "lastUpdateAt"))
                     writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.lastUpdateAt);
                 return writer;
@@ -18248,9 +19458,13 @@ export const d2d_join = $root.d2d_join = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            AugmentedDistributionList.decode = function decode(reader, length, error) {
+            AugmentedDistributionList.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_join.EssentialData.AugmentedDistributionList();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -18258,7 +19472,7 @@ export const d2d_join = $root.d2d_join = (() => {
                         break;
                     switch (tag >>> 3) {
                     case 1: {
-                            message.distributionList = $root.d2d_sync.DistributionList.decode(reader, reader.uint32());
+                            message.distributionList = $root.d2d_sync.DistributionList.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     case 2: {
@@ -18266,7 +19480,7 @@ export const d2d_join = $root.d2d_join = (() => {
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -18298,7 +19512,7 @@ export const d2d_join = $root.d2d_join = (() => {
         function Registered(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -18311,9 +19525,13 @@ export const d2d_join = $root.d2d_join = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        Registered.encode = function encode(message, writer) {
+        Registered.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             return writer;
         };
 
@@ -18328,9 +19546,13 @@ export const d2d_join = $root.d2d_join = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        Registered.decode = function decode(reader, length, error) {
+        Registered.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_join.Registered();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -18338,7 +19560,7 @@ export const d2d_join = $root.d2d_join = (() => {
                     break;
                 switch (tag >>> 3) {
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -18383,7 +19605,7 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
         function RendezvousInit(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -18428,17 +19650,21 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        RendezvousInit.encode = function encode(message, writer) {
+        RendezvousInit.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.version != null && Object.hasOwnProperty.call(message, "version"))
                 writer.uint32(/* id 1, wireType 0 =*/8).int32(message.version);
             if (message.ak != null && Object.hasOwnProperty.call(message, "ak"))
                 writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.ak);
             if (message.relayedWebSocket != null && Object.hasOwnProperty.call(message, "relayedWebSocket"))
-                $root.d2d_rendezvous.RendezvousInit.RelayedWebSocket.encode(message.relayedWebSocket, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                $root.d2d_rendezvous.RendezvousInit.RelayedWebSocket.encode(message.relayedWebSocket, writer.uint32(/* id 3, wireType 2 =*/26).fork(), q + 1).ldelim();
             if (message.directTcpServer != null && Object.hasOwnProperty.call(message, "directTcpServer"))
-                $root.d2d_rendezvous.RendezvousInit.DirectTcpServer.encode(message.directTcpServer, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                $root.d2d_rendezvous.RendezvousInit.DirectTcpServer.encode(message.directTcpServer, writer.uint32(/* id 4, wireType 2 =*/34).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -18453,9 +19679,13 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        RendezvousInit.decode = function decode(reader, length, error) {
+        RendezvousInit.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_rendezvous.RendezvousInit();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -18471,15 +19701,15 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
                         break;
                     }
                 case 3: {
-                        message.relayedWebSocket = $root.d2d_rendezvous.RendezvousInit.RelayedWebSocket.decode(reader, reader.uint32());
+                        message.relayedWebSocket = $root.d2d_rendezvous.RendezvousInit.RelayedWebSocket.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 4: {
-                        message.directTcpServer = $root.d2d_rendezvous.RendezvousInit.DirectTcpServer.decode(reader, reader.uint32());
+                        message.directTcpServer = $root.d2d_rendezvous.RendezvousInit.DirectTcpServer.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -18536,7 +19766,7 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
             function RelayedWebSocket(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -18573,9 +19803,13 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            RelayedWebSocket.encode = function encode(message, writer) {
+            RelayedWebSocket.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.pathId != null && Object.hasOwnProperty.call(message, "pathId"))
                     writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.pathId);
                 if (message.networkCost != null && Object.hasOwnProperty.call(message, "networkCost"))
@@ -18596,9 +19830,13 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            RelayedWebSocket.decode = function decode(reader, length, error) {
+            RelayedWebSocket.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_rendezvous.RendezvousInit.RelayedWebSocket();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -18618,7 +19856,7 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -18650,7 +19888,7 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
                 this.ipAddresses = [];
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -18679,14 +19917,18 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            DirectTcpServer.encode = function encode(message, writer) {
+            DirectTcpServer.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.port != null && Object.hasOwnProperty.call(message, "port"))
                     writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.port);
                 if (message.ipAddresses != null && message.ipAddresses.length)
                     for (let i = 0; i < message.ipAddresses.length; ++i)
-                        $root.d2d_rendezvous.RendezvousInit.DirectTcpServer.IpAddress.encode(message.ipAddresses[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                        $root.d2d_rendezvous.RendezvousInit.DirectTcpServer.IpAddress.encode(message.ipAddresses[i], writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
                 return writer;
             };
 
@@ -18701,9 +19943,13 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            DirectTcpServer.decode = function decode(reader, length, error) {
+            DirectTcpServer.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_rendezvous.RendezvousInit.DirectTcpServer();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -18717,11 +19963,11 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
                     case 2: {
                             if (!(message.ipAddresses && message.ipAddresses.length))
                                 message.ipAddresses = [];
-                            message.ipAddresses.push($root.d2d_rendezvous.RendezvousInit.DirectTcpServer.IpAddress.decode(reader, reader.uint32()));
+                            message.ipAddresses.push($root.d2d_rendezvous.RendezvousInit.DirectTcpServer.IpAddress.decode(reader, reader.uint32(), undefined, long + 1));
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -18750,7 +19996,7 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
                 function IpAddress(properties) {
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -18787,9 +20033,13 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                IpAddress.encode = function encode(message, writer) {
+                IpAddress.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     if (message.pathId != null && Object.hasOwnProperty.call(message, "pathId"))
                         writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.pathId);
                     if (message.networkCost != null && Object.hasOwnProperty.call(message, "networkCost"))
@@ -18810,9 +20060,13 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                IpAddress.decode = function decode(reader, length, error) {
+                IpAddress.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_rendezvous.RendezvousInit.DirectTcpServer.IpAddress();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -18832,7 +20086,7 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
                                 break;
                             }
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -18867,7 +20121,7 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
         function Handshake(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -18880,9 +20134,13 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        Handshake.encode = function encode(message, writer) {
+        Handshake.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             return writer;
         };
 
@@ -18897,9 +20155,13 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        Handshake.decode = function decode(reader, length, error) {
+        Handshake.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_rendezvous.Handshake();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -18907,7 +20169,7 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
                     break;
                 switch (tag >>> 3) {
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -18933,7 +20195,7 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
             function RrdToRid(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -18946,9 +20208,13 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            RrdToRid.encode = function encode(message, writer) {
+            RrdToRid.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 return writer;
             };
 
@@ -18963,9 +20229,13 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            RrdToRid.decode = function decode(reader, length, error) {
+            RrdToRid.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_rendezvous.Handshake.RrdToRid();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -18973,7 +20243,7 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
                         break;
                     switch (tag >>> 3) {
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -19001,7 +20271,7 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
                 function Hello(properties) {
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -19030,9 +20300,13 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                Hello.encode = function encode(message, writer) {
+                Hello.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     if (message.challenge != null && Object.hasOwnProperty.call(message, "challenge"))
                         writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.challenge);
                     if (message.etk != null && Object.hasOwnProperty.call(message, "etk"))
@@ -19051,9 +20325,13 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Hello.decode = function decode(reader, length, error) {
+                Hello.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_rendezvous.Handshake.RrdToRid.Hello();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -19069,7 +20347,7 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
                                 break;
                             }
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -19099,7 +20377,7 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
                 function Auth(properties) {
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -19120,9 +20398,13 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                Auth.encode = function encode(message, writer) {
+                Auth.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     if (message.response != null && Object.hasOwnProperty.call(message, "response"))
                         writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.response);
                     return writer;
@@ -19139,9 +20421,13 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Auth.decode = function decode(reader, length, error) {
+                Auth.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_rendezvous.Handshake.RrdToRid.Auth();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -19153,7 +20439,7 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
                                 break;
                             }
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -19185,7 +20471,7 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
             function RidToRrd(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -19198,9 +20484,13 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            RidToRrd.encode = function encode(message, writer) {
+            RidToRrd.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 return writer;
             };
 
@@ -19215,9 +20505,13 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            RidToRrd.decode = function decode(reader, length, error) {
+            RidToRrd.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_rendezvous.Handshake.RidToRrd();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -19225,7 +20519,7 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
                         break;
                     switch (tag >>> 3) {
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -19254,7 +20548,7 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
                 function AuthHello(properties) {
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
+                            if (properties[keys[i]] != null && keys[i] !== "__proto__")
                                 this[keys[i]] = properties[keys[i]];
                 }
 
@@ -19291,9 +20585,13 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                AuthHello.encode = function encode(message, writer) {
+                AuthHello.encode = function encode(message, writer, q) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (q === undefined)
+                        q = 0;
+                    if (q > $util.recursionLimit)
+                        throw Error("max depth exceeded");
                     if (message.response != null && Object.hasOwnProperty.call(message, "response"))
                         writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.response);
                     if (message.challenge != null && Object.hasOwnProperty.call(message, "challenge"))
@@ -19314,9 +20612,13 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                AuthHello.decode = function decode(reader, length, error) {
+                AuthHello.decode = function decode(reader, length, error, long) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
+                    if (long === undefined)
+                        long = 0;
+                    if (long > $Reader.recursionLimit)
+                        throw Error("maximum nesting depth exceeded");
                     let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_rendezvous.Handshake.RidToRrd.AuthHello();
                     while (reader.pos < end) {
                         let tag = reader.uint32();
@@ -19336,7 +20638,7 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
                                 break;
                             }
                         default:
-                            reader.skipType(tag & 7);
+                            reader.skipType(tag & 7, long);
                             break;
                         }
                     }
@@ -19371,7 +20673,7 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
         function Nominate(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -19384,9 +20686,13 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        Nominate.encode = function encode(message, writer) {
+        Nominate.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             return writer;
         };
 
@@ -19401,9 +20707,13 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        Nominate.decode = function decode(reader, length, error) {
+        Nominate.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2d_rendezvous.Nominate();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -19411,7 +20721,7 @@ export const d2d_rendezvous = $root.d2d_rendezvous = (() => {
                     break;
                 switch (tag >>> 3) {
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -19466,7 +20776,7 @@ export const d2m = $root.d2m = (() => {
         function ClientUrlInfo(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -19495,9 +20805,13 @@ export const d2m = $root.d2m = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        ClientUrlInfo.encode = function encode(message, writer) {
+        ClientUrlInfo.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.deviceGroupId != null && Object.hasOwnProperty.call(message, "deviceGroupId"))
                 writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.deviceGroupId);
             if (message.serverGroup != null && Object.hasOwnProperty.call(message, "serverGroup"))
@@ -19516,9 +20830,13 @@ export const d2m = $root.d2m = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        ClientUrlInfo.decode = function decode(reader, length, error) {
+        ClientUrlInfo.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2m.ClientUrlInfo();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -19534,7 +20852,7 @@ export const d2m = $root.d2m = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -19566,7 +20884,7 @@ export const d2m = $root.d2m = (() => {
         function ServerHello(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -19603,9 +20921,13 @@ export const d2m = $root.d2m = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        ServerHello.encode = function encode(message, writer) {
+        ServerHello.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.version != null && Object.hasOwnProperty.call(message, "version"))
                 writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.version);
             if (message.esk != null && Object.hasOwnProperty.call(message, "esk"))
@@ -19626,9 +20948,13 @@ export const d2m = $root.d2m = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        ServerHello.decode = function decode(reader, length, error) {
+        ServerHello.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2m.ServerHello();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -19648,7 +20974,7 @@ export const d2m = $root.d2m = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -19712,7 +21038,7 @@ export const d2m = $root.d2m = (() => {
         function ClientHello(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -19738,7 +21064,7 @@ export const d2m = $root.d2m = (() => {
          * @memberof d2m.ClientHello
          * @instance
          */
-        ClientHello.prototype.deviceId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        ClientHello.prototype.deviceId = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * ClientHello deviceSlotsExhaustedPolicy.
@@ -19781,9 +21107,13 @@ export const d2m = $root.d2m = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        ClientHello.encode = function encode(message, writer) {
+        ClientHello.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.version != null && Object.hasOwnProperty.call(message, "version"))
                 writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.version);
             if (message.response != null && Object.hasOwnProperty.call(message, "response"))
@@ -19812,9 +21142,13 @@ export const d2m = $root.d2m = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        ClientHello.decode = function decode(reader, length, error) {
+        ClientHello.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2m.ClientHello();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -19850,7 +21184,7 @@ export const d2m = $root.d2m = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -19898,7 +21232,7 @@ export const d2m = $root.d2m = (() => {
         function ServerInfo(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -19951,9 +21285,13 @@ export const d2m = $root.d2m = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        ServerInfo.encode = function encode(message, writer) {
+        ServerInfo.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.maxDeviceSlots != null && Object.hasOwnProperty.call(message, "maxDeviceSlots"))
                 writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.maxDeviceSlots);
             if (message.deviceSlotState != null && Object.hasOwnProperty.call(message, "deviceSlotState"))
@@ -19978,9 +21316,13 @@ export const d2m = $root.d2m = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        ServerInfo.decode = function decode(reader, length, error) {
+        ServerInfo.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2m.ServerInfo();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -20008,7 +21350,7 @@ export const d2m = $root.d2m = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -20037,7 +21379,7 @@ export const d2m = $root.d2m = (() => {
         function ReflectionQueueDry(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -20050,9 +21392,13 @@ export const d2m = $root.d2m = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        ReflectionQueueDry.encode = function encode(message, writer) {
+        ReflectionQueueDry.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             return writer;
         };
 
@@ -20067,9 +21413,13 @@ export const d2m = $root.d2m = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        ReflectionQueueDry.decode = function decode(reader, length, error) {
+        ReflectionQueueDry.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2m.ReflectionQueueDry();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -20077,7 +21427,7 @@ export const d2m = $root.d2m = (() => {
                     break;
                 switch (tag >>> 3) {
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -20106,7 +21456,7 @@ export const d2m = $root.d2m = (() => {
         function RolePromotedToLeader(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -20119,9 +21469,13 @@ export const d2m = $root.d2m = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        RolePromotedToLeader.encode = function encode(message, writer) {
+        RolePromotedToLeader.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             return writer;
         };
 
@@ -20136,9 +21490,13 @@ export const d2m = $root.d2m = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        RolePromotedToLeader.decode = function decode(reader, length, error) {
+        RolePromotedToLeader.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2m.RolePromotedToLeader();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -20146,7 +21504,7 @@ export const d2m = $root.d2m = (() => {
                     break;
                 switch (tag >>> 3) {
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -20175,7 +21533,7 @@ export const d2m = $root.d2m = (() => {
         function GetDevicesInfo(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -20188,9 +21546,13 @@ export const d2m = $root.d2m = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        GetDevicesInfo.encode = function encode(message, writer) {
+        GetDevicesInfo.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             return writer;
         };
 
@@ -20205,9 +21567,13 @@ export const d2m = $root.d2m = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        GetDevicesInfo.decode = function decode(reader, length, error) {
+        GetDevicesInfo.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2m.GetDevicesInfo();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -20215,7 +21581,7 @@ export const d2m = $root.d2m = (() => {
                     break;
                 switch (tag >>> 3) {
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -20246,7 +21612,7 @@ export const d2m = $root.d2m = (() => {
             this.augmentedDeviceInfo = {};
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -20267,13 +21633,17 @@ export const d2m = $root.d2m = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        DevicesInfo.encode = function encode(message, writer) {
+        DevicesInfo.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.augmentedDeviceInfo != null && Object.hasOwnProperty.call(message, "augmentedDeviceInfo"))
                 for (let keys = Object.keys(message.augmentedDeviceInfo), i = 0; i < keys.length; ++i) {
                     writer.uint32(/* id 1, wireType 2 =*/10).fork().uint32(/* id 1, wireType 1 =*/9).fixed64(keys[i]);
-                    $root.d2m.DevicesInfo.AugmentedDeviceInfo.encode(message.augmentedDeviceInfo[keys[i]], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim().ldelim();
+                    $root.d2m.DevicesInfo.AugmentedDeviceInfo.encode(message.augmentedDeviceInfo[keys[i]], writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim().ldelim();
                 }
             return writer;
         };
@@ -20289,9 +21659,13 @@ export const d2m = $root.d2m = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        DevicesInfo.decode = function decode(reader, length, error) {
+        DevicesInfo.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2m.DevicesInfo(), key, value;
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -20311,10 +21685,10 @@ export const d2m = $root.d2m = (() => {
                                 key = reader.fixed64();
                                 break;
                             case 2:
-                                value = $root.d2m.DevicesInfo.AugmentedDeviceInfo.decode(reader, reader.uint32());
+                                value = $root.d2m.DevicesInfo.AugmentedDeviceInfo.decode(reader, reader.uint32(), undefined, long + 1);
                                 break;
                             default:
-                                reader.skipType(tag2 & 7);
+                                reader.skipType(tag2 & 7, long);
                                 break;
                             }
                         }
@@ -20322,7 +21696,7 @@ export const d2m = $root.d2m = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -20352,7 +21726,7 @@ export const d2m = $root.d2m = (() => {
             function AugmentedDeviceInfo(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -20411,9 +21785,13 @@ export const d2m = $root.d2m = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            AugmentedDeviceInfo.encode = function encode(message, writer) {
+            AugmentedDeviceInfo.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.encryptedDeviceInfo != null && Object.hasOwnProperty.call(message, "encryptedDeviceInfo"))
                     writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.encryptedDeviceInfo);
                 if (message.connectedSince != null && Object.hasOwnProperty.call(message, "connectedSince"))
@@ -20436,9 +21814,13 @@ export const d2m = $root.d2m = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            AugmentedDeviceInfo.decode = function decode(reader, length, error) {
+            AugmentedDeviceInfo.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2m.DevicesInfo.AugmentedDeviceInfo();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -20462,7 +21844,7 @@ export const d2m = $root.d2m = (() => {
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
@@ -20495,7 +21877,7 @@ export const d2m = $root.d2m = (() => {
         function DropDevice(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -20505,7 +21887,7 @@ export const d2m = $root.d2m = (() => {
          * @memberof d2m.DropDevice
          * @instance
          */
-        DropDevice.prototype.deviceId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        DropDevice.prototype.deviceId = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * Encodes the specified DropDevice message. Does not implicitly {@link d2m.DropDevice.verify|verify} messages.
@@ -20516,9 +21898,13 @@ export const d2m = $root.d2m = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        DropDevice.encode = function encode(message, writer) {
+        DropDevice.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.deviceId != null && Object.hasOwnProperty.call(message, "deviceId"))
                 writer.uint32(/* id 1, wireType 1 =*/9).fixed64(message.deviceId);
             return writer;
@@ -20535,9 +21921,13 @@ export const d2m = $root.d2m = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        DropDevice.decode = function decode(reader, length, error) {
+        DropDevice.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2m.DropDevice();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -20549,7 +21939,7 @@ export const d2m = $root.d2m = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -20579,7 +21969,7 @@ export const d2m = $root.d2m = (() => {
         function DropDeviceAck(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -20589,7 +21979,7 @@ export const d2m = $root.d2m = (() => {
          * @memberof d2m.DropDeviceAck
          * @instance
          */
-        DropDeviceAck.prototype.deviceId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        DropDeviceAck.prototype.deviceId = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * Encodes the specified DropDeviceAck message. Does not implicitly {@link d2m.DropDeviceAck.verify|verify} messages.
@@ -20600,9 +21990,13 @@ export const d2m = $root.d2m = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        DropDeviceAck.encode = function encode(message, writer) {
+        DropDeviceAck.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.deviceId != null && Object.hasOwnProperty.call(message, "deviceId"))
                 writer.uint32(/* id 1, wireType 1 =*/9).fixed64(message.deviceId);
             return writer;
@@ -20619,9 +22013,13 @@ export const d2m = $root.d2m = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        DropDeviceAck.decode = function decode(reader, length, error) {
+        DropDeviceAck.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2m.DropDeviceAck();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -20633,7 +22031,7 @@ export const d2m = $root.d2m = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -20663,7 +22061,7 @@ export const d2m = $root.d2m = (() => {
         function SetSharedDeviceData(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -20684,9 +22082,13 @@ export const d2m = $root.d2m = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        SetSharedDeviceData.encode = function encode(message, writer) {
+        SetSharedDeviceData.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.encryptedSharedDeviceData != null && Object.hasOwnProperty.call(message, "encryptedSharedDeviceData"))
                 writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.encryptedSharedDeviceData);
             return writer;
@@ -20703,9 +22105,13 @@ export const d2m = $root.d2m = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        SetSharedDeviceData.decode = function decode(reader, length, error) {
+        SetSharedDeviceData.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2m.SetSharedDeviceData();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -20717,7 +22123,7 @@ export const d2m = $root.d2m = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -20748,7 +22154,7 @@ export const d2m = $root.d2m = (() => {
         function BeginTransaction(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -20777,9 +22183,13 @@ export const d2m = $root.d2m = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        BeginTransaction.encode = function encode(message, writer) {
+        BeginTransaction.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.encryptedScope != null && Object.hasOwnProperty.call(message, "encryptedScope"))
                 writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.encryptedScope);
             if (message.ttl != null && Object.hasOwnProperty.call(message, "ttl"))
@@ -20798,9 +22208,13 @@ export const d2m = $root.d2m = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        BeginTransaction.decode = function decode(reader, length, error) {
+        BeginTransaction.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2m.BeginTransaction();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -20816,7 +22230,7 @@ export const d2m = $root.d2m = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -20845,7 +22259,7 @@ export const d2m = $root.d2m = (() => {
         function BeginTransactionAck(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -20858,9 +22272,13 @@ export const d2m = $root.d2m = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        BeginTransactionAck.encode = function encode(message, writer) {
+        BeginTransactionAck.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             return writer;
         };
 
@@ -20875,9 +22293,13 @@ export const d2m = $root.d2m = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        BeginTransactionAck.decode = function decode(reader, length, error) {
+        BeginTransactionAck.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2m.BeginTransactionAck();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -20885,7 +22307,7 @@ export const d2m = $root.d2m = (() => {
                     break;
                 switch (tag >>> 3) {
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -20914,7 +22336,7 @@ export const d2m = $root.d2m = (() => {
         function CommitTransaction(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -20927,9 +22349,13 @@ export const d2m = $root.d2m = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        CommitTransaction.encode = function encode(message, writer) {
+        CommitTransaction.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             return writer;
         };
 
@@ -20944,9 +22370,13 @@ export const d2m = $root.d2m = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        CommitTransaction.decode = function decode(reader, length, error) {
+        CommitTransaction.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2m.CommitTransaction();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -20954,7 +22384,7 @@ export const d2m = $root.d2m = (() => {
                     break;
                 switch (tag >>> 3) {
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -20983,7 +22413,7 @@ export const d2m = $root.d2m = (() => {
         function CommitTransactionAck(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -20996,9 +22426,13 @@ export const d2m = $root.d2m = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        CommitTransactionAck.encode = function encode(message, writer) {
+        CommitTransactionAck.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             return writer;
         };
 
@@ -21013,9 +22447,13 @@ export const d2m = $root.d2m = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        CommitTransactionAck.decode = function decode(reader, length, error) {
+        CommitTransactionAck.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2m.CommitTransactionAck();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -21023,7 +22461,7 @@ export const d2m = $root.d2m = (() => {
                     break;
                 switch (tag >>> 3) {
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -21054,7 +22492,7 @@ export const d2m = $root.d2m = (() => {
         function TransactionRejected(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -21064,7 +22502,7 @@ export const d2m = $root.d2m = (() => {
          * @memberof d2m.TransactionRejected
          * @instance
          */
-        TransactionRejected.prototype.deviceId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        TransactionRejected.prototype.deviceId = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * TransactionRejected encryptedScope.
@@ -21083,9 +22521,13 @@ export const d2m = $root.d2m = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        TransactionRejected.encode = function encode(message, writer) {
+        TransactionRejected.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.deviceId != null && Object.hasOwnProperty.call(message, "deviceId"))
                 writer.uint32(/* id 1, wireType 1 =*/9).fixed64(message.deviceId);
             if (message.encryptedScope != null && Object.hasOwnProperty.call(message, "encryptedScope"))
@@ -21104,9 +22546,13 @@ export const d2m = $root.d2m = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        TransactionRejected.decode = function decode(reader, length, error) {
+        TransactionRejected.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2m.TransactionRejected();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -21122,7 +22568,7 @@ export const d2m = $root.d2m = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -21153,7 +22599,7 @@ export const d2m = $root.d2m = (() => {
         function TransactionEnded(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -21163,7 +22609,7 @@ export const d2m = $root.d2m = (() => {
          * @memberof d2m.TransactionEnded
          * @instance
          */
-        TransactionEnded.prototype.deviceId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        TransactionEnded.prototype.deviceId = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * TransactionEnded encryptedScope.
@@ -21182,9 +22628,13 @@ export const d2m = $root.d2m = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        TransactionEnded.encode = function encode(message, writer) {
+        TransactionEnded.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.deviceId != null && Object.hasOwnProperty.call(message, "deviceId"))
                 writer.uint32(/* id 1, wireType 1 =*/9).fixed64(message.deviceId);
             if (message.encryptedScope != null && Object.hasOwnProperty.call(message, "encryptedScope"))
@@ -21203,9 +22653,13 @@ export const d2m = $root.d2m = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        TransactionEnded.decode = function decode(reader, length, error) {
+        TransactionEnded.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.d2m.TransactionEnded();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -21221,7 +22675,7 @@ export const d2m = $root.d2m = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -21265,7 +22719,7 @@ export const o2o_call = $root.o2o_call = (() => {
         function Envelope(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -21316,15 +22770,19 @@ export const o2o_call = $root.o2o_call = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        Envelope.encode = function encode(message, writer) {
+        Envelope.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.padding != null && Object.hasOwnProperty.call(message, "padding"))
                 writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.padding);
             if (message.videoQualityProfile != null && Object.hasOwnProperty.call(message, "videoQualityProfile"))
-                $root.o2o_call.VideoQualityProfile.encode(message.videoQualityProfile, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                $root.o2o_call.VideoQualityProfile.encode(message.videoQualityProfile, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
             if (message.captureStateChange != null && Object.hasOwnProperty.call(message, "captureStateChange"))
-                $root.o2o_call.CaptureState.encode(message.captureStateChange, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                $root.o2o_call.CaptureState.encode(message.captureStateChange, writer.uint32(/* id 3, wireType 2 =*/26).fork(), q + 1).ldelim();
             return writer;
         };
 
@@ -21339,9 +22797,13 @@ export const o2o_call = $root.o2o_call = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        Envelope.decode = function decode(reader, length, error) {
+        Envelope.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.o2o_call.Envelope();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -21353,15 +22815,15 @@ export const o2o_call = $root.o2o_call = (() => {
                         break;
                     }
                 case 2: {
-                        message.videoQualityProfile = $root.o2o_call.VideoQualityProfile.decode(reader, reader.uint32());
+                        message.videoQualityProfile = $root.o2o_call.VideoQualityProfile.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 3: {
-                        message.captureStateChange = $root.o2o_call.CaptureState.decode(reader, reader.uint32());
+                        message.captureStateChange = $root.o2o_call.CaptureState.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -21394,7 +22856,7 @@ export const o2o_call = $root.o2o_call = (() => {
         function VideoQualityProfile(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -21439,15 +22901,19 @@ export const o2o_call = $root.o2o_call = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        VideoQualityProfile.encode = function encode(message, writer) {
+        VideoQualityProfile.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.profile != null && Object.hasOwnProperty.call(message, "profile"))
                 writer.uint32(/* id 1, wireType 0 =*/8).int32(message.profile);
             if (message.maxBitrateKbps != null && Object.hasOwnProperty.call(message, "maxBitrateKbps"))
                 writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.maxBitrateKbps);
             if (message.maxResolution != null && Object.hasOwnProperty.call(message, "maxResolution"))
-                $root.common.Resolution.encode(message.maxResolution, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                $root.common.Resolution.encode(message.maxResolution, writer.uint32(/* id 3, wireType 2 =*/26).fork(), q + 1).ldelim();
             if (message.maxFps != null && Object.hasOwnProperty.call(message, "maxFps"))
                 writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.maxFps);
             return writer;
@@ -21464,9 +22930,13 @@ export const o2o_call = $root.o2o_call = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        VideoQualityProfile.decode = function decode(reader, length, error) {
+        VideoQualityProfile.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.o2o_call.VideoQualityProfile();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -21482,7 +22952,7 @@ export const o2o_call = $root.o2o_call = (() => {
                         break;
                     }
                 case 3: {
-                        message.maxResolution = $root.common.Resolution.decode(reader, reader.uint32());
+                        message.maxResolution = $root.common.Resolution.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 4: {
@@ -21490,7 +22960,7 @@ export const o2o_call = $root.o2o_call = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -21537,7 +23007,7 @@ export const o2o_call = $root.o2o_call = (() => {
         function CaptureState(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -21566,9 +23036,13 @@ export const o2o_call = $root.o2o_call = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        CaptureState.encode = function encode(message, writer) {
+        CaptureState.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.state != null && Object.hasOwnProperty.call(message, "state"))
                 writer.uint32(/* id 1, wireType 0 =*/8).int32(message.state);
             if (message.device != null && Object.hasOwnProperty.call(message, "device"))
@@ -21587,9 +23061,13 @@ export const o2o_call = $root.o2o_call = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        CaptureState.decode = function decode(reader, length, error) {
+        CaptureState.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.o2o_call.CaptureState();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -21605,7 +23083,7 @@ export const o2o_call = $root.o2o_call = (() => {
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -21680,7 +23158,7 @@ export const url = $root.url = (() => {
         function DeviceGroupJoinRequestOrOffer(properties) {
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
+                    if (properties[keys[i]] != null && keys[i] !== "__proto__")
                         this[keys[i]] = properties[keys[i]];
         }
 
@@ -21725,15 +23203,19 @@ export const url = $root.url = (() => {
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        DeviceGroupJoinRequestOrOffer.encode = function encode(message, writer) {
+        DeviceGroupJoinRequestOrOffer.encode = function encode(message, writer, q) {
             if (!writer)
                 writer = $Writer.create();
+            if (q === undefined)
+                q = 0;
+            if (q > $util.recursionLimit)
+                throw Error("max depth exceeded");
             if (message.version != null && Object.hasOwnProperty.call(message, "version"))
                 writer.uint32(/* id 1, wireType 0 =*/8).int32(message.version);
             if (message.variant != null && Object.hasOwnProperty.call(message, "variant"))
-                $root.url.DeviceGroupJoinRequestOrOffer.Variant.encode(message.variant, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                $root.url.DeviceGroupJoinRequestOrOffer.Variant.encode(message.variant, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
             if (message.rendezvousInit != null && Object.hasOwnProperty.call(message, "rendezvousInit"))
-                $root.d2d_rendezvous.RendezvousInit.encode(message.rendezvousInit, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                $root.d2d_rendezvous.RendezvousInit.encode(message.rendezvousInit, writer.uint32(/* id 3, wireType 2 =*/26).fork(), q + 1).ldelim();
             if (message.d2dProtocolVersion != null && Object.hasOwnProperty.call(message, "d2dProtocolVersion"))
                 writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.d2dProtocolVersion);
             return writer;
@@ -21750,9 +23232,13 @@ export const url = $root.url = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        DeviceGroupJoinRequestOrOffer.decode = function decode(reader, length, error) {
+        DeviceGroupJoinRequestOrOffer.decode = function decode(reader, length, error, long) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
+            if (long === undefined)
+                long = 0;
+            if (long > $Reader.recursionLimit)
+                throw Error("maximum nesting depth exceeded");
             let end = length === undefined ? reader.len : reader.pos + length, message = new $root.url.DeviceGroupJoinRequestOrOffer();
             while (reader.pos < end) {
                 let tag = reader.uint32();
@@ -21768,15 +23254,15 @@ export const url = $root.url = (() => {
                         break;
                     }
                 case 2: {
-                        message.variant = $root.url.DeviceGroupJoinRequestOrOffer.Variant.decode(reader, reader.uint32());
+                        message.variant = $root.url.DeviceGroupJoinRequestOrOffer.Variant.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 case 3: {
-                        message.rendezvousInit = $root.d2d_rendezvous.RendezvousInit.decode(reader, reader.uint32());
+                        message.rendezvousInit = $root.d2d_rendezvous.RendezvousInit.decode(reader, reader.uint32(), undefined, long + 1);
                         break;
                     }
                 default:
-                    reader.skipType(tag & 7);
+                    reader.skipType(tag & 7, long);
                     break;
                 }
             }
@@ -21816,7 +23302,7 @@ export const url = $root.url = (() => {
             function Variant(properties) {
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
+                        if (properties[keys[i]] != null && keys[i] !== "__proto__")
                             this[keys[i]] = properties[keys[i]];
             }
 
@@ -21859,13 +23345,17 @@ export const url = $root.url = (() => {
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Variant.encode = function encode(message, writer) {
+            Variant.encode = function encode(message, writer, q) {
                 if (!writer)
                     writer = $Writer.create();
+                if (q === undefined)
+                    q = 0;
+                if (q > $util.recursionLimit)
+                    throw Error("max depth exceeded");
                 if (message.requestToJoin != null && Object.hasOwnProperty.call(message, "requestToJoin"))
-                    $root.common.Unit.encode(message.requestToJoin, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.common.Unit.encode(message.requestToJoin, writer.uint32(/* id 1, wireType 2 =*/10).fork(), q + 1).ldelim();
                 if (message.offerToJoin != null && Object.hasOwnProperty.call(message, "offerToJoin"))
-                    $root.common.Unit.encode(message.offerToJoin, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                    $root.common.Unit.encode(message.offerToJoin, writer.uint32(/* id 2, wireType 2 =*/18).fork(), q + 1).ldelim();
                 return writer;
             };
 
@@ -21880,9 +23370,13 @@ export const url = $root.url = (() => {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Variant.decode = function decode(reader, length, error) {
+            Variant.decode = function decode(reader, length, error, long) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
+                if (long === undefined)
+                    long = 0;
+                if (long > $Reader.recursionLimit)
+                    throw Error("maximum nesting depth exceeded");
                 let end = length === undefined ? reader.len : reader.pos + length, message = new $root.url.DeviceGroupJoinRequestOrOffer.Variant();
                 while (reader.pos < end) {
                     let tag = reader.uint32();
@@ -21890,15 +23384,15 @@ export const url = $root.url = (() => {
                         break;
                     switch (tag >>> 3) {
                     case 1: {
-                            message.requestToJoin = $root.common.Unit.decode(reader, reader.uint32());
+                            message.requestToJoin = $root.common.Unit.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     case 2: {
-                            message.offerToJoin = $root.common.Unit.decode(reader, reader.uint32());
+                            message.offerToJoin = $root.common.Unit.decode(reader, reader.uint32(), undefined, long + 1);
                             break;
                         }
                     default:
-                        reader.skipType(tag & 7);
+                        reader.skipType(tag & 7, long);
                         break;
                     }
                 }
