@@ -979,6 +979,7 @@ export class SqliteDatabaseBackend implements DatabaseBackend {
                     threadId: message.threadId,
                     lastEditedAt: message.lastEditedAt,
                     deletedAt: message.deletedAt,
+                    deliveredAt: message.deliveredAt,
                 })
                 .returningLastInsertedId()
                 .executeInsert(),
