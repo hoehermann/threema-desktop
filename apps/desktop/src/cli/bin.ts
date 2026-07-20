@@ -5,6 +5,7 @@ import * as readline from 'node:readline/promises';
 
 import {bytesToHex} from '@threema/ts-utils/byte/bytes-to-hex';
 import type {u53} from '@threema/ts-utils/integer/u53';
+import {u64ToHexLe} from '@threema/ts-utils/number/u64-to-hex-le';
 
 import {cliStubServicesForKeyStorage} from 'cli/services';
 import {TweetNaClBackend} from '~/common/crypto/tweetnacl';
@@ -14,7 +15,7 @@ import {randomBytes} from '~/common/node/crypto/random';
 import {FileSystemKeyStorage} from '~/common/node/key-storage';
 import {assert, setAssertFailLogger, unreachable} from '~/common/utils/assert';
 
-const COMMANDS = ['openSqlite'] as const;
+const COMMANDS = ['openSqlite', 'printMultiDeviceSecrets'] as const;
 
 type Command = (typeof COMMANDS)[u53];
 
@@ -24,6 +25,10 @@ const USAGES: Record<Command, {readonly usage: string; readonly help: string}> =
     openSqlite: {
         usage: '<profile-dir>',
         help: 'Open the encrypted SQLite database with `sqlcipher`. Requires the `sqlcipher` binary on your system.',
+    },
+    printMultiDeviceSecrets: {
+        usage: '<profile-dir>',
+        help: 'Decrypt the key storage and print the multi-device secrets (identity, keys, device IDs) needed to run another client under this device identity. WARNING: prints secrets to stdout.',
     },
 };
 
@@ -80,9 +85,54 @@ async function main(): Promise<void> {
         case 'openSqlite':
             await runSqlite(process.argv.slice(3));
             break;
+        case 'printMultiDeviceSecrets':
+            await printMultiDeviceSecrets(process.argv.slice(3));
+            break;
         default:
             unreachable(command);
     }
+}
+
+async function printMultiDeviceSecrets(argv: string[]): Promise<void> {
+    const crypto = new TweetNaClBackend(randomBytes);
+
+    const profileDirectoryPath = argv[0];
+    if (profileDirectoryPath === undefined) {
+        logger.error('Please provide <profile-dir> parameter!');
+        return process.exit(1);
+    }
+
+    const keyStorage = new FileSystemKeyStorage(
+        {
+            crypto,
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
+            ...cliStubServicesForKeyStorage,
+        },
+        logger,
+        profileDirectoryPath,
+    );
+
+    // Prompt for password
+    const rl = readline.createInterface({input: process.stdin, output: process.stdout});
+    const keyStoragePassword = await rl.question(
+        'Key storage password (WARNING, will be visible): ',
+    );
+    rl.close();
+
+    // Decrypt
+    const {inner} = await keyStorage.init(keyStoragePassword);
+
+    logger.warn('The following values are secret. Handle them like private key material.');
+    logger.info();
+    logger.info(`--threema-id=${inner.identityData.identity}`);
+    logger.info(`--client-key=${bytesToHex(inner.identityData.ck.unwrap())}`);
+    logger.info(`--csp-server-group=${inner.identityData.serverGroup}`);
+    logger.info(`--device-group-key=${bytesToHex(inner.dgk.unwrap())}`);
+    logger.info(`--csp-device-id=${u64ToHexLe(inner.deviceIds.cspDeviceId)}`);
+    logger.info(`--d2x-device-id=${u64ToHexLe(inner.deviceIds.d2mDeviceId)}`);
+    logger.info(`--csp-device-cookie=${bytesToHex(inner.deviceCookie)}`);
+    logger.info(`--expected-device-slot-state=existing`);
+    return undefined;
 }
 
 async function runSqlite(argv: string[]): Promise<void> {
