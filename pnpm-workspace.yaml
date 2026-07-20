@@ -4,8 +4,8 @@ packages:
 
 allowBuilds:
   '@threema/eslint-plugin-threema': true
-  argon2: true
-  better-sqlcipher: true
+  'argon2@https://codeload.github.com/threema-ch/node-argon2/tar.gz/d25269c471b3ece9831662fab366db531e9cfc90': true
+  'better-sqlcipher@https://codeload.github.com/threema-ch/better-sqlcipher/tar.gz/896e53bfdf558c7f772bbec3ece0e855053e25d4': true
   electron: true
   esbuild: true
   eslint-plugin-threema: true
