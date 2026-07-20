@@ -1,11 +1,17 @@
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
 
-import {ROUTE_DEFINITIONS} from '~/app/routing/routes';
+import {ROUTE_DEFINITIONS, type RouteInstanceFor} from '~/app/routing/routes';
 import type {AppServicesForSvelte} from '~/app/types';
+import {i18n} from '~/app/ui/i18n';
 import {toast} from '~/app/ui/snackbar';
 import {ReceiverType} from '~/common/enum';
 import {extractErrorMessage} from '~/common/error';
 import type {Logger} from '~/common/logging';
+import {keys} from '~/common/utils/object';
+
+type PreloadedFilesArray = NonNullable<
+    RouteInstanceFor<'main', 'conversation'>['params']['preloadedFiles']
+>;
 
 export async function collectLogsAndComposeMessageToSupport(
     services: Pick<AppServicesForSvelte, 'backend' | 'electron' | 'router'>,
@@ -13,6 +19,25 @@ export async function collectLogsAndComposeMessageToSupport(
 ): Promise<void> {
     try {
         const logFiles = await services.electron.getGzippedLogFiles();
+
+        const preloadedFiles: PreloadedFilesArray = keys(logFiles).flatMap((key) => {
+            const bytes = logFiles[key];
+            if (bytes === undefined) {
+                return [];
+            }
+
+            return [
+                {
+                    bytes,
+                    fileName: `desktop-log-${key}.txt.gz`,
+                    mediaType: 'application/gzip',
+                },
+            ];
+        });
+        if (preloadedFiles.length === 0) {
+            throw new Error('No log files available to send to support');
+        }
+
         const supportContact = await services.backend.viewModel
             .settings()
             .then(
@@ -27,23 +52,7 @@ export async function collectLogsAndComposeMessageToSupport(
                     type: ReceiverType.CONTACT,
                     uid: supportContact.ctx,
                 },
-                preloadedFiles: [
-                    {
-                        bytes: logFiles.app,
-                        fileName: 'desktop-log-app.txt.gz',
-                        mediaType: 'application/gzip',
-                    },
-                    {
-                        bytes: logFiles.bw,
-                        fileName: 'desktop-log-bw.txt.gz',
-                        mediaType: 'application/gzip',
-                    },
-                    {
-                        bytes: logFiles.webrtc,
-                        fileName: 'desktop-log-webrtc.txt.gz',
-                        mediaType: 'application/gzip',
-                    },
-                ],
+                preloadedFiles,
             },
             {
                 nav: ROUTE_DEFINITIONS.nav.conversationList.withoutParams(),
@@ -57,7 +66,9 @@ export async function collectLogsAndComposeMessageToSupport(
             )}`,
         );
         toast.addSimpleFailure(
-            `Failed to send log files to support, see console log for more details.`,
+            i18n
+                .get()
+                .t('settings--about.error--send-logs-to-support', 'Failed to send log files.'),
         );
     }
 }

@@ -771,6 +771,7 @@
   "settings--about": {
     "action--clear-logs": "Clear Logs",
     "action--send-logs-to-support": "Send Logs to Support",
+    "error--send-logs-to-support": "Failed to send log files.",
     "label--application-name": "Application Name",
     "label--application-version": "Application Version",
     "label--copyright": "Copyright",

@@ -77,9 +77,9 @@ export interface ElectronIpc {
      * Get gzip-compressed contents of the log files.
      */
     readonly getGzippedLogFiles: () => Promise<{
-        app: ReadonlyUint8Array;
-        bw: ReadonlyUint8Array;
-        webrtc: ReadonlyUint8Array;
+        app?: ReadonlyUint8Array;
+        bw?: ReadonlyUint8Array;
+        webrtc?: ReadonlyUint8Array;
     }>;
 
     /**

@@ -404,10 +404,14 @@ function generateLogFileInfo(type: 'app' | 'bw' | 'webrtc', appPath: string): Lo
     return {sizeInBytes, path: logPath};
 }
 
-async function loadCompressedLogBytes(filePath: string): Promise<ReadonlyUint8Array> {
+async function loadCompressedLogBytes(filePath: string): Promise<ReadonlyUint8Array | undefined> {
     const compressor = new ZlibCompressor();
-    const bytes = await fs.promises.readFile(filePath);
-    return await compressor.compress('gzip', bytes);
+    try {
+        const bytes = await fs.promises.readFile(filePath);
+        return await compressor.compress('gzip', bytes);
+    } catch {
+        return undefined;
+    }
 }
 
 interface MainInit {

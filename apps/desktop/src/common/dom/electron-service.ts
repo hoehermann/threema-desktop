@@ -95,9 +95,9 @@ export class ElectronIpcService implements ElectronIpc {
 
     /** @inheritdoc */
     public async getGzippedLogFiles(): Promise<{
-        app: ReadonlyUint8Array;
-        bw: ReadonlyUint8Array;
-        webrtc: ReadonlyUint8Array;
+        app?: ReadonlyUint8Array;
+        bw?: ReadonlyUint8Array;
+        webrtc?: ReadonlyUint8Array;
     }> {
         return await this._api.getGzippedLogFiles();
     }
