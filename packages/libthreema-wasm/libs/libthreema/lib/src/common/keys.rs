@@ -321,6 +321,25 @@ impl DeviceGroupKey {
         DeviceGroupReflectCipher(salsa20::XSalsa20Poly1305::new(&self.derive_key(b"r")))
     }
 
+    /// Decrypt a D2M `Reflected.envelope` (nonce-ahead, encrypted with the Device Group Reflect
+    /// Key), returning the enclosed `d2d.Envelope` bytes.
+    ///
+    /// Exposed publicly so external clients that receive `Reflected` payloads directly from a D2M
+    /// connection (i.e. that aren't going through `CspE2eProtocol`, which has no decoder for the
+    /// receive side of this yet) can decrypt them without having to reimplement the DGRK
+    /// derivation themselves.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if `envelope` is shorter than a nonce, or if decryption fails (wrong key,
+    /// or the ciphertext was tampered with).
+    pub fn decrypt_reflected_envelope(&self, envelope: &[u8]) -> Result<Vec<u8>, aead::Error> {
+        use crate::crypto::aead::AeadRandomNonceAhead as _;
+        let mut buffer = envelope.to_vec();
+        let _ = self.reflect_key().0.decrypt_in_place_random_nonce_ahead(b"", &mut buffer)?;
+        Ok(buffer)
+    }
+
     /// Derive the Device Group Device Info Key (DGDIK).
     #[must_use]
     pub(crate) fn device_info_key(&self) -> DeviceGroupDeviceInfoCipher {
