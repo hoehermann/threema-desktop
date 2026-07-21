@@ -467,7 +467,14 @@ impl D2mProtocol {
             let client_url_info = HEXLOWER_PERMISSIVE.encode(
                 &protobuf::ClientUrlInfo {
                     device_group_id: device_group_id.0.as_bytes().to_vec(),
-                    server_group: context.csp_server_group.0.clone().to_string(),
+                    // Note: `ChatServerGroup`'s own `Display` impl formats as two-digit lowercase
+                    // hex (e.g. "e0"), matching what the mediator expects. Using the wrapped `u8`
+                    // directly instead formats as decimal (e.g. "224"), which silently sends a
+                    // well-formed but wrong `server_group` -- the mediator accepts the WebSocket
+                    // upgrade (it doesn't inspect this at that layer) but then resets the
+                    // connection without ever responding, since the (decimal-string) server group
+                    // doesn't match any real shard/cluster.
+                    server_group: context.csp_server_group.to_string(),
                 }
                 .encode_to_vec(),
             );
