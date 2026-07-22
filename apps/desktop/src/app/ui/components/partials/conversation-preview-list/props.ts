@@ -13,6 +13,7 @@ import type {CharmsProps} from '~/app/ui/components/partials/receiver-card/inter
 import type {IndicatorProps} from '~/app/ui/components/partials/receiver-card/internal/content-item/internal/indicator/props';
 import type {ReceiverCardProps} from '~/app/ui/components/partials/receiver-card/props';
 import type {SanitizeAndParseTextToHtmlOptions} from '~/app/ui/utils/text';
+import type {DbContactReceiverLookup} from '~/common/db';
 import type {IQueryableStore} from '~/common/utils/store';
 import type {AnyReceiverData} from '~/common/viewmodel/utils/receiver';
 
@@ -20,6 +21,11 @@ import type {AnyReceiverData} from '~/common/viewmodel/utils/receiver';
  * Props accepted by the `ConversationPreviewList` component.
  */
 export interface ConversationPreviewListProps<THandlerProps = undefined> {
+    readonly actions?: {
+        readonly ensureContactAcquaintanceLevelDirect: (
+            receiverLookup: DbContactReceiverLookup,
+        ) => Promise<void>;
+    };
     readonly contextMenuItems?:
         | ContextMenuItemWithHandlerProps<THandlerProps>[]
         | ((

@@ -59,13 +59,13 @@
     return undefined;
   });
 
-  function handleClick(event: MouseEvent): void {
+  async function handleClick(event: MouseEvent): Promise<void> {
     if (isContextMenuOpen) {
       event.preventDefault();
       return;
     }
 
-    onclick?.(event);
+    await onclick?.(event);
   }
 
   function handleAlternativeClick(event: MouseEvent): void {

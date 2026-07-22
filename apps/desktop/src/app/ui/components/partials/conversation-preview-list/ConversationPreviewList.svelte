@@ -18,6 +18,7 @@
   import {ReceiverType} from '~/common/enum';
 
   const {
+    actions,
     contextMenuItems,
     highlights,
     items = [],
@@ -63,17 +64,20 @@
     false,
   );
 
-  function handleClickItem(
+  async function handleClickItem(
     event: MouseEvent,
     receiverLookup: DbReceiverLookup,
     active?: boolean,
-  ): void {
+  ): Promise<void> {
     event.preventDefault();
 
     if (active === true) {
       // Close conversation if it was already open.
       router.goToWelcome();
     } else {
+      if (receiverLookup.type === ReceiverType.CONTACT) {
+        await actions?.ensureContactAcquaintanceLevelDirect(receiverLookup);
+      }
       router.goToConversation({receiverLookup});
     }
   }
@@ -116,7 +120,8 @@
                 ...transformContextMenuItemsToContextMenuOptions(item, contextMenuItems),
               }}
           {highlights}
-          onclick={(event) => handleClickItem(event, item.get().receiver.lookup, active)}
+          onclick={async (event) =>
+            await handleClickItem(event, item.get().receiver.lookup, active)}
           onclickjoincall={() => handleclickjoincall(item.get().receiver.lookup)}
           {services}
           store={item}

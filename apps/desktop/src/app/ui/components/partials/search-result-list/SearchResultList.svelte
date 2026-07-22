@@ -167,6 +167,15 @@
           {...$conversationPreviewListProps}
           highlights={searchParams.term}
           {services}
+          actions={{
+            ensureContactAcquaintanceLevelDirect: async (receiverLookup) => {
+              try {
+                await viewModelController?.setAcquaintanceLevelDirect(receiverLookup);
+              } catch (error) {
+                log.error('Failed to set acquaintance level to direct', error);
+              }
+            },
+          }}
         />
 
         {#if ($conversationSearchResults?.size ?? 0) >= (searchParams.limits.conversations ?? DEFAULT_SEARCH_PARAMS.limits.conversations)}
