@@ -181,6 +181,11 @@
           return false;
         }
 
+        // The contact should only be displayed if already added to the group
+        if (item.receiver.isInvalid && !currentGroupMembers.has(item.receiver.lookup.uid)) {
+          return false;
+        }
+
         if (currentSearchTerm !== undefined && currentSearchTerm !== '') {
           return isReceiverMatchingSearchTerm(item.receiver, currentSearchTerm);
         }

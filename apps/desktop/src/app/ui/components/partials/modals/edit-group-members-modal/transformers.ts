@@ -50,9 +50,7 @@ function getSortedContactItems(
                 !(
                     appearanceSettings.inactiveContactsPolicy === InactiveContactsPolicy.HIDE &&
                     item.get().receiver.isInactive
-                ) &&
-                // Invalid contacts cannot be added to groups.
-                !item.get().receiver.isInvalid,
+                ),
         )
         .sort((a, b) =>
             getAndSubscribe(a, ['receiver']).receiver.name.localeCompare(
