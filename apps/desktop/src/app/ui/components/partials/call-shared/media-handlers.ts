@@ -1,3 +1,4 @@
+import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
 import {TIMER} from '@threema/ts-utils/timer/global-timer';
 
 import type {AppServicesForSvelte} from '~/app/types';
@@ -9,7 +10,6 @@ import {
     attachLocalDeviceAndAnnounceCaptureState,
     createCaptureDevices,
     findMediaDevice,
-    releaseCameraDevice,
     selectCameraDevice,
     selectInitialCaptureDevices,
     selectMicrophoneDevice,
@@ -34,17 +34,20 @@ import type {ReadableStore} from '~/common/utils/store';
 
 /**
  * Everything the media handlers need from the hosting activity component.
- *
- * `getCall`/`getStop` are accessors (not values) because `call`/`stop` are reassigned over the call
- * lifecycle; the handlers — especially the debouncers and error handlers — must always read the
- * latest value.
  */
 export interface CallMediaHandlersContext {
     readonly services: AppServicesForSvelte;
     readonly log: Logger;
     readonly electron: ElectronIpcService;
     readonly i18n: typeof i18nStore;
+    /**
+     * Must return the currently active call of the hosting activity component.
+     */
     readonly getCall: () => AnyAugmentedOngoingCallViewModelBundle | undefined;
+    /**
+     * Must return the {@link AbortRaiser} for the currently active call of the hosting activity
+     * component.
+     */
     readonly getStop: () => AbortRaiser<AnyExtendedGroupCallContextAbort> | undefined;
     readonly setAudioSink: (deviceId: string | undefined) => void;
 }
@@ -52,11 +55,7 @@ export interface CallMediaHandlersContext {
 export type CallMediaHandlers = ReturnType<typeof createCallMediaHandlers>;
 
 /**
- * Create the device-control handlers shared by the group- and conference-call activities.
- *
- * The factory owns the capture devices (microphone/camera/screen) — both the hosting component
- * (template + feed builders) and the handlers need them — and returns them alongside the handler
- * closures.
+ * Create the device-control handlers for a call-activity.
  */
 export function createCallMediaHandlers(ctx: CallMediaHandlersContext): {
     readonly guard: CaptureDevicesGuard;
@@ -84,6 +83,21 @@ export function createCallMediaHandlers(ctx: CallMediaHandlersContext): {
     const {services, log, electron, i18n, getCall, getStop, setAudioSink} = ctx;
 
     const {guard, store: localDevices} = createCaptureDevices();
+
+    // Serializes the local camera lifecycle operations (on/off), so that each operation's decision
+    // is made against the *committed* result of the previous one.
+    const cameraOperationLock = new AsyncLock();
+
+    // The label of the camera most recently selected by the user in this session, or `undefined` if
+    // none was selected yet. Tracked locally (in addition to being persisted to settings) so that a
+    // device picked while the camera is off is honored immediately when it's turned on the next
+    // time.
+    let selectedCameraLabel: string | undefined = undefined;
+
+    // Set once `stopCapture` has been called (i.e. the hosting activity is being torn down). Used
+    // to bail out of an in-flight camera acquisition so we don't open the hardware after the call
+    // is gone.
+    let disposed = false;
 
     const updateCameraSubscription = TIMER.debounceWithDistinctArgs(
         (dimensions: Dimensions | undefined, participantId: 'local' | ParticipantId) => {
@@ -187,24 +201,29 @@ export function createCallMediaHandlers(ctx: CallMediaHandlersContext): {
             log.debug(`Selected camera device "${device.label}" was saved to settings`);
         }
 
-        // While the camera is off, the device is released, so only persist the selection. It will be
-        // used the next time the camera is turned on (see `acquireCamera`).
-        if (localDevices.get().camera === undefined) {
-            persistSelection().catch((error: unknown) => {
-                log.warn(`Error saving selected camera device ${device.label}: ${error}`);
-            });
-            return;
-        }
+        // Reading the committed state inside `cameraOperationLock` ensures we don't observe stale
+        // state while an acquire/release is in flight.
+        cameraOperationLock
+            .with(async () => {
+                // Remember the selection for the next on-demand acquire (see `acquireCameraDevice`).
+                selectedCameraLabel = device.label;
 
-        // While the camera is on, switch the live device and persist the selection.
-        selectCameraDevice(guard, getCall(), {
-            device: {
-                deviceId: device.deviceId,
-            },
-            facing: 'user',
-            state: 'on',
-        })
-            .then(persistSelection)
+                // While the camera is off, the device is released, so only persist the selection.
+                if (localDevices.get().camera === undefined) {
+                    await persistSelection();
+                    return;
+                }
+
+                // While the camera is on, switch the live device and persist the selection.
+                await selectCameraDevice(guard, getCall(), {
+                    device: {
+                        deviceId: device.deviceId,
+                    },
+                    facing: 'user',
+                    state: 'on',
+                });
+                await persistSelection();
+            })
             .catch((error: unknown) => {
                 log.warn(
                     `Error selecting or saving selected camera device ${device.label}: ${error}`,
@@ -236,37 +255,51 @@ export function createCallMediaHandlers(ctx: CallMediaHandlersContext): {
     }
 
     function toggleCamera(state: 'on' | 'off' | 'toggle'): void {
-        // The camera is considered "off" while no track is held (it is released and re-acquired on
-        // demand, rather than kept open with `enabled = false`).
-        const isCurrentlyOff = localDevices.get().camera === undefined;
-        const turnOn = state === 'on' || (state === 'toggle' && isCurrentlyOff);
+        // Serialize toggle operations using `cameraOperationLock` to prevent double-acquire due to
+        // stale state while an acquire/release is in flight.
+        cameraOperationLock
+            .with(async () => {
+                // The camera is considered "off" while no track is held (it is released and
+                // re-acquired on demand, rather than kept open with `enabled = false`).
+                const isCurrentlyOff = localDevices.get().camera === undefined;
+                const turnOn = state === 'on' || (state === 'toggle' && isCurrentlyOff);
 
-        if (turnOn) {
-            // Acquire the camera on demand. Resolve the last selected camera from settings, falling
-            // back to the default device.
-            acquireCamera().catch((error: unknown) => {
-                log.error(`Acquiring local camera device failed`, error);
+                if (turnOn) {
+                    // Acquire the camera on demand.
+                    await acquireCameraDevice();
+                } else {
+                    // Turn off by releasing the camera hardware immediately (no grace period).
+                    await releaseCameraDevice();
+                }
+            })
+            .catch((error: unknown) => {
+                log.error(`Toggling local camera device failed`, error);
                 getStop()?.raise({origin: 'ui-component', cause: 'unexpected-error'});
             });
-        } else {
-            // Turn off by releasing the camera hardware immediately (no grace period).
-            releaseCameraDevice(guard, getCall()).catch((error: unknown) => {
-                log.error(`Releasing local camera device failed`, error);
-                getStop()?.raise({origin: 'ui-component', cause: 'unexpected-error'});
-            });
-        }
     }
 
-    async function acquireCamera(): Promise<void> {
-        // Resolve the last selected camera from settings to a device id, falling back to the default
-        // device if it is unset or no longer available.
-        const {lastSelectedCamera} = services.settings.views.calls.get();
+    /**
+     * Acquire the camera device.
+     *
+     * IMPORTANT: MUST only be called while {@link cameraOperationLock} is held, so the decision
+     * whether to `acquireCameraDevice` or `releaseCameraDevice` is based on fresh state.
+     */
+    async function acquireCameraDevice(): Promise<void> {
+        // Resolve which camera to open from its label, preferring a device explicitly selected in
+        // this session over the last selected camera persisted in settings, and falling back to the
+        // default device if the label is unset or the device is no longer available.
+        const label = selectedCameraLabel ?? services.settings.views.calls.get().lastSelectedCamera;
         let device: 'default' | {readonly deviceId: string} = 'default';
-        if (lastSelectedCamera !== undefined) {
-            const mediaDevice = await findMediaDevice('videoinput', lastSelectedCamera);
+        if (label !== undefined) {
+            const mediaDevice = await findMediaDevice('videoinput', label);
             if (mediaDevice !== undefined) {
                 device = {deviceId: mediaDevice.deviceId};
             }
+        }
+
+        // The hosting activity may have been torn down while we were resolving the device above.
+        if (disposed) {
+            return;
         }
 
         try {
@@ -287,6 +320,32 @@ export function createCallMediaHandlers(ctx: CallMediaHandlersContext): {
                 },
             );
         }
+    }
+
+    /**
+     * Release the camera device.
+     *
+     * Detaches the track from the transceiver, announces the `'off'` capture state and clears the
+     * store entry, then explicitly stops the previously held track.
+     *
+     * IMPORTANT: MUST only be called while {@link cameraOperationLock} is held, so the decision
+     * whether to `acquireCameraDevice` or `releaseCameraDevice` is based on fresh state.
+     */
+    async function releaseCameraDevice(): Promise<void> {
+        return await guard.with(async (store) => {
+            const current = store.get().camera;
+            await attachLocalDeviceAndAnnounceCaptureState(
+                guard,
+                getCall(),
+                store,
+                'camera',
+                undefined,
+            );
+            // Important: `attachLocalDeviceAndAnnounceCaptureState` does *not* stop the previous
+            // track, so the explicit `stop()` is required to actually release the hardware. We
+            // detach first, then stop.
+            current?.track.stop();
+        }, 'select-camera');
     }
 
     function toggleScreenSharing(): void {
@@ -351,47 +410,59 @@ export function createCallMediaHandlers(ctx: CallMediaHandlersContext): {
         readonly camera: boolean;
     }): void {
         const {lastSelectedCamera, lastSelectedMicrophone} = services.settings.views.calls.get();
-        selectInitialCaptureDevices(
-            log,
-            guard,
-            {
-                microphone: {state: initial.microphone ? 'on' : 'off'},
-                camera: {state: initial.camera ? 'on' : 'off'},
-                screen: {state: 'off'},
-            },
-            {
-                preferredDevices: {
-                    camera:
-                        lastSelectedCamera === undefined
-                            ? {type: 'default'}
-                            : {
-                                  type: 'by-device-label',
-                                  deviceLabel: lastSelectedCamera,
-                                  kind: 'videoinput',
-                              },
-                    microphone:
-                        lastSelectedMicrophone === undefined
-                            ? {type: 'default'}
-                            : {
-                                  type: 'by-device-label',
-                                  deviceLabel: lastSelectedMicrophone,
-                                  kind: 'audioinput',
-                              },
-                },
-            },
-        ).catch((error: unknown) => {
-            log.error(`Setting initial local capture devices failed`, error);
-            getStop()?.raise({origin: 'ui-component', cause: 'unexpected-error'});
-        });
+        // Serialize with `cameraOperationLock` so a user camera toggle issued during startup queues
+        // behind the initial acquisition.
+        cameraOperationLock
+            .with(async () => {
+                await selectInitialCaptureDevices(
+                    log,
+                    guard,
+                    {
+                        microphone: {state: initial.microphone ? 'on' : 'off'},
+                        camera: {state: initial.camera ? 'on' : 'off'},
+                        screen: {state: 'off'},
+                    },
+                    {
+                        preferredDevices: {
+                            camera:
+                                lastSelectedCamera === undefined
+                                    ? {type: 'default'}
+                                    : {
+                                          type: 'by-device-label',
+                                          deviceLabel: lastSelectedCamera,
+                                          kind: 'videoinput',
+                                      },
+                            microphone:
+                                lastSelectedMicrophone === undefined
+                                    ? {type: 'default'}
+                                    : {
+                                          type: 'by-device-label',
+                                          deviceLabel: lastSelectedMicrophone,
+                                          kind: 'audioinput',
+                                      },
+                        },
+                    },
+                );
+            })
+            .catch((error: unknown) => {
+                log.error(`Setting initial local capture devices failed`, error);
+                getStop()?.raise({origin: 'ui-component', cause: 'unexpected-error'});
+            });
     }
 
     function stopCapture(): void {
-        guard
-            .with((store) => {
-                const devices = store.get();
-                devices.microphone?.track.stop();
-                devices.camera?.track.stop();
-            }, 'stop')
+        disposed = true;
+
+        // Serialize behind any in-flight camera operation to ensure the stop operations are the
+        // last ones that run.
+        cameraOperationLock
+            .with(async () => {
+                await guard.with((store) => {
+                    const devices = store.get();
+                    devices.microphone?.track.stop();
+                    devices.camera?.track.stop();
+                }, 'stop');
+            })
             .catch(assertUnreachable);
     }
 

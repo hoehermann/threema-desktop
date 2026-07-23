@@ -225,26 +225,6 @@ export async function selectCameraDevice(
     }, 'select-camera');
 }
 
-/**
- * Release the camera device.
- *
- * Detaches the track from the transceiver, announces the `'off'` capture state and clears the store
- * entry, then explicitly stops the previously held track.
- *
- * IMPORTANT: {@link attachLocalDeviceAndAnnounceCaptureState} does *not* stop the previous track, so
- * the explicit `stop()` is required to actually release the hardware. We detach first, then stop.
- */
-export async function releaseCameraDevice(
-    guard: CaptureDevicesGuard,
-    call: AnyAugmentedOngoingCallViewModelBundle | undefined,
-): Promise<void> {
-    return await guard.with(async (store) => {
-        const current = store.get().camera;
-        await attachLocalDeviceAndAnnounceCaptureState(guard, call, store, 'camera', undefined);
-        current?.track.stop();
-    }, 'select-camera');
-}
-
 export async function startScreenSharing(
     electron: ElectronIpcService,
     guard: CaptureDevicesGuard,
