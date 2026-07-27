@@ -4,6 +4,7 @@ import {expect} from 'chai';
 
 import type {CryptoBackend} from '~/common/crypto';
 import {randomPkcs7PaddingLength, randomString} from '~/common/crypto/random';
+import {randomBytes as domRandomBytes} from '~/common/dom/crypto/random';
 import {getGraphemeClusters} from '~/common/utils/string';
 import {TestTweetNaClBackend} from '~/test/mocha/common/backend-mocks';
 
@@ -86,6 +87,47 @@ export function run(): void {
                 expect(graphemeClusters.length).to.equal(13);
                 for (const emoji of graphemeClusters) {
                     expect(charset).to.contain(emoji);
+                }
+            });
+        });
+
+        describe('domRandomBytes', function () {
+            it('uses globalThis.crypto when self is unavailable', () => {
+                const originalSelf = globalThis.self;
+                const originalCrypto = globalThis.crypto;
+                const values = new Uint8Array(4);
+
+                // Node-like environments do not define `self`, but they do expose Web Crypto.
+                // @ts-expect-error - removing an implicit global property for the test.
+                delete globalThis.self;
+                Object.defineProperty(globalThis, 'crypto', {
+                    configurable: true,
+                    value: {
+                        getRandomValues: (target: Uint8Array) => {
+                            target.set([1, 2, 3, 4]);
+                            return target;
+                        },
+                    },
+                });
+
+                try {
+                    domRandomBytes(values);
+                    expect(Array.from(values)).to.deep.equal([1, 2, 3, 4]);
+                } finally {
+                    if (originalSelf === undefined) {
+                        // @ts-expect-error - restoring the deleted global property.
+                        delete globalThis.self;
+                    } else {
+                        Object.defineProperty(globalThis, 'self', {
+                            configurable: true,
+                            value: originalSelf,
+                        });
+                    }
+
+                    Object.defineProperty(globalThis, 'crypto', {
+                        configurable: true,
+                        value: originalCrypto,
+                    });
                 }
             });
         });
