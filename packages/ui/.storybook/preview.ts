@@ -1,7 +1,9 @@
 import type {Preview} from '@storybook/svelte-vite';
 
+// Imports the theme and applies the styles the consuming apps are expected to provide.
+//
 // eslint-disable-next-line import/no-unassigned-import
-import '../src/theme.css';
+import './preview.css';
 
 import BrandingDecorator from './BrandingDecorator.svelte';
 import ThemeDecorator from './ThemeDecorator.svelte';
