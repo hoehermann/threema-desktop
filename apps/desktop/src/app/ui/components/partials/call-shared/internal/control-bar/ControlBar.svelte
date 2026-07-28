@@ -3,12 +3,12 @@
 -->
 <script lang="ts">
   import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
+  import {RadialExclusionMaskProvider} from '@threema/ui';
   import {onMount} from 'svelte';
 
   import {globals} from '~/app/globals';
   import ContextMenuProvider from '~/app/ui/components/hocs/context-menu-provider/ContextMenuProvider.svelte';
   import type {ContextMenuItem} from '~/app/ui/components/hocs/context-menu-provider/types';
-  import RadialExclusionMaskProvider from '~/app/ui/components/hocs/radial-exclusion-mask-provider/RadialExclusionMaskProvider.svelte';
   import {getAudioDeviceContextMenuItems} from '~/app/ui/components/partials/call-shared/internal/control-bar/helpers';
   import type {ControlBarProps} from '~/app/ui/components/partials/call-shared/internal/control-bar/props';
   import type {

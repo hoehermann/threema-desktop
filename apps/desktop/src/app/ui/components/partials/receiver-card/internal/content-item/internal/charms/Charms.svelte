@@ -3,10 +3,10 @@
 -->
 <script lang="ts">
   import type {u53} from '@threema/ts-utils/integer/u53';
+  import {RadialExclusionMaskProvider} from '@threema/ui';
 
   import {globals} from '~/app/globals';
   import Timer from '~/app/ui/components/atoms/timer/Timer.svelte';
-  import RadialExclusionMaskProvider from '~/app/ui/components/hocs/radial-exclusion-mask-provider/RadialExclusionMaskProvider.svelte';
   import type {CharmsProps} from '~/app/ui/components/partials/receiver-card/internal/content-item/internal/charms/props';
   import {i18n} from '~/app/ui/i18n';
   import MdIcon from '~/app/ui/svelte-components/blocks/Icon/MdIcon.svelte';

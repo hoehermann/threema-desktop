@@ -4,11 +4,10 @@
 <script lang="ts">
   import type {f64} from '@threema/ts-utils/float/f64';
   import type {u53} from '@threema/ts-utils/integer/u53';
+  import {RadialExclusionMaskProvider, type RadialExclusionMaskProviderProps} from '@threema/ui';
 
   import type {AvatarProps} from '~/app/ui/components/atoms/avatar/props';
   import LazyImage from '~/app/ui/components/atoms/lazy-image/LazyImage.svelte';
-  import RadialExclusionMaskProvider from '~/app/ui/components/hocs/radial-exclusion-mask-provider/RadialExclusionMaskProvider.svelte';
-  import type {RadialExclusionMaskProviderProps} from '~/app/ui/components/hocs/radial-exclusion-mask-provider/props';
   import MdIcon from '~/app/ui/svelte-components/blocks/Icon/MdIcon.svelte';
   import ThreemaIcon from '~/app/ui/svelte-components/blocks/Icon/ThreemaIcon.svelte';
   import {svelteUnreachable} from '~/app/ui/utils/svelte';
