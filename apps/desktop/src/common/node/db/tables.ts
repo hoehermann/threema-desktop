@@ -1,5 +1,6 @@
 /** Table declarations. */
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+import type {f64} from '@threema/ts-utils/float/f64';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import type {u8} from '@threema/ts-utils/integer/u8';
 import {Table} from 'ts-sql-query/Table';
@@ -70,7 +71,6 @@ import type {
 } from '~/common/network/types';
 import type {RawBlobKey} from '~/common/network/types/keys';
 import {CUSTOM_TYPES, type DBConnection} from '~/common/node/db/connection';
-import type {f64} from '~/common/types';
 import type {SingleUnicodeEmoji} from '~/common/utils/emoji';
 
 /**

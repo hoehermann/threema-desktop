@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type {f64} from '@threema/ts-utils/float/f64';
   import {ensureError} from '@threema/ts-utils/meta/ensure-error';
 
   import {globals} from '~/app/globals';
@@ -19,7 +20,6 @@
   import {toast} from '~/app/ui/snackbar';
   import MdIcon from '~/app/ui/svelte-components/blocks/Icon/MdIcon.svelte';
   import type {SvelteNullableBinding} from '~/app/ui/utils/svelte';
-  import type {f64} from '~/common/types';
   import {
     EMOJI_GROUP_IDS,
     isSingleUnicodeEmoji,

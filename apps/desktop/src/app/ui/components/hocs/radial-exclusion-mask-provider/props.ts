@@ -1,7 +1,6 @@
+import type {f64} from '@threema/ts-utils/float/f64';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import type {Snippet} from 'svelte';
-
-import type {f64} from '~/common/types';
 
 /**
  * Props accepted by the `RadialExclusionMaskProvider` component.

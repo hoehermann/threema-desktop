@@ -1,11 +1,11 @@
 import * as v from '@badrap/valita';
+import type {f64} from '@threema/ts-utils/float/f64';
 
 import type {EarlyBackendServicesThatDontRequireConfig} from '~/common/backend';
 import {STATIC_CONFIG} from '~/common/config';
 import {adapter} from '~/common/dom/streams';
 import type {Logger} from '~/common/logging';
 import {isNodeError} from '~/common/node/utils';
-import type {f64} from '~/common/types';
 import {unreachable} from '~/common/utils/assert';
 
 import {

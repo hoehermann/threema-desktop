@@ -1,4 +1,5 @@
 <script lang="ts">
+  import {isF64, type f64} from '@threema/ts-utils/float/f64';
   import {ensureError} from '@threema/ts-utils/meta/ensure-error';
   import {onMount} from 'svelte';
 
@@ -11,7 +12,7 @@
     PROFILE_PICTURE_EXPORT_SIZE,
   } from '~/app/ui/utils/constants';
   import type {ProfilePictureBlobStoreValue} from '~/common/dom/ui/profile-picture';
-  import {isF64, isI53, type f64, type i53} from '~/common/types';
+  import {isI53, type i53} from '~/common/types';
 
   const {uiLogging} = globals.unwrap();
   const log = uiLogging.logger('ui.component.edit-picture-modal');

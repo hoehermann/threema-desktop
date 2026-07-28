@@ -5,6 +5,7 @@
 </script>
 
 <script lang="ts">
+  import type {f64} from '@threema/ts-utils/float/f64';
   import {ensureError} from '@threema/ts-utils/meta/ensure-error';
   import {onDestroy, tick, untrack} from 'svelte';
 
@@ -15,7 +16,6 @@
   import type {LazyAudioContent} from '~/app/ui/components/molecules/audio-player/types';
   import MdIcon from '~/app/ui/svelte-components/blocks/Icon/MdIcon.svelte';
   import {reactive, type SvelteNullableBinding} from '~/app/ui/utils/svelte';
-  import type {f64} from '~/common/types';
   import {assertUnreachable, unreachable} from '~/common/utils/assert';
   import {calculateRootMeanSquare} from '~/common/utils/audio';
 

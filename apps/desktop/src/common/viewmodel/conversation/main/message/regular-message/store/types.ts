@@ -1,3 +1,4 @@
+import type {f64} from '@threema/ts-utils/float/f64';
 import type {u53} from '@threema/ts-utils/integer/u53';
 
 import type {
@@ -8,7 +9,7 @@ import type {
     PollMessageType,
 } from '~/common/enum';
 import type {IdentityString, MessageId, PollId} from '~/common/network/types';
-import type {Dimensions, f64, i53} from '~/common/types';
+import type {Dimensions, i53} from '~/common/types';
 import type {SingleUnicodeEmoji, UnsupportedEmoji} from '~/common/utils/emoji';
 import type {
     AnyConversationMessageViewModelBundle,

@@ -24,7 +24,6 @@ export type u64 = bigint;
 export type i64 = bigint;
 export type ubig = bigint;
 export type ibig = bigint;
-export type f64 = number;
 /* eslint-enable @typescript-eslint/naming-convention */
 
 // Re-exporting types from @threema/ts-utils for structbuf-typescript
@@ -97,13 +96,6 @@ export function ensureI53(val: unknown): i53 {
         throw new Error(`Value ${val} is not a valid integer in the i53 range`);
     }
     return val;
-}
-
-/**
- * Type guard for {@link f64}.
- */
-export function isF64(val: unknown): val is f64 {
-    return typeof val === 'number';
 }
 
 /**

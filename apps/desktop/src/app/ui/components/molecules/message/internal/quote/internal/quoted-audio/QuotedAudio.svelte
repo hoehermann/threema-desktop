@@ -1,10 +1,11 @@
 <script lang="ts">
+  import type {f64} from '@threema/ts-utils/float/f64';
+
   import {globals} from '~/app/globals';
   import Text from '~/app/ui/components/atoms/text/Text.svelte';
   import type {QuotedAudioProps} from '~/app/ui/components/molecules/message/internal/quote/internal/quoted-audio/props';
   import MdIcon from '~/app/ui/svelte-components/blocks/Icon/MdIcon.svelte';
   import {reactive} from '~/app/ui/utils/svelte';
-  import type {f64} from '~/common/types';
   import {assertUnreachable} from '~/common/utils/assert';
   import {computeAudioDuration} from '~/common/utils/audio';
   import {durationToString} from '~/common/utils/date';

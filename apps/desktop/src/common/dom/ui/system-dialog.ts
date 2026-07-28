@@ -1,3 +1,4 @@
+import type {f64} from '@threema/ts-utils/float/f64';
 import {ResolvablePromise} from '@threema/ts-utils/promise/resolvable-promise';
 
 import {TRANSFER_HANDLER} from '~/common/index';
@@ -7,7 +8,6 @@ import type {
     SystemDialogHandle,
     SystemDialogService,
 } from '~/common/system-dialog';
-import type {f64} from '~/common/types';
 import {unwrap} from '~/common/utils/assert';
 import {PROXY_HANDLER} from '~/common/utils/endpoint';
 import {WritableStore} from '~/common/utils/store';

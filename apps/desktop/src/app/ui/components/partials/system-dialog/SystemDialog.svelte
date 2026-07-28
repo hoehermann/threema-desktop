@@ -2,6 +2,7 @@
   @component Renders system dialogs.
 -->
 <script lang="ts">
+  import type {f64} from '@threema/ts-utils/float/f64';
   import type {u53} from '@threema/ts-utils/integer/u53';
 
   import {globals} from '~/app/globals';
@@ -24,7 +25,6 @@
   import {svelteUnreachable} from '~/app/ui/utils/svelte';
   import {systemDialogStore} from '~/common/dom/ui/system-dialog';
   import type {SystemDialogAction} from '~/common/system-dialog';
-  import type {f64} from '~/common/types';
 
   const {uiLogging} = globals.unwrap();
   const log = uiLogging.logger('ui.component.system-dialog');

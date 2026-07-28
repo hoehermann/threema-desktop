@@ -2,6 +2,7 @@
   @component Renders an avatar (an image, or initials used as a fallback).
 -->
 <script lang="ts">
+  import type {f64} from '@threema/ts-utils/float/f64';
   import type {u53} from '@threema/ts-utils/integer/u53';
 
   import type {AvatarProps} from '~/app/ui/components/atoms/avatar/props';
@@ -11,7 +12,6 @@
   import MdIcon from '~/app/ui/svelte-components/blocks/Icon/MdIcon.svelte';
   import ThreemaIcon from '~/app/ui/svelte-components/blocks/Icon/ThreemaIcon.svelte';
   import {svelteUnreachable} from '~/app/ui/utils/svelte';
-  import type {f64} from '~/common/types';
   import {unreachable} from '~/common/utils/assert';
 
   const {
