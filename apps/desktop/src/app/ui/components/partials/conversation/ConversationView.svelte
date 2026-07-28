@@ -1,6 +1,7 @@
 <script lang="ts">
   import {UTF8} from '@threema/ts-utils/codec/utf8';
   import {ensureError} from '@threema/ts-utils/meta/ensure-error';
+  import {getGraphemeClusters} from '@threema/ts-utils/string/get-grapheme-clusters';
   import {TIMER} from '@threema/ts-utils/timer/global-timer';
   import {onDestroy, onMount, tick, untrack} from 'svelte';
 
@@ -76,10 +77,7 @@
     type StoreUnsubscriber,
     type IQueryableStoreValue,
   } from '~/common/utils/store';
-  import {
-    getGraphemeClusters,
-    getLongestValidMatchingGraphemeSequence,
-  } from '~/common/utils/string';
+  import {getLongestValidMatchingGraphemeSequence} from '~/common/utils/string';
   import type {ConversationViewModelBundle} from '~/common/viewmodel/conversation/main';
   import type {
     SendFileBasedMessageInformation,

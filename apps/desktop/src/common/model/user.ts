@@ -1,3 +1,5 @@
+import {getGraphemeClusters} from '@threema/ts-utils/string/get-grapheme-clusters';
+
 import {ReceiverType} from '~/common/enum';
 import {TRANSFER_HANDLER} from '~/common/index';
 import {EmojiPreferencesModelStore} from '~/common/model/emoji-preferences';
@@ -29,7 +31,6 @@ import {PROXY_HANDLER} from '~/common/utils/endpoint';
 import {idColorIndex, idColorIndexToString} from '~/common/utils/id-color';
 import type {LocalStore} from '~/common/utils/store';
 import {derive} from '~/common/utils/store/derived-store';
-import {getGraphemeClusters} from '~/common/utils/string';
 
 /**
  * Determine the initials of the user.

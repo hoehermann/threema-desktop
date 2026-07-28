@@ -4,6 +4,7 @@ import type {u53} from '@threema/ts-utils/integer/u53';
 import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
 import {u64ToHexLe} from '@threema/ts-utils/number/u64-to-hex-le';
 import {SequenceNumberU53} from '@threema/ts-utils/sequence-number/sequence-number-u53';
+import {getGraphemeClusters} from '@threema/ts-utils/string/get-grapheme-clusters';
 
 import type {
     DbContactUid,
@@ -86,7 +87,6 @@ import {difference} from '~/common/utils/set';
 import type {AbortListener} from '~/common/utils/signal';
 import {WritableStore, type ReadableStore} from '~/common/utils/store';
 import {LocalSetStore} from '~/common/utils/store/set-store';
-import {getGraphemeClusters} from '~/common/utils/string';
 
 let cache = new ModelStoreCache<DbGroupUid, ModelStore<Group>>();
 
