@@ -1,6 +1,14 @@
 import {playwright} from '@vitest/browser-playwright';
 import {defineConfig} from 'vitest/config';
 
+/**
+ * Size of the Vitest iframe as well as the Playwright window.
+ *
+ * Note: The two must match. If the page is smaller than the iframe, Vitest scales the iframe down
+ * to fit, which means that rendered pixels no longer correspond to CSS pixels.
+ */
+const VIEWPORT = {width: 1024, height: 768};
+
 export default defineConfig({
     test: {
         include: ['src/**/*.test.ts'],
@@ -8,10 +16,14 @@ export default defineConfig({
             enabled: true,
             instances: [{browser: 'chromium'}],
             provider: playwright({
+                contextOptions: {
+                    viewport: VIEWPORT,
+                },
                 launchOptions: {
                     executablePath: process.env.CHROMIUM_BIN,
                 },
             }),
+            viewport: VIEWPORT,
         },
         coverage: {
             exclude: ['src/utils/test/**/*'],
