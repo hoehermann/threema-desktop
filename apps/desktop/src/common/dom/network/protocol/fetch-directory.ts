@@ -4,8 +4,10 @@ import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-ar
 import {base64ToU8a} from '@threema/ts-utils/base64/base64-to-u8a';
 import {u8aToBase64} from '@threema/ts-utils/base64/u8a-to-base64';
 import {UTF8} from '@threema/ts-utils/codec/utf8';
+import type {u53} from '@threema/ts-utils/integer/u53';
 import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
+import {ExpiringValue} from '@threema/ts-utils/meta/expiring-value';
 import {TIMER} from '@threema/ts-utils/timer/global-timer';
 import {TimeoutError} from '@threema/ts-utils/timer/timeout-error';
 
@@ -29,7 +31,6 @@ import {
 import type {IdentityString} from '~/common/network/types';
 import type {ClientKey} from '~/common/network/types/keys';
 import {assert, unreachable, unwrap} from '~/common/utils/assert';
-import {ExpiringValue} from '~/common/utils/date';
 import {PROXY_HANDLER} from '~/common/utils/endpoint';
 import type {IQueryableStore} from '~/common/utils/store';
 /**
@@ -255,9 +256,13 @@ export class FetchDirectoryBackend implements DirectoryBackend {
     }
 
     /** @inheritdoc */
-    public async sfuToken(identity: IdentityString, ck: ClientKey): Promise<SfuToken> {
+    public async sfuToken(
+        identity: IdentityString,
+        ck: ClientKey,
+        minRemainingValidityMs?: u53,
+    ): Promise<SfuToken> {
         // Re-use cached SFU token if possible
-        const token = this._cache.sfuToken.get();
+        const token = this._cache.sfuToken.get({minRemainingValidityMs});
         if (token !== undefined) {
             return token;
         }
