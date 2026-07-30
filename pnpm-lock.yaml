@@ -536,8 +536,8 @@ importers:
         specifier: 1.0.3
         version: 1.0.3
       web-streams-polyfill:
-        specifier: ~3.3.2
-        version: 3.3.3
+        specifier: ~4.3.0
+        version: 4.3.0
     devDependencies:
       '@electron/asar':
         specifier: ^3.2.0
@@ -6397,8 +6397,8 @@ packages:
     resolution: {integrity: sha512-IC8sL7aB4/ZgFcGI2T1LczZeFWZ06b3zoHH7jBPyHxOtIIz1jppWHjjEXkOFvFojBVAK9pV7g47xOZ4LW3QLfg==}
     engines: {node: 8.* || >= 10.*}
 
-  web-streams-polyfill@3.3.3:
-    resolution: {integrity: sha512-d2JWLCivmZYTSIoge9MsgFCZrt571BikcWGYkjC1khllbTeDlGqZ2D8vD8E/lJa8WGWbb7Plm8/XJYV7IJHZZw==}
+  web-streams-polyfill@4.3.0:
+    resolution: {integrity: sha512-/Gnggvj9oSrEvJbDyyPtAnxBt5fGQM2iWOKQNu7ie1OxDgK40iZpyV3TKaRiEzVj1oA1UxKnEy9XPXh6PW3eVw==}
     engines: {node: '>= 8'}
 
   webpack-virtual-modules@0.6.2:
@@ -12305,7 +12305,7 @@ snapshots:
       matcher-collection: 2.0.1
       minimatch: 3.1.5
 
-  web-streams-polyfill@3.3.3: {}
+  web-streams-polyfill@4.3.0: {}
 
   webpack-virtual-modules@0.6.2: {}
 
