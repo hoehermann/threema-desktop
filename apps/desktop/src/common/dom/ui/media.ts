@@ -1,4 +1,5 @@
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+import {ensureArrayBufferBackedView} from '@threema/ts-utils/byte/array-buffer-backed-view';
 import type {Delayed} from '@threema/ts-utils/delayed/delayed';
 
 import type {DbReceiverLookup} from '~/common/db';
@@ -38,7 +39,7 @@ export class FrontendMediaService implements IFrontendMediaService {
         mediaType: string,
     ): Promise<FileBytesAndMediaType> {
         const downsizedImage = await downsizeImage(
-            new Blob([bytes], {type: mediaType}),
+            new Blob([ensureArrayBufferBackedView(bytes)], {type: mediaType}),
             mediaType,
             LOCAL_THUMBNAIL_MAX_SIZE,
             LOCAL_THUMBNAIL_QUALITY,

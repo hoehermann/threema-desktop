@@ -54,7 +54,7 @@ export class MediatorWebSocketTransport implements MediatorTransport {
         info: MediatorWebSocketTransportContext,
         options: WebSocketEventWrapperStreamOptions,
         applyMediatorStreamPipeline: (
-            stream: BidirectionalStream<ArrayBuffer, BufferSource>,
+            stream: BidirectionalStream<ArrayBuffer, AllowSharedBufferSource>,
         ) => MediatorPipe,
     ) {
         // Encode `ClientUrlInfo` to hex
@@ -89,7 +89,7 @@ export class MediatorWebSocketTransport implements MediatorTransport {
 
     private async _createConnection(
         applyMediatorStreamPipeline: (
-            stream: BidirectionalStream<ArrayBuffer, BufferSource>,
+            stream: BidirectionalStream<ArrayBuffer, AllowSharedBufferSource>,
         ) => MediatorPipe,
     ): Promise<MediatorPipe> {
         // Wait until the underlying WebSocket is connected

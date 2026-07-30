@@ -1,3 +1,4 @@
+import {ensureArrayBufferBackedView} from '@threema/ts-utils/byte/array-buffer-backed-view';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
 import {ResolvablePromise} from '@threema/ts-utils/promise/resolvable-promise';
@@ -68,7 +69,7 @@ class FlowControlledDataChannel {
         // full. However, there are other reasons that can result in a TypeError and no browser has
         // implemented this properly so far. Thus, we use a well-tested high water mark instead and
         // try to never fill the buffer completely.
-        this.dc.send(message);
+        this.dc.send(ensureArrayBufferBackedView(message));
 
         // Pause once high water mark has been reached
         if (this.dc.bufferedAmount >= this._highWaterMark) {

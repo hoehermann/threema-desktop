@@ -1,4 +1,5 @@
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+import {ensureArrayBufferBackedView} from '@threema/ts-utils/byte/array-buffer-backed-view';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
 
 import type {I18nType} from '~/app/ui/i18n-types';
@@ -161,7 +162,7 @@ function convertBlobFetchError(error: BlobFetchError, t: I18nType['t']): SyncFai
  * Save the specified bytes as a file to the user's filesystem.
  */
 function saveBytesAsFile(bytes: ReadonlyUint8Array, fileName: string, mediaType: string): void {
-    const blob = new Blob([bytes], {type: mediaType});
+    const blob = new Blob([ensureArrayBufferBackedView(bytes)], {type: mediaType});
     const link = document.createElement('a');
     link.href = window.URL.createObjectURL(blob);
     link.download = fileName;
@@ -180,7 +181,7 @@ async function copyImageBytesToClipboard(
     t: I18nType['t'],
 ): Promise<SyncResult<undefined>> {
     try {
-        let blob = new Blob([bytes], {type: mediaType});
+        let blob = new Blob([ensureArrayBufferBackedView(bytes)], {type: mediaType});
         if (mediaType !== 'image/png') {
             // Convert other image subtypes to png for clipboard compatibility.
             blob = await convertImage(blob, 'image/png');

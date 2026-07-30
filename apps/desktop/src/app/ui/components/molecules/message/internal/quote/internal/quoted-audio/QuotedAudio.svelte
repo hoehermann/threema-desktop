@@ -1,4 +1,5 @@
 <script lang="ts">
+  import {ensureArrayBufferBackedView} from '@threema/ts-utils/byte/array-buffer-backed-view';
   import type {f64} from '@threema/ts-utils/float/f64';
 
   import {globals} from '~/app/globals';
@@ -30,7 +31,10 @@
     if (fileBytesAndMediaType === undefined) {
       return;
     }
-    const realDuration = await computeAudioDuration(new Blob([fileBytesAndMediaType.bytes]), log);
+    const realDuration = await computeAudioDuration(
+      new Blob([ensureArrayBufferBackedView(fileBytesAndMediaType.bytes)]),
+      log,
+    );
 
     if (realDuration === undefined) {
       return;

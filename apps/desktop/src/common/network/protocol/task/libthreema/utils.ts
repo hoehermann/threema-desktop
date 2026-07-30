@@ -1,4 +1,5 @@
 import type {ClientInfo, HttpsRequest, HttpsResult, WorkContext} from '@threema/libthreema-wasm';
+import {ensureArrayBufferBackedView} from '@threema/ts-utils/byte/array-buffer-backed-view';
 import {ensureError} from '@threema/ts-utils/meta/ensure-error';
 
 import type {ServicesForBackend} from '~/common/backend';
@@ -60,7 +61,7 @@ export async function doRequest(
         const response = await fetch(url, {
             method,
             headers: headers.map((h): [string, string] => [h.name, h.value]),
-            body,
+            body: ensureArrayBufferBackedView(body),
             signal: controller.signal,
         });
         clearTimeout(timer);

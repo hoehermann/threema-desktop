@@ -1,4 +1,5 @@
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+import {ensureArrayBufferBackedView} from '@threema/ts-utils/byte/array-buffer-backed-view';
 import type {f64} from '@threema/ts-utils/float/f64';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {
@@ -114,7 +115,9 @@ async function transcodeAudioToMp4OutputFormat(
     try {
         const input = new Input({
             formats: ALL_FORMATS,
-            source: new BlobSource(new Blob([bytes], {type: mediaType})),
+            source: new BlobSource(
+                new Blob([ensureArrayBufferBackedView(bytes)], {type: mediaType}),
+            ),
         });
 
         const output = new Output({format: new Mp4OutputFormat(), target: new BufferTarget()});

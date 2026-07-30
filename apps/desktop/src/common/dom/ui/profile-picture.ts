@@ -1,4 +1,5 @@
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+import {ensureArrayBufferBackedView} from '@threema/ts-utils/byte/array-buffer-backed-view';
 import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
 
 import type {DbReceiverLookup} from '~/common/db';
@@ -24,7 +25,7 @@ export function transformProfilePicture(bytes: ReadonlyUint8Array | undefined): 
     if (bytes === undefined) {
         return undefined;
     }
-    return new Blob([bytes], {type: 'image/jpeg'});
+    return new Blob([ensureArrayBufferBackedView(bytes)], {type: 'image/jpeg'});
 }
 
 export type ProfilePictureBlobStoreValue =
@@ -182,7 +183,7 @@ export class ProfilePictureService {
             blobStore.set(undefined);
             return;
         }
-        const blob = new Blob([picture], {type: 'image/png'});
+        const blob = new Blob([ensureArrayBufferBackedView(picture)], {type: 'image/png'});
         const bitmap = await createImageBitmap(blob);
         blobStore.set({
             blob,

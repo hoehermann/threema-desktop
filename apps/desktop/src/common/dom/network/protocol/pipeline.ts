@@ -399,7 +399,7 @@ class Layer3Through1EncoderTransformStreamAdapter
 
 export function applyD2mOnlyMediatorStreamPipeline(
     services: ServicesForBackend,
-    stream: BidirectionalStream<ArrayBuffer, BufferSource>,
+    stream: BidirectionalStream<ArrayBuffer, AllowSharedBufferSource>,
     controllers: {
         layer2: Layer2Controller;
         layer3: Layer3Controller;
@@ -446,7 +446,7 @@ export function applyD2mOnlyMediatorStreamPipeline(
 
 export function applyMediatorStreamPipeline(
     services: ServicesForBackend,
-    stream: BidirectionalStream<ArrayBuffer, BufferSource>,
+    stream: BidirectionalStream<ArrayBuffer, AllowSharedBufferSource>,
     controllers: {
         layer2: Layer2Controller;
         layer3: Layer3Controller;

@@ -1,4 +1,5 @@
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+import {ensureArrayBufferBackedView} from '@threema/ts-utils/byte/array-buffer-backed-view';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import {
     Input,
@@ -31,7 +32,9 @@ async function createMp4ConversionInit(
 }> {
     const input = new Input({
         formats: ALL_FORMATS,
-        source: new BlobSource(new Blob([bytes], {type: inputMediaType})),
+        source: new BlobSource(
+            new Blob([ensureArrayBufferBackedView(bytes)], {type: inputMediaType}),
+        ),
     });
     const output = new Output({format: new Mp4OutputFormat(), target: new BufferTarget()});
 

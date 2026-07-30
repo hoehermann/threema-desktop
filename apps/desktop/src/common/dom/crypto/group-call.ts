@@ -2,6 +2,7 @@ import * as v from '@badrap/valita';
 import {deriveKey} from '@threema/crypto';
 import {PERSONALBYTES} from '@threema/crypto/blake2b/implementation';
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
+import {ensureArrayBufferBackedView} from '@threema/ts-utils/byte/array-buffer-backed-view';
 import {UTF8} from '@threema/ts-utils/codec/utf8';
 import {type u8, ensureU8} from '@threema/ts-utils/integer/u8';
 import {tag, type WeakOpaque} from '@threema/ts-utils/meta/newtype';
@@ -115,7 +116,7 @@ export class WorkerParticipantCallMediaKey {
             });
             state.pcmfk = self.crypto.subtle.importKey(
                 'raw',
-                raw.unwrap(),
+                ensureArrayBufferBackedView(raw.unwrap()),
                 {name: 'AES-GCM', length: 32},
                 false,
                 [usage],

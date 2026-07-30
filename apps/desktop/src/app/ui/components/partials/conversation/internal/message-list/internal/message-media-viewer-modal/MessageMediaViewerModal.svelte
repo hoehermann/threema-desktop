@@ -3,6 +3,7 @@
 -->
 <script lang="ts">
   import {nodeIsOrContainsTarget} from '@threema/dom';
+  import {ensureArrayBufferBackedView} from '@threema/ts-utils/byte/array-buffer-backed-view';
   import {onDestroy} from 'svelte';
 
   import {globals} from '~/app/globals';
@@ -114,7 +115,9 @@
                 status: 'loaded',
                 type: currentFile.type,
                 url: URL.createObjectURL(
-                  new Blob([result.data.bytes], {type: result.data.mediaType}),
+                  new Blob([ensureArrayBufferBackedView(result.data.bytes)], {
+                    type: result.data.mediaType,
+                  }),
                 ),
               };
             }

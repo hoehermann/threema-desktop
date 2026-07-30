@@ -5,6 +5,7 @@
 </script>
 
 <script lang="ts">
+  import {ensureArrayBufferBackedView} from '@threema/ts-utils/byte/array-buffer-backed-view';
   import type {f64} from '@threema/ts-utils/float/f64';
   import {ensureError} from '@threema/ts-utils/meta/ensure-error';
   import {onDestroy, tick, untrack} from 'svelte';
@@ -86,7 +87,7 @@
       return;
     }
 
-    const audioBlob = new Blob([fileInformation.bytes]);
+    const audioBlob = new Blob([ensureArrayBufferBackedView(fileInformation.bytes)]);
     audio = {
       state: 'loaded',
       url: URL.createObjectURL(audioBlob),

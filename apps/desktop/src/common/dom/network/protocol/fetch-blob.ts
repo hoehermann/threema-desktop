@@ -1,3 +1,4 @@
+import {ensureArrayBufferBackedView} from '@threema/ts-utils/byte/array-buffer-backed-view';
 import {bytesToHex} from '@threema/ts-utils/byte/bytes-to-hex';
 import {hexToBytes} from '@threema/ts-utils/byte/hex-to-bytes';
 import {u64ToHexLe} from '@threema/ts-utils/number/u64-to-hex-le';
@@ -42,7 +43,7 @@ export class FetchBlobBackend implements BlobBackend {
 
     /** @inheritdoc */
     public async upload(blobUploadScope: BlobUploadScope, data: EncryptedData): Promise<BlobId> {
-        const blob = new Blob([data]);
+        const blob = new Blob([ensureArrayBufferBackedView(data)]);
         const formData = new FormData();
         formData.append('blob', blob);
 

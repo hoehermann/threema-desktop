@@ -1,4 +1,5 @@
 import {base64ToU8a} from '@threema/ts-utils/base64/base64-to-u8a';
+import {ensureArrayBufferBackedView} from '@threema/ts-utils/byte/array-buffer-backed-view';
 import {assert} from '@threema/ts-utils/meta/assert';
 import {page, type Locator} from 'vitest/browser';
 
@@ -34,7 +35,9 @@ export async function captureElementScreenshot(
         type: 'png',
     });
 
-    const bitmap = await createImageBitmap(new Blob([base64ToU8a(base64)], {type: 'image/png'}));
+    const bitmap = await createImageBitmap(
+        new Blob([ensureArrayBufferBackedView(base64ToU8a(base64))], {type: 'image/png'}),
+    );
     const canvas = new OffscreenCanvas(bitmap.width, bitmap.height);
     const context = canvas.getContext('2d');
     assert(context !== null, 'Expected to acquire a 2d rendering context from the OffscreenCanvas');

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import {ensureArrayBufferBackedView} from '@threema/ts-utils/byte/array-buffer-backed-view';
   import {UTF8} from '@threema/ts-utils/codec/utf8';
   import {ensureError} from '@threema/ts-utils/meta/ensure-error';
   import {getGraphemeClusters} from '@threema/ts-utils/string/get-grapheme-clusters';
@@ -720,7 +721,8 @@
     }
 
     return routeParams.preloadedFiles.map(
-      ({bytes, fileName, mediaType}) => new File([new Blob([bytes], {type: mediaType})], fileName),
+      ({bytes, fileName, mediaType}) =>
+        new File([new Blob([ensureArrayBufferBackedView(bytes)], {type: mediaType})], fileName),
     );
   }
 
