@@ -200,7 +200,9 @@ interface CommonMessageInit<T extends MessageType> {
     conversationUid: DbConversationUid;
     createdAt?: Date;
     processedAt?: Date;
+    deliveredAt?: Date;
     readAt?: Date;
+    lastEditedAt?: Date;
     raw?: Uint8Array;
     threadId?: u64;
 }
@@ -221,7 +223,9 @@ function getCommonMessage<T extends MessageType>(
         conversationUid: init.conversationUid,
         createdAt: init.createdAt ?? new Date(),
         processedAt: init.processedAt,
+        deliveredAt: init.deliveredAt,
         readAt: init.readAt,
+        lastEditedAt: init.lastEditedAt,
         raw: init.raw,
         threadId: init.threadId ?? 1n, // TODO(DESK-296)
         reactions: [],
@@ -931,6 +935,39 @@ export function backendTests(
                 id: 2000n, // Not a duplicate in conversation2
                 conversationUid: conversation2.uid,
             });
+        });
+
+        it('createTextMessage stores all common message timestamps', function () {
+            const contactUid = makeContact(db, {identity: 'TESTTEST'});
+            const conversation = db.getConversationOfReceiver({
+                type: ReceiverType.CONTACT,
+                uid: contactUid,
+            });
+            assert(conversation !== undefined);
+
+            const createdAt = new Date(1000);
+            const processedAt = new Date(2000);
+            const deliveredAt = new Date(3000);
+            const readAt = new Date(4000);
+            const lastEditedAt = new Date(5000);
+
+            const messageUid = createTextMessage(db, {
+                id: 1000n,
+                conversationUid: conversation.uid,
+                createdAt,
+                processedAt,
+                deliveredAt,
+                readAt,
+                lastEditedAt,
+            });
+
+            const message = db.getMessageByUid(messageUid);
+            assert(message?.type === MessageType.TEXT);
+            expect(message.createdAt, 'createdAt').to.deep.equal(createdAt);
+            expect(message.processedAt, 'processedAt').to.deep.equal(processedAt);
+            expect(message.deliveredAt, 'deliveredAt').to.deep.equal(deliveredAt);
+            expect(message.readAt, 'readAt').to.deep.equal(readAt);
+            expect(message.lastEditedAt, 'lastEditedAt').to.deep.equal(lastEditedAt);
         });
 
         it('createFileMessage / getMessageByUid', function () {
