@@ -9,15 +9,10 @@
   - `endItems` + `avatar`: A fixed group pinned to the bottom (e.g. Settings, then the user avatar).
 -->
 <script lang="ts" module>
-  import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
   import {type VariantProps, cn, tv} from 'tailwind-variants';
 
   import type {WithElementRef} from '../../utils/element';
-  import {
-    type ProfilePictureColor,
-    PROFILE_PICTURE_BACKGROUND_COLOR_CLASS_MAP,
-    PROFILE_PICTURE_TEXT_COLOR_CLASS_MAP,
-  } from '../../utils/profile-picture-color';
+  import {Avatar, type AvatarProps} from '../avatar';
 
   export const verticalNavigationStripVariants = tv({
     slots: {
@@ -94,25 +89,13 @@
     readonly label: string;
   }
 
-  export interface VerticalNavigationAvatar extends NavTarget {
-    /**
-     * Optional profile color for the initials fallback. Falls back to a neutral grey when omitted.
-     */
-    readonly color?: ProfilePictureColor;
-    /**
-     * Raw image bytes for the avatar (e.g. the user's profile picture). Rendered in place of the
-     * `initials` when set.
-     */
-    readonly image?: ReadonlyUint8Array;
-    /**
-     * Initials shown when no `image` is provided.
-     */
-    readonly initials: string;
-    /**
-     * Accessible name for the avatar button (e.g. the user's display name).
-     */
-    readonly label: string;
-  }
+  export type VerticalNavigationAvatar = NavTarget &
+    Pick<AvatarProps, 'color' | 'description' | 'image' | 'initials'> & {
+      /**
+       * Accessible name for the avatar button (e.g. the user's display name).
+       */
+      readonly label: string;
+    };
 
   export type VerticalNavigationStripProps = WithElementRef<
     {
@@ -156,24 +139,6 @@
     }
     target.onclick?.(event);
   }
-
-  // Object URL for the avatar's profile picture, derived from its raw image bytes. Using `$effect`
-  // to assign a value is an antipattern, but is used here to be able to cleanly create and revoke
-  // object URLs.
-  let avatarImageUrl = $state<string | undefined>(undefined);
-  $effect(() => {
-    const bytes = avatar?.image;
-    if (bytes === undefined) {
-      avatarImageUrl = undefined;
-      return undefined;
-    }
-    const url = URL.createObjectURL(new Blob([new Uint8Array(bytes)]));
-    avatarImageUrl = url;
-    // Clean up the URL before the next one is created.
-    return () => {
-      URL.revokeObjectURL(url);
-    };
-  });
 </script>
 
 {#snippet navItem(item: VerticalNavigationItem)}
@@ -203,29 +168,13 @@
     class={cn(
       'mt-2 flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-full outline-none hover:cursor-pointer focus-visible:ring-1 focus-visible:ring-black dark:focus-visible:ring-white',
     )}
-    aria-current={(data.active ?? false) ? 'page' : undefined}
+    aria-current={data.active === true ? 'page' : undefined}
     aria-label={data.label}
     data-testid={data.testId}
     onclick={(event) => handleClick(data, event)}
     title={data.label}
   >
-    {#if avatarImageUrl !== undefined}
-      <img class="size-full object-cover" src={avatarImageUrl} alt="" draggable="false" />
-    {:else}
-      <span
-        class={cn(
-          'text-md flex size-full items-center justify-center font-semibold uppercase',
-          data.color === undefined
-            ? 'bg-grey-200 text-grey-700 dark:bg-grey-700 dark:text-grey-100'
-            : [
-                PROFILE_PICTURE_BACKGROUND_COLOR_CLASS_MAP[data.color],
-                PROFILE_PICTURE_TEXT_COLOR_CLASS_MAP[data.color],
-              ],
-        )}
-      >
-        {data.initials}
-      </span>
-    {/if}
+    <Avatar {...data} />
   </button>
 {/snippet}
 
