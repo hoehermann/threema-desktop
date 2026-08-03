@@ -555,6 +555,9 @@ export default function defineConfig(viteEnv: ViteConfigEnv): UserConfig {
                           if (warning.code === 'vite-plugin-svelte-preprocess-many-dependencies') {
                               return;
                           }
+                          if (warning.code === 'state_referenced_locally') {
+                              return;
+                          }
                           defaultHandler(warning);
                       },
                   })
