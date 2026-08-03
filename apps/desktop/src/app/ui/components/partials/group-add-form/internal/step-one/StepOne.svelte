@@ -8,15 +8,37 @@
   import {i18n} from '~/app/ui/i18n';
   import WizardButton from '~/app/ui/svelte-components/blocks/Button/WizardButton.svelte';
   import MdIcon from '~/app/ui/svelte-components/blocks/Icon/MdIcon.svelte';
+  import {ReadableStore} from '~/common/utils/store';
 
   let {
     contacts,
     onclickcancel,
     onformcontinue,
     onformcancel,
+    onselectitem,
     searchTerm = $bindable(),
+    selectedMembers,
     services,
   }: StepOneProps = $props();
+
+  const contactsState = $derived(
+    contacts.map((item) => {
+      const contact = item.get();
+      const {receiver, interaction} = contact;
+
+      if (interaction?.mode === 'select' && receiver.type === 'contact') {
+        return new ReadableStore({
+          ...contact,
+          interaction: {
+            ...interaction,
+            isSelected: selectedMembers.has(receiver.lookup.uid),
+          },
+        });
+      }
+
+      return new ReadableStore(contact);
+    }),
+  );
 </script>
 
 <form
@@ -42,7 +64,13 @@
   <div class="content">
     {#if contacts.length > 0}
       <div class="list">
-        <ReceiverPreviewList highlights={searchTerm} items={contacts} {services} />
+        <ReceiverPreviewList
+          highlights={searchTerm}
+          items={contactsState}
+          {onselectitem}
+          options={{showSelectionSummary: true}}
+          {services}
+        />
       </div>
     {:else}
       <div class="notice">

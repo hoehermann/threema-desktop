@@ -577,6 +577,7 @@
     "label--leave-error": "Gruppe konnte nicht verlassen werden",
     "label--leave-group-title": "«{groupName}» verlassen",
     "label--leave-success": "Gruppe erfolgreich verlassen",
+    "label--members-selected": "{n, plural, =1 {1 Mitglied ausgewählt} other {# Mitglieder ausgewählt}}",
     "label--new-group": "Neue Gruppe",
     "label--remove-member-failure": "Gruppenmitglied konnte nicht entfernt werden",
     "label--remove-member-success": "Gruppenmitglied erfolgreich entfernt",

@@ -142,6 +142,8 @@
     {onclickcancel}
     onformcancel={onclickformcancel}
     onformcontinue={handleStepOneNextClicked}
+    onselectitem={handleSelectReceiver}
+    selectedMembers={selectedContacts}
     {services}
   />
 {:else if currentStep === 'step-two'}

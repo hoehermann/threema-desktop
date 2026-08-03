@@ -23,6 +23,7 @@
   import {difference} from '~/common/utils/set';
   import {ReadableStore, type IQueryableStore} from '~/common/utils/store';
   import {derive} from '~/common/utils/store/derived-store';
+  import type {AnyReceiverDataOrSelf} from '~/common/viewmodel/utils/receiver';
 
   const {uiLogging} = globals.unwrap();
   const log = uiLogging.logger('ui.component.edit-group-members-modal');
@@ -167,6 +168,27 @@
     return difference(new Set([...currentGroupMembers, ...addedMembers]), removedMembers);
   }
 
+  function handleSelect(selected: boolean, receiver: AnyReceiverDataOrSelf): void {
+    if (receiver.type !== 'contact') {
+      log.debug('EditGroupMembers receiver list should only contain contacts');
+      return;
+    }
+    const uid = receiver.lookup.uid;
+
+    if (selected) {
+      addedMembers.add(uid);
+      removedMembers.delete(uid);
+    } else {
+      addedMembers.delete(uid);
+      removedMembers.add(uid);
+    }
+
+    selectedMembers = difference(
+      new Set([...currentGroupMembers, ...addedMembers]),
+      removedMembers,
+    );
+  }
+
   function filterCurrentMembers(
     receiverPreviewList: ReceiverPreviewListProps<unknown>['items'] | undefined,
     currentSearchTerm: string | undefined,
@@ -201,24 +223,7 @@
               mode: 'select',
               isSelected: currentSelectedMembers.has(currentItem.receiver.lookup.uid),
               onselect: (selected) => {
-                if (currentItem.receiver.type !== 'contact') {
-                  log.debug('EditGroupMembers receiver list should only contain contacts');
-                  return;
-                }
-                const uid = currentItem.receiver.lookup.uid;
-
-                if (selected) {
-                  addedMembers.add(uid);
-                  removedMembers.delete(uid);
-                } else {
-                  addedMembers.delete(uid);
-                  removedMembers.add(uid);
-                }
-
-                selectedMembers = difference(
-                  new Set([...currentGroupMembers, ...addedMembers]),
-                  removedMembers,
-                );
+                handleSelect(selected, currentItem.receiver);
               },
             },
           } satisfies ReceiverPreviewListItem<unknown>;
@@ -292,7 +297,13 @@
     </div>
     <div class="content">
       <div class="list">
-        <ReceiverPreviewList highlights={searchTerm} items={filteredReceiverList} {services} />
+        <ReceiverPreviewList
+          highlights={searchTerm}
+          items={filteredReceiverList}
+          onselectitem={handleSelect}
+          options={{showSelectionSummary: true}}
+          {services}
+        />
       </div>
     </div>
   </Modal>
