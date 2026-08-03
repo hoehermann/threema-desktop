@@ -1,5 +1,10 @@
 export {Avatar, type AvatarProps} from './components/avatar';
 export {
+    default as AvatarSelectionSummary,
+    type AvatarSelectionSummaryItem,
+    type AvatarSelectionSummaryProps,
+} from './components/avatar-selection-summary/AvatarSelectionSummary.svelte';
+export {
     default as Button,
     type ButtonIconStyle,
     type ButtonProps,
