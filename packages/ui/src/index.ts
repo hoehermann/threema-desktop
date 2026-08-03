@@ -1,3 +1,4 @@
+export {Avatar, type AvatarProps} from './components/avatar';
 export {
     default as Button,
     type ButtonIconStyle,
