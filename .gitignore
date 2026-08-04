@@ -13,6 +13,7 @@ node_modules
 *.tsbuildinfo
 build/
 temp/
+/.local
 
 # Local config
 .claude/settings.local.json
