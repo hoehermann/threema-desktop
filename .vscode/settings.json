@@ -23,6 +23,7 @@
     {"pattern": "./packages/*/", "!cwd": false}
   ],
   "files.associations": {
+    "**/apps/conferencing/.dockerignore": "ignore",
     "**/apps/conferencing/**/*.css": "tailwindcss",
     "**/apps/desktop/src/tailwind/**/*.css": "tailwindcss",
     "**/packages/ui/**/*.css": "tailwindcss"

@@ -3,6 +3,11 @@
   "extends": ["//"],
   "tasks": {
     "build": {
+      "outputs": ["build/**"]
+    },
+    "dist": {
+      "dependsOn": ["build"],
+      "env": ["GIT_REVISION"],
       "outputs": ["dist/**"]
     },
     "dev": {

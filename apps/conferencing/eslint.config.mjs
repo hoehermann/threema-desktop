@@ -15,7 +15,14 @@ export default defineConfig(
         svelteConfig,
     }),
 
-    globalIgnores(['.turbo/', 'dist/', 'node_modules/', 'playwright-report/', 'test-results/']),
+    globalIgnores([
+        '.turbo/',
+        'dist/',
+        'build/',
+        'node_modules/',
+        'playwright-report/',
+        'test-results/',
+    ]),
 
     // Allow unassigned CSS imports in app source files.
     {
@@ -46,6 +53,16 @@ export default defineConfig(
             ],
             'import/no-unassigned-import': 'off',
         },
+    },
+    // Packaging scripts are Node ESM scripts and may use `console`.
+    {
+        files: ['packaging/**/*.mjs'],
+        languageOptions: {
+            globals: {
+                ...globals.nodeBuiltin,
+            },
+        },
+        rules: {'no-console': 'off'},
     },
 
     {
