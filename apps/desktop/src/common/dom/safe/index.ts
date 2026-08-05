@@ -398,7 +398,6 @@ export async function isSafeBackupAvailable(
     const [backupId] = deriveKey(credentials);
     try {
         const hexBackupId = safeBackupIdToString(backupId);
-        log.debug(`Backup ID is ${hexBackupId}`);
 
         // If the HEAD request succeeds, the backup exists on the server.
         await requestSafeBackupUrl(hexBackupId, config, 'HEAD', credentials.customSafeServer);
@@ -450,7 +449,6 @@ export async function downloadSafeBackup(
         const [backupId, encryptionKey] = deriveKey(credentials);
         try {
             const hexBackupId = safeBackupIdToString(backupId);
-            log.debug(`Backup ID is ${hexBackupId}`);
 
             // Download, decrypt, decode
             const encrypted = await fetchBackupBytes(
