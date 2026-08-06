@@ -546,22 +546,7 @@ export default function defineConfig(viteEnv: ViteConfigEnv): UserConfig {
         // Tailwind CSS (used alongside the existing SCSS theme). Must come before the Svelte
         // plugin. Only relevant for the `app` entry, which is the only one that bundles CSS.
         tailwind: env.entry === 'app' ? tailwindcss() : undefined,
-        svelte:
-            env.entry === 'app'
-                ? svelte({
-                      configFile: '../svelte.config.js',
-                      // TODO(DESK-1714): Investigate this warning.
-                      onwarn(warning, defaultHandler) {
-                          if (warning.code === 'vite-plugin-svelte-preprocess-many-dependencies') {
-                              return;
-                          }
-                          if (warning.code === 'state_referenced_locally') {
-                              return;
-                          }
-                          defaultHandler(warning);
-                      },
-                  })
-                : undefined,
+        svelte: env.entry === 'app' ? svelte({configFile: '../svelte.config.js'}) : undefined,
         // Calculates integrity hashes and adds them to `index.html` and `electron-main.cjs`.
         // Because the plugin transforms files that are written when the entry points `"app"` and
         // `"electron-main"` are built, it should run after the one of the two that is built the
