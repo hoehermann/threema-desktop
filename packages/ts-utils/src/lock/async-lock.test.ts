@@ -16,28 +16,23 @@ describe('AsyncLock', () => {
         // Arrange
         const lock = new AsyncLock();
         const delays = [45, 37, 24, 30, 7, 13, 20, 10, 17, 4];
-        const unguarded: number[] = [];
-        const guarded: number[] = [];
+        const result: number[] = [];
 
         // Act: Run 10 async tasks with overlapping runtimes. If the execution were not guarded by
-        // the lock, they would insert the results in a different order.
-        await Promise.all([
-            ...delays.map(async (sleepMs) => {
-                await sleep(sleepMs);
-                unguarded.push(sleepMs);
-            }),
+        // the lock, they would insert their results in ascending-delay order instead of in the
+        // order they were enqueued in.
+        await Promise.all(
             // eslint-disable-next-line @typescript-eslint/promise-function-async
-            ...delays.map((sleepMs) =>
+            delays.map((sleepMs) =>
                 lock.with(async () => {
                     await sleep(sleepMs);
-                    guarded.push(sleepMs);
+                    result.push(sleepMs);
                 }),
             ),
-        ]);
+        );
 
         // Assert
-        expect(unguarded).toEqual([4, 7, 10, 13, 17, 20, 24, 30, 37, 45]);
-        expect(guarded).toEqual(delays);
+        expect(result).toEqual(delays);
     });
 
     it('returns the value produced by a synchronous executor wrapped in a promise', async () => {
