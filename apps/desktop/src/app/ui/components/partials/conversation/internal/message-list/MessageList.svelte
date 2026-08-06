@@ -5,7 +5,7 @@
   import {nodeIsOrContainsTarget} from '@threema/dom';
   import type {u53} from '@threema/ts-utils/integer/u53';
   import {ensureError} from '@threema/ts-utils/meta/ensure-error';
-  import {tick} from 'svelte';
+  import {onDestroy, tick} from 'svelte';
 
   import {globals} from '~/app/globals';
   import SubstitutableText from '~/app/ui/SubstitutableText.svelte';
@@ -638,6 +638,10 @@
       isScrollToBottomButtonVisible = false;
     }
 
+    // Destroy the previous `viewport` before replacing it, or a notification that is still pending
+    // in its debounce timer could revert the viewport back to a previous location.
+    viewport.destroy();
+
     // Reinitializing `viewport` will result in the backend sending a new list of messages.
     viewport = new Viewport(
       log,
@@ -686,6 +690,11 @@
   });
   $effect(() => {
     reactive(handleChangeConversationOrLastMessage, [currentConversationId, currentLastMessage]);
+  });
+
+  onDestroy(() => {
+    // Prevent a pending viewport notification from being sent after this component is gone.
+    viewport.destroy();
   });
 </script>
 
