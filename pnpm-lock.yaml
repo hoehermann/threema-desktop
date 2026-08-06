@@ -485,8 +485,8 @@ importers:
         specifier: 'catalog:'
         version: 4.4.3(supports-color@8.1.1)
       emojibase-data:
-        specifier: 16.0.3
-        version: 16.0.3(emojibase@16.0.0)
+        specifier: 17.0.0
+        version: 17.0.0(emojibase@16.0.0)
       fast-sha256:
         specifier: 1.3.0
         version: 1.3.0
@@ -3352,8 +3352,8 @@ packages:
   emoji-regex@9.2.2:
     resolution: {integrity: sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==}
 
-  emojibase-data@16.0.3:
-    resolution: {integrity: sha512-MopInVCDZeXvqBMPJxnvYUyKw9ImJZqIDr2sABo6acVSPev5IDYX+mf+0tsu96JJyc3INNvgIf06Eso7bdTX2Q==}
+  emojibase-data@17.0.0:
+    resolution: {integrity: sha512-Yvgb5AWoHViHV/gq1qr5ZAarcBip+B27/ZLRsUJkbgAEaLlZ/fof9g882LTpmEpyhBNEC0m2SEmItljHsTygjA==}
     peerDependencies:
       emojibase: '*'
 
@@ -8838,7 +8838,7 @@ snapshots:
 
   emoji-regex@9.2.2: {}
 
-  emojibase-data@16.0.3(emojibase@16.0.0):
+  emojibase-data@17.0.0(emojibase@16.0.0):
     dependencies:
       emojibase: 16.0.0
 
