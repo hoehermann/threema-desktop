@@ -80,7 +80,6 @@ export class BackendMediaService {
                 }
 
                 case 'video':
-                    // TODO(DESK-1306): Do we need an `isSupportedVideoType` function?
                     return await this._frontendMediaService.generateVideoThumbnail(
                         bytes,
                         mediaType,
