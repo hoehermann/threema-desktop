@@ -363,6 +363,9 @@ importers:
 
   apps/conferencing:
     dependencies:
+      '@badrap/valita':
+        specifier: 'catalog:'
+        version: 0.4.6
       '@threema/branding':
         specifier: workspace:*
         version: link:../../packages/branding
@@ -394,6 +397,9 @@ importers:
       '@threema/ts-config':
         specifier: workspace:*
         version: link:../../packages/ts-config
+      '@threema/vite-plugin-subresource-integrity':
+        specifier: workspace:*
+        version: link:../../packages/vite-plugin-subresource-integrity
       '@types/node':
         specifier: 'catalog:'
         version: 22.17.2

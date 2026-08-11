@@ -15,6 +15,7 @@
     "test:vitest": "vitest run"
   },
   "dependencies": {
+    "@badrap/valita": "catalog:",
     "@threema/branding": "workspace:*",
     "@threema/ui": "workspace:*",
     "svelte": "catalog:",
@@ -27,6 +28,7 @@
     "@tailwindcss/vite": "catalog:",
     "@threema/eslint-config": "workspace:*",
     "@threema/ts-config": "workspace:*",
+    "@threema/vite-plugin-subresource-integrity": "workspace:*",
     "@types/node": "catalog:",
     "@vitest/browser-playwright": "catalog:",
     "eslint": "catalog:",

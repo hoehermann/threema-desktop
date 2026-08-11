@@ -7,6 +7,8 @@ import path from 'node:path';
 import process from 'node:process';
 import util from 'node:util';
 
+import {SUBRESOURCE_INTEGRITY_JSON_SCHEMA} from '@threema/vite-plugin-subresource-integrity';
+
 /**
  * Container engines we know how to drive.
  */
@@ -110,6 +112,51 @@ function determineGitRevision() {
 }
 
 /**
+ * Generate the `Containerfile` from `Containerfile.template` by substituting the integrity hash
+ * placeholders with the SRI hashes from `build/subresource-integrity.json`.
+ */
+function generateContainerfile() {
+    const integrityFile = path.resolve(appDir, 'build', 'subresource-integrity.json');
+    if (!fs.existsSync(integrityFile)) {
+        fail(`File 'subresource-integrity.json' could not be found, was the app built?`);
+    }
+
+    let sources;
+    try {
+        sources = SUBRESOURCE_INTEGRITY_JSON_SCHEMA.parse(
+            JSON.parse(fs.readFileSync(integrityFile, 'utf8')),
+            {mode: 'passthrough'},
+        );
+    } catch (error) {
+        fail(`File 'subresource-integrity.json' is invalid: ${error}`);
+    }
+    const {scripts, stylesheets, workers} = sources;
+    if (scripts.length === 0 || stylesheets.length === 0) {
+        fail(
+            `Expected at least one script and one stylesheet integrity hash in 'subresource-integrity.json', but got ${scripts.length} and ${stylesheets.length}`,
+        );
+    }
+
+    const content = fs
+        .readFileSync(path.resolve(appDir, 'Containerfile.template'), 'utf8')
+        .replaceAll('%SCRIPT_SRC_SRI_HASHES%', scripts.map((digest) => `'${digest}'`).join(' '))
+        .replaceAll('%STYLE_SRC_SRI_HASHES%', stylesheets.map((digest) => `'${digest}'`).join(' '))
+        .replaceAll('%WORKER_SRC_URIS%', workers.join(' '));
+
+    // Matches any placeholder which was not substituted above.
+    const placeholder = /%[A-Z_]+%/u.exec(content)?.[0];
+    if (placeholder !== undefined) {
+        fail(`Placeholder '${placeholder}' in 'Containerfile.template' could not be substituted`);
+    }
+
+    fs.writeFileSync(path.resolve(appDir, 'Containerfile'), content, 'utf8');
+
+    console.info(
+        `Generated 'Containerfile' with ${scripts.length} script and ${stylesheets.length} style integrity hashes`,
+    );
+}
+
+/**
  * Run a command. Aborts the script if the command fails.
  *
  * @param {string} command The command to run.
@@ -152,6 +199,10 @@ function main() {
         labels.push(`org.opencontainers.image.revision=${gitRevision}`);
     }
 
+    // Generate the final `Containerfile` based on the template.
+    generateContainerfile();
+
+    // Build container image from `Containerfile`.
     run(engine, [
         'build',
         '--tag',

@@ -32,11 +32,12 @@ export default defineConfig(
         },
     },
 
-    // Allow devDependencies in config and test files.
+    // Allow `devDependencies` in config, test, and packaging files.
     {
         files: [
             '**/*.test.ts',
             'eslint.config.mjs',
+            'packaging/**/*',
             'playwright.config.ts',
             'src/test/**/*.ts',
             'svelte.config.js',
@@ -54,6 +55,7 @@ export default defineConfig(
             'import/no-unassigned-import': 'off',
         },
     },
+
     // Packaging scripts are Node ESM scripts and may use `console`.
     {
         files: ['packaging/**/*.mjs'],

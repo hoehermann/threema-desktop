@@ -553,19 +553,21 @@ export default function defineConfig(viteEnv: ViteConfigEnv): UserConfig {
         // last (so that integrity hashes are not added twice), which is `"electron-main"`.
         subresourceIntegrityPlugin:
             env.mode !== 'development' && env.entry === 'electron-main'
-                ? subresourceIntegrityPlugin(
+                ? subresourceIntegrityPlugin({
+                      appOutDir: '../build/electron/app',
+                      contentSecurityPolicyFile:
+                          '../build/electron/electron-main/electron-main.cjs',
                       // Whitelist of files to add integrity hashes for. All files that are not
                       // matched by the following regexes will be blocked from executing at runtime.
-                      // Note: The file names must match the name of a file in the output bundle (in
-                      // `build/electron/app`).
-                      {
-                          htmlEntryPoints: /^index.html|screenshare.html$/u,
-                          scriptRegExp:
-                              /^cldr-.{8}\.js|cldr-native-.{8}\.js|data-.{8}\.js|index-.{8}\.js|messages-.{8}\.js$/u,
-                          stylesheetRegExp: /^index-.{8}\.css$/u,
-                          workerRegExp: /^backend-worker-.{8}\.js|media-crypto-worker-.{8}\.js$/u,
-                      },
-                  )
+                      // Note: The regexes must match the path of a file in the output bundle,
+                      // relative to `appOutDir`.
+                      htmlEntryPoints: /^(?:index|screenshare)\.html$/u,
+                      scriptRegExp:
+                          /^(?:cldr-.{8}|cldr-native-.{8}|data-.{8}|index-.{8}|messages-.{8})\.js$/u,
+                      stylesheetRegExp: /^index-.{8}\.css$/u,
+                      workerRegExp: /^(?:backend-worker-.{8}|media-crypto-worker-.{8})\.js$/u,
+                      workerSrcBaseUrl: 'threemadesktop://app/',
+                  })
                 : undefined,
     } as const;
 

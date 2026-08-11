@@ -46,13 +46,15 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
 #   listing for directories that don't contain the `--index` file (e.g. `/assets/`).
 # - `--header` arguments are parsed and reused in `vite.config.ts` for the Vite preview server used
 #   in Playwright tests.
+# - The `%..._HASHES%` placeholders are substituted with the actual SRI hashes when the
+#   `Containerfile` is generated from this template.
 ENTRYPOINT [ \
     "/app/miniserve", "/srv/conferencing", \
     "--index", "index.html", \
     "--spa", \
     "--disable-indexing", \
     "--no-symlinks", \
-    "--header", "Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self' data:; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'", \
+    "--header", "Content-Security-Policy: default-src 'none'; script-src %SCRIPT_SRC_SRI_HASHES%; style-src 'self' %STYLE_SRC_SRI_HASHES%; font-src 'self' data:; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'", \
     "--header", "X-Content-Type-Options: nosniff", \
     "--header", "Referrer-Policy: no-referrer", \
     "--header", "Cross-Origin-Opener-Policy: same-origin" \
