@@ -1,3 +1,4 @@
+import {NonceScope} from '@threema/protocol/enum';
 import {bytesToHex} from '@threema/ts-utils/byte/bytes-to-hex';
 import {u64ToHexLe} from '@threema/ts-utils/number/u64-to-hex-le';
 
@@ -10,7 +11,6 @@ import {
     CspE2eStatusUpdateType,
     MessageDirection,
     MessageType,
-    NonceScope,
     ReceiverType,
     ReceiverTypeUtils,
     CspE2eGroupStatusUpdateType,

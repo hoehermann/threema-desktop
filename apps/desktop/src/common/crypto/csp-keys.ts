@@ -1,11 +1,11 @@
 import {deriveKey, wrapRawKey} from '@threema/crypto';
+import {NonceScope} from '@threema/protocol/enum';
 import {byteJoin} from '@threema/ts-utils/byte/byte-join';
 import {tag} from '@threema/ts-utils/meta/newtype';
 
 import type {ServicesForBackend} from '~/common/backend';
 import type {Config} from '~/common/config';
 import type {PublicKey} from '~/common/crypto';
-import {NonceScope} from '~/common/enum';
 import type {
     ClientKey,
     DirectoryChallengeResponseKey,

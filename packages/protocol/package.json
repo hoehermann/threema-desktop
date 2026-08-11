@@ -12,6 +12,7 @@
     "threema-protocols": "d5333b98"
   },
   "exports": {
+    "./enum": "./src/enum/index.ts",
     "./types": "./src/types.ts",
     "./types.js": "./src/types.ts",
     "./protobuf": "./src/protobuf/index.js",
@@ -26,6 +27,7 @@
   },
   "scripts": {
     "generate:protobuf": "node scripts/generate-protobuf.mjs",
+    "generate:safe-enums": "safe-enums src/enum/schema.ts src/enum/index.ts",
     "generate:structbuf": "node scripts/generate-structbuf.mjs",
     "lint:tsc": "tsc --noEmit && tsc -p tsconfig.scripts.json",
     "update": "node scripts/update.mjs"
@@ -36,6 +38,7 @@
     "protobufjs": "catalog:"
   },
   "devDependencies": {
+    "@threema/safe-enums": "workspace:*",
     "@threema/ts-config": "workspace:*",
     "@types/node": "catalog:",
     "prettier": "catalog:",

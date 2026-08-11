@@ -1,4 +1,5 @@
 import {wrapRawKey} from '@threema/crypto';
+import {NonceScope} from '@threema/protocol/enum';
 import {u8aToBase64} from '@threema/ts-utils/base64/u8a-to-base64';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import * as sinon from 'sinon';
@@ -10,7 +11,6 @@ import type {INonceGuard, INonceService} from '~/common/crypto/nonce';
 import {TweetNaClBackend} from '~/common/crypto/tweetnacl';
 import {randomBytes} from '~/common/dom/crypto/random';
 import {FetchDirectoryBackend} from '~/common/dom/network/protocol/fetch-directory';
-import {NonceScope} from '~/common/enum';
 import {DirectoryError, type DirectoryErrorType} from '~/common/network/protocol/directory';
 import {ensureIdentityString} from '~/common/network/types';
 import type {ClientKey} from '~/common/network/types/keys';

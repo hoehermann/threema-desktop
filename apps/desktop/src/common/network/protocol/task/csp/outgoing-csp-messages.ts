@@ -1,3 +1,4 @@
+import {NonceScope} from '@threema/protocol/enum';
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import {byteEquals} from '@threema/ts-utils/byte/byte-equals';
 import {UTF8} from '@threema/ts-utils/codec/utf8';
@@ -15,7 +16,6 @@ import {
     MessageDirection,
     MessageFilterInstruction,
     MessageType,
-    NonceScope,
     ReceiverType,
 } from '~/common/enum';
 import type {Logger} from '~/common/logging';

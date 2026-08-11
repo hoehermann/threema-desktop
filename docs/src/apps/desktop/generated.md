@@ -12,6 +12,12 @@ its schema (`apps/desktop/src/enum/schema.ts`) in the following way:
 
     pnpm run generate:desktop:safe-enums
 
+The protocol package's generated module (`packages/protocol/src/enum/index.ts`), exposed as
+`@threema/protocol/enum`, can be regenerated from its schema
+(`packages/protocol/src/enum/schema.ts`) in the following way:
+
+    pnpm run generate:protocol:safe-enums
+
 To regenerate the enums of _all_ packages with a schema (which is what the CI drift check does):
 
     pnpm run generate:safe-enums

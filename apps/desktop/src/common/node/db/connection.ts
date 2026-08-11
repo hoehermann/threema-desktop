@@ -1,4 +1,5 @@
 import {isReadonlyRawKey} from '@threema/crypto';
+import {NonceScopeUtils} from '@threema/protocol/enum';
 import {byteView} from '@threema/ts-utils/byte/byte-view';
 import {isF64} from '@threema/ts-utils/float/f64';
 import type {u53} from '@threema/ts-utils/integer/u53';
@@ -49,7 +50,6 @@ import {
     IdentityTypeUtils,
     ImageRenderingTypeUtils,
     MessageTypeUtils,
-    NonceScopeUtils,
     NotificationSoundPolicyUtils,
     PersistentProtocolStateTypeUtils,
     PollAnnounceTypeUtils,

@@ -1,4 +1,5 @@
 import type {ClientInfo} from '@threema/libthreema-wasm';
+import {NonceScope} from '@threema/protocol/enum';
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import {bytesToHex} from '@threema/ts-utils/byte/bytes-to-hex';
 import {hexToBytes} from '@threema/ts-utils/byte/hex-to-bytes';
@@ -67,7 +68,7 @@ import {
 } from '~/common/dom/network/protocol/rendezvous';
 import type {SystemInfo} from '~/common/electron-ipc';
 import type {IFrontendElectronService} from '~/common/electron-service';
-import {CloseCodeUtils, NonceScope, TransferTag} from '~/common/enum';
+import {CloseCodeUtils, TransferTag} from '~/common/enum';
 import {
     BaseError,
     type BaseErrorOptions,

@@ -1,3 +1,4 @@
+import {NonceScope} from '@threema/protocol/enum';
 import {dateToUnixTimestampMs} from '@threema/ts-utils/number/date-to-unix-timestamp-ms';
 import {intoUnsignedLong} from '@threema/ts-utils/number/into-unsigned-long';
 import {expect} from 'chai';
@@ -8,7 +9,6 @@ import {
     ActivityState,
     CspE2eGroupControlType,
     GroupUserState,
-    NonceScope,
     TransactionScope,
 } from '~/common/enum';
 import * as protobuf from '~/common/network/protobuf';

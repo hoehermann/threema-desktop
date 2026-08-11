@@ -7,6 +7,7 @@ import * as os from 'node:os';
 import * as path from 'node:path';
 
 import {wrapRawKey, type RawKey} from '@threema/crypto';
+import {NonceScope} from '@threema/protocol/enum';
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import {UTF8} from '@threema/ts-utils/codec/utf8';
 import type {Delayed} from '@threema/ts-utils/delayed/delayed';
@@ -45,7 +46,6 @@ import {
     IdentityType,
     MessageFilterInstruction,
     MessageFilterInstructionUtils,
-    NonceScope,
     SyncState,
     type TransactionScope,
     TransactionScopeUtils,

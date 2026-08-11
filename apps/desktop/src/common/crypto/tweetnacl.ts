@@ -1,4 +1,5 @@
 import {CryptoError, wrapRawKey, type RawKey, type ReadonlyRawKey} from '@threema/crypto';
+import type {NonceScope} from '@threema/protocol/enum';
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import type {u53} from '@threema/ts-utils/integer/u53';
 import type {u8} from '@threema/ts-utils/integer/u8';
@@ -21,7 +22,6 @@ import {
 import {CryptoBox} from '~/common/crypto/box';
 import type {INonceService} from '~/common/crypto/nonce';
 import type {CryptoPrng} from '~/common/crypto/random';
-import type {NonceScope} from '~/common/enum';
 import type {i53, u64} from '~/common/types';
 import {assert} from '~/common/utils/assert';
 

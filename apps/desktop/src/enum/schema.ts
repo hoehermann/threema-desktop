@@ -77,16 +77,6 @@ export const enum TransferTag {
  */
 
 /**
- * Nonce scopes. Defines in which context a nonce must be unique.
- *
- * @generate convert
- */
-export enum NonceScope {
-    CSP = 0,
-    D2D = 1,
-}
-
-/**
  * WebSocket close code, extended by the Mediator Protocol 4xxx custom close
  * codes.
  *

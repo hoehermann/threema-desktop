@@ -7,6 +7,7 @@ import {
     type RawKey,
     type ReadonlyRawKey,
 } from '@threema/crypto';
+import type {NonceScope} from '@threema/protocol/enum';
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import {ByteBuffer} from '@threema/ts-utils/byte/byte-buffer';
 import type {ByteEncoder, ByteLengthEncoder} from '@threema/ts-utils/byte/byte-encoder';
@@ -30,7 +31,6 @@ import {
     type RawPlainData,
 } from '~/common/crypto';
 import {type INonceGuard, type INonceService, NONCE_REUSED} from '~/common/crypto/nonce';
-import type {NonceScope} from '~/common/enum';
 import type {u64} from '~/common/types';
 import {assert} from '~/common/utils/assert';
 

@@ -1,3 +1,4 @@
+import {NonceScopeUtils} from '@threema/protocol/enum';
 import type {ReadonlyUint8Array} from '@threema/ts-utils/array/readonly-uint8-array';
 import {bytesToHex} from '@threema/ts-utils/byte/bytes-to-hex';
 import type {u53} from '@threema/ts-utils/integer/u53';
@@ -38,7 +39,6 @@ import {
     ImageRenderingType,
     MessageQueryDirection,
     MessageType,
-    NonceScopeUtils,
     ReceiverType,
     SyncState,
     VerificationLevel,

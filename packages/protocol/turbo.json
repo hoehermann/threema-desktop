@@ -5,6 +5,9 @@
     "generate:protobuf": {
       "cache": false
     },
+    "generate:safe-enums": {
+      "cache": false
+    },
     "generate:structbuf": {
       "cache": false
     },

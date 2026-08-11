@@ -1,3 +1,4 @@
+import {NonceScope} from '@threema/protocol/enum';
 import {bytesToHex} from '@threema/ts-utils/byte/bytes-to-hex';
 
 import {NONCE_REUSED} from '~/common/crypto/nonce';
@@ -9,7 +10,6 @@ import {
     CspE2eStatusUpdateType,
     MessageDirection,
     MessageType,
-    NonceScope,
     ReceiverType,
     CspE2eGroupStatusUpdateType,
     CspE2eMessageUpdateType,
