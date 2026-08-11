@@ -40,12 +40,20 @@ EXPOSE ${MINISERVE_PORT}/tcp
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
     CMD wget -q -T 3 -O /dev/null "http://127.0.0.1:${MINISERVE_PORT}/" || exit 1
 
-# `--disable-indexing` is enforced to respond with 404 instead of rendering a browsable directory
-# listing for directories that don't contain the `--index` file (e.g. `/assets/`).
+# See: https://github.com/svenstaro/miniserve#usage.
+#
+# - `--disable-indexing` is enforced to respond with 404 instead of rendering a browsable directory
+#   listing for directories that don't contain the `--index` file (e.g. `/assets/`).
+# - `--header` arguments are parsed and reused in `vite.config.ts` for the Vite preview server used
+#   in Playwright tests.
 ENTRYPOINT [ \
     "/app/miniserve", "/srv/conferencing", \
     "--index", "index.html", \
     "--spa", \
     "--disable-indexing", \
-    "--no-symlinks" \
+    "--no-symlinks", \
+    "--header", "Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self' data:; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'", \
+    "--header", "X-Content-Type-Options: nosniff", \
+    "--header", "Referrer-Policy: no-referrer", \
+    "--header", "Cross-Origin-Opener-Policy: same-origin" \
 ]
