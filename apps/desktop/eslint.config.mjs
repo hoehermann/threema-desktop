@@ -212,16 +212,6 @@ export default defineConfig(
         },
     },
 
-    // Common enum source rules
-    {
-        files: ['src/common/enum/index.ts'],
-        rules: {
-            '@typescript-eslint/naming-convention': 'off',
-            '@typescript-eslint/no-namespace': 'off',
-            'jsdoc/require-jsdoc': 'off',
-        },
-    },
-
     // Common Node source rules
     {
         files: ['src/common/node/**/*.ts'],

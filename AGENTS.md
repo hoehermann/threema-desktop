@@ -72,6 +72,7 @@ structure.
 │   ├── eslint-plugin-threema/             # Custom ESLint rules
 │   ├── libthreema-wasm/                   # Threema protocol implementation written in Rust
 │   ├── protocol/                          # Generated Threema protocol bindings (protobuf/structbuf)
+│   ├── safe-enums/                        # Generator for safe enums (from a package's enum schema)
 │   ├── ts-config/                         # Shared TypeScript configuration
 │   ├── ts-utils/                          # Shared TypeScript utilities
 │   ├── vite-plugin-commonjs-externals/

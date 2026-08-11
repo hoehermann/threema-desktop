@@ -1,3 +1,12 @@
+// Imports available to the generated module. Unreferenced imports are dropped when generating, so
+// this block declares what generated code may use, not what it does use.
+//
+// Note: Keep these imports above the documentation comment below, because comments between the last
+// import and the first enum declaration are copied into the generated module.
+import type {Logger} from '~/common/logging';
+import type {u53} from '~/common/types';
+import type {MonotonicEnumStore, StoreDebug} from '~/common/utils/store';
+
 /**
  * All enums to be used must be declared in this file. They are disallowed in any other place via an
  * eslint rule.

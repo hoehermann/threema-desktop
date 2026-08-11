@@ -1,0 +1,78 @@
+#!/usr/bin/env node
+// @ts-check
+
+/**
+ * Generate safe enum wrappers from a schema.
+ *
+ * Usage: safe-enums <schema-path> [<output-path>]
+ *
+ * The generated module is formatted with Prettier (using the configuration that applies to the
+ * output path) and then written to the output path. If no output path is given, it is printed to
+ * standard output instead.
+ */
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import {parseArgs} from 'node:util';
+
+import {format as formatWithPrettier, resolveConfig} from 'prettier';
+
+import {generateSafeEnums} from './generate.mjs';
+
+/**
+ * Format the given source text with the Prettier configuration that applies to `filepath`.
+ *
+ * @param {string} source The source text to format.
+ * @param {string} filepath The path the source text is formatted for.
+ * @returns {Promise<string>} the formatted source text.
+ */
+async function format(source, filepath) {
+    const config = await resolveConfig(filepath);
+    return await formatWithPrettier(source, {...config, filepath});
+}
+
+/**
+ * Write `content` to `filepath` by writing to a temporary file and moving it into place, so that a
+ * failed write cannot leave a partially written file behind.
+ *
+ * @param {string} filepath The path to write to.
+ * @param {string} content The content to write.
+ * @throws {Error} if the temporary file could not be written or moved into place.
+ */
+function writeAtomically(filepath, content) {
+    const temporary = `${filepath}.${process.pid}.tmp`;
+    try {
+        fs.writeFileSync(temporary, content, 'utf8');
+        fs.renameSync(temporary, filepath);
+    } catch (error) {
+        fs.rmSync(temporary, {force: true});
+        throw error;
+    }
+}
+
+const {positionals} = parseArgs({allowPositionals: true, options: {}});
+const [schemaPathArg, outputPathArg] = positionals;
+if (schemaPathArg === undefined || positionals.length > 2) {
+    console.error('Usage: safe-enums <schema> [<output>]');
+    process.exit(1);
+}
+const schemaPath = path.resolve(schemaPathArg);
+const outputPath = outputPathArg === undefined ? undefined : path.resolve(outputPathArg);
+
+let output;
+try {
+    // Note: Generation happens fully in memory, so that a malformed schema leaves the previous
+    // generated module untouched.
+    output = await format(
+        generateSafeEnums(fs.readFileSync(schemaPath, 'utf8'), schemaPathArg),
+        outputPath ?? schemaPath,
+    );
+} catch (error) {
+    console.error(`Error: ${error instanceof Error ? error.message : error}`);
+    process.exit(1);
+}
+
+if (outputPath === undefined) {
+    process.stdout.write(output);
+} else {
+    writeAtomically(outputPath, output);
+}

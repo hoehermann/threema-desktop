@@ -694,6 +694,30 @@ diff:protocol:structbuf:
         echo -e "\e[32mNo changes detected after running 'pnpm run generate:protocol:structbuf'\e[0m"
       fi
 
+# Regenerate the safe enums of every package with a schema and fail if anything drifts.
+diff:safe-enums:
+  stage: test
+  needs: []
+  <<: *linux_nodejs_config
+  before_script:
+    - set -euo pipefail
+    - *linux_nodejs_before_script
+  script:
+    - set -euo pipefail
+    - bash scripts/run-with-retry.sh --retries 3 --delay 15 -- pnpm ci
+    # Regenerate the safe enums of every package that declares a `generate:safe-enums` task.
+    - pnpm run generate:safe-enums
+    # Ensure that there are no local changes to the generated files.
+    - |
+      DIFF="$(git diff)"
+      if [[ -n "$DIFF" ]]; then
+        echo -e "\e[31mFound local changes after running 'pnpm run generate:safe-enums'. Generated enums out of sync?\e[0m"
+        echo -e "\n$ git diff:\n$DIFF"
+        exit 1
+      else
+        echo -e "\e[32mNo changes detected after running 'pnpm run generate:safe-enums'\e[0m"
+      fi
+
 diff:pnpm-lock:
   stage: test
   needs: []

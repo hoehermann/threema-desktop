@@ -1,5 +1,21 @@
 # Generated Code
 
+## Safe Enums
+
+Enums are declared in a package's enum schema, from which the `safe-enums` generator
+(`packages/safe-enums`) generates the safe enum variants that are imported throughout the code. See
+`packages/safe-enums/README.md` for how to write a schema, which package owns which enum, and how to
+add a schema to a package.
+
+The desktop app's generated module (`apps/desktop/src/common/enum/index.ts`) can be regenerated from
+its schema (`apps/desktop/src/enum/schema.ts`) in the following way:
+
+    pnpm run generate:desktop:safe-enums
+
+To regenerate the enums of _all_ packages with a schema (which is what the CI drift check does):
+
+    pnpm run generate:safe-enums
+
 ## Protocol Bindings (`packages/protocol`)
 
 The protobuf and structbuf bindings for the Threema protocols are generated into

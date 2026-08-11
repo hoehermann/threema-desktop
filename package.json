@@ -59,6 +59,7 @@
     "generate:desktop:translations": "turbo run generate:translations --filter=threema-desktop",
     "generate:protocol:protobuf": "turbo run generate:protobuf --filter=@threema/protocol",
     "generate:protocol:structbuf": "turbo run generate:structbuf --filter=@threema/protocol",
+    "generate:safe-enums": "turbo run generate:safe-enums",
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint:fix",
     "lint:eslint": "NODE_OPTIONS=\"--max_old_space_size=4096\" turbo run lint:eslint",
