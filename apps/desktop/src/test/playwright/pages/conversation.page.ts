@@ -2,6 +2,22 @@ import {expect, type Page} from '@playwright/test';
 
 import {rootUrl} from '~/test/playwright/config';
 
+/**
+ * The selectable values of the "Auto-Download Incoming Media" setting.
+ */
+export type AutoDownloadOption = 'always' | 'never' | 'restricted';
+
+/**
+ * Labels of the {@link AutoDownloadOption} entries, as rendered in the settings dropdown.
+ *
+ * Note: The label of `restricted` embeds `RESTRICTED_DOWNLOAD_SIZE_IN_MB`.
+ */
+const AUTO_DOWNLOAD_LABELS: Record<AutoDownloadOption, string> = {
+    always: 'Always download',
+    never: 'Never download',
+    restricted: 'Download if smaller than 10 MB',
+};
+
 export class ConversationPage {
     private readonly _page: Page;
 
@@ -16,6 +32,20 @@ export class ConversationPage {
     public async unlockApp(): Promise<void> {
         await this._page.getByText('App Password', {exact: true}).fill('CHANGE_ME');
         await this._page.getByRole('button', {name: 'Continue'}).click();
+    }
+
+    /**
+     * Set the "Auto-Download Incoming Media" setting in the "Media and Storage" settings.
+     */
+    public async setAutoDownload(option: AutoDownloadOption): Promise<void> {
+        await this._page.getByTestId('nav-item-settings').click();
+        await this._page.getByRole('button', {name: 'Media and Storage'}).click();
+        await this._page.getByRole('button', {name: 'Auto-Download Incoming Media'}).click();
+
+        await this._page
+            .locator('.menu')
+            .getByRole('button', {name: AUTO_DOWNLOAD_LABELS[option], exact: true})
+            .click();
     }
 
     public async gotoConversation(name: string): Promise<void> {
