@@ -255,6 +255,10 @@
     groupEditViewModelStoreToContactList(viewModelStore, $appearance),
   );
 
+  const summaryReceiverList = $derived(
+    filterCurrentMembers($receiverPreviewListProps, undefined, selectedMembers),
+  );
+
   const filteredReceiverList = $derived(
     filterCurrentMembers($receiverPreviewListProps, searchTerm, selectedMembers),
   );
@@ -297,11 +301,12 @@
     </div>
     <div class="content">
       <div class="list">
+        <!-- TODO(DESK-2229) Unify state and callback interaction with ReceiverPreviewList, if possible -->
         <ReceiverPreviewList
           highlights={searchTerm}
           items={filteredReceiverList}
+          summaryItems={summaryReceiverList}
           onselectitem={handleSelect}
-          options={{showSelectionSummary: true}}
           {services}
         />
       </div>

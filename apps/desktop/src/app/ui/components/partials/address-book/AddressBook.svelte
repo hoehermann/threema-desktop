@@ -360,9 +360,9 @@
         </div>
       </button>
     {/if}
-
     <div bind:this={listElement} class="list">
       {#if visiblePreviewListItems.length > 0}
+        <!-- TODO(DESK-2229) Unify state and callback interaction with ReceiverPreviewList, if possible -->
         <ReceiverPreviewList
           bind:this={receiverPreviewListComponent}
           contextMenuItems={(receiverPreviewListItem) =>

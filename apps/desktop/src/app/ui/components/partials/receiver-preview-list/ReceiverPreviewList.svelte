@@ -1,6 +1,7 @@
 <!--
   @component Renders a list of preview cards for the given receivers.
 -->
+<!-- TODO(DESK-2229) Unify state and callback interaction with ReceiverPreviewList, if possible -->
 <script lang="ts" generics="THandlerProps = never">
   import {AsyncLock} from '@threema/ts-utils/lock/async-lock';
   import {TIMER} from '@threema/ts-utils/timer/global-timer';
@@ -30,6 +31,7 @@
     contextMenuItems = undefined,
     highlights = undefined,
     items = [],
+    summaryItems,
     onclickitem,
     onitementereddebounced = () => {},
     onselectitem,
@@ -73,11 +75,12 @@
    * to.
    */
   const avatarSelectionSummaryItemData = $derived(
-    options.showSelectionSummary !== true
+    summaryItems === undefined
       ? []
-      : items.flatMap((item) => {
+      : summaryItems.flatMap((item) => {
           const itemData = item.get();
           const {receiver, interaction} = itemData;
+
           if (receiver.type !== 'contact' || interaction?.mode !== 'select') {
             return [];
           }
@@ -89,7 +92,7 @@
                 actions: {
                   remove: {
                     label: $i18n.t('groups.action--remove-member', {name}),
-                    onclick: () => handleSelectItem(false, itemData),
+                    onclick: () => interaction?.onselect?.(false),
                   },
                 },
                 color,
@@ -237,7 +240,7 @@
 </script>
 
 <div bind:this={containerElement} class="container">
-  {#if avatarSelectionSummaryItems.length > 0 && options.showSelectionSummary}
+  {#if avatarSelectionSummaryItems.length > 0}
     <div class="px-4 pb-3">
       <AvatarSelectionSummary
         heading={$i18n.t(

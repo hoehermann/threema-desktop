@@ -23,6 +23,7 @@ export interface ReceiverPreviewListProps<THandlerProps = undefined> {
      */
     readonly highlights?: string | readonly string[];
     readonly items: IQueryableStore<ReceiverPreviewListItem<THandlerProps>>[];
+    readonly summaryItems?: IQueryableStore<ReceiverPreviewListItem<THandlerProps>>[];
     /**
      * Called when a list item in interaction mode `"click"` is clicked. Note: This is intended as a
      * convenient alternative to setting an `onclick` handler for each clickable item separately.
@@ -48,10 +49,6 @@ export interface ReceiverPreviewListProps<THandlerProps = undefined> {
          * Defaults to `true` if the given item's `interaction` mode is `"click"`, else to `false`.
          */
         readonly highlightActiveReceiver?: boolean;
-        /**
-         * Whether to show the selection summary or not. Defaults to `false`.
-         */
-        readonly showSelectionSummary?: boolean;
     };
     readonly services: Pick<AppServicesForSvelte, 'router' | 'settings' | 'profilePicture'>;
 }

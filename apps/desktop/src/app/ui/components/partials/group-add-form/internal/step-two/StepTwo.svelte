@@ -161,6 +161,7 @@
         )}
       </div>
       {#if filteredContacts.length > 0}
+        <!-- TODO(DESK-2229) Unify state and callback interaction with ReceiverPreviewList, if possible -->
         <ReceiverPreviewList items={filteredContacts} {services} />
       {/if}
     </div>

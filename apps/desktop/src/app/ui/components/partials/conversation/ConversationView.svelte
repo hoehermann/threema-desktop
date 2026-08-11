@@ -1264,6 +1264,7 @@
                     receiver={$viewModelStore.receiver}
                     {services}
                   />
+                  <!-- TODO(DESK-2229) Unify state and callback interaction with ReceiverPreviewList, if possible -->
                   <ReceiverPreviewList
                     highlights={composeBarState.mentionString}
                     items={getFilteredMentionReceiverPreviewListItems(
