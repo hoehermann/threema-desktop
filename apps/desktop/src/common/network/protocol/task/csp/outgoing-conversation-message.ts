@@ -96,6 +96,7 @@ export class OutgoingConversationMessageTask<TReceiver extends AnyReceiver>
                 unreachable(messageType);
         }
 
+        // TODO(DESK-2224) Regenerate video thumbnail for outbound video
         // Now that blobs are uploaded for the recipient (using low resolution/quality to optimize
         // network traffic and server load), we can re-generate the image thumbnail in a slightly
         // higher resolution, as an optimization for the local user.
