@@ -5,6 +5,7 @@ set -euo pipefail
 
 # Set to binaryen version used by `libthreema`.
 _BINARYEN_VERSION="124"
+_JJ_VERSION="0.44.0"
 # Extract from `/code/package.json`.
 _NODE_VERSION=$(jq -e -r '.engines.node' /code/package.json) || exit 2
 _NVM_VERSION="0.40.3"
@@ -199,6 +200,21 @@ if [ "$_INSTALLED_PROTOC_VERSION" != "$_PROTOC_VERSION" ]; then
   rm -rf "$_TMPDIR"
 fi
 
+# Jujutsu (jj)
+_INSTALLED_JJ_VERSION=$(jj --version 2>/dev/null | grep -oP '[\d.]+' | head -1 || echo "none")
+if [ "$_INSTALLED_JJ_VERSION" != "$_JJ_VERSION" ]; then
+  echo "Installing jj ${_JJ_VERSION}..."
+  _ARCHIVE="jj-v${_JJ_VERSION}-$(uname -m)-unknown-linux-musl.tar.gz"
+  _TMPDIR=$(mktemp -d)
+  curl --proto '=https' --tlsv1.3 -LSsf \
+    "https://github.com/jj-vcs/jj/releases/download/v${_JJ_VERSION}/${_ARCHIVE}" \
+    -o "${_TMPDIR}/${_ARCHIVE}"
+  tar -zxf "${_TMPDIR}/${_ARCHIVE}" -C "$_TMPDIR"
+  mkdir -p "$HOME/.local/bin"
+  mv "${_TMPDIR}/jj" "$HOME/.local/bin/"
+  rm -rf "$_TMPDIR"
+fi
+
 # Update `.bashrc`
 #
 # Note: The NVM and rustup installers already update the `PATH`, so we don't need to add these
@@ -218,6 +234,7 @@ export ELECTRON_DISABLE_SANDBOX=1"
 echo "Dev environment ready:"
 echo "  Node.js:      $(node --version 2>/dev/null)"
 echo "  NVM:          $(nvm --version 2>/dev/null)"
+echo "  Jujutsu:      $(jj --version 2>/dev/null)"
 echo "  pnpm:         $(pnpm --version 2>/dev/null)"
 echo "  protoc:       $(protoc --version 2>/dev/null)"
 echo "  Rust:         $(rustc --version 2>/dev/null)"
