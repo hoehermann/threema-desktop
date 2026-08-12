@@ -203,8 +203,10 @@ stages:
   # Print path again.
   - echo "Updated `$Path is $env:Path"
   - echo "Updated `$LIB is $env:LIB"
+  # Ensure the toolchain pinned by `RUST_CHANNEL` is installed. No-op if it already is.
+  - rustup toolchain install $env:RUST_CHANNEL --profile minimal
   # Show version.
-  - cargo +stable --version
+  - cargo "+$env:RUST_CHANNEL" --version
 
 # Build images
 
