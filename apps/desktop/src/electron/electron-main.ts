@@ -1498,10 +1498,6 @@ function main(
             default:
                 unreachable(import.meta.env.BUILD_ENVIRONMENT);
         }
-        // Allow `threema.com` in test builds for PQ testing.
-        if (import.meta.env.BUILD_MODE === 'testing') {
-            connectSrcRule = `${connectSrcRule} https://threema.com`;
-        }
 
         // Apply a strict content security policy to any response
         session.webRequest.onHeadersReceived((details, callback) => {
