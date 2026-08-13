@@ -361,9 +361,11 @@ function createEnumConversionAndConstantSet(name, members, initializerType) {
  *
  * @param {string} name The name of the enum.
  * @param {readonly {identifier: string}[]} members The enum members.
+ * @param {'number' | 'string'} initializerType The kind of initialiser the members use.
  * @returns {ts.Statement[]} the name lookup table and the associated function.
  */
-function createEnumNameFunction(name, members) {
+function createEnumNameFunction(name, members, initializerType) {
+    const valueType = initializerType === 'string' ? stringKeyword : u53Keyword;
     return [
         factory.createVariableStatement(
             [factory.createModifier(ts.SyntaxKind.ExportKeyword)],
@@ -408,7 +410,7 @@ function createEnumNameFunction(name, members) {
                 factory.createTypeParameterDeclaration(
                     undefined,
                     factory.createIdentifier('T'),
-                    u53Keyword,
+                    valueType,
                     undefined,
                 ),
             ],
@@ -436,7 +438,7 @@ function createEnumNameFunction(name, members) {
                                     factory.createTypeReferenceNode(
                                         factory.createIdentifier('Record'),
                                         [
-                                            u53Keyword,
+                                            valueType,
                                             factory.createUnionTypeNode([
                                                 factory.createKeywordTypeNode(
                                                     ts.SyntaxKind.StringKeyword,
@@ -659,7 +661,7 @@ function createEnumUtilsNamespace(name, members, utils, initializerType) {
 
     // Add enum to name mapper function (if requested)
     if (utils.has('name')) {
-        nodes.push(...createEnumNameFunction(name, members));
+        nodes.push(...createEnumNameFunction(name, members, initializerType));
     }
 
     // Add enum store factory function (if requested)

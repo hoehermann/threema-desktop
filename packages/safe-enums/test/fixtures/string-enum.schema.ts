@@ -1,7 +1,7 @@
 /**
- * A string enum requesting conversion helpers.
+ * A string enum requesting conversion helpers and the name lookup.
  *
- * @generate convert
+ * @generate convert name
  */
 export const enum ImageRenderingType {
     REGULAR = 'regular',

@@ -51,7 +51,7 @@ describe('safe enum generation', () => {
         );
     });
 
-    test('generates conversion helpers for a string enum', async () => {
+    test('generates conversion and name helpers for a string enum', async () => {
         // Act
         const generated = await renderFixture('string-enum');
 

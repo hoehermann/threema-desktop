@@ -1400,8 +1400,8 @@ export namespace StatusMessageTypeUtils {
         [StatusMessageType.GROUP_CALL_ENDED]: 'GROUP_CALL_ENDED',
         [StatusMessageType.GROUP_USER_STATE_CHANGED]: 'GROUP_USER_STATE_CHANGED',
     } as const;
-    export function nameOf<T extends u53>(value: T): string | undefined {
-        return (NAME_OF as Record<u53, string | undefined>)[value];
+    export function nameOf<T extends string>(value: T): string | undefined {
+        return (NAME_OF as Record<string, string | undefined>)[value];
     }
 }
 export namespace PollMessageType {
@@ -1829,8 +1829,8 @@ export namespace GlobalPropertyKeyUtils {
         [GlobalPropertyKey.LAST_MEDIATOR_CONNECTION]: 'LAST_MEDIATOR_CONNECTION',
         [GlobalPropertyKey.APPLICATION_STATE]: 'APPLICATION_STATE',
     } as const;
-    export function nameOf<T extends u53>(value: T): string | undefined {
-        return (NAME_OF as Record<u53, string | undefined>)[value];
+    export function nameOf<T extends string>(value: T): string | undefined {
+        return (NAME_OF as Record<string, string | undefined>)[value];
     }
 }
 export namespace D2dCspMessageType {

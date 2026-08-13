@@ -7,9 +7,9 @@ export namespace ImageRenderingType {
     export type STICKER = typeof STICKER;
 }
 /**
- * A string enum requesting conversion helpers.
+ * A string enum requesting conversion helpers and the name lookup.
  *
- * @generate convert
+ * @generate convert name
  */
 export type ImageRenderingType = (typeof ImageRenderingType)[keyof typeof ImageRenderingType];
 export namespace ImageRenderingTypeUtils {
@@ -31,6 +31,13 @@ export namespace ImageRenderingTypeUtils {
     }
     export function contains(value: unknown): value is ImageRenderingType {
         return typeof value === 'string' && (ALL as ReadonlySet<string>).has(value);
+    }
+    export const NAME_OF = {
+        [ImageRenderingType.REGULAR]: 'REGULAR',
+        [ImageRenderingType.STICKER]: 'STICKER',
+    } as const;
+    export function nameOf<T extends string>(value: T): string | undefined {
+        return (NAME_OF as Record<string, string | undefined>)[value];
     }
 }
 export namespace ActivityState {
