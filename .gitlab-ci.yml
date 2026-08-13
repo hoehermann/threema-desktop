@@ -203,6 +203,9 @@ stages:
   # Print path again.
   - echo "Updated `$Path is $env:Path"
   - echo "Updated `$LIB is $env:LIB"
+  # Prevent rustup to self update or auto install new toolchains.
+  - rustup set auto-self-update disable
+  - rustup set auto-install disable
   # Ensure the toolchain pinned by `RUST_CHANNEL` is installed. No-op if it already is.
   - rustup toolchain install $env:RUST_CHANNEL --profile minimal
   # Show version.
