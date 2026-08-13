@@ -61,6 +61,16 @@ describe('safe enum generation', () => {
         );
     });
 
+    test('generates conversion helpers for an implicitly numbered enum', async () => {
+        // Act
+        const generated = await renderFixture('implicit-numbering');
+
+        // Assert
+        await expect(generated).toMatchFileSnapshot(
+            path.join(FIXTURES_DIR, 'implicit-numbering.generated.ts'),
+        );
+    });
+
     test('drops unreferenced imports and keeps aliased bindings', async () => {
         // Act
         const generated = await renderFixture('unused-import');
@@ -151,17 +161,6 @@ describe('schema rejection', () => {
         await expect(generated).rejects.toThrow(
             'mixed-initialisers.schema.ts:4:1: Enum members must all have the same initialiser kind, not a mix of [number,string]',
         );
-    });
-
-    test('rejects implicit numbering combined with conversion helpers', async () => {
-        // Act
-        const generated = renderFixture('implicit-numbering');
-
-        // Assert
-        //
-        // Note: An implicitly numbered enum cannot request conversion helpers yet, and is rejected
-        // with an error that carries no position at all.
-        await expect(generated).rejects.toThrow('Invalid initializer type: undefined');
     });
 
     test('reports the position in a schema of unknown path', () => {

@@ -98,9 +98,10 @@ export class SchemaError extends Error {
  *
  * @param {string} name The name of the enum.
  * @param {readonly {identifier: string, initializer: ts.Expression}[]} members The enum members.
- * @param {string | undefined} initializerType The kind of initialiser the members use.
+ * @param {'number' | 'string'} initializerType The kind of initialiser the members use.
  * @returns {ts.Statement[]} the conversion functions and the set of all enum members.
- * @throws {Error} if the members use an initialiser kind that cannot be converted.
+ * @throws {Error} if the members use an initialiser kind that cannot be converted. Note: Error
+ *   cannot happen if the allowed types for `initializerType` are respected.
  */
 function createEnumConversionAndConstantSet(name, members, initializerType) {
     let functionNameFrom;
@@ -121,6 +122,7 @@ function createEnumConversionAndConstantSet(name, members, initializerType) {
             paramType = stringKeyword;
             paramTypeLiteral = 'string';
             break;
+        /* istanbul ignore next -- @preserve: Unreachable, `initializerType` is exhaustive. */
         default:
             throw new Error(`Invalid initializer type: ${initializerType}`);
     }
@@ -642,7 +644,7 @@ function createEnumStoreFactoryFunction(name) {
  * @param {string} name The name of the enum.
  * @param {readonly {identifier: string, initializer: ts.Expression}[]} members The enum members.
  * @param {ReadonlySet<string>} utils The requested utility functions.
- * @param {string | undefined} initializerType The kind of initialiser the members use.
+ * @param {'number' | 'string'} initializerType The kind of initialiser the members use.
  * @returns {ts.Statement} the utils namespace of the enum.
  */
 function createEnumUtilsNamespace(name, members, utils, initializerType) {
@@ -726,17 +728,17 @@ function createEnumNamespace(name, members) {
  *
  * @param {ts.SourceFile} source The schema source file.
  * @param {ts.EnumDeclaration} declaration The enum declaration to extract the members of.
- * @returns {[
- *   members: {identifier: string, initializer: ts.Expression, comments: ts.SynthesizedComment[]}[],
- *   initializerType: string | undefined,
- * ]} the members and the kind of initialiser they use.
+ * @returns {[ members: {identifier: string, initializer: ts.Expression, comments:
+ *   ts.SynthesizedComment[]}[], initializerType: 'number' | 'string', ]} the members and the kind
+ *   of initialiser they use. Members without an initialiser are numbered, so their kind is
+ *   `'number'`.
  * @throws {SchemaError} if a member has an unsupported or inconsistent initialiser.
  */
 function getMembers(source, declaration) {
     const members = declaration.members;
     let hasInitializers = false;
     const results = [];
-    /** @type {Set<string>} */
+    /** @type {Set<'number' | 'string'>} */
     const initializerKinds = new Set();
     for (const [index, member] of members.entries()) {
         if (!ts.isIdentifier(member.name)) {
@@ -786,7 +788,9 @@ function getMembers(source, declaration) {
             declaration,
         );
     }
-    return [results, initializerKinds.values().next().value];
+    // Note: Members without an initialiser are numbered from zero above, so an enum whose members
+    // all lack one is numeric.
+    return [results, initializerKinds.values().next().value ?? 'number'];
 }
 
 /**
