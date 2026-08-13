@@ -68,11 +68,11 @@ the generated module.
 
 The `@generate` annotation requests the `Utils` namespace of an enum:
 
-| Annotation | Generates                                                                       |
-| ---------- | ------------------------------------------------------------------------------- |
-| `convert`  | `ALL`, `fromNumber`/`fromString`, `containsNumber`/`containsString`, `contains` |
-| `name`     | `NAME_OF`, `nameOf`                                                             |
-| `store`    | `createStore` (requires `Logger`, `MonotonicEnumStore` and `StoreDebug`)        |
+| Annotation | Generates                                                                                |
+| ---------- | ---------------------------------------------------------------------------------------- |
+| `convert`  | `ALL`, `fromNumber`/`fromString`, `containsNumber`/`containsString`, `contains`          |
+| `name`     | `NAME_OF`, `nameOf`                                                                      |
+| `store`    | `createStore` (implies `name`, requires `Logger`, `MonotonicEnumStore` and `StoreDebug`) |
 
 ### Imports
 

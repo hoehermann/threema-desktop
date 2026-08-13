@@ -823,6 +823,12 @@ function createSafeEnumNode(source, declaration) {
             .flat(2),
     );
 
+    // Note: The store factory reads the name of the current value from the name lookup table, so
+    // requesting a store implies requesting the name utilities.
+    if (utils.has('store')) {
+        utils.add('name');
+    }
+
     // Extract each enum member and the associated initialiser
     const [members, initializerType] = getMembers(source, declaration);
 

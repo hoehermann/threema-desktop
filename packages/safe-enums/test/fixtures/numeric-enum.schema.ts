@@ -29,3 +29,13 @@ export const enum ActivityState {
     ACTIVE = 0,
     INACTIVE = 1,
 }
+
+/**
+ * A numeric enum requesting a store only, which implies the name lookup the store reads from.
+ *
+ * @generate store
+ */
+export const enum SyncState {
+    IDLE = 0,
+    SYNCING = 1,
+}
