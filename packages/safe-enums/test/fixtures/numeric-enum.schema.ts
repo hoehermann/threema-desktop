@@ -13,6 +13,19 @@ export const enum ConnectionState {
     DISCONNECTED = 0,
     /** Connection is being established. */
     CONNECTING = 1,
-    /** Connection has been established. */
+    // Connection has been established.
+    //
+    // Note: This is a line comment rather than a JSDoc block, so that both comment kinds are
+    // exercised.
     CONNECTED = 0x10,
+}
+
+/**
+ * A numeric enum requesting the name lookup only, i.e. no conversion helpers.
+ *
+ * @generate name
+ */
+export const enum ActivityState {
+    ACTIVE = 0,
+    INACTIVE = 1,
 }

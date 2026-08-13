@@ -5,7 +5,7 @@ import globals from 'globals';
 export default defineConfig(
     ...getCommonConfig(import.meta.dirname, {
         projectService: {
-            allowDefaultProject: ['eslint.config.mjs'],
+            allowDefaultProject: ['eslint.config.mjs', 'vitest.config.ts'],
             defaultProject: 'tsconfig.json',
         },
     }),
@@ -29,7 +29,7 @@ export default defineConfig(
 
     // Allow `devDependencies` in test and config files.
     {
-        files: ['test/**/*.mjs', 'vitest.config.mjs'],
+        files: ['test/**/*.mjs', 'vitest.config.ts'],
         rules: {
             'import/no-extraneous-dependencies': [
                 'error',

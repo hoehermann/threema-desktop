@@ -35,6 +35,12 @@ build
 # Package: `packages/dom`
 /packages/dom/coverage/
 
+# Package: `packages/safe-enums`
+/packages/safe-enums/coverage/
+# Contains schema fixture whose import specifier is deliberately not a string literal, which
+# Prettier refuses to parse, but is exactly the case we want to test.
+/packages/safe-enums/test/fixtures/non-literal-specifier.schema.ts
+
 # Package: `packages/ts-utils`
 /packages/ts-utils/coverage/
 

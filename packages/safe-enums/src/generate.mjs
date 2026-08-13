@@ -5,6 +5,7 @@
  *
  * Note: For editing this module, https://ts-ast-viewer.com/ is very handy.
  */
+
 // Note: TypeScript must be imported as a default import, because named-export detection on that
 // package is unreliable under Node's ESM loader.
 import ts from 'typescript';
@@ -724,14 +725,15 @@ function createEnumNamespace(name, members) {
  * Extract the members of an enum declaration, along with the kind of initialiser they use.
  *
  * @param {ts.SourceFile} source The schema source file.
- * @param {ts.NodeArray<ts.EnumMember>} members The members of the enum declaration.
+ * @param {ts.EnumDeclaration} declaration The enum declaration to extract the members of.
  * @returns {[
  *   members: {identifier: string, initializer: ts.Expression, comments: ts.SynthesizedComment[]}[],
  *   initializerType: string | undefined,
  * ]} the members and the kind of initialiser they use.
  * @throws {SchemaError} if a member has an unsupported or inconsistent initialiser.
  */
-function getMembers(source, members) {
+function getMembers(source, declaration) {
+    const members = declaration.members;
     let hasInitializers = false;
     const results = [];
     /** @type {Set<string>} */
@@ -781,7 +783,7 @@ function getMembers(source, members) {
                 ...initializerKinds,
             )}]`,
             source,
-            members[0] ?? source,
+            declaration,
         );
     }
     return [results, initializerKinds.values().next().value];
@@ -810,12 +812,13 @@ function createSafeEnumNode(source, declaration) {
                 .join('\n')
                 .matchAll(/@generate (?<utils>.+)/gmu),
         ]
-            .map(([_, requested]) => (requested ?? '').split(' '))
+            // Note: The capture group always participates in a match, so it is never `undefined`.
+            .map((match) => /** @type {string} */ (match[1]).split(' '))
             .flat(2),
     );
 
     // Extract each enum member and the associated initialiser
-    const [members, initializerType] = getMembers(source, declaration.members);
+    const [members, initializerType] = getMembers(source, declaration);
 
     // Create the namespace that emulates the enum in a safe manner
     nodes.push(createEnumNamespace(name, members));

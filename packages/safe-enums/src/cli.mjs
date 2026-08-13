@@ -10,25 +10,12 @@
  * output path) and then written to the output path. If no output path is given, it is printed to
  * standard output instead.
  */
+
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {parseArgs} from 'node:util';
 
-import {format as formatWithPrettier, resolveConfig} from 'prettier';
-
-import {generateSafeEnums} from './generate.mjs';
-
-/**
- * Format the given source text with the Prettier configuration that applies to `filepath`.
- *
- * @param {string} source The source text to format.
- * @param {string} filepath The path the source text is formatted for.
- * @returns {Promise<string>} the formatted source text.
- */
-async function format(source, filepath) {
-    const config = await resolveConfig(filepath);
-    return await formatWithPrettier(source, {...config, filepath});
-}
+import {renderSafeEnums} from './render.mjs';
 
 /**
  * Write `content` to `filepath` by writing to a temporary file and moving it into place, so that a
@@ -62,8 +49,9 @@ let output;
 try {
     // Note: Generation happens fully in memory, so that a malformed schema leaves the previous
     // generated module untouched.
-    output = await format(
-        generateSafeEnums(fs.readFileSync(schemaPath, 'utf8'), schemaPathArg),
+    output = await renderSafeEnums(
+        fs.readFileSync(schemaPath, 'utf8'),
+        schemaPathArg,
         outputPath ?? schemaPath,
     );
 } catch (error) {

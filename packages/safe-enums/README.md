@@ -104,8 +104,8 @@ An enum belongs to:
 
 ## Tests
 
-The generator is covered by golden-file tests in `test/`, which run the CLI in standard-output mode
-and compare its output against the expected modules in `test/fixtures/`:
+The generator is covered by golden-file tests in `test/`, which generate the schemas in
+`test/fixtures/` and compare the result against the expected modules beside them:
 
     pnpm run test:vitest
 

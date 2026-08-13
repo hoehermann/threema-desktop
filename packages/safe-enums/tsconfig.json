@@ -7,5 +7,5 @@
     "noEmit": true
   },
   // Note: The schema fixtures are input data, not sources, and are deliberately not type checked.
-  "include": ["src/**/*.mjs", "test/**/*.mjs", "vitest.config.mjs"]
+  "include": ["src/**/*.mjs", "test/**/*.mjs"]
 }

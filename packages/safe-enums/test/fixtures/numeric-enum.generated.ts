@@ -12,7 +12,10 @@ export namespace ConnectionState {
     /** Connection is being established. */
     export type CONNECTING = typeof CONNECTING;
     export const CONNECTED = 16;
-    /** Connection has been established. */
+    // Connection has been established.
+    //
+    // Note: This is a line comment rather than a JSDoc block, so that both comment kinds are
+    // exercised.
     export type CONNECTED = typeof CONNECTED;
 }
 /**
@@ -73,6 +76,27 @@ export namespace ConnectionStateUtils {
                       representation: (name): string => NAME_OF[name],
                   },
         );
+    }
+}
+export namespace ActivityState {
+    export const ACTIVE = 0;
+    export type ACTIVE = typeof ACTIVE;
+    export const INACTIVE = 1;
+    export type INACTIVE = typeof INACTIVE;
+}
+/**
+ * A numeric enum requesting the name lookup only, i.e. no conversion helpers.
+ *
+ * @generate name
+ */
+export type ActivityState = (typeof ActivityState)[keyof typeof ActivityState];
+export namespace ActivityStateUtils {
+    export const NAME_OF = {
+        [ActivityState.ACTIVE]: 'ACTIVE',
+        [ActivityState.INACTIVE]: 'INACTIVE',
+    } as const;
+    export function nameOf<T extends u53>(value: T): string | undefined {
+        return (NAME_OF as Record<u53, string | undefined>)[value];
     }
 }
 

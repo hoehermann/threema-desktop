@@ -13,7 +13,7 @@
     "lint:eslint": "eslint .",
     "lint:eslint:fix": "eslint . --fix",
     "lint:tsc": "tsc --noEmit",
-    "test:vitest": "vitest run"
+    "test:vitest": "vitest run --coverage"
   },
   "dependencies": {
     "prettier": "catalog:",
