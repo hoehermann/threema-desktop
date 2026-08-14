@@ -84,6 +84,12 @@ Imports the generated code does not reference are dropped, so a schema's import 
 is _available_ to generated code rather than what is emitted. This means it cannot go stale and
 cannot produce an unused-import lint failure.
 
+On the other hand, the generated utilities refer to some identifiers by name, e.g., `u53`, `Logger`,
+`MonotonicEnumStore` and `StoreDebug`. A schema requesting those utilities must import the
+identifiers under exactly those names, and is rejected otherwise. An alias that binds one of them to
+a different name (e.g. `import type {Logger as Log}`) is therefore rejected as well, whereas an
+alias _to_ such a name (e.g. `import type {CustomLogger as Logger}`) is fine.
+
 Imports are emitted as top-level type-only imports (`import type {Foo} from ...`) rather than as
 inline type modifiers (`import {type Foo} from ...`), because only the former is elided completely
 under `verbatimModuleSyntax`. Generated modules therefore compile under the workspace-standard

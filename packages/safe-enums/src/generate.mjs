@@ -796,14 +796,38 @@ function getMembers(source, declaration) {
 }
 
 /**
+ * Determine the identifiers that the utilities requested for an enum refer to by name, and which
+ * the schema must therefore bring into scope.
+ *
+ * @param {ReadonlySet<string>} utils The requested utility functions.
+ * @param {'number' | 'string'} initializerType The kind of initialiser the members use.
+ * @returns {ReadonlySet<string>} the identifiers the generated utilities depend on.
+ */
+function getRequiredIdentifiers(utils, initializerType) {
+    /** @type {Set<string>} */
+    const required = new Set();
+    if (initializerType === 'number' && (utils.has('convert') || utils.has('name'))) {
+        required.add('u53');
+    }
+    if (utils.has('store')) {
+        required.add('Logger');
+        required.add('MonotonicEnumStore');
+        required.add('StoreDebug');
+    }
+    return required;
+}
+
+/**
  * Transform an enum declaration into its safe enum equivalent.
  *
  * @param {ts.SourceFile} source The schema source file.
  * @param {ts.EnumDeclaration} declaration The enum declaration to transform.
+ * @param {ReadonlySet<string>} importedIdentifiers The names the imports of the schema bind, which
+ *   are the names the generated code may refer to.
  * @returns {ts.Statement[]} the statements emulating the enum.
  * @throws {SchemaError} if the enum declaration cannot be transformed.
  */
-function createSafeEnumNode(source, declaration) {
+function createSafeEnumNode(source, declaration, importedIdentifiers) {
     const name = declaration.name.text;
     /** @type {ts.Statement[]} */
     const nodes = [];
@@ -831,6 +855,18 @@ function createSafeEnumNode(source, declaration) {
 
     // Extract each enum member and the associated initialiser
     const [members, initializerType] = getMembers(source, declaration);
+
+    // Validate that the identifiers the requested utilities refer to are in scope. They are emitted
+    // verbatim, so an import that binds them to a different name does not satisfy them.
+    for (const identifier of getRequiredIdentifiers(utils, initializerType)) {
+        if (!importedIdentifiers.has(identifier)) {
+            throw new SchemaError(
+                `The utilities requested for this enum refer to '${identifier}', so the schema must import it under exactly that name`,
+                source,
+                declaration,
+            );
+        }
+    }
 
     // Create the namespace that emulates the enum in a safe manner
     nodes.push(createEnumNamespace(name, members));
@@ -987,20 +1023,30 @@ export function generateSafeEnums(schema, schemaPath = 'schema.ts') {
     const [directives, schemaWithoutDirectives] = extractTsDirectives(schema);
     const source = createSource(schemaPath, schemaWithoutDirectives);
 
-    // Generate safe enum types for each enum declaration, and gather the imports to be copied into
-    // the generated module.
-    /** @type {SchemaImport[]} */
-    const imports = [];
+    // Gather the imports to be copied into the generated module first, so that the names they bring
+    // into scope are known when transforming the enums that refer to them.
+    const imports = source.statements
+        .filter(ts.isImportDeclaration)
+        .map((node) => parseSchemaImport(source, node));
+    const importedIdentifiers = new Set(
+        imports.flatMap(({bindings}) => bindings.map(({name}) => name)),
+    );
+
+    // Generate safe enum types for each enum declaration
     /** @type {ts.Statement[]} */
     const statements = [];
     for (const node of source.statements) {
         switch (node.kind) {
             case ts.SyntaxKind.ImportDeclaration:
-                imports.push(parseSchemaImport(source, /** @type {ts.ImportDeclaration} */ (node)));
+                // Note: Already parsed above.
                 break;
             case ts.SyntaxKind.EnumDeclaration:
                 statements.push(
-                    ...createSafeEnumNode(source, /** @type {ts.EnumDeclaration} */ (node)),
+                    ...createSafeEnumNode(
+                        source,
+                        /** @type {ts.EnumDeclaration} */ (node),
+                        importedIdentifiers,
+                    ),
                 );
                 break;
             default:

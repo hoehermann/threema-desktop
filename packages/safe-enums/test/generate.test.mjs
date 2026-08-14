@@ -163,6 +163,26 @@ describe('schema rejection', () => {
         );
     });
 
+    test('rejects an enum whose utilities refer to an identifier that is not imported', async () => {
+        // Act
+        const generated = renderFixture('missing-import');
+
+        // Assert
+        await expect(generated).rejects.toThrow(
+            "missing-import.schema.ts:7:1: The utilities requested for this enum refer to 'u53', so the schema must import it under exactly that name",
+        );
+    });
+
+    test('rejects an enum whose utilities refer to an identifier bound under an alias', async () => {
+        // Act
+        const generated = renderFixture('aliased-import');
+
+        // Assert
+        await expect(generated).rejects.toThrow(
+            "aliased-import.schema.ts:12:1: The utilities requested for this enum refer to 'Logger', so the schema must import it under exactly that name",
+        );
+    });
+
     test('reports the position in a schema of unknown path', () => {
         // Arrange
         const schema = 'export type Foo = number;';
