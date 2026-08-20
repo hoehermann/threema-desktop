@@ -13,7 +13,7 @@ FROM docker.io/svenstaro/miniserve:${MINISERVE_VERSION}-alpine@${MINISERVE_DIGES
 # added at build time by `packaging/build-container-image.mjs`.
 LABEL org.opencontainers.image.title="Threema Conferencing" \
       org.opencontainers.image.description="Threema Conferencing web app, served as static files." \
-      org.opencontainers.image.vendor="Threema GmbH" \
+      org.opencontainers.image.vendor="Threema AG" \
       org.opencontainers.image.url="https://threema.ch/" \
       org.opencontainers.image.licenses="AGPL-3.0-or-later"
 

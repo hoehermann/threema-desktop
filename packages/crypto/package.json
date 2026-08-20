@@ -1,7 +1,7 @@
 {
   "name": "@threema/crypto",
   "description": "Shared, platform-neutral collection of generic crypto primitives",
-  "author": "Threema GmbH",
+  "author": "Threema AG",
   "license": "AGPL-3.0+",
   "version": "0.0.0",
   "private": true,

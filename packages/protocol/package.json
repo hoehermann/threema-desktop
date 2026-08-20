@@ -1,7 +1,7 @@
 {
   "name": "@threema/protocol",
   "description": "Threema protocol bindings, generated from the threema-protocols repository",
-  "author": "Threema GmbH",
+  "author": "Threema AG",
   "license": "AGPL-3.0+",
   "version": "0.0.0",
   "private": true,

@@ -1,7 +1,7 @@
 {
   "name": "threema-desktop-monorepo",
   "description": "Use Threema on your Desktop",
-  "author": "Threema GmbH",
+  "author": "Threema AG",
   "license": "AGPL-3.0+",
   "homepage": "https://threema.ch/",
   "keywords": [

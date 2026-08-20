@@ -37,9 +37,9 @@
         </screenshot>
     </screenshots>
     <!-- Note: Deprecated since AppStream 1.0, remove after 2025 -->
-    <developer_name>Threema GmbH</developer_name>
+    <developer_name>Threema AG</developer_name>
     <developer id="ch.threema">
-        <name translate="no">Threema GmbH</name>
+        <name translate="no">Threema AG</name>
     </developer>
 
     <releases>

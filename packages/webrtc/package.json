@@ -1,7 +1,7 @@
 {
   "name": "@threema/webrtc",
   "description": "A collection of generic WebRTC primitives and utilities",
-  "author": "Threema GmbH",
+  "author": "Threema AG",
   "license": "AGPL-3.0+",
   "version": "0.0.0",
   "private": true,

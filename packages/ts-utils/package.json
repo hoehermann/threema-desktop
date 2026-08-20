@@ -1,7 +1,7 @@
 {
   "name": "@threema/ts-utils",
   "description": "A collection of sugar and utilities for TypeScript",
-  "author": "Threema GmbH",
+  "author": "Threema AG",
   "license": "AGPL-3.0+",
   "version": "0.0.0",
   "private": true,
