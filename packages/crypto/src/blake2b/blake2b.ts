@@ -65,6 +65,7 @@ function encodeAndZeroPad(
  * @param parameters The optional `personal` and `salt` parameters.
  * @returns A streaming {@link Blake2bHasher}.
  * @throws {Error} If `personal` or `salt` are too long.
+ * @throws {Utf8EncodingError} If `personal` or `salt` could not be UTF-8 encoded.
  */
 export function blake2bHash(
     length: Blake2bHashLength,
