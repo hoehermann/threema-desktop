@@ -14,6 +14,7 @@ import {type CryptoBackend} from '~/common/crypto';
 import {TweetNaClBackend} from '~/common/crypto/tweetnacl';
 import {
     Backend,
+    type BackendHandle,
     type BackendInit,
     type CertificatePinRecoveryHandle,
     type FactoriesForBackend,
@@ -21,8 +22,14 @@ import {
     type LoadingStateSetup,
 } from '~/common/dom/backend';
 import {createEndpointService} from '~/common/dom/utils/endpoint';
+import {MessageDirection, MessageType, ReceiverType} from '~/common/enum';
 import {TRANSFER_HANDLER} from '~/common/index';
-import {PROXY_HANDLER, type ProxyEndpoint, type ProxyMarked} from '~/common/utils/endpoint';
+import {
+    PROXY_HANDLER,
+    type ProxyEndpoint,
+    type ProxyMarked,
+    type RemoteProxy,
+} from '~/common/utils/endpoint';
 import {extractErrorTraceback} from '~/common/error';
 import {CONSOLE_LOGGER, type Logger, type LoggerFactory, TagLogger} from '~/common/logging';
 import type {RawDatabaseKey, ServicesForDatabaseFactory} from '~/common/db';
@@ -291,6 +298,90 @@ function createBackendFactories(profileDirectoryPath: string): FactoriesForBacke
     };
 }
 
+/**
+ * Remote stores are held via `WeakRef` on the sending side, so we must keep a strong reference to
+ * every store we subscribe to for as long as we want to keep receiving updates from it - otherwise
+ * it may be garbage collected and the subscription silently stops delivering updates.
+ */
+const KEEP_ALIVE = new Set<unknown>();
+
+/**
+ * Subscribe to every conversation (existing and future) and print the body of every new message
+ * (incoming via CSP, or reflected via D2D from another linked device) to stdout.
+ */
+async function printIncomingMessages(backend: RemoteProxy<BackendHandle>): Promise<void> {
+    const watchedConversations = new Set<unknown>();
+
+    const conversations = await backend.model.conversations.getAll();
+    KEEP_ALIVE.add(conversations);
+    conversations.subscribe((conversationStores) => {
+        for (const conversationStore of conversationStores) {
+            const conversation = conversationStore.get();
+            if (watchedConversations.has(conversation.ctx)) {
+                continue;
+            }
+            watchedConversations.add(conversation.ctx);
+            KEEP_ALIVE.add(conversationStore);
+
+            (async () => {
+                // Note: `conversation.controller.receiver()` returns the full receiver model
+                // (including its view). For groups, the view embeds the member `ModelStore`s
+                // directly, which cannot be sent across the endpoint boundary as-is. Look up the
+                // cheap, plain-data `receiverLookup` first and only resolve the full receiver
+                // model for contacts, where the view is safe to transfer.
+                const receiverLookup = await conversation.controller.receiverLookup;
+                const receiverLabel = await (async (): Promise<string> => {
+                    switch (receiverLookup.type) {
+                        case ReceiverType.CONTACT: {
+                            const receiverStore = await conversation.controller.receiver();
+                            const receiver = receiverStore.get();
+                            return receiver.type === ReceiverType.CONTACT
+                                ? receiver.view.identity
+                                : `contact:${receiverLookup.uid}`;
+                        }
+                        case ReceiverType.GROUP:
+                            return `group:${receiverLookup.uid}`;
+                        default:
+                            return `receiver:${String(receiverLookup.type)}:${receiverLookup.uid}`;
+                    }
+                })();
+
+                const lastMessageStore = await conversation.controller.lastMessageStore();
+                KEEP_ALIVE.add(lastMessageStore);
+                let isInitialValue = true;
+                lastMessageStore.subscribe((messageStore) => {
+                    // The store immediately emits the current value on subscription. Skip it so we
+                    // only print messages that arrive from now on.
+                    if (isInitialValue) {
+                        isInitialValue = false;
+                        return;
+                    }
+                    if (messageStore === undefined) {
+                        return;
+                    }
+
+                    (async () => {
+                        const message = messageStore.get();
+                        const senderLabel =
+                            message.ctx === MessageDirection.INBOUND
+                                ? (await message.controller.sender()).get().view.identity
+                                : 'me';
+                        const body =
+                            message.type === MessageType.TEXT
+                                ? message.view.text
+                                : `<${message.type} message>`;
+                        logger.info(`[${receiverLabel}] ${senderLabel}: ${body}`);
+                    })().catch((error: unknown) => {
+                        logger.error(`Failed to print message: ${error}`);
+                    });
+                });
+            })().catch((error: unknown) => {
+                logger.error(`Failed to watch conversation ${String(conversation.ctx)}: ${error}`);
+            });
+        }
+    });
+}
+
 async function runListenForMessages(argv: string[]): Promise<void> {
     const crypto = new TweetNaClBackend(randomBytes);
 
@@ -350,7 +441,7 @@ async function runListenForMessages(argv: string[]): Promise<void> {
 
     const notificationService = {
         create: () => undefined,
-        send: async () => undefined,
+        update: () => undefined,
     };
 
     const openSystemDialog = (dialog: SystemDialog): SystemDialogHandle => {
@@ -407,6 +498,12 @@ async function runListenForMessages(argv: string[]): Promise<void> {
         createProxyEndpoint(endpointService, loadingStateSetup as never, 'cli.loading-state') as ProxyEndpoint<LoadingStateSetup>,
         createProxyEndpoint(endpointService, certificatePinRecoveryHandle as never, 'cli.pin-recovery') as ProxyEndpoint<CertificatePinRecoveryHandle>,
     );
+
+    const backend = endpointService.wrap<BackendHandle>(
+        backendHandleEndpoint,
+        endpointLogging.logger('cli.backend'),
+    );
+    await printIncomingMessages(backend);
 
     logger.info('Backend connection started; waiting for incoming messages. Press Ctrl+C to stop.');
     await new Promise(() => undefined);
