@@ -26,7 +26,8 @@
       "outputs": ["build/electron"]
     },
     "build:cli": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "rebuild:dependencies"],
+      "env": ["TURBO_BUILD_ENVIRONMENT", "TURBO_BUILD_VARIANT"],
       "inputs": ["$TURBO_DEFAULT$"],
       "outputs": ["build/cli/cli/bin.cjs"]
     },

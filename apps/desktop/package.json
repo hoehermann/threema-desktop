@@ -18,7 +18,7 @@
   "sideEffects": false,
   "scripts": {
     "build": "node tools/build-electron.mjs",
-    "build:cli": "VITE_MAKE=cli,cli,consumer,sandbox vite build -m production -c config/vite.config.ts",
+    "build:cli": "VITE_MAKE=cli,cli,${TURBO_BUILD_VARIANT:-consumer},${TURBO_BUILD_ENVIRONMENT:-sandbox} vite build -m production -c config/vite.config.ts",
     "clean:build": "rm -rf build packaging/build",
     "clean:build:flatpak": "rm -rf packaging/flatpak/build packaging/flatpak/repo packaging/flatpak/ch.threema.*-desktop.yml packaging/flatpak/generated-sources.json packaging/flatpak/.flatpak-builder",
     "clean:node_modules": "rm -rf node_modules",
