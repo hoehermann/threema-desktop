@@ -16,6 +16,7 @@ import {TIMER} from '@threema/ts-utils/timer/global-timer';
 import type {TimerCanceller} from '@threema/ts-utils/timer/timer-canceller';
 
 import type {ServicesForBackend} from '~/common/backend';
+import {CspPayloadTypeUtils} from '~/common/enum';
 import type {Logger} from '~/common/logging';
 import * as structbuf from '~/common/network/structbuf';
 import * as struct from '~/common/network/structbuf/bridge';
@@ -231,6 +232,9 @@ export class Layer4Decoder implements SyncTransformerCodec<InboundL3Message, Inb
 
             default:
                 // Forward
+                this._log.debug(
+                    `Forwarding CSP payload of type ${CspPayloadTypeUtils.NAME_OF[payload.type]} to L5`,
+                );
                 forward({type: message.type, payload});
         }
     }

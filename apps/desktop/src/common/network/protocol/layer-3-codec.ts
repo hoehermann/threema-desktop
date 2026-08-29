@@ -759,9 +759,15 @@ export class Layer3Decoder<TType extends 'full' | 'd2m-only'>
                     default:
                         // Forward
                         if (this._type === 'full') {
+                            this._log.debug(
+                                `Forwarding D2M message of type ${D2mPayloadTypeUtils.NAME_OF[message.type]} to L4`,
+                            );
                             forward(message);
+                        } else {
+                            this._log.debug(
+                                `Dropping D2M message of type ${D2mPayloadTypeUtils.NAME_OF[message.type]} (type=${this._type})`,
+                            );
                         }
-                        // Drop messages
                         break;
                 }
 

@@ -54,6 +54,8 @@ export class ReflectedTask implements PassiveTask<void> {
     }
 
     private async _processMessage(handle: PassiveTaskCodecHandle): Promise<void> {
+        this._log.debug(`Processing reflected message ${this._reflectedIdHex}`);
+
         // Validate Reflected Message
         let validatedReflectedMessage;
         try {
@@ -76,6 +78,7 @@ export class ReflectedTask implements PassiveTask<void> {
             this._log.error(`Discarding reflected message due to decryption error.`);
             return await this._discard(handle, true);
         }
+        this._log.debug(`Decrypted reflected envelope of type '${envelope.content}'`);
 
         // Validate the Protobuf message
         let validatedEnvelope;
@@ -94,6 +97,7 @@ export class ReflectedTask implements PassiveTask<void> {
             validatedEnvelope,
             validatedReflectedMessage,
         );
+        this._log.debug(`Dispatching reflected '${envelope.content}' to ${task.constructor.name}`);
 
         try {
             await task.run(handle);
@@ -106,6 +110,7 @@ export class ReflectedTask implements PassiveTask<void> {
             }
             return undefined;
         }
+        this._log.debug(`Processing task for reflected '${envelope.content}' completed`);
 
         // Send a D2M acknowledgement
         try {

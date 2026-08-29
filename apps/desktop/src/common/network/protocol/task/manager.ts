@@ -13,6 +13,7 @@ import {CREATE_BUFFER_TOKEN} from '~/common/crypto/box';
 import {randomU8} from '~/common/crypto/random';
 import {
     ConnectionState,
+    CspPayloadTypeUtils,
     D2mPayloadType,
     D2mPayloadTypeUtils,
     MessageFilterInstruction,
@@ -907,8 +908,14 @@ export class ConnectedTaskManager {
         const {consume} = event as QueueValue<DecoderQueueItem>;
         const task = consume((message) => {
             if (message.type === D2mPayloadType.PROXY) {
+                this._log.debug(
+                    `Dequeued CSP message of type ${CspPayloadTypeUtils.NAME_OF[message.payload.type]}`,
+                );
                 return this._handleIncomingCspMessage(services, message.payload);
             }
+            this._log.debug(
+                `Dequeued D2M message of type ${D2mPayloadTypeUtils.NAME_OF[message.type]}`,
+            );
             return this._handleIncomingD2mMessage(services, message, controller);
         });
 
