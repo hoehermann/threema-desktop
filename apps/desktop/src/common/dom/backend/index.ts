@@ -1197,8 +1197,11 @@ export class Backend {
         const backend = new Backend(backendServices);
 
         // Start connection
-        backend._connectionManager.start().catch(() => {
-            // This fires when the first connection exits with an error. We can totally ignore it.
+        backend._connectionManager.start().catch((error: unknown) => {
+            // This fires when the first connection exits with an error. We can totally ignore it,
+            // but log it first since it would otherwise fail silently (e.g. auto-reconnect will
+            // keep retrying via `ConnectionManager._run`).
+            log.error('Initial connection attempt failed', extractErrorTraceback(ensureError(error)));
         });
 
         // Subscribe reflection queue and connection state to update the loading screen.

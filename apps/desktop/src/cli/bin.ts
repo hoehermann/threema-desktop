@@ -21,7 +21,8 @@ import {
     type LoadingStateSetup,
 } from '~/common/dom/backend';
 import {createEndpointService} from '~/common/dom/utils/endpoint';
-import {type ProxyEndpoint, type ProxyMarked} from '~/common/utils/endpoint';
+import {TRANSFER_HANDLER} from '~/common/index';
+import {PROXY_HANDLER, type ProxyEndpoint, type ProxyMarked} from '~/common/utils/endpoint';
 import {extractErrorTraceback} from '~/common/error';
 import {CONSOLE_LOGGER, type Logger, type LoggerFactory, TagLogger} from '~/common/logging';
 import type {RawDatabaseKey, ServicesForDatabaseFactory} from '~/common/db';
@@ -36,6 +37,7 @@ import {directoryModeInternalObjectIfPosix} from '~/common/node/fs';
 import {FileSystemKeyStorage} from '~/common/node/key-storage';
 import {getKeyStoragePath} from '~/common/node/key-storage/helpers';
 import {ZlibCompressor} from '~/common/node/compressor';
+import type {SystemDialog, SystemDialogHandle} from '~/common/system-dialog';
 import {assert, setAssertFailLogger, unreachable} from '~/common/utils/assert';
 import {WritableStore} from '~/common/utils/store';
 import type {SystemInfo} from '~/common/electron-ipc';
@@ -351,9 +353,18 @@ async function runListenForMessages(argv: string[]): Promise<void> {
         send: async () => undefined,
     };
 
+    const openSystemDialog = (dialog: SystemDialog): SystemDialogHandle => {
+        logger.warn(`System dialog requested: ${JSON.stringify(dialog)}`);
+        return {
+            [TRANSFER_HANDLER]: PROXY_HANDLER,
+            closed: Promise.resolve({type: 'dismissed'}),
+            setProgress: () => undefined,
+        };
+    };
     const systemDialogService = {
-        showOpenDialog: async () => undefined,
-        showSaveDialog: async () => undefined,
+        closeAll: () => undefined,
+        open: openSystemDialog,
+        openOnce: openSystemDialog,
     };
 
     const webRtcService = {

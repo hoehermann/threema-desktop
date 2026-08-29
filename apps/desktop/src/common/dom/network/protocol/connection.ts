@@ -457,7 +457,7 @@ class Connection {
 
         // Create protocol controller
         const delayedConnection = Delayed.simple<ConnectionHandle>('ConnectionHandle');
-        const browserInfo = getBrowserInfo(self.navigator.userAgent);
+        const browserInfo = getBrowserInfo(globalThis.navigator.userAgent);
         const cspClientInfo = makeCspClientInfo(browserInfo, services.systemInfo);
         const d2mPlatformDetails = makeD2mPlatformDetails(browserInfo, services.systemInfo);
         log.debug(`CSP client info string: ${cspClientInfo}`);
@@ -836,7 +836,7 @@ export class ConnectionManager implements ConnectionManagerHandle {
             // Note: We cannot use the 'online' event because it does not fire on its own without
             //       something making a network request. In other words, it is totally useless. See:
             //       https://developer.mozilla.org/en-US/docs/Web/API/Navigator/onLine
-            if (!self.navigator.onLine) {
+            if (globalThis.navigator.onLine === false) {
                 this._log.debug('Currently offline. Connection will probably fail.');
             }
 
