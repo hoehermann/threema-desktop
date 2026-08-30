@@ -166,7 +166,7 @@ impl TryFrom<MessageWithMetadataBox> for IncomingMessageWithMetadataBox {
 
 /// An error occurred while encoding an outgoing message payload.
 #[derive(Debug, thiserror::Error)]
-pub(crate) enum OutgoingMessagePayloadError {
+pub enum OutgoingMessagePayloadError {
     /// Decoding the message failed.
     #[error("Encoding message failed: {0}")]
     EncodingFailed(#[from] ByteWriterError),
@@ -177,9 +177,12 @@ pub(crate) enum OutgoingMessagePayloadError {
 }
 
 /// An outgoing end-to-end encrypted Threema message with additional end-to-end encrypted metadata.
+///
+/// Public (fields opaque) so external clients can obtain one from `encode_and_encrypt_message` and
+/// convert it into a [`MessageWithMetadataBox`] for sending.
 #[derive(Educe)]
 #[educe(Debug)]
-pub(crate) struct OutgoingMessageWithMetadataBox {
+pub struct OutgoingMessageWithMetadataBox {
     /// The sender's Threema ID.
     pub(super) sender_identity: ThreemaId,
 

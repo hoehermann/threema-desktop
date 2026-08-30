@@ -48,8 +48,11 @@ pub(super) fn encrypt_message_container_in_place(
         .expect("message container encryption should not fail");
 }
 
-#[expect(unused, reason = "TODO(LIB-51)")]
-pub(super) fn encode_and_encrypt_message(
+/// Encode and encrypt an outgoing message for sending via CSP.
+///
+/// Public (until TODO(LIB-51) lands a proper outgoing-message task) so external clients can build
+/// the CSP payload for an outgoing message without reimplementing the wire format.
+pub fn encode_and_encrypt_message(
     sender_identity: ThreemaId,
     (legacy_sender_nickname, sender_nickname): (Option<&str>, Delta<&str>),
     receiver_identity: ThreemaId,

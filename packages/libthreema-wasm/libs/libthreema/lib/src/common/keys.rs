@@ -10,7 +10,7 @@ use rand::{self, Rng as _};
 use zeroize::ZeroizeOnDrop;
 
 use crate::{
-    common::ThreemaId,
+    common::{Nonce, ThreemaId},
     crypto::{
         blake2b,
         cipher::KeyInit as _,
@@ -30,7 +30,10 @@ pub(crate) struct MessageCipher(pub(crate) salsa20::XSalsa20Poly1305);
 pub(crate) struct MessageMetadataCipher(pub(crate) salsa20::XSalsa20Poly1305);
 
 /// Shared secret context for usage between two identities (i.e. client to client).
-pub(crate) struct CspE2eKey(x25519::SharedSecretHSalsa20);
+///
+/// Public (opaque) so external clients can derive it via [`ClientKey::derive_csp_e2e_key`] and
+/// pass it to `encode_and_encrypt_message`.
+pub struct CspE2eKey(x25519::SharedSecretHSalsa20);
 impl CspE2eKey {
     /// Get the Message Key (MK).
     ///
@@ -153,7 +156,7 @@ impl ClientKey {
 
     /// Derive the shared secret for usage between two identities (i.e. client to client).
     #[must_use]
-    pub(crate) fn derive_csp_e2e_key(&self, client_public_key: &PublicKey) -> CspE2eKey {
+    pub fn derive_csp_e2e_key(&self, client_public_key: &PublicKey) -> CspE2eKey {
         CspE2eKey(x25519::SharedSecretHSalsa20::from(
             self.0.diffie_hellman(&client_public_key.0),
         ))
@@ -338,6 +341,26 @@ impl DeviceGroupKey {
         let mut buffer = envelope.to_vec();
         let _ = self.reflect_key().0.decrypt_in_place_random_nonce_ahead(b"", &mut buffer)?;
         Ok(buffer)
+    }
+
+    /// Encrypt a `d2d.Envelope` into D2M `Reflect.envelope` bytes (padded encoding, nonce-ahead,
+    /// encrypted with the Device Group Reflect Key). Exact inverse of
+    /// [`Self::decrypt_reflected_envelope`], exposed for the same reason: external clients that
+    /// reflect messages over a D2M connection directly. Takes the decoded envelope (rather than
+    /// bytes) so the padding scheme stays in here. Also returns the nonce so the caller can record
+    /// it in its D2X nonce storage.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if encryption fails.
+    pub fn encrypt_reflected_envelope(
+        &self,
+        envelope: &crate::protobuf::d2d::Envelope,
+    ) -> Result<(Vec<u8>, Nonce), aead::Error> {
+        use crate::{crypto::aead::AeadRandomNonceAhead as _, utils::protobuf::PaddedMessage as _};
+        let mut buffer = envelope.encode_to_vec_padded();
+        let nonce = self.reflect_key().0.encrypt_in_place_random_nonce_ahead(b"", &mut buffer)?;
+        Ok((buffer, nonce.into()))
     }
 
     /// Derive the Device Group Device Info Key (DGDIK).
@@ -584,5 +607,49 @@ impl RemoteSecretAuthenticationToken {
 impl From<[u8; Self::LENGTH]> for RemoteSecretAuthenticationToken {
     fn from(bytes: [u8; Self::LENGTH]) -> Self {
         Self(bytes)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use prost::Message as _;
+
+    use super::DeviceGroupKey;
+    use crate::protobuf::d2d;
+
+    /// [`DeviceGroupKey::encrypt_reflected_envelope`] must be the exact inverse of
+    /// [`DeviceGroupKey::decrypt_reflected_envelope`], padding aside.
+    #[test]
+    fn reflected_envelope_roundtrip() {
+        let device_group_key = DeviceGroupKey::random();
+        let envelope = d2d::Envelope {
+            #[expect(deprecated, reason = "Will be filled by encode_to_vec_padded")]
+            padding: vec![],
+            device_id: 0x1122_3344_5566_7788,
+            protocol_version: d2d::ProtocolVersion::V03 as u32,
+            content: Some(d2d::envelope::Content::OutgoingMessage(d2d::OutgoingMessage {
+                conversation: Some(d2d::ConversationId {
+                    id: Some(d2d::conversation_id::Id::Contact("ECHOECHO".to_owned())),
+                }),
+                message_id: 42,
+                thread_message_id: None,
+                created_at: 1_700_000_000_000,
+                r#type: 0x01,
+                body: b"hello".to_vec(),
+                nonces: vec![],
+            })),
+        };
+
+        let (encrypted, _nonce) = device_group_key
+            .encrypt_reflected_envelope(&envelope)
+            .expect("encryption should succeed");
+        let decrypted = device_group_key
+            .decrypt_reflected_envelope(&encrypted)
+            .expect("decryption should succeed");
+        let decoded = d2d::Envelope::decode(decrypted.as_slice()).expect("decoding should succeed");
+
+        assert_eq!(decoded.device_id, envelope.device_id);
+        assert_eq!(decoded.protocol_version, envelope.protocol_version);
+        assert_eq!(decoded.content, envelope.content);
     }
 }
