@@ -142,9 +142,13 @@ impl Reflected {
             })?;
 
         // Move beyond the header and extract the envelope
+        //
+        // Note: `header_length` covers the whole header *including* the header-length byte itself
+        // (mirroring `Reflect::HEADER_LENGTH` on the encode side), which has already been consumed
+        // above.
         let envelope = reader
             .run_owned(|mut reader| {
-                reader.skip(header_length as usize)?;
+                reader.skip((header_length as usize).saturating_sub(1))?;
                 Ok(reader.read_remaining_owned())
             })
             .map_err(|error| D2mProtocolError::DecodingFailed {
@@ -602,5 +606,33 @@ impl PayloadEncoder for OutgoingPayload {
 
             OutgoingPayload::ReflectedAck(reflected_ack) => reflected_ack.encode_into(writer),
         }
+    }
+}
+
+#[cfg(test)]
+#[expect(clippy::unwrap_used, reason = "Test code")]
+mod tests {
+    use super::*;
+
+    /// The `header-length` field covers the whole header *including* the field itself, so with the
+    /// current 16-byte header the envelope must start exactly at offset 16 (matching e.g. the
+    /// Threema Desktop structbuf decoder's `array.subarray(16)`).
+    #[test]
+    fn reflected_envelope_starts_after_inclusive_header_length() {
+        let envelope = [0xa0_u8, 0xa1, 0xa2, 0xa3];
+        let mut data = vec![
+            16, // header-length (including this byte)
+            0,  // reserved
+            0x01, 0x00, // flags (LE)
+            0xd4, 0x00, 0x00, 0x00, // reflect-id (LE)
+            0x88, 0x77, 0x66, 0x55, 0x44, 0x33, 0x22, 0x11, // timestamp (LE)
+        ];
+        data.extend_from_slice(&envelope);
+
+        let reflected = Reflected::decode(OwnedVecByteReader::new(data)).unwrap();
+        assert_eq!(reflected.flags.0, 0x0001);
+        assert_eq!(reflected.reflect_id, 212);
+        assert_eq!(reflected.timestamp, 0x1122_3344_5566_7788);
+        assert_eq!(reflected.envelope, envelope);
     }
 }
