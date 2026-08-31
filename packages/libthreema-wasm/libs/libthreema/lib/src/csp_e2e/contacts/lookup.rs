@@ -20,7 +20,7 @@ use crate::{
 /// IMPORTANT: Existing contacts which have been revoked will be presented as [`ContactResult::Invalid`]
 /// (unlike [`ContactProvider::get`] which will yield an existing contact as-is)!
 #[derive(Clone)]
-pub(crate) enum ContactResult {
+pub enum ContactResult {
     /// The contact is the user itself.
     User,
 
@@ -72,15 +72,18 @@ pub struct ContactsLookupResponse {
     pub work_directory_result: Option<HttpsResult>,
 }
 
-pub(crate) type ContactsLookupLoop = TaskLoop<ContactsLookupInstruction, HashMap<ThreemaId, ContactResult>>;
+/// Instruction/result loop of a [`ContactsLookupSubtask`].
+pub type ContactsLookupLoop = TaskLoop<ContactsLookupInstruction, HashMap<ThreemaId, ContactResult>>;
 
 /// Cache for contact lookups at the directory. Entries expire after 10 minutes.
 pub(crate) type ContactLookupCache = TimedCache<ThreemaId, CachedContactResult, 600>;
 
+/// Whether a lookup may be answered from the contact lookup cache.
 #[derive(PartialEq, Eq)]
-pub(crate) enum CacheLookupPolicy {
+pub enum CacheLookupPolicy {
+    /// Use a cached result if one is available and hasn't expired.
     Allow,
-    #[expect(dead_code, reason = "Will use later")]
+    /// Always ask the directory.
     Deny,
 }
 
@@ -346,12 +349,19 @@ impl State {
 }
 
 /// Subtask for looking up (valid) contacts.
+///
+/// Public so external clients can resolve an identity's public key before sending to it (the
+/// receive path reaches this via [`super::super::message::task::incoming::IncomingMessageTask`],
+/// which only runs on the D2M leader). Feed the resulting [`ContactResult::NewContact`] to
+/// [`super::create::CreateContactsTask`] to store and sync it.
 #[derive(Debug, Name)]
-pub(crate) struct ContactsLookupSubtask {
+pub struct ContactsLookupSubtask {
     state: State,
 }
 impl ContactsLookupSubtask {
-    pub(crate) fn new(identities: Vec<ThreemaId>, cache_policy: CacheLookupPolicy) -> ContactsLookupSubtask {
+    /// Create a new task for looking up the given identities.
+    #[must_use]
+    pub fn new(identities: Vec<ThreemaId>, cache_policy: CacheLookupPolicy) -> ContactsLookupSubtask {
         Self {
             state: State::Init(InitState {
                 identities,
@@ -360,8 +370,13 @@ impl ContactsLookupSubtask {
         }
     }
 
+    /// Poll to advance the state.
+    ///
+    /// # Errors
+    ///
+    /// Returns [`CspE2eProtocolError`] for all possible reasons.
     #[tracing::instrument(skip_all, fields(?self))]
-    pub(crate) fn poll(
+    pub fn poll(
         &mut self,
         context: &mut CspE2eProtocolContext,
     ) -> Result<ContactsLookupLoop, CspE2eProtocolError> {
@@ -394,8 +409,13 @@ impl ContactsLookupSubtask {
         }
     }
 
+    /// Provide the result of a [`ContactsLookupInstruction`].
+    ///
+    /// # Errors
+    ///
+    /// Returns [`CspE2eProtocolError`] if the task is not awaiting a response.
     #[tracing::instrument(skip_all, fields(?self))]
-    pub(crate) fn response(&mut self, response: ContactsLookupResponse) -> Result<(), CspE2eProtocolError> {
+    pub fn response(&mut self, response: ContactsLookupResponse) -> Result<(), CspE2eProtocolError> {
         let State::RequestIdentities(state) = &mut self.state else {
             return Err(CspE2eProtocolError::InvalidState(formatcp!(
                 "Must be in '{}' state",
